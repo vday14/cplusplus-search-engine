@@ -1,26 +1,45 @@
+#pragma once
 
-
+#include<vector>
+#include "spider.h"
+#include<string>
 /*
  *
- * Must provide
- Robustness:
-The Web contains servers that create spider traps, which are generators of web pages that mislead crawlers into getting stuck fetching an infinite number of pages in a particular domain. Crawlers must be designed to be resilient to such traps. Not all such traps are malicious; some are the inadvertent side-effect of faulty website development.
-Politeness:
-Web servers have both implicit and explicit policies regulating the rate at which a crawler can visit them. These politeness policies must be respected.
-
  */
-
+using namespace std;
 
 class Crawler {
 
-    //robots.txt cache
 
+    vector< *Spider> spiders;
 
 
 
 public:
+    string mode;
+
+    ProducerConsumerQueue *urlFrontier;
+    ProducerConsumerQueue *fileQueue;
 
 
+    //spawns a number of works
+    void spawnSpiders(size_t numberOfSpiders)
+        {
+        for( size_t i = 0 ; i < numberOfSpiders;  i++)
+            {
+                Spider *temp = new Spider( this.mode );
+                this->spiders.push_back(temp);
+            }
+
+
+        }
+
+    //Creates a housekeeping thread
+    void houseKeeper();
+
+
+
+    Crawler(string mode_in, ProducerConsumerQueue* url_q_in , ProducerConsumerQueue* html_q_in) : mode( mode_in ), urlFrontier(url_q_in) , fileQueue(html_q_in);
 
 
 
