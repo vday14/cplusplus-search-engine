@@ -1,3 +1,5 @@
-.idea/
-.vagrant/
+.idea/*
+.vagrant/*
+cmake*
+CMake*
 Vagrantfile
