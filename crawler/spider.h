@@ -6,14 +6,18 @@
 #include <pthread.h>
 #include "crawler.h"
 #include <fstream>
+//#include "../ProducerConsumerQueue.cpp"
+#include "../ProducerConsumerQueue.h"
 using namespace std;
-Crawler c( " m ") ;
 
-class Spider : public Crawler {
+class Spider {
 
 private:
     int locationOnDisk;
     pthread_t runningThread;
+    string mode;
+    ProducerConsumerQueue<string> *urlFrontier;
+    ProducerConsumerQueue<string> *fileQueue;
 
 public:
 
@@ -23,10 +27,10 @@ public:
     {
         return urlFrontier->Pop();
 
-    }
+    };
 
     void* run(void * arg){
-
+        cout << "Spider is crawling" << endl;
 
         while( true )
             {
@@ -55,7 +59,7 @@ public:
     // else return false and error information, retry if necessary
     bool request( string url )
         {
-        if ( mode == 'local' )
+        if ( this->mode == "local" )
             {
                 ifstream inFile;
                 string in;
@@ -70,11 +74,13 @@ public:
                 }
 
                 inFile.close();
-
+                return true;
 
             }
 
+                return false;
         }
+
 
 
     //Where to write to disk? What type of data are we reading in?
@@ -87,7 +93,7 @@ public:
     void markURLSeen( string URL );
 
 
-    Spider( )
+    Spider(string mode_in, ProducerConsumerQueue<string>* url_q_in , ProducerConsumerQueue<string>* html_q_in) : mode( mode_in ), urlFrontier(url_q_in) , fileQueue(html_q_in)
         {
             cout << "SPAWNING NEW SPIDER " << endl;
             pthread_create(&runningThread, NULL, run, nullptr);

@@ -10,8 +10,8 @@
 #include <queue>
 #include "crawler/crawler.h"
 #include <string>
-#include <ProducerConsumerQueue.h>
-#include <ProducerConsumerQueue.cpp>
+#include "ProducerConsumerQueue.h"
+//#include "ProducerConsumerQueue.cpp"
 
 
 #define PATH_TO_BLACKLIST = '/bin/blacklist.txt'
@@ -52,8 +52,8 @@ int main(int argc, const char * argv[])
     bool restoreFromLog;
 
 
-    ProducerConsumerQueue urlFrontier;
-    ProducerConsumerQueue fileQueue;
+    ProducerConsumerQueue<string> urlFrontier;
+    ProducerConsumerQueue<string> fileQueue;
 
     urlFrontier.Push("tests/cats.html");
 
