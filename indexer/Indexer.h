@@ -8,5 +8,6 @@ master index.
 class Indexer {
     public:
         Indexer();
+        void run();
     private:
 };
