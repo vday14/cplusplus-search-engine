@@ -14,7 +14,7 @@ class Spider : public ThreadClass{
 
 public:
 
-    Spider(string mode_in, ProducerConsumerQueue<string>* url_q_in , ProducerConsumerQueue<string>* html_q_in)
+    Spider(string mode_in, ProducerConsumerQueue<string>* url_q_in , ProducerConsumerQueue<int>* html_q_in)
             : mode( mode_in ), urlFrontier(url_q_in) , fileQueue(html_q_in) {};
 
 
@@ -29,7 +29,7 @@ public:
     bool request( string url );
 
     //Where to write to disk? What type of data are we reading in?
-    void writeHTMLtoDisk( );
+    int writeFileToDisk(char * fileContents, size_t fileSize );
 
     //Adds location
     void addHTMLToQueue();
@@ -41,7 +41,8 @@ private:
 
     int locationOnDisk;
     ProducerConsumerQueue<string> *urlFrontier;
-    ProducerConsumerQueue<string> *fileQueue;
+    ProducerConsumerQueue<int> *fileQueue;
     string mode;
+
 
 };

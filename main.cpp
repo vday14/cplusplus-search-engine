@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <unistd.h>
 #include <pthread.h>
 #include <queue>
 #include "crawler/crawler.h"
@@ -53,7 +54,7 @@ int main(int argc, const char * argv[])
 
 
     ProducerConsumerQueue<string> urlFrontier;
-    ProducerConsumerQueue<string> fileQueue;
+    ProducerConsumerQueue<int> fileQueue;
 
     cout << "Pushed File\n";
     urlFrontier.Push("tests/cats.html");
@@ -64,6 +65,22 @@ int main(int argc, const char * argv[])
     crawler.SpawnSpiders(1);
 
     crawler.WaitOnAllSpiders();
+
+
+
+    //This part is a work in progress I was just trying to simulate the
+    // parser and see if they could open and read the file
+
+    cout << "Done Waiting\nQueue Size is: " << fileQueue.Size();
+   auto top = fileQueue.Pop();
+    char buf[100];
+    auto ret = read(top, buf, 100);
+
+    cout << "read val: " << ret;
+    for(int i = 0; i < 100; i++){
+
+        cout << buf[i];
+    }
 
 	
 }

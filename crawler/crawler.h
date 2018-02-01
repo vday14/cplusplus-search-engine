@@ -4,6 +4,7 @@
 #include "spider.h"
 #include<string>
 #include "../ProducerConsumerQueue.h"
+#include "CrawlerStatistics.h"
 /*
  *
  */
@@ -12,7 +13,7 @@ using namespace std;
 class Crawler {
 
 public:
-    Crawler(string mode_in, ProducerConsumerQueue<string>* url_q_in , ProducerConsumerQueue<string>* html_q_in)
+    Crawler(string mode_in, ProducerConsumerQueue<string>* url_q_in , ProducerConsumerQueue<int>* html_q_in)
             : mode( mode_in ), urlFrontier(url_q_in) , fileQueue(html_q_in) {  } ;
 
     //spawns a number of works
@@ -26,7 +27,8 @@ public:
 private:
     vector<Spider*> spiders;
     ProducerConsumerQueue<string> *urlFrontier;
-    ProducerConsumerQueue<string> *fileQueue;
+    ProducerConsumerQueue<int> *fileQueue;
+    CrawlerStatistics housekeeper;
     string mode;
 
 };
