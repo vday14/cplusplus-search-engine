@@ -29,5 +29,7 @@ public:
 
 };
 
+//Necessary because this class is templated
+#include"ProducerConsumerQueue.cpp"
 
 #endif //EECS398_SEARCH_PRODUCERCONSUMERQUEUE_H

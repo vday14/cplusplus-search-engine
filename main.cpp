@@ -11,7 +11,7 @@
 #include "crawler/crawler.h"
 #include <string>
 #include "ProducerConsumerQueue.h"
-//#include "ProducerConsumerQueue.cpp"
+#include "crawler/spider.h"
 
 
 #define PATH_TO_BLACKLIST = '/bin/blacklist.txt'
@@ -55,18 +55,15 @@ int main(int argc, const char * argv[])
     ProducerConsumerQueue<string> urlFrontier;
     ProducerConsumerQueue<string> fileQueue;
 
+    cout << "Pushed File\n";
     urlFrontier.Push("tests/cats.html");
 
 
     Crawler crawler(mode, &urlFrontier, &fileQueue );
 
-    crawler.spawnSpiders(1);
+    crawler.SpawnSpiders(1);
 
-    // crawler.houseKeeper();
-
-
-
-
+    crawler.WaitOnAllSpiders();
 
 	
 }

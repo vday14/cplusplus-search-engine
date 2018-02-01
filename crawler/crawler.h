@@ -3,7 +3,6 @@
 #include<vector>
 #include "spider.h"
 #include<string>
-//#include "../ProducerConsumerQueue.cpp"
 #include "../ProducerConsumerQueue.h"
 /*
  *
@@ -12,43 +11,23 @@ using namespace std;
 
 class Crawler {
 
-
-    vector<*Spider> spiders;
-
-
-
 public:
-    string mode;
-
-    ProducerConsumerQueue<string> *urlFrontier;
-    ProducerConsumerQueue<string> *fileQueue;
-
+    Crawler(string mode_in, ProducerConsumerQueue<string>* url_q_in , ProducerConsumerQueue<string>* html_q_in)
+            : mode( mode_in ), urlFrontier(url_q_in) , fileQueue(html_q_in) {  } ;
 
     //spawns a number of works
-    void spawnSpiders(size_t numberOfSpiders)
-        {
-        for( size_t i = 0 ; i < numberOfSpiders;  i++)
-            {
-                Spider *temp = new Spider( this->mode , this->urlFrontier, this->fileQueue);
-                this->spiders.push_back(temp);
-            }
-
-
-        }
+    void SpawnSpiders(size_t num_spiders);
 
     //Creates a housekeeping thread
     void houseKeeper();
 
+    void WaitOnAllSpiders();
 
-
-    Crawler(string mode_in, ProducerConsumerQueue<string>* url_q_in , ProducerConsumerQueue<string>* html_q_in) : mode( mode_in ), urlFrontier(url_q_in) , fileQueue(html_q_in) {  } ;
-
-
-
-
-
-
-
+private:
+    vector<Spider*> spiders;
+    ProducerConsumerQueue<string> *urlFrontier;
+    ProducerConsumerQueue<string> *fileQueue;
+    string mode;
 
 };
 
