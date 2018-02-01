@@ -2,6 +2,10 @@
 // Created by Veronica Day on 1/28/18.
 //
 
+// keep running count of offset, if stop word: don't incrememnt and remove stopword
+// tokenizer returns pointer to document dictionary, parser puts it on the indexer's queue
+//
+
 #include <string>
 #include <functional>
 #include <queue>
@@ -41,9 +45,10 @@ public:
 		if (!inFile)
 			cerr << "Unable to open file datafile.txt";
 
+        Tokenizer tokenizer();
+		parse(inFile, &tokenizer);
 
-		parse(inFile);
-
+        return tokenizer.get();
 
 
 
@@ -60,18 +65,25 @@ private:
 	  * @param inFile
 	  * @return
 	  */
-	 string parse(ifstream inFile)
+
+	 string parse(ifstream inFile, Tokenizer *tokenizer)
 	 {
+		 //figure out file handle syntax - pointer to file
 		 string word = "";
 		 while (!inFile.eof())
 		 {
 			 inFile >> word;
 
 			 // checks for url
-			 check_url(word);
 
-			 // checks for title tags
-			 Tokenizer.execute(check_title(word));
+			 if (!check_url(word))
+             {
+                 // checks for title tags
+                 tokenizer->execute(check_title(word));
+
+             }
+
+
 		 }
 
 	 }
@@ -80,7 +92,7 @@ private:
 	  * Checks for url in string word
 	  * @param word
 	  */
-	 void check_url(string &word)
+	 bool check_url(string &word)
 	 {
 		 if (char* pos = strstr("href", word))
 		 {
@@ -92,12 +104,17 @@ private:
 			 ++pos;
 			 while (pos != "\"" && pos != "\'")
 			 {
+				 //filter out everything except http, https
 				 url += *pos;
 			 }
 
 			 // send it back to the crawler
 			 URL_PQ.push(url);
+             return true;
+
 		 }
+
+         return false;
 	 }
 
 	 /**
