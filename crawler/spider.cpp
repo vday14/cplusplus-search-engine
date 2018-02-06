@@ -7,6 +7,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "../util/util.h"
+
+
+
 
 string Spider::getUrl()
 {
@@ -19,14 +23,23 @@ void Spider::FuncToRun()
     std::cout << "Spider is crawling" << endl;
     bool cond = true;
 
+
     while( cond )
         {
+
         string currentUrl  = getUrl();
-        if ( request( currentUrl ) )
+        char * fileMap;
+        if ( request( currentUrl , fileMap ) )
             {
             // markURLSeen( currentUrl );
-            // writeHTMLtoDisk( );
-            // addHTMLToQueue( );
+                string HARDCODEDLOCATION = "../crawlerOutput/" + currentUrl;
+            int fd = writeFileToDisk(fileMap , HARDCODEDLOCATION );
+                //Write to disk successful
+                if( fd !=-1 )
+                {
+                    addFDToQueue( fd  );
+
+                }
                 cond = false;
             }
         else
@@ -37,50 +50,28 @@ void Spider::FuncToRun()
     }
 
 
-bool Spider::request( string url )
+bool Spider::request( string url , char* fileMap)
     {
-        char buf[100];
 
     if ( this->mode == "local" )
-    {
-        ifstream inFile;
-        string in;
-        inFile.open(url);
-        if ( !inFile )
         {
-            cout << "Unable to open file";
-            exit(1); // terminate with error////
+            fileMap =  getFileMap( url );
+            if (fileMap != nullptr )
+                return true;
         }
-        int i = 0;
-        while (i < 100 && inFile >> buf[i])
-        {
-                i++;
-        }
-
-        inFile.close();
-        int file = writeFileToDisk(buf, 100);
-        fileQueue->Push(file);
-        return true;
-    }
     return false;
     }
 
-int Spider::writeFileToDisk( char * fileContents, size_t fileSize)
+int Spider::writeFileToDisk( char * fileContents , string locationOnDisk)
 {
-    int fd = creat("/Users/benbergkamp/Desktop/398/eecs398-search/test.txt", S_IRWXU);
-    ssize_t bytes_written = 0;
-    if(fd != -1)
-    {
-        bytes_written = write(fd, fileContents, fileSize);
-    } else
-    {
-        cout << "ERROR CREATING FILE\n";
-    }
-    if(bytes_written != 100)
-    {
-        cout << "ERROR: Only " << bytes_written << " bytes written\n";
-    }
 
-    return fd;
+    return writeToNewFileToLocation( fileContents, locationOnDisk );
+
+}
+
+
+void Spider::addFDToQueue( int fileDescriptor )
+{
+    fileQueue->Push( fileDescriptor );
 
 }

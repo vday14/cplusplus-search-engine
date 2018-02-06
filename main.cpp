@@ -13,6 +13,7 @@
 #include <string>
 #include "ProducerConsumerQueue.h"
 #include "crawler/spider.h"
+//#include "crawler/CrawlerStatistics.h"
 
 
 #define PATH_TO_BLACKLIST = '/bin/blacklist.txt'

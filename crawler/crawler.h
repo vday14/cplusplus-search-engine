@@ -4,7 +4,7 @@
 #include "spider.h"
 #include<string>
 #include "../ProducerConsumerQueue.h"
-#include "CrawlerStatistics.h"
+//#include "CrawlerStatistics.h"
 /*
  *
  */
@@ -28,7 +28,7 @@ private:
     vector<Spider*> spiders;
     ProducerConsumerQueue<string> *urlFrontier;
     ProducerConsumerQueue<int> *fileQueue;
-    CrawlerStatistics housekeeper;
+    //CrawlerStatistics housekeeper;
     string mode;
 
 };
