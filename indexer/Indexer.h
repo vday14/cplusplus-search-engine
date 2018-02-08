@@ -1,8 +1,10 @@
 #include "../ProducerConsumerQueue.h"
 #include "../ProducerConsumerQueue.cpp"
 #include <unordered_map>
+#include <map>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 /*
 
@@ -18,5 +20,10 @@ class Indexer {
         Indexer();
         void run();
         ProducerConsumerQueue<unordered_map<string, vector<int> >*> pointerToDictionaries;
-private:
+    private:
+        void save();
+        void reset();
+        unordered_map<string, vector<int> > masterDictionary;
+        size_t indexedCount;
+        size_t currentFile;
 };
