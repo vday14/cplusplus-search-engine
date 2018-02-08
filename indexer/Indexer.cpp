@@ -7,7 +7,7 @@ Indexer::Indexer() {
 
 void Indexer::run() {
     while(pointerToDictionaries.Size() != 0) {
-        if(indexedCount > 50000000) {
+        if(indexedCount > 100000) {
             save();
             reset();
         }
@@ -19,7 +19,6 @@ void Indexer::run() {
             }
         }
     }
-    save();
 }
 
 void Indexer::save() {
