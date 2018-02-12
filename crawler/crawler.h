@@ -4,6 +4,8 @@
 #include "spider.h"
 #include<string>
 #include "../shared/ProducerConsumerQueue.h"
+#include <unordered_map>
+
 //#include "CrawlerStatistics.h"
 /*
  *
@@ -19,7 +21,7 @@ public:
 		{ };
 
 	//spawns a number of works
-	void SpawnSpiders( size_t num_spiders );
+	void SpawnSpiders( size_t num_spiders, unordered_map<string, int> *docMapLookup);
 
 	//Creates a housekeeping thread
 	void houseKeeper();

@@ -12,8 +12,8 @@ class Document
 	{
 	public:
 		Url url;
-		long docID;
 		string domain;
+		long docID;
 		bool lastCrawlStatus;
 		int lastCrawlDate;
 		int lastCrawlPageCount;

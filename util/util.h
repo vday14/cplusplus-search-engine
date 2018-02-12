@@ -30,6 +30,15 @@ size_t FileSize( int f )
  *
  */
 
+int getFileDescriptor( string fileName )
+	{
+	return open( fileName.c_str( ), O_RDONLY );
+
+	}
+
+
+
+
 char *getFileMap( string fileName )
 	{
 
@@ -93,3 +102,6 @@ int writeToNewFileToLocation( char *fileContents, string locationOnDisk )
 	return fd;
 
 	}
+
+
+

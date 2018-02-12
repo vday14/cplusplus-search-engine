@@ -12,7 +12,7 @@
 #include "crawler/crawler.h"
 #include <string>
 //#include "crawler/CrawlerStatistics.h"
-
+#include <unordered_map>
 
 #define PATH_TO_BLACKLIST = '/bin/blacklist.txt'
 #define PATH_TO_VISITED_URL = 'bin/urls.txt'
@@ -58,10 +58,13 @@ int main(int argc, const char * argv[])
     cout << "Pushed File\n";
     urlFrontier.Push("tests/cats.html");
 
+	unordered_map<string, int>* docMapLookUp = new unordered_map<string, int>();
+
+
 
     Crawler crawler(mode, &urlFrontier);
 
-    crawler.SpawnSpiders(1);
+    crawler.SpawnSpiders(1 , docMapLookUp);
 
     crawler.WaitOnAllSpiders();
 
