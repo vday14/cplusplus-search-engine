@@ -5,18 +5,21 @@
 #ifndef EECS398_SEARCH_CRAWLERSTATISTICS_H
 #define EECS398_SEARCH_CRAWLERSTATISTICS_H
 
-#include "../ThreadClass.h"
+#include "../shared/ThreadClass.h"
 
-class CrawlerStatistics : public ThreadClass {
+class CrawlerStatistics : public ThreadClass
+	{
 
 public:
-    CrawlerStatistics() { };
-    virtual void FuncToRun();
+	CrawlerStatistics()
+		{ };
+
+	virtual void FuncToRun();
 
 private:
-    //members
+	//members
 
-};
+	};
 
 
 #endif //EECS398_SEARCH_CRAWLERSTATISTICS_H

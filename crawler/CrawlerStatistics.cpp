@@ -5,7 +5,7 @@
 #include "CrawlerStatistics.h"
 
 void CrawlerStatistics::FuncToRun()
-{
-    //Sleep(3 minutes)
-    //Gather data
-}
+	{
+	//Sleep(3 minutes)
+	//Gather data
+	}

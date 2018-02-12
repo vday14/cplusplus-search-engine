@@ -9,69 +9,79 @@
 #include <unistd.h>
 #include "../util/util.h"
 
-
-
-
+#include <unistd.h>
 string Spider::getUrl()
-{
-    return urlFrontier->Pop();
-}
+	{
+	return urlFrontier->Pop( );
+	}
 
 void Spider::FuncToRun()
-    {
+	{
 
-    std::cout << "Spider is crawling" << endl;
-    bool cond = true;
-
-
-    while( cond )
-        {
-
-        string currentUrl  = getUrl();
-        char * fileMap;
-        if ( request( currentUrl , fileMap ) )
-            {
-            // markURLSeen( currentUrl );
-                string HARDCODEDLOCATION = "../crawlerOutput/" + currentUrl;
-            int fd = writeFileToDisk(fileMap , HARDCODEDLOCATION );
-                //Write to disk successful
-                if( fd !=-1 )
-                {
-                    addFDToQueue( fd  );
-
-                }
-                cond = false;
-            }
-        else
-            {
-            cerr << "Error connecting" ;
-            }
-        }
-    }
+	std::cout << "Spider is crawling" << endl;
+	bool cond = true;
 
 
-bool Spider::request( string url , char* fileMap)
-    {
+	while ( cond )
+		{
 
-    if ( this->mode == "local" )
-        {
-            fileMap =  getFileMap( url );
-            if (fileMap != nullptr )
-                return true;
-        }
-    return false;
-    }
+		string currentUrl = getUrl( );
+		char *fileMap;
 
-int Spider::writeFileToDisk( char * fileContents , string locationOnDisk)
-{
+		if ( request( currentUrl, fileMap ))
+			{
+			// markURLSeen( currentUrl );
 
-    return writeToNewFileToLocation( fileContents, locationOnDisk );
+			//parser.parse(fileMap);
+			cond = false;
+			} else
+			{
+			cerr << "Error connecting";
+			}
+		}
+	}
 
-}
+
+bool Spider::request( string url, char *fileMap )
+	{
+	string localFile;
+	if ( this->mode == "local" )
+		{
+		/*
+		char cwd[1024];
+		getcwd(cwd, sizeof(cwd));
+
+		char dir[1024];
+		for(int i = 0; i < 1024; i++)
+			{
+				if(cwd[ i ] == 'c' && cwd[ i +1 ] == 'm'){
+					for(int j = 0; j < url.size() -1 ; j++){
+							dir[j  + i] = url [ j];
+						}
+
+					break;
+
+					}
+
+				dir[i] = cwd[i];
 
 
-void Spider::addFDToQueue( int fileDescriptor )
-{
-    fileQueue->Push( fileDescriptor );
+			}
+		localFile = dir;
+		 */
+		//string localFile = dir + url;
+		fileMap = getFileMap( url );
+		if ( fileMap != nullptr )
+			return true;
+		}
+	return false;
+	}
 
-}
+int Spider::writeFileToDisk( char *fileContents, string locationOnDisk )
+	{
+
+	return writeToNewFileToLocation( fileContents, locationOnDisk );
+
+	}
+
+

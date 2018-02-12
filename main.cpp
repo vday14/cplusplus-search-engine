@@ -11,8 +11,6 @@
 #include <queue>
 #include "crawler/crawler.h"
 #include <string>
-#include "ProducerConsumerQueue.h"
-#include "crawler/spider.h"
 //#include "crawler/CrawlerStatistics.h"
 
 
@@ -61,7 +59,7 @@ int main(int argc, const char * argv[])
     urlFrontier.Push("tests/cats.html");
 
 
-    Crawler crawler(mode, &urlFrontier, &fileQueue );
+    Crawler crawler(mode, &urlFrontier);
 
     crawler.SpawnSpiders(1);
 
