@@ -18,7 +18,7 @@ int main(int argc, const char * argv[])
 	string domain = test1.getDomain();
 	assert( domain == "developer.mozilla.org");
 	string domainType = test1.getDomainType();
-	//assert( domainType == "org");
+	assert( domainType == "org");
 
 
 
@@ -30,7 +30,7 @@ int main(int argc, const char * argv[])
 	domain = test2.getDomain();
 	assert( domain == "example.com");
 	domainType = test2.getDomainType();
-	//assert( domainType == "com");
+	assert( domainType == "com");
 
 	std::cout << "URL TEST PASSED" << std::endl;
 

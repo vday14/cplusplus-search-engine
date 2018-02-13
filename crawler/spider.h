@@ -8,6 +8,7 @@
 #include "../shared/ThreadClass.h"
 #include<iostream>
 #include <unordered_map>
+#include "StreamReader.h"
 using namespace std;
 
 class Spider : public ThreadClass
@@ -28,7 +29,7 @@ public:
 	//Makes request to given url
 	// if successful, writes file to disk, stores location to memeber value
 	// else return false and error information, retry if necessary
-	bool request( string url, char *fileMap );
+	StreamReader* request( string url );
 
 	//Where to write to disk? What type of data are we reading in?
 	int writeFileToDisk( char *fileContents, string locationOnDisk );

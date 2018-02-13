@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "../util/util.h"
-
+#include "StreamReader.h"
 #include <unistd.h>
 string Spider::getUrl()
 	{
@@ -32,10 +32,10 @@ void Spider::FuncToRun()
 		if(toCrawl)
 			//url has not been seen
 			{
-			if ( request( currentUrl, fileMap ))
+			if ( cond )
 				{
 				// markURLSeen( currentUrl );
-
+				StreamReader* reader = request( currentUrl );
 				//parser.parse(fileMap);
 				cond = false;
 				} else
@@ -109,13 +109,10 @@ bool Spider::shouldURLbeCrawled( string url )
 
 	else
 		{
-
-
-
 		//maps url id -> location on disk (where to seek too)
 
 		std::cout << locationOnDisk->first << " is " << locationOnDisk->second;
-		/*
+
 		int file = getFileDescriptor( "/Users/jakeclose/Desktop/398/project/eecs398-search/docMap.txt", "R" );
 		//check if its available
 		if ( file )
@@ -132,14 +129,16 @@ bool Spider::shouldURLbeCrawled( string url )
 				else
 					{
 					cerr << "Could not read " << bytes << " bytes at position " <<
-						  position << ", error = " << errno;
+																									resultPosition << ", error = " << errno;
 					return errno;
 					}
 				}
+			//
+			return false;
 			}
 
 		return false;
-		 */
+
 		}
 
 	}
@@ -151,39 +150,22 @@ bool Spider::shouldURLbeCrawled( string url )
 returns true if fileMap was created, otherwise false
  Modifies the filemap to be a char* of the file of the url passed
 */
-bool Spider::request( string url, char *fileMap )
+StreamReader* Spider::request( string url )
 	{
 	string localFile;
+
+	StreamReader* newReader;
 	if ( this->mode == "local" )
 		{
-		/*
-		char cwd[1024];
-		getcwd(cwd, sizeof(cwd));
-
-		char dir[1024];
-		for(int i = 0; i < 1024; i++)
-			{
-				if(cwd[ i ] == 'c' && cwd[ i +1 ] == 'm'){
-					for(int j = 0; j < url.size() -1 ; j++){
-							dir[j  + i] = url [ j];
-						}
-
-					break;
-
-					}
-
-				dir[i] = cwd[i];
-
-
-			}
-		localFile = dir;
-		 */
-		//string localFile = dir + url;
-		fileMap = getFileMap( url );
-		if ( fileMap != nullptr )
-			return true;
+		newReader = new LocalReader( url );
 		}
-	return false;
+	else if (this->mode == "web")
+		{
+		newReader = new SocketReader( url );
+		}
+
+	newReader->fillBuffer();
+	return newReader;
 	}
 
 int Spider::writeFileToDisk( char *fileContents, string locationOnDisk )
