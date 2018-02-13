@@ -30,9 +30,18 @@ size_t FileSize( int f )
  *
  */
 
-int getFileDescriptor( string fileName )
+int getFileDescriptor( string fileName , string type)
 	{
-	return open( fileName.c_str( ), O_RDONLY );
+	if(type == "R")
+		{
+		return open( fileName.c_str( ), O_RDONLY );
+		}
+	else if( type == "W")
+		{
+		return open( fileName.c_str( ), O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR );
+		}
+
+
 
 	}
 

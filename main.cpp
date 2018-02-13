@@ -57,8 +57,10 @@ int main(int argc, const char * argv[])
 
     cout << "Pushed File\n";
     urlFrontier.Push("tests/cats.html");
+    urlFrontier.Push("tests/store.html");
 
-	unordered_map<string, int>* docMapLookUp = new unordered_map<string, int>();
+
+   unordered_map<string, int>* docMapLookUp = new unordered_map<string, int>();
 
 
 
