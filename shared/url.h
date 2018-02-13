@@ -27,10 +27,8 @@ public:
 		string protocol = getProtocol();
 		int domainStart = protocol.size() + 3;
 		if(url [ domainStart ] == 'w' )
-			{
-			//starts with www.
-			domainStart += 4;
-			}
+			domainStart += 4;//starts with www.
+
 
 
 		for( int domainEnd = domainStart ; domainEnd < url.size() ; domainEnd++ )
@@ -89,13 +87,9 @@ public:
 		int i = 0;
 		string cleaned;
 		while( url[ i ] != '#')
-			{
-			cleaned.push_back( url [ i ] );
-			i++;
-			}
+			cleaned.push_back( url [ i++ ] );
+
 		url = cleaned;
-
-
 		}
 
 
