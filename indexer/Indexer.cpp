@@ -11,8 +11,8 @@ void Indexer::run() {
             save();
             reset();
         }
-        unordered_map<string, vector<int>> dictionary = *pointerToDictionaries.Pop();
-        for(auto word : dictionary) {
+        unordered_map<string, vector<int>>* dictionary = pointerToDictionaries.Pop();
+        for(auto word : *dictionary) {
             for(auto location : word.second) {
                 indexedCount++;
                 masterDictionary[word.first].push_back(location);
@@ -23,15 +23,18 @@ void Indexer::run() {
 
 void Indexer::save() {
     map<string, vector<int> > maps(masterDictionary.begin(), masterDictionary.end());
-    ofstream file("index" + to_string(currentFile) + ".txt");
+    string fileName = "index" + to_string(currentFile) + ".txt";
+    int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
     for(auto word : maps) {
-        file << word.first << endl;
+        string wordBreak = word.first + "\n";
+        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
         for(auto location : word.second) {
-            file << location << " ";
+            string locationSpace = to_string(location) + " ";
+            write(file, locationSpace.c_str(), strlen(locationSpace.c_str()));
         }
-        file << endl;
+        write(file, "\n", 1);
     }
-    file.close();
+    close(file);
     currentFile++;
 }
 

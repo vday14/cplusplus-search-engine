@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <fcntl.h>
+#include <unistd.h>
 
 /*
 
