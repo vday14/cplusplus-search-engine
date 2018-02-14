@@ -12,7 +12,6 @@ class Document
 	{
 	public:
 		Url url;
-		string domain;
 		long docID;
 		bool lastCrawlStatus;
 		int lastCrawlDate;

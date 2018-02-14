@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <iostream>
-
+#include <cstdlib>
 using namespace std;
 
 
@@ -113,4 +113,7 @@ int writeToNewFileToLocation( char *fileContents, string locationOnDisk )
 	}
 
 
+std::string GetCurrentWorkingDir( void ) {
 
+	return (getenv("PWD"));;
+	}

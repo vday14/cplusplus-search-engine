@@ -14,24 +14,26 @@
 #include <string.h>
 #include <string>
 #include <cassert>
+
+
 class StreamReader
 	{
-	public:
-		char *buffer;
-		virtual void fillBuffer() = 0;
+public:
+	char *buffer;
+
+	virtual void fillBuffer() = 0;
 
 
-	StreamReader(){	};
+	StreamReader()
+		{ };
 
 	};
-
-
-
 
 
 class SocketReader : public StreamReader
 	{
 	ParsedUrl url;
+
 	void fillBuffer()
 		{
 		int s = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
@@ -43,15 +45,15 @@ class SocketReader : public StreamReader
 		assert( host );
 
 		struct sockaddr_in address;
-		memset( &address, 0, sizeof( address ) );
+		memset( &address, 0, sizeof( address ));
 		address.sin_family = AF_INET;
 		address.sin_port = htons( 80 );
 		memcpy( &address.sin_addr, host->h_addr, host->h_length );
 
 		// Connect to the host.
 
-		int connectResult = connect( s, ( struct sockaddr * )&address,
-											  sizeof( address ) );
+		int connectResult = connect( s, (struct sockaddr *) &address,
+											  sizeof( address ));
 		assert( connectResult == 0 );
 
 		// Send a GET message for the desired page.
@@ -67,19 +69,19 @@ class SocketReader : public StreamReader
 
 		// Read from the socket until there's no more data.
 
-		char buffer[ 10240 ];
+		char webBuffer[10240];
 		int bytes;
 
-		while ( ( bytes = recv( s, buffer, sizeof( buffer ), 0 ) ) > 0 )
-			write( 1, buffer, bytes );
+		while ((bytes = recv( s, webBuffer, sizeof( webBuffer ), 0 )) > 0 )
+			write( 1, webBuffer, bytes );
 
+		buffer = webBuffer;
 		close( s );
 		}
 
 public:
-	SocketReader( string url_in ) : url( ParsedUrl( url_in ) ) { }
-
-
+	SocketReader( string url_in ) : url( ParsedUrl( url_in ))
+		{ }
 
 
 	};
@@ -88,10 +90,14 @@ public:
 class LocalReader : public StreamReader
 	{
 	string fileName;
-	void fillBuffer(){
-		strcpy(buffer, getFileMap( fileName )) ;
+
+	void fillBuffer()
+		{
+		strcpy( buffer, getFileMap( fileName ));
 		}
+
 public:
-	LocalReader( string url_in ) : fileName( url_in ) { }
+	LocalReader( string url_in ) : fileName( url_in )
+		{ }
 
 	};
