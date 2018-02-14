@@ -84,7 +84,7 @@ unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >(
 
 Crawler crawler( mode, &urlFrontier );
 
-crawler.SpawnSpiders(1 , docMapLookUp);
+crawler.SpawnSpiders(3 , docMapLookUp);
 
 crawler.
 

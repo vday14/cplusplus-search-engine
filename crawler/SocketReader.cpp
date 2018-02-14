@@ -29,6 +29,8 @@ void SocketReader::fillBuffer()
 
 	// Send a GET message for the desired page.
 
+	cout << "Socket Reader is pulling from the web" << endl;
+
 	string getMessage = "GET ";
 	getMessage += url.CompleteUrl;
 	getMessage += " HTTP/1.1\r\nHost: ";
@@ -43,8 +45,10 @@ void SocketReader::fillBuffer()
 	char buffer[ 10240 ];
 	int bytes;
 
+
 	while ( ( bytes = recv( s, buffer, sizeof( buffer ), 0 ) ) > 0 )
 		write( 1, buffer, bytes );
 
 	close( s );
+	return;
 	}

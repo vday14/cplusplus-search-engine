@@ -47,9 +47,7 @@ void Spider::FuncToRun()
 			{
 			if ( cond )
 				{
-				// markURLSeen( currentUrl );
 
-				//StreamReader* reader = request( currentUrl );
 
 				StreamReader *reader = request( currentUrl );
 
