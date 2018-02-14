@@ -123,7 +123,7 @@ bool Spider::shouldURLbeCrawled( string url )
 				std::cout << it->first << " => " << it->second << '\n';
 
 			close( file );
-
+			return true;
 			}
 		}
 

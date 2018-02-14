@@ -3,3 +3,9 @@
 CMakeLists.txt
 cmake-build-debug/*
 Vagrantfile
+CMakeCache.txt
+CMakeFiles/*
+cmake_install.cmake
+eecs398_search.cbp
+main
+
