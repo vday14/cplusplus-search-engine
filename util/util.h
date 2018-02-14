@@ -20,6 +20,10 @@
 #define PATH_TO_DOC_INDEX = 'bin/index/docIDX'
 
 
+#include <cstdlib>
+using namespace std;
+
+
 using namespace std;
 
 namespace util
@@ -49,5 +53,7 @@ namespace util
  */
 		int writeToNewFileToLocation(char *fileContents, string locationOnDisk);
 
+
 		string GetCurrentWorkingDir(void);
 	}
+

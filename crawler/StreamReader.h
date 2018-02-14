@@ -16,16 +16,15 @@
 #include <cassert>
 
 
+
 class StreamReader
 	{
-	public:
-		StreamReader(){	};
-		virtual void fillBuffer() = 0;
+public:
+	StreamReader() {};
+	virtual void fillBuffer() = 0;
 
 
-	protected:
-		char *buffer;
+protected:
+	char *buffer;
 
 	};
-
-
