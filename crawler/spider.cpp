@@ -7,9 +7,18 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "../util/util.h"
-#include "StreamReader.h"
 #include <unistd.h>
+#include "../util/util.h"
+
+#include "LocalReader.h"
+#include "SocketReader.h"
+
+namespace filepath
+	{
+		const char* DOC_MAP = "/docMap.txt";
+	}
+
+
 string Spider::getUrl()
 	{
 	return urlFrontier->Pop( );
@@ -35,7 +44,7 @@ void Spider::FuncToRun()
 			if ( cond )
 				{
 				// markURLSeen( currentUrl );
-				StreamReader* reader = request( currentUrl );
+				//StreamReader* reader = request( currentUrl );
 				//parser.parse(fileMap);
 				cond = false;
 				} else
@@ -69,14 +78,15 @@ bool Spider::shouldURLbeCrawled( string url )
 		{
 		//cerr << "Url Not Found In Cache Lookup" << endl;
 		//get file descriptor for the docMap on disk
-		int file = getFileDescriptor( "/Users/jakeclose/Desktop/398/project/eecs398-search/docMap.txt", "W" );
+			string loc = util::GetCurrentWorkingDir() + filepath::DOC_MAP;
+		int file = util::getFileDescriptor( loc.c_str(), "W" );
 		//check if its available
 		if ( file == -1 )
 			cerr << "Error opening docMap" << endl;
 		else
 			{
 			//get the current size of the docMap
-			size_t seekPosition = FileSize( file );
+			size_t seekPosition = util::FileSize( file );
 			//seack to the end of the file
 			off_t resultPosition = lseek( file, seekPosition, SEEK_SET );
 
@@ -113,7 +123,8 @@ bool Spider::shouldURLbeCrawled( string url )
 
 		std::cout << locationOnDisk->first << " is " << locationOnDisk->second;
 
-		int file = getFileDescriptor( "/Users/jakeclose/Desktop/398/project/eecs398-search/docMap.txt", "R" );
+			string loc = util::GetCurrentWorkingDir() + filepath::DOC_MAP;
+		int file = util::getFileDescriptor( loc.c_str(), "R" );
 		//check if its available
 		if ( file )
 			{
@@ -150,6 +161,7 @@ bool Spider::shouldURLbeCrawled( string url )
 returns true if fileMap was created, otherwise false
  Modifies the filemap to be a char* of the file of the url passed
 */
+
 StreamReader* Spider::request( string url )
 	{
 	string localFile;
@@ -171,7 +183,7 @@ StreamReader* Spider::request( string url )
 int Spider::writeFileToDisk( char *fileContents, string locationOnDisk )
 	{
 
-	return writeToNewFileToLocation( fileContents, locationOnDisk );
+	return util::writeToNewFileToLocation(fileContents, locationOnDisk);
 
 	}
 

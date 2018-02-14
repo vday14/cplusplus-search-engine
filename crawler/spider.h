@@ -9,7 +9,9 @@
 #include<iostream>
 #include <unordered_map>
 #include "StreamReader.h"
+
 using namespace std;
+
 
 class Spider : public ThreadClass
 	{
@@ -33,9 +35,6 @@ public:
 
 	//Where to write to disk? What type of data are we reading in?
 	int writeFileToDisk( char *fileContents, string locationOnDisk );
-
-	//Adds location
-	void addFDToQueue( int fileDescriptor );
 
 
 	void markURLSeen( string URL );

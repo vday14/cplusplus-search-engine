@@ -13,6 +13,7 @@
 #include <string>
 //#include "crawler/CrawlerStatistics.h"
 #include <unordered_map>
+#include "util/util.h"
 
 #define PATH_TO_BLACKLIST = '/bin/blacklist.txt'
 #define PATH_TO_VISITED_URL = 'bin/urls.txt'

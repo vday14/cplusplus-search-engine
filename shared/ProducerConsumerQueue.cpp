@@ -13,7 +13,7 @@ void ProducerConsumerQueue<T>::Push(T obj)
 
     if(queue.size() == 1)
     {
-        pthread_cond_signal(&consumer_cv);
+        pthread_cond_broadcast(&consumer_cv);
     }
 
     pthread_mutex_unlock(&m);
