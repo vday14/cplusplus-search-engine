@@ -87,6 +87,8 @@ bool Spider::writeDocToDisk(string url)
 	return true;
 	}
 
+
+
 bool Spider::shouldURLbeCrawled( string url )
 	{
 	//search for url in doc cache

@@ -16,6 +16,7 @@ namespace filepath
 		const char* DOC_MAP = "/docMap.txt";
 	}
 
+
 	pthread_mutex_t docMap_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 class Document
@@ -32,6 +33,11 @@ class Document
 	public:
 		Document(string url_in) : url(ParsedUrl(url_in)) {}
 
+		string DocToString()
+			{
+			return string(url.CompleteUrl, strlen(url.CompleteUrl)) + "\n";
+			}
+
 		int WriteToDocMap()
 			{
 
@@ -43,38 +49,34 @@ class Document
 			int file = util::getFileDescriptor(loc.c_str(), "W");
 			off_t resultPosition = 0;
 
-			//check if its available
-			if (file == -1) {
-				cerr << "Error opening docMap" << endl;
-				close( file );
-				pthread_mutex_unlock(&docMap_mutex);
-				return -1;
-			} else
-				{
-				//get the current size of the docMap
-				size_t seekPosition = util::FileSize(file);
-				//seek to the end of the file
-				resultPosition = lseek(file, seekPosition, SEEK_SET);
+			try {
+				//check if its available
+				if (file == -1) {
+					throw("error opening docMap");
+				} else {
+					//get the current size of the docMap
+					size_t seekPosition = util::FileSize(file);
+					//seek to the end of the file
+					resultPosition = lseek(file, seekPosition, SEEK_SET);
 
-				if (resultPosition == -1) {
-					cerr << "Could not seek to " << seekPosition <<
-						 ", error = " << errno;
-					close( file );
-					pthread_mutex_unlock(&docMap_mutex);
-					return -1;
-				}
-				cout << "Current docMap position on disk" << endl;
-				cout << resultPosition << endl;
+					if (resultPosition == -1) {
+						throw("Could not seek");
+					}
+					cout << "Current docMap position on disk" << endl;
+					cout << resultPosition << endl;
 
-				size_t success = write(file, "Hello World!\n", 14);
-				if (success == -1)
-					{
-					cerr << "Error writing document object to document map" << endl;
-						close( file );
-						pthread_mutex_unlock(&docMap_mutex);
-					return -1;
+					size_t success = write(file, this->DocToString().c_str(), strlen(this->DocToString().c_str()));
+					if (success == -1) {
+						throw("Error writing document object to document map");
 					}
 				}
+			}
+			catch(const char* str){
+				cerr << str << endl;
+				close(file);
+				pthread_mutex_unlock(&docMap_mutex);
+				return -1;
+			}
 			close( file );
 			pthread_mutex_unlock(&docMap_mutex);
 			return resultPosition;
