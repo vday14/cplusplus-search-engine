@@ -44,7 +44,7 @@ int main( int argc, const char *argv[] )
 	 */
 
 	//
-	string mode = "web";
+	string mode = "local";
 	// Seed urls?
 	string seed;
 	//
