@@ -37,8 +37,7 @@ public:
 	//Where to write to disk? What type of data are we reading in?
 	int writeFileToDisk( char *fileContents, string locationOnDisk );
 
-
-	void markURLSeen( string URL );
+	bool writeDocToDisk(string url);
 
 
 	bool shouldURLbeCrawled( string URL );
