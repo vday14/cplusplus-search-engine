@@ -34,9 +34,11 @@ void Spider::FuncToRun()
 	while ( cond )
 		{
 
-		string currentUrl = getUrl( );
+
+		string currentUrl = getUrl( );	//get url from url frontier
 		char *fileMap;
 
+		//url has not seen before or time since seen is past certain criteria
 		if ( shouldURLbeCrawled( currentUrl ))
 			{
 			bool success = writeDocToDisk(currentUrl);

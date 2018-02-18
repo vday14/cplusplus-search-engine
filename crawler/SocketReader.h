@@ -14,6 +14,8 @@ public:
 	SocketReader( string url_in ) : url( ParsedUrl( url_in ) ) { }
 	virtual void fillBuffer();
 
+	//virtual void fillBuffer(char ssl);
+
 private:
 	ParsedUrl url;
 	};

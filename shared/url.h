@@ -6,6 +6,9 @@
 
 #include <string>
 #include <iostream>
+#include "../util/util.h"
+//#include "../crawler/StreamReader.h"
+//#include "../crawler/SocketReader.h"
 using namespace std;
 
 //
@@ -157,6 +160,44 @@ public:
 			Host = Path = p;
 		}
 
+/*
+	//check if path in url is in the robots txt
+	void checkRobots()
+		{
+			string pathToRobots = util::GetCurrentWorkingDir() + '/' +  Service;
+			int robotsFileD = util::getFileDescriptor(pathToRobots , "R");
+			//File does not exist yet
+			if(robotsFileD == -1)
+				{
+					robotsFileD = getRobots();
+				}
+
+			char* robotsTXT = util::getFileMap(robotsFileD);
+
+
+
+		}
+
+
+
+	//Makes request to get a new robots txt file, returns the file pointer
+	int getRobots( )
+		{
+
+			StreamReader reader;
+			string pathToRobots = util::GetCurrentWorkingDir() + '/' +  Service;
+			reader = new SocketReader(CompleteUrl+ '/' + 'robots.txt');
+			reader->fillBuffer();
+			int fd = util::writeToNewFileToLocation( reader->buffer, pathToRobots);
+			if( fd == -1)
+				{
+				cerr << "Error getting Robots.txt file " << endl;
+				}
+		return fd;
+
+		return 1;
+		};
+ */
 	~ParsedUrl( )
 		{
 		delete [ ] pathBuffer;

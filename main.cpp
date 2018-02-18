@@ -44,12 +44,11 @@ int main( int argc, const char *argv[] )
 	 */
 
 	//
-	string mode = "local";
+	string mode = "web";
 	// Seed urls?
 	string seed;
 	//
 	int numberOfSpiders;
-	int numberOfParsers;
 	bool restoreFromLog;
 
 

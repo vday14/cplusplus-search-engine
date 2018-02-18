@@ -14,6 +14,7 @@
 #include <string.h>
 #include <string>
 #include <cassert>
+#include <openssl/ssl.h>
 
 
 
