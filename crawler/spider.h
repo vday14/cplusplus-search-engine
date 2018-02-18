@@ -34,9 +34,6 @@ public:
 	// else return false and error information, retry if necessary
 	StreamReader *request( string url );
 
-	//Where to write to disk? What type of data are we reading in?
-	int writeFileToDisk( char *fileContents, string locationOnDisk );
-
 	bool writeDocToDisk(string url);
 
 

@@ -89,6 +89,8 @@ bool Spider::writeDocToDisk(string url)
 	return true;
 	}
 
+
+
 bool Spider::shouldURLbeCrawled( string url )
 	{
 	//search for url in doc cache
@@ -131,11 +133,5 @@ StreamReader* Spider::request( string url )
 	return newReader;
 	}
 
-int Spider::writeFileToDisk( char *fileContents, string locationOnDisk )
-	{
-
-	return util::writeToNewFileToLocation(fileContents, locationOnDisk);
-
-	}
 
 

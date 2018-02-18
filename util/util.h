@@ -21,8 +21,8 @@
 
 
 #include <cstdlib>
-using namespace std;
 
+enum file_flag { read_only, write_only };
 
 using namespace std;
 

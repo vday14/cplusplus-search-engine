@@ -14,6 +14,8 @@
 //#include "crawler/CrawlerStatistics.h"
 #include <unordered_map>
 #include "util/util.h"
+#include <getopt.h>
+
 
 #define PATH_TO_BLACKLIST = '/bin/blacklist.txt'
 #define PATH_TO_VISITED_URL = 'bin/urls.txt'
@@ -25,7 +27,7 @@
 using namespace std;
 
 
-int main( int argc, const char *argv[] )
+int main( int argc, char *argv[] )
 	{
 	/*
 	 *
@@ -44,11 +46,46 @@ int main( int argc, const char *argv[] )
 	 */
 
 	//
-	string mode = "web";
-	// Seed urls?
-	string seed;
-	//
-	int numberOfSpiders;
+
+
+	string mode = "local";
+	int numberOfSpiders = 1;
+
+	opterr = true;
+	int choice;
+	int option_index = 0;
+	option long_options[] = {
+			{"mode", optional_argument, nullptr, 'm'},
+			{"num_crawlers", optional_argument, nullptr, 'c'}
+
+	};
+
+	while ((choice = getopt_long(argc, argv, "m:c:", long_options, &option_index)) != -1) {
+		switch (choice) {
+			case 'm':
+
+				mode = optarg;
+				if (mode != "web" && mode != "local") {
+					cerr << "Unknown input option";
+					exit(1);
+				}
+				break;
+
+			case 'c':
+
+				numberOfSpiders = atoi(optarg);
+				if (numberOfSpiders > 100) {
+					cerr << "Too many crawlers!";
+					exit(1);
+				}
+				break;
+
+			default:
+				cerr << "Unknown input option";
+				exit(1);
+
+		}
+	}
 	bool restoreFromLog;
 
 
@@ -83,15 +120,11 @@ unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >(
 
 Crawler crawler( mode, &urlFrontier );
 
-crawler.SpawnSpiders(3 , docMapLookUp);
+crawler.SpawnSpiders(numberOfSpiders , docMapLookUp);
 
 crawler.
 
 WaitOnAllSpiders();
 
-
-
-//This part is a work in progress I was just trying to simulate the
-// parser and see if they could open and read the file
 
 }
