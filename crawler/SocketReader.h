@@ -13,6 +13,9 @@ class SocketReader : public StreamReader
 public:
 	SocketReader( string url_in ) : url( ParsedUrl( url_in ) ) { }
 	virtual void fillBuffer();
+	void httpRequest();
+	void httpsRequest();
+
 
 	//virtual void fillBuffer(char ssl);
 

@@ -49,7 +49,7 @@ void Spider::FuncToRun()
 				StreamReader *reader = request( currentUrl );
 
 				//parser.parse(reader);
-				cond = false;
+				cond = true;
 				}
 			else
 				{

@@ -4,8 +4,8 @@
 
 #include "SocketReader.h"
 
-/*
-void SocketReader::fillBuffer()
+
+void SocketReader::httpRequest()
 	{
 	int s = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 	assert( s != -1 );
@@ -52,10 +52,10 @@ void SocketReader::fillBuffer()
 	close( s );
 	return;
 	}
-*/
 
-void SocketReader::fillBuffer(  )
-	{
+
+void SocketReader::httpsRequest(){
+
 	struct hostent *host = gethostbyname( url.Host );
 	assert( host );
 
@@ -78,6 +78,7 @@ void SocketReader::fillBuffer(  )
 
 	// Build an SSL layer and set it to read/write
 	// to the socket we've connected.
+
 
 	SSL_library_init( );
 
@@ -117,6 +118,20 @@ void SocketReader::fillBuffer(  )
 	SSL_free( ssl );
 	SSL_CTX_free( ctx );
 	close( s );
+
+
+
+
+	}
+
+
+
+void SocketReader::fillBuffer(  )
+	{
+	if ( !strcmp(url.Service , "http" ) )
+			httpRequest();
+	else
+			httpsRequest();
 
 
 	}

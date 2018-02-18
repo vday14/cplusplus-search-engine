@@ -48,7 +48,7 @@ int main( int argc, char *argv[] )
 	//
 
 
-	string mode = "local";
+	string mode = "web";
 	int numberOfSpiders = 1;
 
 	opterr = true;
