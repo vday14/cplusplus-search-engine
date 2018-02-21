@@ -36,8 +36,11 @@ public:
 
 	bool writeDocToDisk(string url);
 
-
 	bool shouldURLbeCrawled( string URL );
+
+	int getRobots(ParsedUrl url );
+	bool checkRobots(string url);
+
 
 private:
 

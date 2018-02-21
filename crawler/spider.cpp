@@ -96,6 +96,7 @@ bool Spider::shouldURLbeCrawled( string url )
 	//search for url in doc cache
 	auto locationOnDisk = this->docMapLookup->find( url );
 
+	//bool protectedByRobots = checkRobots( url );
 	//if it doesnt find anything for that url key
 	if ( locationOnDisk == this->docMapLookup->end( ))
 		{
@@ -109,7 +110,47 @@ bool Spider::shouldURLbeCrawled( string url )
 	return false;
 	}
 
+/*
+//check if path in url is in the robots txt
+bool Spider::checkRobots(string url_in)
+	{
+	ParsedUrl url = ParsedUrl(url_in);
+	string pathToRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host));
+	int robotsFileD = util::getFileDescriptor(pathToRobots , "R");
+	//File does not exist yet
+	if(robotsFileD == -1)
+		{
+		robotsFileD = getRobots(url);
+		}
 
+	//char* robotsTXT = util::getFileMap(robotsFileD);
+	return 1;
+	}
+
+
+
+//Makes request to get a new robots txt file, returns the file pointer
+int Spider::getRobots(ParsedUrl url )
+	{
+
+
+	string pathToDiskRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host));
+	string pathToWebRobots =  "http://" + string(url.Host, strlen(url.Host)) + "/robots.txt";
+	//string(url.Service, strlen(url.Service))+
+	SocketReader *reader = new SocketReader(pathToWebRobots);
+	reader->fillBuffer();
+
+	int fd = util::writeToNewFileToLocation( reader->buffer, pathToDiskRobots);
+	if( fd == -1)
+		{
+		cerr << "Error getting Robots.txt file " << endl;
+		}
+	return fd;
+
+	return 1;
+
+	};
+*/
 /*
 returns true if fileMap was created, otherwise false
  Modifies the filemap to be a char* of the file of the url passed

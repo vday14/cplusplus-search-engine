@@ -12,25 +12,20 @@ using namespace std;
 int main(int argc, const char * argv[])
 	{
 
-	Url test1 =  Url("https://developer.mozilla.org/en-US/docs/Learn" ) ;
-	string protocol = test1.getProtocol();
-	assert( protocol == "https");
-	string domain = test1.getDomain();
-	assert( domain == "developer.mozilla.org");
-	string domainType = test1.getDomainType();
-	assert( domainType == "org");
+	ParsedUrl test1 =  ParsedUrl("https://developer.mozilla.org/en-US/docs/Learn" ) ;
+	//string protocol = test1.getProtocol();
+	test1.printUrl();
+	//assert( strcmp(test1.Service, "https") == 1);
+	//assert( strcmp(test1.Host, "developer.mozilla.org") == 1);
 
 
 
-	Url test2 = Url("http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereInTheDocument");
-	test2.removeAnchor();
-	assert( test2.url == "http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2" );
-	protocol = test2.getProtocol();
-	assert( protocol == "http");
-	domain = test2.getDomain();
-	assert( domain == "example.com");
-	domainType = test2.getDomainType();
-	assert( domainType == "com");
+
+	ParsedUrl test2 = ParsedUrl("http://www.example.com/path/to/myfile.html?key1=value1&key2=value2#SomewhereInTheDocument");
+	test2.printUrl();
+	assert( strcmp(test2.Service, "http"));
+	assert( strcmp(test2.Host, "example.com"));
+
 
 	std::cout << "URL TEST PASSED" << std::endl;
 
