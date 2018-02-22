@@ -34,8 +34,8 @@ char * GetArbitrarySizeBuffer(int s )
 
 	int buf_size = 10240;
 	int current_size = buf_size;
-	char* ssl_buffer = new char[buf_size];
-	char* front = ssl_buffer;
+	char* http_buff = new char[buf_size];
+	char* front = http_buff;
 	int bytes;
 
 	while ( ( bytes = recv( s, front, buf_size, 0 ) ) > 0 )
@@ -43,14 +43,14 @@ char * GetArbitrarySizeBuffer(int s )
 
 		current_size  += buf_size;
 		char *temp = new char[current_size];
-		strcpy(temp, ssl_buffer);
+		strcpy(temp, http_buff);
 
-		front = temp + strlen(ssl_buffer);
-		delete[] ssl_buffer;
-		ssl_buffer = temp;
+		front = temp + strlen(http_buff);
+		delete[] http_buff;
+		http_buff = temp;
 		}
 
-	return ssl_buffer;
+	return http_buff;
 	}
 
 
