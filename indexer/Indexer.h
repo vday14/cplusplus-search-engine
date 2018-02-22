@@ -25,7 +25,9 @@ class Indexer {
     private:
         void save();
         void reset();
-        unordered_map<string, vector<int> > masterDictionary;
+        unordered_map<string, vector<size_t> > masterDictionary;
         size_t indexedCount;
         size_t currentFile;
+        size_t totalIndexed;
+        size_t currentlyIndexed;
 };

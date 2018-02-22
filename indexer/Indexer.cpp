@@ -3,26 +3,32 @@
 Indexer::Indexer() {
     indexedCount = 0;
     currentFile = 0;
+    totalIndexed = 0;
+    currentlyIndexed = 0;
 }
 
 void Indexer::run() {
     while(pointerToDictionaries.Size() != 0) {
-        if(indexedCount > 100000) {
+        if(totalIndexed > 5) {
             save();
             reset();
         }
         unordered_map<string, vector<int>>* dictionary = pointerToDictionaries.Pop();
         for(auto word : *dictionary) {
+            indexedCount += word.second.size();
+            totalIndexed += word.second.size();
             for(auto location : word.second) {
-                indexedCount++;
-                masterDictionary[word.first].push_back(location);
+                masterDictionary[word.first].push_back(currentlyIndexed + location);
             }
         }
+        currentlyIndexed += indexedCount;
+        indexedCount = 0;
     }
+    save();
 }
 
 void Indexer::save() {
-    map<string, vector<int> > maps(masterDictionary.begin(), masterDictionary.end());
+    map<string, vector<size_t> > maps(masterDictionary.begin(), masterDictionary.end());
     string fileName = "index" + to_string(currentFile) + ".txt";
     int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
     for(auto word : maps) {
@@ -40,5 +46,5 @@ void Indexer::save() {
 
 void Indexer::reset() {
     masterDictionary.clear();
-    indexedCount = 0;
+    totalIndexed = 0;
 }
