@@ -91,7 +91,6 @@ int main( int argc, char *argv[] )
 
 	ProducerConsumerQueue < string > urlFrontier;
 
-	cout << "Pushed File\n";
 	char *seeds;
 	if ( mode == "local" )
 		seeds = util::getFileMap( "/tests/localSeed.txt" );
@@ -116,8 +115,9 @@ int main( int argc, char *argv[] )
 
 
 unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >( );
-
-
+	cout << "-- INDEX IS BUILDING -- " << endl;
+	cout << "BUILDING FROM " << mode << endl;
+	cout << "RUNNING " << numberOfSpiders << " CRAWLERS " << endl;
 Crawler crawler( mode, &urlFrontier );
 
 crawler.SpawnSpiders(numberOfSpiders , docMapLookUp);

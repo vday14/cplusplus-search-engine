@@ -62,8 +62,8 @@ class Document
 					if (resultPosition == -1) {
 						throw("Could not seek");
 					}
-					cout << "Current docMap position on disk" << endl;
-					cout << resultPosition << endl;
+					//cout << "Current docMap position on disk" << endl;
+					//cout << resultPosition << endl;
 
 					size_t success = write(file, this->DocToString().c_str(), strlen(this->DocToString().c_str()));
 					if (success == -1) {

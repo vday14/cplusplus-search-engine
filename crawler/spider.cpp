@@ -97,8 +97,9 @@ bool Spider::writeDocToDisk(ParsedUrl url)
 	}
 
 	this->docMapLookup->insert( std::pair < string, int >( url.CompleteUrl, resultPosition ));
-	for ( auto it = this->docMapLookup->begin( ); it != this->docMapLookup->end( ); ++it )
-		std::cout << it->first << " => " << it->second << '\n';
+
+	//for ( auto it = this->docMapLookup->begin( ); it != this->docMapLookup->end( ); ++it )
+	//	std::cout << it->first << " => " << it->second << '\n';
 
 	return true;
 	}
@@ -119,7 +120,7 @@ bool Spider::shouldURLbeCrawled( ParsedUrl url )
 	else
 		{
 			//Just for testing
-			Document::PrintDocMap(url.CompleteUrl, locationOnDisk->second);
+			//Document::PrintDocMap(url.CompleteUrl, locationOnDisk->second);
 		}
 	return false;
 	}
