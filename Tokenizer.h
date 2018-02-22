@@ -3,21 +3,22 @@
 //
 
 #include <string>
-#include <stdio.h>
-#include <string.h>
 #include <unordered_map>
 #include <vector>
-#include <stringProcessing.h>
+#include "stringProcessing.h"
 using namespace std;
 
 class Tokenizer
 {
 public:
-    Tokenizer() {}
+    Tokenizer()
+	    {
+        doc_index = new unordered_map<string, vector<int>>;
+        }
 
-    const unordered_map<string, vector<int>> & get() const
+    unordered_map<string, vector<int>> * get() const
     {
-        return &doc_index;
+        return doc_index;
     }
 
     void execute(string originalText)
@@ -27,15 +28,15 @@ public:
         string lowerString = "";
         for (int i = 0; i < splitText.size(); ++i)
         {
-            lowerString = toLower(splitText);
+            lowerString = toLower(splitText[i]);
             if (!isStopWord(lowerString))
             {
-                doc_index[lowerString].push_back(offset);
+	            (*doc_index)[lowerString].push_back(offset);
                 ++offset;
             }
         }
     }
 
 private:
-    unordered_map<string, vector<int>> doc_index;
+    unordered_map<string, vector<int>> *doc_index;
 };
