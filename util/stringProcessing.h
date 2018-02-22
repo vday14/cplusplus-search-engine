@@ -13,46 +13,56 @@
 
 using namespace std;
 
-
-/*
- * Takes in an iterator to the original text and a substring: specifically for a parser functionality
- * Potentially make one that takes in two strings? Is this needed?
+/**
+ * Set of stopwords
  */
-string::iterator findStr ( string::iterator originalText, string & subStr )
+set< string > stopWords = { "a", "all", "an", "and", "any", "are", "as", "at", "be", "been", "but", "by", "few", "from",
+                            "for", "have", "he", "her", "here", "him", "his", "how",
+                            "i", "in", "is", "it", "its", "many ", "me", "my", "none", "of", "on", "or", "our", "she",
+                            "some", "the", "their", "them", "there", "they", "that",
+                            "this", "to", "us", "was", "what", "when", "where", "which", "who", "why", "will", "with",
+                            "you", "your" };
+/**
+ * Finds the needle in the haystack
+ * @param haystack
+ * @param needle
+ * @return
+ */
+string::iterator findStr ( string haystack, string needle )
 	{
 
-	auto begin_sub = subStr.begin ( );
-	auto begin_original = originalText;
+	auto beginNeedle = needle.begin ( );
+	auto beginHaystack = haystack.begin();
 
-	while ( *begin_original != '\0' ) //*(forward++) != '\0'
+	while ( *beginHaystack != '\0' )
 		{
 		//keep looking for instance of a match
-		if ( *begin_original != *begin_sub )
+		if ( *beginHaystack != *beginNeedle )
 			{
-			++begin_original;
+			++beginHaystack;
 			}
 
-		else if ( *begin_original == *begin_sub )
+		else if ( *beginHaystack == *beginNeedle )
 			{
 			/* want to keep the original iterator where it is so it
 				can return the beginning of the matched word if found */
-			auto temp = begin_original;
-			while ( *temp == *begin_sub )
+			auto temp = beginHaystack;
+			while ( *temp == *beginNeedle )
 				{
 				++temp;
-				++begin_sub;
-				//if it hits the end of the substring, it signifies an exact match
-				if ( *begin_sub == '\0' )
+				++beginNeedle;
+				//if it hits the end of the needleing, it signifies an exact match
+				if ( *beginNeedle == '\0' )
 					{
 					//this is pointing at the beginning of the match
-					return begin_original;
+					return beginHaystack;
 					}
 
 				}
 			//need to reset because still has to search rest of the string for a match
-			begin_sub = subStr.begin ( );
+			beginNeedle = needle.begin ( );
 			//sets the original text pointer to where the last search left off
-			begin_original = temp;
+			beginHaystack = temp;
 			}
 
 		else
@@ -61,18 +71,19 @@ string::iterator findStr ( string::iterator originalText, string & subStr )
 			}
 		}
 
-	return begin_original;
+	return beginHaystack;
 
 	}
 
-set< string > stopWords = { "a", "all", "an", "and", "any", "are", "as", "at", "be", "been", "but", "by", "few", "from",
-                            "for", "have", "he", "her", "here", "him", "his", "how",
-                            "i", "in", "is", "it", "its", "many ", "me", "my", "none", "of", "on", "or", "our", "she",
-                            "some", "the", "their", "them", "there", "they", "that",
-                            "this", "to", "us", "was", "what", "when", "where", "which", "who", "why", "will", "with",
-                            "you", "your" };
 
-vector< string > splitStr ( string & originalText, char delim )
+
+/**
+ * Returns a vector of strings from @originalText, split by @delim
+ * @param originalText
+ * @param delim
+ * @return
+ */
+vector< string > splitStr ( string originalText, char delim )
 	{
 	vector< string > splitWords;
 	auto begin = originalText.begin ( );
@@ -93,14 +104,22 @@ vector< string > splitStr ( string & originalText, char delim )
 	return splitWords;
 
 	}
-
-bool isStopWord ( string & word )
+/**
+ * Returns true if @word is a stopword
+ * @param word
+ * @return
+ */
+bool isStopWord ( string word )
 	{
 	return ( stopWords.find ( word ) != stopWords.end ( ) );
 
 	}
-
-string toLower ( string & word )
+/**
+ * Returns lowercase @word
+ * @param word
+ * @return
+ */
+string toLower ( string word )
 	{
 	auto iter = word.begin ( );
 	string lowerWord = "";
@@ -119,6 +138,17 @@ string toLower ( string & word )
 		}
 
 	return lowerWord;
+	}
+
+//TODO
+/**
+ * Returns stemmed @word
+ * @param word
+ * @return
+ */
+string stemWord(string word)
+	{
+	return "";
 	}
 
 #endif //EECS398_SEARCH_STRINGPROCESSING_H

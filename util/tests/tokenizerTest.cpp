@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void test_execute ( string original );
+void testExecute ( string original );
 
 
 int main ( )
@@ -22,18 +22,18 @@ int main ( )
 			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',"
 			"making it look like readable English. ";
 
-	test_execute ( original );
+	testExecute ( original );
 
 	cout << "\nTests passed for TokenizerTest_unit :D" << endl;
 
 	}
 
-void test_execute ( string original )
+void testExecute ( string original )
 	{
-	Tokenizer my_tokenizer;
-	my_tokenizer.execute ( original );
+	Tokenizer myTokenizer;
+	myTokenizer.execute ( original );
 
-	auto dict = my_tokenizer.get ( );
+	auto dict = myTokenizer.get ( );
 
 	for ( auto it = dict->begin ( ); it != dict->end ( ); it++ )
 		{

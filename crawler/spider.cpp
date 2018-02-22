@@ -16,7 +16,7 @@
 
 #include "LocalReader.h"
 #include "SocketReader.h"
-#include "../shared/documentMap.h"
+#include "../shared/Document.h"
 
 
 string Spider::getUrl()

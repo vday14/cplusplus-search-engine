@@ -12,153 +12,126 @@
 #include <queue>
 #include <iostream>
 #include <fstream>
-#include "Tokenizer.h"
+#include "../util/Tokenizer.h"
 #include "../util/stringProcessing.h"
+#include "../shared/Document.h"
+#include "../shared/ProducerConsumerQueue.h"
 
 using namespace std;
 
-// Doc Id
-std::priority_queue< int > DOCID_PQ;
-std::priority_queue< string > URL_PQ;
-string PATH = "/doc";
-
-//TEMP - remove once getting actual crawler input
-
-
-//TODO
-// get doc id from DocIDqueue (sent from crawler)
-// go to disk and get the HTML file
-// parse the html file
-// if find url; send to crawler
-// if find title send string to tokenizer
+/**
+ * This class uses the Doc object from the Crawler to parse the text
+ * Returns a pointer to a dictionary that contains the tokenized input
+ */
 class Parser
 	{
 
 public:
 
-	struct raw_data
+	Parser ( ProducerConsumerQueue < string > * urlFrontierIn)
 		{
-		string url;
-		string html_data;
-
-		raw_data ( string u, string h ) : url ( u ), html_data ( h )
-			{ }
-		};
+		urlFrontier = urlFrontierIn;
+		}
 
 
 	/**
 	 * Parser
 	 * @return
 	 */
-	// input: object with char*  and URL string
-	//
-	const unordered_map< string, vector< int>> execute ( )
+	const unordered_map< string, vector< int>> * execute ( Document* document)
 		{
 		Tokenizer tokenizer;
-		//TEMP - until we get real input from crawler
-		raw_data data ( "url", "html" );
-		parse ( data.html_data, &tokenizer );
+		parse ( document->DocToString (), &tokenizer );
 		return tokenizer.get ( );
 		}
 
 
 private:
+	ProducerConsumerQueue < string >* urlFrontier;
 
 	/**
 	 * Parses file
 	 * @param inFile
 	 * @return
 	 */
-
-	string parse ( string & html_data, Tokenizer *tokenizer )
+	void parse ( string html, Tokenizer *tokenizer )
 		{
-		//figure out file handle syntax - pointer to file
+
 		string tokenizerInput = "";
 		string currentTerm = "";
-		for ( int i = 0; i < html_data.size ( ); ++i )
+		for ( int i = 0; i < html.size ( ); ++i )
 			{
-			while ( html_data[ i ] != ' ' )
+			while ( html.at( i ) != '\n' )
 				{
-				currentTerm += html_data[ i ];
+				currentTerm += html[ i ];
 				}
 
-			//one method that directly adds urls onto frontier instead of checking for them
-			add_urls ( currentTerm );
-			check_title ( currentTerm );
-			tokenizerInput += currentTerm;
-			}
-
-		tokenizer->execute ( tokenizerInput );
-		}
-
-	/*
-	 * Uses findStr function in stringProcessing.h: STILL HAVE TO TEST
-	 * Instead of bool, just directly adds on to url queue
-	 */
-	void add_urls ( string & word )
-		{
-		string a_tag = "<a";
-		string http_start = "href=http";
-		string http_end_tag = ">";
-
-		auto word_iter = word.begin ( );
-		string url = "";
-		word_iter = findStr ( word_iter, a_tag );
-		if ( word_iter != nullptr )
-			{
-			auto found_http = findStr ( word_iter, http_start );
-			if ( found_http != nullptr )
+			string url = extract_url ( currentTerm );
+			if (url != "")
 				{
-				url = "http";
-				found_http += 9;
-				auto end_http = findStr ( word_iter, http_end_tag );
-				while ( found_http != end_http )
+				urlFrontier->Push (url);
+				}
+			else
+				{
+				string title = extract_title ( currentTerm );
+				if (title != "")
 					{
-					url += *found_http;
-					++found_http;
+					tokenizerInput += title;
 					}
 				}
-			}
 
-		else
-			{
-			return;
 			}
-
-		if ( url != "" )
-			{
-			URL_PQ.push ( url );
-			}
-
+		tokenizer->execute ( tokenizerInput );
 
 		}
 
 	/**
-	 * <title >AJF</title>
+	 * Returns a url, or "" if none
 	 * @param word
+	 * @return
 	 */
-
-	bool check_title ( string & word )
+	string extract_url ( string word )
 		{
-		if ( char *pos = strstr ( "<title>", word ) )
+		string url = "";
+
+		if ( findStr ( word, "<a" ) != '\0' )
+			{
+			auto foundHttp = findStr ( word, "href=http" );
+			if ( foundHttp != '\0' )
+				{
+				url = "http";
+				foundHttp += 9;
+
+				while ( foundHttp != findStr ( word, "\">" ) )
+					{
+					url += *foundHttp;
+					++foundHttp;
+					}
+				}
+			}
+
+		return url;
+		}
+
+	/**
+	 * Returns a title, or "" if none
+	 * @param word
+	 * @return
+	 */
+	string extract_title ( string & word )
+		{
+		string title = "";
+		auto pos = findStr ( "<title>", word );
+		if ( pos != '\0')
 			{
 			pos += 6;
-			auto end_pos = strstr ( "</title>", word );
-			string title = "";
-			while ( pos != end_pos )
+			while ( pos != findStr ( "</title>", word ) )
 				{
 				++pos;
 				title += *pos;
-
 				}
-
-			return title;
 			}
-
-//        string begin_title = "<title>";
-//        auto word_begin = word.begin();
-//        auto word_iter = findStr(word_begin, begin_title);
-
+		return title;
 		}
 
 	};

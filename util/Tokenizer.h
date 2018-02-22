@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "../util/stringProcessing.h"
+#include "stringProcessing.h"
 
 using namespace std;
 

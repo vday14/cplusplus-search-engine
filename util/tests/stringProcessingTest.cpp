@@ -4,19 +4,19 @@
 
 #include <string>
 #include <vector>
-#include "../../util/stringProcessing.h"
+#include "../stringProcessing.h"
 #include <iostream>
 #include <cassert>
 
 using namespace std;
 
-void test_findStr ( string original );
+void testFindStr ( string original );
 
-void test_splitStr ( string original );
+void testSplitStr ( string original );
 
-void test_toLower ( );
+void testToLower ( );
 
-void test_isStopWord ( );
+void testIsStopWord ( );
 
 int main ( )
 	{
@@ -27,66 +27,46 @@ int main ( )
 			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',"
 			"making it look like readable English. ";
 
-	test_findStr ( original );
-	test_splitStr ( original );
-	test_toLower ( );
-	test_isStopWord ( );
+	testFindStr ( original );
+	testSplitStr ( original );
+	testToLower ( );
+	testIsStopWord ( );
 
 	cout << "\nTests passed for StringProcessing_unit :D" << endl;
 
 	}
 
-void test_findStr ( string original )
+void testFindStr ( string original )
 	{
 	cout << "Testing findStr..." << endl;
-
-	string find = "established";
-	auto word = findStr ( original.begin ( ), find );
-	assert( *word == 'e' );
-
-	find = "Lorem Ipsum";
-	auto word2 = findStr ( original.begin ( ), find );
-	assert( *word2 == 'L' );
+	assert( *findStr ( original, "established" ) == 'e' );
+	assert( *findStr ( original, "Lorem Ipsum" ) == 'L' );
 
 	string title = "<title> This is a test </title>";
-	find = "<title>";
-	auto word3 = findStr ( title.begin ( ), find );
-	assert( *word3 == '<' );
+	auto word = findStr ( title, "<title>" );
+	assert( *word == '<' );
 	auto titleIt = title.begin ( );
-	while ( word3 != title.end ( ) && titleIt != title.end ( ) )
+	while ( word != title.end ( ) && titleIt != title.end ( ) )
 		{
-		assert( *word3 == *titleIt );
-		++word3;
+		assert( *word == *titleIt );
+		++word;
 		++titleIt;
 		}
 
-	find = "</title>";
-	auto word4 = findStr ( title.begin ( ), find );
-	assert( *word4 == '<' && *( word4 + 1 ) == '/' );
+	auto word1 = findStr ( title, "</title>" );
+	assert( *word1 == '<' && *( word1 + 1 ) == '/' );
+	assert( *findStr ( original, "</title>" ) == '\0' );
+	assert( *findStr ( original, "orange" ) == '\0' );
+	assert( *findStr ( "apple", "orange" ) == '\0' );
+	auto word2 = findStr ( "bigbird", "bird" );
+	assert( *word2 == 'b' && *( word2 + 1 ) == 'i' && *( word2 + 2 ) == 'r' );
 
-	auto word0 = findStr ( original.begin ( ), find );
-	assert( *word0 == '\0' );
-
-	find = "orange";
-	auto word5 = findStr ( original.begin ( ), find );
-	assert( *word5 == '\0' );
-
-	find = "orange";
-	string test = "apple";
-	auto word7 = findStr ( test.begin ( ), find );
-	assert( *word7 == '\0' );
-
-	find = "bird";
-	test = "bigbird";
-	auto word6 = findStr ( test.begin ( ), find );
-	assert( *word6 == 'b' && *( word6 + 1 ) == 'i' && *( word6 + 2 ) == 'r' );
-
-	cout << "test_findStr passed" << endl;
+	cout << "testFindStr passed" << endl;
 
 	}
 
 
-void test_splitStr ( string original )
+void testSplitStr ( string original )
 	{
 	cout << "Testing splitStr..." << endl;
 
@@ -98,12 +78,12 @@ void test_splitStr ( string original )
 	assert( vec.size ( ) == 2 );
 	assert( vec[ 0 ] == "hello" && vec[ 1 ] == "goodbye" );
 
-	cout << "test_splitStr passed" << endl;
+	cout << "testSplitStr passed" << endl;
 
 	}
 
 
-void test_toLower ( )
+void testToLower ( )
 	{
 	cout << "Testing toLower..." << endl;
 
@@ -126,11 +106,11 @@ void test_toLower ( )
 	assert ( test4 == "" );
 	assert ( test5 == " " );
 
-	cout << "test_toLower passed" << endl;
+	cout << "testToLower passed" << endl;
 	}
 
 
-void test_isStopWord ( )
+void testIsStopWord ( )
 	{
 	cout << "Testing isStopWord..." << endl;
 
@@ -146,6 +126,6 @@ void test_isStopWord ( )
 	assert ( !isStopWord ( blank ) );
 	assert ( !isStopWord ( blank2 ) );
 
-	cout << "test_isStopWord passed" << endl;
+	cout << "testIsStopWord passed" << endl;
 
 	}
