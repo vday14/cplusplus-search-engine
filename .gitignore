@@ -1,6 +1,13 @@
 .idea/*
+openssl-1.1.0g/*
 .vagrant/*
 cmake*
 CMake*
 Vagrantfile
 cmake-build-debug*
+CMakeCache.txt
+CMakeFiles/*
+cmake_install.cmake
+eecs398_search.cbp
+main
+.gitignore

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include "ProducerConsumerQueue.h"
-#include "ProducerConsumerQueue.cpp" // needed here because class is a template
+
 
 pthread_mutex_t cout_lock = PTHREAD_MUTEX_INITIALIZER;
 
