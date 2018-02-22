@@ -16,10 +16,10 @@ int main() {
     unordered_map<string, vector<int>> test2;
     unordered_map<string, vector<int>> test3;
     unordered_map<string, vector<int>> test4;
-    ifstream ifstream1("tests/s-test1.txt");
-    ifstream ifstream2("tests/s-test2.txt");
-    ifstream ifstream3("tests/s-test3.txt");
-    ifstream ifstream4("tests/s-test4.txt");
+    ifstream ifstream1("tests/test1.txt");
+    ifstream ifstream2("tests/test2.txt");
+    ifstream ifstream3("tests/test3.txt");
+    ifstream ifstream4("tests/test4.txt");
     string word = "";
     int id = 0;
     while(ifstream1 >> word) {

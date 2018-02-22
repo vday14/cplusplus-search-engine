@@ -16,6 +16,12 @@
 Objective: Pulls small dictionaries from the parser and merges them into the 
 master index.
 
+TODO:
+ Use deltas between the offsets
+ Save with UTF-8 encoding
+ Concrete block size - 500MB per block?
+ Save document endings and other relevant metadata?
+
 */
 
 using namespace std;
