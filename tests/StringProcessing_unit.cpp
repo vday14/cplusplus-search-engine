@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-#include "../stringProcessing.h"
+#include "../util/stringProcessing.h"
 #include <iostream>
 #include <cassert>
 
