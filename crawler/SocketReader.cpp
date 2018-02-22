@@ -4,6 +4,30 @@
 
 #include "SocketReader.h"
 
+char * GetArbitrarySizeBuffer(SSL* ssl)
+	{
+
+	int buf_size = 10240;
+	int current_size = buf_size;
+	char* ssl_buffer = new char[buf_size];
+	char* front = ssl_buffer;
+	int bytes;
+
+	while ( ( bytes = SSL_read( ssl, front, buf_size ) ) > 0 )
+	{
+
+		current_size  += buf_size;
+		char *temp = new char[current_size];
+		strcpy(temp, ssl_buffer);
+
+		front = temp + strlen(ssl_buffer);
+		delete[] ssl_buffer;
+		ssl_buffer = temp;
+	}
+
+	return ssl_buffer;
+	}
+
 
 void SocketReader::httpRequest()
 	{
@@ -107,24 +131,12 @@ void SocketReader::httpsRequest(){
 
 	// Read from the SSL until there's no more data.
 
-	char * SSLBuffer = new char[ 11240 ];
-	int bytes;
-	while ( ( bytes = SSL_read( ssl, SSLBuffer,
-										 10240  ) ) > 0 )
-		{
-		write( 1, SSLBuffer, bytes );
-		size_t test = sizeof(SSLBuffer);
-		cout << test;
-		}
-		//write( 1, SSLBuffer, bytes );
+	buffer = GetArbitrarySizeBuffer(ssl);
 
-	buffer = SSLBuffer;
 	SSL_shutdown( ssl );
 	SSL_free( ssl );
 	SSL_CTX_free( ctx );
 	close( s );
-
-
 
 
 	}
