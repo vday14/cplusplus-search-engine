@@ -13,7 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include "Tokenizer.h"
-#include "util/stringProcessing.h"
+#include "../util/stringProcessing.h"
 
 using namespace std;
 
