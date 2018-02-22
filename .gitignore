@@ -3,3 +3,5 @@
 CMakeLists.txt
 cmake-build-debug/*
 Vagrantfile
+.vscode/settings.json
+.DS_Store
