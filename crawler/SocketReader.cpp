@@ -29,6 +29,33 @@ char * GetArbitrarySizeBuffer(SSL* ssl)
 	}
 
 
+char * GetArbitrarySizeBuffer(int s )
+	{
+
+	int buf_size = 10240;
+	int current_size = buf_size;
+	char* ssl_buffer = new char[buf_size];
+	char* front = ssl_buffer;
+	int bytes;
+
+	while ( ( bytes = recv( s, front, buf_size, 0 ) ) > 0 )
+		{
+
+		current_size  += buf_size;
+		char *temp = new char[current_size];
+		strcpy(temp, ssl_buffer);
+
+		front = temp + strlen(ssl_buffer);
+		delete[] ssl_buffer;
+		ssl_buffer = temp;
+		}
+
+	return ssl_buffer;
+	}
+
+
+
+
 void SocketReader::httpRequest()
 	{
 	int s = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
@@ -66,12 +93,14 @@ void SocketReader::httpRequest()
 
 	// Read from the socket until there's no more data.
 
-	char buffer[ 10240 ];
+	char HTTPbuffer[ 10240 ];
 	int bytes;
 
 
 	while ( ( bytes = recv( s, buffer, sizeof( buffer ), 0 ) ) > 0 )
 		write( 1, buffer, bytes );
+
+	buffer = GetArbitrarySizeBuffer(s);
 
 	close( s );
 	return;

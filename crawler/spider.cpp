@@ -18,6 +18,17 @@
 #include "SocketReader.h"
 #include "../shared/documentMap.h"
 
+size_t Spider::hash(const char * s){
+	{
+		// http://www.cse.yorku.ca/~oz/hash.html
+		size_t h = 5381;
+		int c;
+		while ((c = *s++))
+			h = ((h << 5) + h) + c;
+		return h;
+	}
+	}
+
 
 string Spider::getUrl()
 	{
@@ -47,7 +58,8 @@ void Spider::FuncToRun()
 
 
 				StreamReader *reader = request( currentUrl );
-				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" + currentUrl.Host + ".txt";
+				size_t docID = hash(currentUrl.CompleteUrl);
+				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" + to_string(docID)+ ".txt";
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
 
 				//parser.parse(reader);

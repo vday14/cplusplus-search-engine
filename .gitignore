@@ -1,4 +1,5 @@
 .idea/*
+crawlerOutput/*
 openssl-1.1.0g/*
 .vagrant/*
 CMakeLists.txt

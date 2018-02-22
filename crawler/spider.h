@@ -37,7 +37,7 @@ public:
 	bool writeDocToDisk(ParsedUrl url);
 
 	bool shouldURLbeCrawled( ParsedUrl URL );
-
+	size_t hash(const char * s);
 	int getRobots(ParsedUrl url );
 	bool checkRobots(ParsedUrl url);
 
