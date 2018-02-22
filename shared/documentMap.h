@@ -31,7 +31,7 @@ class Document
 		//add more info fields here
 
 	public:
-		Document(string url_in) : url(ParsedUrl(url_in)) {}
+		Document(ParsedUrl url_in) : url((url_in)) {}
 
 		string DocToString()
 			{

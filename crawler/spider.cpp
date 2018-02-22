@@ -35,9 +35,9 @@ void Spider::FuncToRun()
 		{
 
 
-		string currentUrl = getUrl( );	//get url from url frontier
+		string stringUrl = getUrl( );	//get url from url frontier
 		char *fileMap;
-
+		ParsedUrl currentUrl = ParsedUrl(stringUrl);
 		//url has not seen before or time since seen is past certain criteria
 		if ( shouldURLbeCrawled( currentUrl ))
 			{
@@ -47,9 +47,9 @@ void Spider::FuncToRun()
 
 
 				StreamReader *reader = request( currentUrl );
-				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" +  string(url.Host, strlen(url.Host)) + ".txt";
+				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" + currentUrl.Host + ".txt";
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
-				
+
 				//parser.parse(reader);
 				cond = true;
 				}
@@ -76,7 +76,7 @@ Takes a URL. Hashes it. Checks if the url is in the docMapLookup. If it is, chec
 
 
 
-bool Spider::writeDocToDisk(string url)
+bool Spider::writeDocToDisk(ParsedUrl url)
 	{
 	Document d(url);
 	int resultPosition = d.WriteToDocMap();
@@ -84,7 +84,7 @@ bool Spider::writeDocToDisk(string url)
 		return false;
 	}
 
-	this->docMapLookup->insert( std::pair < string, int >( url, resultPosition ));
+	this->docMapLookup->insert( std::pair < string, int >( url.CompleteUrl, resultPosition ));
 	for ( auto it = this->docMapLookup->begin( ); it != this->docMapLookup->end( ); ++it )
 		std::cout << it->first << " => " << it->second << '\n';
 
@@ -93,10 +93,10 @@ bool Spider::writeDocToDisk(string url)
 
 
 
-bool Spider::shouldURLbeCrawled( string url )
+bool Spider::shouldURLbeCrawled( ParsedUrl url )
 	{
 	//search for url in doc cache
-	auto locationOnDisk = this->docMapLookup->find( url );
+	auto locationOnDisk = this->docMapLookup->find( url.CompleteUrl );
 
 	//bool protectedByRobots = checkRobots( url );
 	//if it doesnt find anything for that url key
@@ -107,16 +107,15 @@ bool Spider::shouldURLbeCrawled( string url )
 	else
 		{
 			//Just for testing
-			Document::PrintDocMap(url, locationOnDisk->second);
+			Document::PrintDocMap(url.CompleteUrl, locationOnDisk->second);
 		}
 	return false;
 	}
 
 
 //check if path in url is in the robots txt
-bool Spider::checkRobots(string url_in)
+bool Spider::checkRobots(ParsedUrl url)
 	{
-	ParsedUrl url = ParsedUrl(url_in);
 	string pathToRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host)) + ".txt";
 	int robotsFileD = util::getFileDescriptor(pathToRobots , "R");
 	//File does not exist yet
@@ -163,14 +162,14 @@ returns true if fileMap was created, otherwise false
  Modifies the filemap to be a char* of the file of the url passed
 */
 
-StreamReader* Spider::request( string url )
+StreamReader* Spider::request( ParsedUrl url )
 	{
 	string localFile;
 
 	StreamReader *newReader;
 	if ( this->mode == "local" )
 		{
-		newReader = new LocalReader( url );
+		newReader = new LocalReader( url.CompleteUrl );
 		}
 	else if ( this->mode == "web" )
 		{
