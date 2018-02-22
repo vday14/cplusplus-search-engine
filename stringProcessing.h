@@ -8,60 +8,10 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <set>
 #include <iterator>
 
 using namespace std;
-
-//TODO
-//remove tag words
-
-//assuming we have a buffer from File Handle
-//returns pointer to subStr in original text
-/*char* preFindStr(char* originalText, char* subStr)
-{
-    bool isFound = true;
-    char* temp = originalText;
-    while ( isFound )
-    {
-        if ( *originalText == *subStr )
-        {
-
-        }
-    }
-}*/
-/*char* postFindStr(char* originalText, char* subStr)
-{
-    bool isFound = true;
-    while ( originalText != nullptr )
-    {
-        if ( *originalText != *subStr )
-        {
-            ++originalText;
-        }
-
-        if ( *originalText == *substr )
-        if (originalText == nullptr || substr == nullptr)
-        {
-            isFound = false;
-        }
-
-        else if ( *originalText != *subStr )
-        {
-            isFound = false;
-        }
-
-        else
-        {
-            isFound = true;
-        }
-
-        ++subStr;
-        ++originalText;
-    }
-
-    return originalText;
-
-}*/
 
 
 /*
@@ -74,7 +24,7 @@ string::iterator findStr(string::iterator originalText, string &subStr)
     auto begin_sub = subStr.begin();
     auto begin_original = originalText;
 
-    while ( begin_original != nullptr)
+    while ( *begin_original != '\0') //*(forward++) != '\0'
     {
         //keep looking for instance of a match
         if ( *begin_original != *begin_sub )
@@ -92,7 +42,7 @@ string::iterator findStr(string::iterator originalText, string &subStr)
                 ++temp;
                 ++begin_sub;
                 //if it hits the end of the substring, it signifies an exact match
-                if ( begin_sub  == nullptr)
+                if ( *begin_sub  == '\0')
                 {
                     //this is pointing at the beginning of the match
                     return begin_original;
@@ -112,6 +62,7 @@ string::iterator findStr(string::iterator originalText, string &subStr)
     }
 
     return begin_original;
+
 }
 set<string> stopWords = {"a", "all", "an", "and", "any", "are", "as", "at", "be", "been", "but", "by", "few", "from", "for", "have", "he", "her", "here", "him", "his", "how",
                          "i", "in", "is", "it", "its", "many ","me", "my", "none", "of", "on", "or", "our", "she", "some", "the", "their", "them", "there", "they", "that",
@@ -119,20 +70,20 @@ set<string> stopWords = {"a", "all", "an", "and", "any", "are", "as", "at", "be"
 
 vector<string> splitStr(string &originalText, char delim)
 {
-
     vector<string> splitWords;
     auto begin = originalText.begin();
-    auto end = originalText.end();
-    while (begin != end)
+
+    while (*begin != '\0')
     {
         string word = "";
-        while (begin != delim && begin != end)
+        while (*begin != delim && *begin != '\0')
         {
             word += *begin;
             ++begin;
         }
 
         splitWords.push_back(word);
+	    ++begin;
     }
 
     return splitWords;
@@ -141,17 +92,17 @@ vector<string> splitStr(string &originalText, char delim)
 
 bool isStopWord(string &word)
 {
-    return stopWords.find(word) != nullptr;
+    return (stopWords.find(word) != stopWords.end());
 
 }
 
 string toLower(string &word)
 {
     auto iter = word.begin();
-    lowerWord = "";
-    while (iter != word.end())
+    string lowerWord = "";
+    while (*iter != '\0')
     {
-        if (*iter < 65 || *iter > 90)
+        if (*iter >= 'A' && *iter <= 'Z')
         {
             lowerWord += (*iter + 32);
         }
@@ -160,6 +111,7 @@ string toLower(string &word)
         {
             lowerWord += *iter;
         }
+	    ++iter;
     }
 
     return lowerWord;
