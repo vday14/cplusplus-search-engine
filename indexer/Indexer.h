@@ -1,3 +1,5 @@
+#ifndef indexer_h
+#define indexer_h
 #include "../ProducerConsumerQueue.h"
 #include "../ProducerConsumerQueue.cpp"
 #include <unordered_map>
@@ -7,6 +9,7 @@
 #include <fstream>
 #include <fcntl.h>
 #include <unistd.h>
+
 
 /*
 
@@ -20,8 +23,10 @@ using namespace std;
 class Indexer {
     public:
         Indexer();
-        void run();
-        ProducerConsumerQueue<unordered_map<string, vector<int> >*> pointerToDictionaries;
+		void run();
+		void verbose_run();
+		void verbose_save();
+		ProducerConsumerQueue<unordered_map<string, vector<int> > * > pointerToDictionaries;
     private:
         void save();
         void reset();
@@ -31,3 +36,5 @@ class Indexer {
         size_t totalIndexed;
         size_t currentlyIndexed;
 };
+
+#endif /*indexer_h*/

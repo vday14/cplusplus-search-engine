@@ -27,6 +27,18 @@ void Indexer::run() {
     save();
 }
 
+void Indexer::verbose_run() {
+    while(pointerToDictionaries.Size() != 0) {
+        unordered_map<string, vector<int>> dictionary = *pointerToDictionaries.Pop();
+        for(auto word : dictionary) {
+	        for(auto location : word.second) {
+                indexedCount++;
+                masterDictionary[word.first].push_back(location);
+                }
+            }
+        }
+    }
+
 void Indexer::save() {
     map<string, vector<size_t> > maps(masterDictionary.begin(), masterDictionary.end());
     string fileName = "index" + to_string(currentFile) + ".txt";
@@ -42,7 +54,19 @@ void Indexer::save() {
     }
     close(file);
     currentFile++;
-}
+    }
+
+void Indexer::verbose_save() {
+    map<string, vector<size_t> > maps(masterDictionary.begin(), masterDictionary.end());
+    for(auto word : maps) {
+        cout << word.first << endl;
+        for(auto location : word.second) {
+            cout << location << " ";
+            }
+	    cout << endl;
+        }
+    currentFile++;
+    }
 
 void Indexer::reset() {
     masterDictionary.clear();
