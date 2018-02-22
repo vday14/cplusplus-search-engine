@@ -1,0 +1,35 @@
+ki/Wikipedia%3AEditor_review
+Disallow: /wiki/Wikipedia_talk:Editor_review
+Disallow: /wiki/Wikipedia_talk%3AEditor_review
+#
+Disallow: /wiki/Wikipedia:Article_Incubator
+Disallow: /wiki/Wikipedia%3AArticle_Incubator
+Disallow: /wiki/Wikipedia_talk:Article_Incubator
+Disallow: /wiki/Wikipedia_talk%3AArticle_Incubator
+#
+Disallow: /wiki/Category:Noindexed_pages
+Disallow: /wiki/Category%3ANoindexed_pages
+#
+# </pre>lk:Arbitration_Committee_Elections
+Disallow: /wiki/Wikipedia_talk%3AArbitration_Committee_Elections
+#
+Disallow: /wiki/Wikipedia:Mediation_Committee
+Disallow: /wiki/Wikipedia%3AMediation_Committee
+Disallow: /wiki/Wikipedia_talk:Mediation_Committee
+Disallow: /wiki/Wikipedia_talk%3AMediation_Committee
+#
+Disallow: /wiki/Wikipedia:Mediation_Cabal/Cases
+Disallow: /wiki/Wikipedia%3AMediation_Cabal/Cases
+#
+Disallow: /wiki/Wikipedia:Requests_for_bureaucratship
+Disallow: /wiki/Wikipedia%3ARequests_for_bureaucratship
+Disallow: /wiki/Wikipedia_talk:Requests_for_bureaucratship
+Disallow: /wiki/Wikipedia_talk%3ARequests_for_bureaucratship
+#
+Disallow: /wiki/Wikipedia:Administrator_review
+Disallow: /wiki/Wikipedia%3AAdministrator_review
+Disallow: /wiki/Wikipedia_talk:Administrator_review
+Disallow: /wiki/Wikipedia_talk%3AAdministrator_review
+#
+Disallow: /wiki/Wikipedia:Editor_review
+Disallow: /wi

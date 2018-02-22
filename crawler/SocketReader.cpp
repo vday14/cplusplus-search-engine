@@ -107,13 +107,18 @@ void SocketReader::httpsRequest(){
 
 	// Read from the SSL until there's no more data.
 
-	char buffer[ 10240 ];
+	char * SSLBuffer = new char[ 11240 ];
 	int bytes;
+	while ( ( bytes = SSL_read( ssl, SSLBuffer,
+										 10240  ) ) > 0 )
+		{
+		write( 1, SSLBuffer, bytes );
+		size_t test = sizeof(SSLBuffer);
+		cout << test;
+		}
+		//write( 1, SSLBuffer, bytes );
 
-	while ( ( bytes = SSL_read( ssl, buffer,
-										 sizeof( buffer ) ) ) > 0 )
-		write( 1, buffer, bytes );
-
+	buffer = SSLBuffer;
 	SSL_shutdown( ssl );
 	SSL_free( ssl );
 	SSL_CTX_free( ctx );

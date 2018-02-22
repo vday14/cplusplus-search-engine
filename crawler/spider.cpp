@@ -47,7 +47,9 @@ void Spider::FuncToRun()
 
 
 				StreamReader *reader = request( currentUrl );
-
+				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" +  string(url.Host, strlen(url.Host)) + ".txt";
+				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
+				
 				//parser.parse(reader);
 				cond = true;
 				}
@@ -110,12 +112,12 @@ bool Spider::shouldURLbeCrawled( string url )
 	return false;
 	}
 
-/*
+
 //check if path in url is in the robots txt
 bool Spider::checkRobots(string url_in)
 	{
 	ParsedUrl url = ParsedUrl(url_in);
-	string pathToRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host));
+	string pathToRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host)) + ".txt";
 	int robotsFileD = util::getFileDescriptor(pathToRobots , "R");
 	//File does not exist yet
 	if(robotsFileD == -1)
@@ -123,7 +125,7 @@ bool Spider::checkRobots(string url_in)
 		robotsFileD = getRobots(url);
 		}
 
-	//char* robotsTXT = util::getFileMap(robotsFileD);
+	char* robotsTXT = util::getFileMap(robotsFileD);
 	return 1;
 	}
 
@@ -134,23 +136,28 @@ int Spider::getRobots(ParsedUrl url )
 	{
 
 
-	string pathToDiskRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host));
-	string pathToWebRobots =  "http://" + string(url.Host, strlen(url.Host)) + "/robots.txt";
+	string pathToDiskRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host)) + ".txt";
+	string pathToWebRobots =  "https://" + string(url.Host, strlen(url.Host)) + "/robots.txt";
 	//string(url.Service, strlen(url.Service))+
 	SocketReader *reader = new SocketReader(pathToWebRobots);
 	reader->fillBuffer();
 
-	int fd = util::writeToNewFileToLocation( reader->buffer, pathToDiskRobots);
-	if( fd == -1)
+	if(reader->buffer != NULL)
 		{
-		cerr << "Error getting Robots.txt file " << endl;
-		}
-	return fd;
+		int fd = util::writeToNewFileToLocation( reader->buffer, pathToDiskRobots);
+		if( fd == -1)
+			cerr << "Error getting Robots.txt file " << endl;
 
-	return 1;
+		return fd;
+		}
+
+	cerr << "issue filling buffer from robots.txt" << endl;
+	return -1;
+
+
 
 	};
-*/
+
 /*
 returns true if fileMap was created, otherwise false
  Modifies the filemap to be a char* of the file of the url passed
