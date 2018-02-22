@@ -10,10 +10,10 @@
 
 using namespace std;
 
-void test_execute(string original);
+void test_execute ( string original );
 
 
-int main()
+int main ( )
 	{
 
 	cout << "Beginning testing for TokenizerTest_unit" << endl << endl;
@@ -22,27 +22,27 @@ int main()
 			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',"
 			"making it look like readable English. ";
 
-	test_execute(original);
+	test_execute ( original );
 
 	cout << "\nTests passed for TokenizerTest_unit :D" << endl;
 
 	}
 
-void test_execute(string original)
+void test_execute ( string original )
 	{
 	Tokenizer my_tokenizer;
-	my_tokenizer.execute(original);
+	my_tokenizer.execute ( original );
 
-	auto dict = my_tokenizer.get();
+	auto dict = my_tokenizer.get ( );
 
-	for ( auto it = dict->begin(); it != dict->end(); it++ )
+	for ( auto it = dict->begin ( ); it != dict->end ( ); it++ )
 		{
-		cout << it->first  << ':';
-		 for (int i = 0; i < it->second.size(); ++i)
-			 {
-			 cout << it->second[i] << " ";
-			 }
-		cout << std::endl ;
+		cout << it->first << ':';
+		for ( int i = 0; i < it->second.size ( ); ++i )
+			{
+			cout << it->second[ i ] << " ";
+			}
+		cout << std::endl;
 		}
 
 	}
