@@ -21,113 +21,172 @@ std::priority_queue<int> DOCID_PQ;
 std::priority_queue<string> URL_PQ;
 string PATH = "/doc";
 
+//TEMP - remove once getting actual crawler input
+
+
 //TODO
 // get doc id from DocIDqueue (sent from crawler)
 // go to disk and get the HTML file
 // parse the html file
-	// if find url; send to crawler
-	// if find title send string to tokenizer
+// if find url; send to crawler
+// if find title send string to tokenizer
 class Parser
 {
 
 public:
 
-	/**
-	 * Parser
-	 * @return
-	 */
-	string execute()
-	{
-		ifstream inFile;
-		string docid = to_string(DOCID_PQ.top());
+    struct raw_data {
+        string url;
+        string html_data;
 
-		inFile.open(PATH+docid);
+        raw_data(string u, string h) : url(u), html_data(h){}
+    };
 
-		// error checking
-		if (!inFile)
-			cerr << "Unable to open file datafile.txt";
 
+    /**
+     * Parser
+     * @return
+     */
+    // input: object with char*  and URL string
+    //
+    string execute()
+    {
         Tokenizer tokenizer();
-		parse(inFile, &tokenizer);
+        //TEMP - until we get real input from crawler
+        raw_data data("url", "html");
+        parse(data.html_data, &tokenizer);
+        return tokenzier.get();
 
-        return tokenizer.get();
 
-
-
-		//TODO
-		// close file and remove
-
-	}
+    }
 
 
 private:
 
-	 /**
-	  * Parses file
-	  * @param inFile
-	  * @return
-	  */
+    /**
+     * Parses file
+     * @param inFile
+     * @return
+     */
 
-	 string parse(ifstream inFile, Tokenizer *tokenizer)
-	 {
-		 //figure out file handle syntax - pointer to file
-		 string word = "";
-		 while (!inFile.eof())
-		 {
-			 inFile >> word;
+    string parse(string &html_data, Tokenizer *tokenizer)
+    {
+        //figure out file handle syntax - pointer to file
+        tokenizerInput = "";
+        currentTerm = "";
+        for (int i = 0; i < html_data.size(); ++i) {
+            while (html_data[i] != ' ') {
+                currentTerm += html_data[i];
+            }
 
-			 // checks for url
+            //one method that directly adds urls onto frontier instead of checking for them
+            if (!check_title(currentTerm)) {
+                add_urls(current_term);
+            }
 
-			 if (!check_url(word))
-             {
-                 // checks for title tags
-                 tokenizer->execute(check_title(word));
+            else {
+                tokenizerInput += currentTerm;
+                //can also pass titles individually through tokenizer instead of concatonating (idk how to spell)
+            }
+        }
 
-             }
-
-
-		 }
-
-	 }
+        tokenizer->execute(tokenizerInput);
+    }
 
     /*
      * Uses findStr function in stringProcessing.h: STILL HAVE TO TEST
      * Instead of bool, just directly adds on to url queue
      */
-    void add_urls(string word)
+    void add_urls(string &word)
     {
-        string http_tag = "<a href=http";
+        string a_tag = "<a";
+        string http_start = "href=http";
+        string http_end_tag = ">";
 
         auto word_iter = word.begin();
-        auto http_substr = http_tag.begin();
-        string url_name = "";
-
-        //will add all instances of wanted URLs until it hits end of string
-        while (word_iter != nullptr)
-        {
-            // sets word_iterator to next instance of URL from where it currently is
-            word_iter = findStr(word_iter, http_substr);
-            //in the case there is no url in the word
-            if (word_iter != nullptr)
-            {
-                //sets iterator to start of url content
-                word_iter += 12;
-                url_name = "http";
-                //end of url tag
-                auto tag_end = ("</a>", word);
-                while (word_iter != tag_end)
-                {
-                    url_name += *word_iter;
-                    ++word_iter;
+        url = "";
+        word_iter = findStr(word_iter, a_tag);
+        if (word_iter) {
+            auto found_http = findStr(word_iter, http_start);
+            if (found_http) {
+                url = "http";
+                found_http += 9;
+                auto end_http = findStr(word_iter, http_end_tag);
+                while (found_http != end_http) {
+                    url += *found_http;
+                    ++found_http;
                 }
-                //sets iterator to one past the closing tag </a>
-                word_iter += 4;
-                URL_PQ.push(url_name);
-                //resets substr so it can look for next instance
-                http_substr = http_tag.begin();
             }
         }
+
+        else {
+            return;
+        }
+
+        if (url != "") {
+            URL_PQ.push(url);
+        }
+
+
     }
+    /**
+     * Checks for url in string word
+     * @param word
+     */
+    bool check_url(string &word)
+    {
+        //need to add string processing function where you check in a specified range of positions
+        if (char* pos = strstr("href", word))
+        {
+            while (pos != "\"" && pos != "\'")
+                ++pos;
+
+            // take everything until next quote
+            string url = "";
+            ++pos;
+            while (pos != "\"" && pos != "\'")
+            {
+                //filter out everything except http, https
+                url += *pos;
+            }
+
+            // send it back to the crawler
+            URL_PQ.push(url);
+            return true;
+
+        }
+
+        return false;
+    }
+
+    /**
+     * <title >AJF</title>
+     * @param word
+     */
+
+    bool check_title(string &word)
+    {
+        /*if (char* pos = strstr("<title>", word))
+        {
+            pos += 6;
+            end_pos = strstr("</title>", word);
+            string title = "";
+            while (pos != end_pos)
+            {
+                ++pos;
+                title += *pos;
+
+            }
+
+            return title;
+        }*/
+
+        begin_title = "<title>";
+        auto word_begin = word.begin();
+        auto word_iter = findStr();
+
+    }
+<<<<<<< HEAD
 	 /**
 	  * Checks for url in string word
 	  * @param word
@@ -221,3 +280,4 @@ private:
 
 
 };
+
