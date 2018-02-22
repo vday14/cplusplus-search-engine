@@ -9,11 +9,8 @@ Indexer::Indexer() {
 
 void Indexer::run() {
     while(pointerToDictionaries.Size() != 0) {
-        if(totalIndexed > 50000) {
-            save();
-            reset();
-            totalIndexed = 0;
-        }
+        save();
+        reset();
         unordered_map<string, vector<int>>* dictionary = pointerToDictionaries.Pop();
         for(auto word : *dictionary) {
             indexedCount += word.second.size();
@@ -23,6 +20,7 @@ void Indexer::run() {
             }
         }
         currentlyIndexed += indexedCount;
+        indexedCount = 0;
     }
     save();
 }
