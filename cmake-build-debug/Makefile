@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-s
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,6 +111,58 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named StemmerTest
+
+# Build rule for target.
+StemmerTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 StemmerTest
+.PHONY : StemmerTest
+
+# fast build rule for target.
+StemmerTest/fast:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/build
+.PHONY : StemmerTest/fast
+
+#=============================================================================
+# Target rules for targets named ParserEndToEndTest
+
+# Build rule for target.
+ParserEndToEndTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ParserEndToEndTest
+.PHONY : ParserEndToEndTest
+
+# fast build rule for target.
+ParserEndToEndTest/fast:
+	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/build
+.PHONY : ParserEndToEndTest/fast
+
+#=============================================================================
+# Target rules for targets named TokenizerTest
+
+# Build rule for target.
+TokenizerTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 TokenizerTest
+.PHONY : TokenizerTest
+
+# fast build rule for target.
+TokenizerTest/fast:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/build
+.PHONY : TokenizerTest/fast
+
+#=============================================================================
+# Target rules for targets named StringProcessingTest
+
+# Build rule for target.
+StringProcessingTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 StringProcessingTest
+.PHONY : StringProcessingTest
+
+# fast build rule for target.
+StringProcessingTest/fast:
+	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/build
+.PHONY : StringProcessingTest/fast
+
+#=============================================================================
 # Target rules for targets named eecs398_search
 
 # Build rule for target.
@@ -122,87 +174,6 @@ eecs398_search: cmake_check_build_system
 eecs398_search/fast:
 	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/build
 .PHONY : eecs398_search/fast
-
-Parser.o: Parser.cpp.o
-
-.PHONY : Parser.o
-
-# target to build an object file
-Parser.cpp.o:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/Parser.cpp.o
-.PHONY : Parser.cpp.o
-
-Parser.i: Parser.cpp.i
-
-.PHONY : Parser.i
-
-# target to preprocess a source file
-Parser.cpp.i:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/Parser.cpp.i
-.PHONY : Parser.cpp.i
-
-Parser.s: Parser.cpp.s
-
-.PHONY : Parser.s
-
-# target to generate assembly for a file
-Parser.cpp.s:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/Parser.cpp.s
-.PHONY : Parser.cpp.s
-
-ProducerConsumerQueue.o: ProducerConsumerQueue.cpp.o
-
-.PHONY : ProducerConsumerQueue.o
-
-# target to build an object file
-ProducerConsumerQueue.cpp.o:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/ProducerConsumerQueue.cpp.o
-.PHONY : ProducerConsumerQueue.cpp.o
-
-ProducerConsumerQueue.i: ProducerConsumerQueue.cpp.i
-
-.PHONY : ProducerConsumerQueue.i
-
-# target to preprocess a source file
-ProducerConsumerQueue.cpp.i:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/ProducerConsumerQueue.cpp.i
-.PHONY : ProducerConsumerQueue.cpp.i
-
-ProducerConsumerQueue.s: ProducerConsumerQueue.cpp.s
-
-.PHONY : ProducerConsumerQueue.s
-
-# target to generate assembly for a file
-ProducerConsumerQueue.cpp.s:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/ProducerConsumerQueue.cpp.s
-.PHONY : ProducerConsumerQueue.cpp.s
-
-ProducerConsumerQueue_test.o: ProducerConsumerQueue_test.cpp.o
-
-.PHONY : ProducerConsumerQueue_test.o
-
-# target to build an object file
-ProducerConsumerQueue_test.cpp.o:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/ProducerConsumerQueue_test.cpp.o
-.PHONY : ProducerConsumerQueue_test.cpp.o
-
-ProducerConsumerQueue_test.i: ProducerConsumerQueue_test.cpp.i
-
-.PHONY : ProducerConsumerQueue_test.i
-
-# target to preprocess a source file
-ProducerConsumerQueue_test.cpp.i:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/ProducerConsumerQueue_test.cpp.i
-.PHONY : ProducerConsumerQueue_test.cpp.i
-
-ProducerConsumerQueue_test.s: ProducerConsumerQueue_test.cpp.s
-
-.PHONY : ProducerConsumerQueue_test.s
-
-# target to generate assembly for a file
-ProducerConsumerQueue_test.cpp.s:
-	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/ProducerConsumerQueue_test.cpp.s
-.PHONY : ProducerConsumerQueue_test.cpp.s
 
 main.o: main.cpp.o
 
@@ -231,27 +202,202 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+parser/tests/parserTest.o: parser/tests/parserTest.cpp.o
+
+.PHONY : parser/tests/parserTest.o
+
+# target to build an object file
+parser/tests/parserTest.cpp.o:
+	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/parser/tests/parserTest.cpp.o
+.PHONY : parser/tests/parserTest.cpp.o
+
+parser/tests/parserTest.i: parser/tests/parserTest.cpp.i
+
+.PHONY : parser/tests/parserTest.i
+
+# target to preprocess a source file
+parser/tests/parserTest.cpp.i:
+	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/parser/tests/parserTest.cpp.i
+.PHONY : parser/tests/parserTest.cpp.i
+
+parser/tests/parserTest.s: parser/tests/parserTest.cpp.s
+
+.PHONY : parser/tests/parserTest.s
+
+# target to generate assembly for a file
+parser/tests/parserTest.cpp.s:
+	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/parser/tests/parserTest.cpp.s
+.PHONY : parser/tests/parserTest.cpp.s
+
+shared/ProducerConsumerQueue.o: shared/ProducerConsumerQueue.cpp.o
+
+.PHONY : shared/ProducerConsumerQueue.o
+
+# target to build an object file
+shared/ProducerConsumerQueue.cpp.o:
+	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue.cpp.o
+.PHONY : shared/ProducerConsumerQueue.cpp.o
+
+shared/ProducerConsumerQueue.i: shared/ProducerConsumerQueue.cpp.i
+
+.PHONY : shared/ProducerConsumerQueue.i
+
+# target to preprocess a source file
+shared/ProducerConsumerQueue.cpp.i:
+	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue.cpp.i
+.PHONY : shared/ProducerConsumerQueue.cpp.i
+
+shared/ProducerConsumerQueue.s: shared/ProducerConsumerQueue.cpp.s
+
+.PHONY : shared/ProducerConsumerQueue.s
+
+# target to generate assembly for a file
+shared/ProducerConsumerQueue.cpp.s:
+	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue.cpp.s
+.PHONY : shared/ProducerConsumerQueue.cpp.s
+
+shared/ProducerConsumerQueue_test.o: shared/ProducerConsumerQueue_test.cpp.o
+
+.PHONY : shared/ProducerConsumerQueue_test.o
+
+# target to build an object file
+shared/ProducerConsumerQueue_test.cpp.o:
+	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue_test.cpp.o
+.PHONY : shared/ProducerConsumerQueue_test.cpp.o
+
+shared/ProducerConsumerQueue_test.i: shared/ProducerConsumerQueue_test.cpp.i
+
+.PHONY : shared/ProducerConsumerQueue_test.i
+
+# target to preprocess a source file
+shared/ProducerConsumerQueue_test.cpp.i:
+	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue_test.cpp.i
+.PHONY : shared/ProducerConsumerQueue_test.cpp.i
+
+shared/ProducerConsumerQueue_test.s: shared/ProducerConsumerQueue_test.cpp.s
+
+.PHONY : shared/ProducerConsumerQueue_test.s
+
+# target to generate assembly for a file
+shared/ProducerConsumerQueue_test.cpp.s:
+	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue_test.cpp.s
+.PHONY : shared/ProducerConsumerQueue_test.cpp.s
+
+util/tests/stemmerTest.o: util/tests/stemmerTest.cpp.o
+
+.PHONY : util/tests/stemmerTest.o
+
+# target to build an object file
+util/tests/stemmerTest.cpp.o:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/util/tests/stemmerTest.cpp.o
+.PHONY : util/tests/stemmerTest.cpp.o
+
+util/tests/stemmerTest.i: util/tests/stemmerTest.cpp.i
+
+.PHONY : util/tests/stemmerTest.i
+
+# target to preprocess a source file
+util/tests/stemmerTest.cpp.i:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/util/tests/stemmerTest.cpp.i
+.PHONY : util/tests/stemmerTest.cpp.i
+
+util/tests/stemmerTest.s: util/tests/stemmerTest.cpp.s
+
+.PHONY : util/tests/stemmerTest.s
+
+# target to generate assembly for a file
+util/tests/stemmerTest.cpp.s:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/util/tests/stemmerTest.cpp.s
+.PHONY : util/tests/stemmerTest.cpp.s
+
+util/tests/stringProcessingTest.o: util/tests/stringProcessingTest.cpp.o
+
+.PHONY : util/tests/stringProcessingTest.o
+
+# target to build an object file
+util/tests/stringProcessingTest.cpp.o:
+	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/util/tests/stringProcessingTest.cpp.o
+.PHONY : util/tests/stringProcessingTest.cpp.o
+
+util/tests/stringProcessingTest.i: util/tests/stringProcessingTest.cpp.i
+
+.PHONY : util/tests/stringProcessingTest.i
+
+# target to preprocess a source file
+util/tests/stringProcessingTest.cpp.i:
+	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/util/tests/stringProcessingTest.cpp.i
+.PHONY : util/tests/stringProcessingTest.cpp.i
+
+util/tests/stringProcessingTest.s: util/tests/stringProcessingTest.cpp.s
+
+.PHONY : util/tests/stringProcessingTest.s
+
+# target to generate assembly for a file
+util/tests/stringProcessingTest.cpp.s:
+	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/util/tests/stringProcessingTest.cpp.s
+.PHONY : util/tests/stringProcessingTest.cpp.s
+
+util/tests/tokenizerTest.o: util/tests/tokenizerTest.cpp.o
+
+.PHONY : util/tests/tokenizerTest.o
+
+# target to build an object file
+util/tests/tokenizerTest.cpp.o:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/tests/tokenizerTest.cpp.o
+.PHONY : util/tests/tokenizerTest.cpp.o
+
+util/tests/tokenizerTest.i: util/tests/tokenizerTest.cpp.i
+
+.PHONY : util/tests/tokenizerTest.i
+
+# target to preprocess a source file
+util/tests/tokenizerTest.cpp.i:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/tests/tokenizerTest.cpp.i
+.PHONY : util/tests/tokenizerTest.cpp.i
+
+util/tests/tokenizerTest.s: util/tests/tokenizerTest.cpp.s
+
+.PHONY : util/tests/tokenizerTest.s
+
+# target to generate assembly for a file
+util/tests/tokenizerTest.cpp.s:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/tests/tokenizerTest.cpp.s
+.PHONY : util/tests/tokenizerTest.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... rebuild_cache"
+	@echo "... StemmerTest"
+	@echo "... ParserEndToEndTest"
+	@echo "... TokenizerTest"
+	@echo "... StringProcessingTest"
 	@echo "... eecs398_search"
-	@echo "... Parser.o"
-	@echo "... Parser.i"
-	@echo "... Parser.s"
-	@echo "... ProducerConsumerQueue.o"
-	@echo "... ProducerConsumerQueue.i"
-	@echo "... ProducerConsumerQueue.s"
-	@echo "... ProducerConsumerQueue_test.o"
-	@echo "... ProducerConsumerQueue_test.i"
-	@echo "... ProducerConsumerQueue_test.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... parser/tests/parserTest.o"
+	@echo "... parser/tests/parserTest.i"
+	@echo "... parser/tests/parserTest.s"
+	@echo "... shared/ProducerConsumerQueue.o"
+	@echo "... shared/ProducerConsumerQueue.i"
+	@echo "... shared/ProducerConsumerQueue.s"
+	@echo "... shared/ProducerConsumerQueue_test.o"
+	@echo "... shared/ProducerConsumerQueue_test.i"
+	@echo "... shared/ProducerConsumerQueue_test.s"
+	@echo "... util/tests/stemmerTest.o"
+	@echo "... util/tests/stemmerTest.i"
+	@echo "... util/tests/stemmerTest.s"
+	@echo "... util/tests/stringProcessingTest.o"
+	@echo "... util/tests/stringProcessingTest.i"
+	@echo "... util/tests/stringProcessingTest.s"
+	@echo "... util/tests/tokenizerTest.o"
+	@echo "... util/tests/tokenizerTest.i"
+	@echo "... util/tests/tokenizerTest.s"
 .PHONY : help
 
 

@@ -100,7 +100,6 @@ void testToLower ( )
 	string test5 = toLower ( word5 );
 
 	assert ( test == "hello" );
-	cout << test2 << endl;
 	assert ( test2 == "hello" );
 	assert ( test3 == "hello goodbye !" );
 	assert ( test4 == "" );

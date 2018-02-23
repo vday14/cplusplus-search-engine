@@ -5,6 +5,30 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(eecs398_search
         main.cpp
-        ProducerConsumerQueue.cpp
-        ProducerConsumerQueue.h
-        ProducerConsumerQueue_test.cpp Parser.cpp)
+        shared/ProducerConsumerQueue.cpp
+        shared/ProducerConsumerQueue.h
+        shared/ProducerConsumerQueue_test.cpp parser/Parser.h
+        parser/Parser.h
+        util/Tokenizer.h
+        util/stringProcessing.h
+        util/Stemmer.h)
+
+add_executable(StringProcessingTest
+        util/stringProcessing.h
+        util/Stemmer.h
+        util/tests/stringProcessingTest.cpp)
+
+add_executable(TokenizerTest
+        util/Tokenizer.h
+        util/tests/tokenizerTest.cpp)
+
+add_executable(StemmerTest
+        util/Stemmer.h
+        util/tests/stemmerTest.cpp)
+
+add_executable(ParserEndToEndTest
+        parser/Parser.h
+        shared/Document.h
+        shared/url.h
+        parser/tests/parserTest.cpp)
+

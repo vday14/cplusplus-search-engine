@@ -2,7 +2,7 @@
 openssl-1.1.0g/*
 .vagrant/*
 cmake*
-CMake*
+CMakeLists.txt
 Vagrantfile
 cmake-build-debug*
 CMakeCache.txt

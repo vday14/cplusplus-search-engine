@@ -94,15 +94,15 @@ private:
 		{
 		string url = "";
 
-		if ( findStr ( word, "<a" ) != '\0' )
+		if ( *findStr ( word, "<a" ) != '\0' )
 			{
 			auto foundHttp = findStr ( word, "href=http" );
-			if ( foundHttp != '\0' )
+			if ( *foundHttp != '\0' )
 				{
 				url = "http";
 				foundHttp += 9;
 
-				while ( foundHttp != findStr ( word, "\">" ) )
+				while ( *foundHttp != *findStr ( word, "\">" ) )
 					{
 					url += *foundHttp;
 					++foundHttp;
@@ -122,10 +122,10 @@ private:
 		{
 		string title = "";
 		auto pos = findStr ( "<title>", word );
-		if ( pos != '\0')
+		if ( *pos != '\0')
 			{
 			pos += 6;
-			while ( pos != findStr ( "</title>", word ) )
+			while ( *pos != *findStr ( "</title>", word ) )
 				{
 				++pos;
 				title += *pos;

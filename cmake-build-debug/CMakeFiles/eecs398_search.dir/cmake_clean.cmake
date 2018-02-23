@@ -1,8 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/eecs398_search.dir/main.cpp.o"
-  "CMakeFiles/eecs398_search.dir/ProducerConsumerQueue.cpp.o"
-  "CMakeFiles/eecs398_search.dir/ProducerConsumerQueue_test.cpp.o"
-  "CMakeFiles/eecs398_search.dir/Parser.cpp.o"
+  "CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue.cpp.o"
+  "CMakeFiles/eecs398_search.dir/shared/ProducerConsumerQueue_test.cpp.o"
   "eecs398_search.pdb"
   "eecs398_search"
 )

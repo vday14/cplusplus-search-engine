@@ -49,5 +49,9 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/StemmerTest.dir/DependInfo.cmake"
+  "CMakeFiles/ParserEndToEndTest.dir/DependInfo.cmake"
+  "CMakeFiles/TokenizerTest.dir/DependInfo.cmake"
+  "CMakeFiles/StringProcessingTest.dir/DependInfo.cmake"
   "CMakeFiles/eecs398_search.dir/DependInfo.cmake"
   )

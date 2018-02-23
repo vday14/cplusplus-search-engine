@@ -60,13 +60,161 @@ CMAKE_SOURCE_DIR = /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-s
 CMAKE_BINARY_DIR = /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug
 
 #=============================================================================
+# Target rules for target CMakeFiles/StemmerTest.dir
+
+# All Build rule for target.
+CMakeFiles/StemmerTest.dir/all:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/depend
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target StemmerTest"
+.PHONY : CMakeFiles/StemmerTest.dir/all
+
+# Include target in all.
+all: CMakeFiles/StemmerTest.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/StemmerTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/StemmerTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/StemmerTest.dir/rule
+
+# Convenience name for target.
+StemmerTest: CMakeFiles/StemmerTest.dir/rule
+
+.PHONY : StemmerTest
+
+# clean rule for target.
+CMakeFiles/StemmerTest.dir/clean:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/clean
+.PHONY : CMakeFiles/StemmerTest.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/StemmerTest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ParserEndToEndTest.dir
+
+# All Build rule for target.
+CMakeFiles/ParserEndToEndTest.dir/all:
+	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/depend
+	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target ParserEndToEndTest"
+.PHONY : CMakeFiles/ParserEndToEndTest.dir/all
+
+# Include target in all.
+all: CMakeFiles/ParserEndToEndTest.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ParserEndToEndTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ParserEndToEndTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/ParserEndToEndTest.dir/rule
+
+# Convenience name for target.
+ParserEndToEndTest: CMakeFiles/ParserEndToEndTest.dir/rule
+
+.PHONY : ParserEndToEndTest
+
+# clean rule for target.
+CMakeFiles/ParserEndToEndTest.dir/clean:
+	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/clean
+.PHONY : CMakeFiles/ParserEndToEndTest.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ParserEndToEndTest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/TokenizerTest.dir
+
+# All Build rule for target.
+CMakeFiles/TokenizerTest.dir/all:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/depend
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles --progress-num=7,8 "Built target TokenizerTest"
+.PHONY : CMakeFiles/TokenizerTest.dir/all
+
+# Include target in all.
+all: CMakeFiles/TokenizerTest.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/TokenizerTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/TokenizerTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/TokenizerTest.dir/rule
+
+# Convenience name for target.
+TokenizerTest: CMakeFiles/TokenizerTest.dir/rule
+
+.PHONY : TokenizerTest
+
+# clean rule for target.
+CMakeFiles/TokenizerTest.dir/clean:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/clean
+.PHONY : CMakeFiles/TokenizerTest.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/TokenizerTest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/StringProcessingTest.dir
+
+# All Build rule for target.
+CMakeFiles/StringProcessingTest.dir/all:
+	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/depend
+	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles --progress-num=5,6 "Built target StringProcessingTest"
+.PHONY : CMakeFiles/StringProcessingTest.dir/all
+
+# Include target in all.
+all: CMakeFiles/StringProcessingTest.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/StringProcessingTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/StringProcessingTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/StringProcessingTest.dir/rule
+
+# Convenience name for target.
+StringProcessingTest: CMakeFiles/StringProcessingTest.dir/rule
+
+.PHONY : StringProcessingTest
+
+# clean rule for target.
+CMakeFiles/StringProcessingTest.dir/clean:
+	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/clean
+.PHONY : CMakeFiles/StringProcessingTest.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/StringProcessingTest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/eecs398_search.dir
 
 # All Build rule for target.
 CMakeFiles/eecs398_search.dir/all:
 	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/depend
 	$(MAKE) -f CMakeFiles/eecs398_search.dir/build.make CMakeFiles/eecs398_search.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target eecs398_search"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles --progress-num=9,10,11,12 "Built target eecs398_search"
 .PHONY : CMakeFiles/eecs398_search.dir/all
 
 # Include target in all.
@@ -76,7 +224,7 @@ all: CMakeFiles/eecs398_search.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/eecs398_search.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/eecs398_search.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/eecs398_search.dir/rule
