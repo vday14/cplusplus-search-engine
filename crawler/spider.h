@@ -32,14 +32,14 @@ public:
 	//Makes request to given url
 	// if successful, writes file to disk, stores location to memeber value
 	// else return false and error information, retry if necessary
-	StreamReader *request( string url );
+	StreamReader *request( ParsedUrl url );
 
-	bool writeDocToDisk(string url);
+	bool writeDocToDisk(ParsedUrl url);
 
-	bool shouldURLbeCrawled( string URL );
-
+	bool shouldURLbeCrawled( ParsedUrl URL );
+	size_t hash(const char * s);
 	int getRobots(ParsedUrl url );
-	bool checkRobots(string url);
+	bool checkRobots(ParsedUrl url);
 
 
 private:

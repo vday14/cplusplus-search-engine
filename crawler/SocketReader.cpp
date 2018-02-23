@@ -4,6 +4,57 @@
 
 #include "SocketReader.h"
 
+char * GetArbitrarySizeBuffer(SSL* ssl)
+	{
+
+	int buf_size = 10240;
+	int current_size = buf_size;
+	char* ssl_buffer = new char[buf_size];
+	char* front = ssl_buffer;
+	int bytes;
+
+	while ( ( bytes = SSL_read( ssl, front, buf_size ) ) > 0 )
+	{
+
+		current_size  += buf_size;
+		char *temp = new char[current_size];
+		strcpy(temp, ssl_buffer);
+
+		front = temp + strlen(ssl_buffer);
+		delete[] ssl_buffer;
+		ssl_buffer = temp;
+	}
+
+	return ssl_buffer;
+	}
+
+
+char * GetArbitrarySizeBuffer(int s )
+	{
+
+	int buf_size = 10240;
+	int current_size = buf_size;
+	char* http_buff = new char[buf_size];
+	char* front = http_buff;
+	int bytes;
+
+	while ( ( bytes = recv( s, front, buf_size, 0 ) ) > 0 )
+		{
+
+		current_size  += buf_size;
+		char *temp = new char[current_size];
+		strcpy(temp, http_buff);
+
+		front = temp + strlen(http_buff);
+		delete[] http_buff;
+		http_buff = temp;
+		}
+
+	return http_buff;
+	}
+
+
+
 
 void SocketReader::httpRequest()
 	{
@@ -42,12 +93,14 @@ void SocketReader::httpRequest()
 
 	// Read from the socket until there's no more data.
 
-	char buffer[ 10240 ];
+	char HTTPbuffer[ 10240 ];
 	int bytes;
 
 
 	while ( ( bytes = recv( s, buffer, sizeof( buffer ), 0 ) ) > 0 )
 		write( 1, buffer, bytes );
+
+	buffer = GetArbitrarySizeBuffer(s);
 
 	close( s );
 	return;
@@ -107,19 +160,12 @@ void SocketReader::httpsRequest(){
 
 	// Read from the SSL until there's no more data.
 
-	char buffer[ 10240 ];
-	int bytes;
-
-	while ( ( bytes = SSL_read( ssl, buffer,
-										 sizeof( buffer ) ) ) > 0 )
-		write( 1, buffer, bytes );
+	buffer = GetArbitrarySizeBuffer(ssl);
 
 	SSL_shutdown( ssl );
 	SSL_free( ssl );
 	SSL_CTX_free( ctx );
 	close( s );
-
-
 
 
 	}

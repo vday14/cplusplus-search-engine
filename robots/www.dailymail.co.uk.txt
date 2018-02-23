@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 68
+Date: Thu, 22 Feb 2018 00:44:57 GMT
+Connection: close
+Vary: User-Agent
+
+# All Robots
+User-agent: *
+
+# Disallow All Pages
+Disallow: /
+
+İÿ®^øk	ï;rëŠ‡LêÚ˜Qû°—Òç¡¥–a&ª	§Téª!ÕÒp´ŞÔAgpÜ¬IšöÜPĞÖÆ‘1¦´\øøW¬tÔ#ÅØ[ÕŞ¨T›s&$az·jyÙ/·
+-…OG†¨ŞŠx¹Á»M·á

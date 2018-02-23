@@ -1,0 +1,1035 @@
+HTTP/1.1 200 OK
+Date: Thu, 22 Feb 2018 01:44:54 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 110038
+Connection: close
+Server: mw1239.eqiad.wmnet
+X-Powered-By: HHVM/3.18.6-dev
+P3P: CP="This is not a P3P policy! See https://en.wikipedia.org/wiki/Special:CentralAutoLogin/P3P for more info."
+X-Content-Type-Options: nosniff
+Content-language: en
+X-UA-Compatible: IE=Edge
+Vary: Accept-Encoding,Cookie,Authorization
+Link: </static/images/project-logos/enwiki.png>;rel=preload;as=image;media=not all and (min-resolution: 1.5dppx),</static/images/project-logos/enwiki-1.5x.png>;rel=preload;as=image;media=(min-resolution: 1.5dppx) and (max-resolution: 1.999999dppx),</static/images/project-logos/enwiki-2x.png>;rel=preload;as=image;media=(min-resolution: 2dppx)
+Last-Modified: Thu, 22 Feb 2018 01:32:01 GMT
+Backend-Timing: D=111453 t=1519263165353828
+X-Varnish: 396791988 392866000, 507092661 450321090
+Via: 1.1 varnish-v4, 1.1 varnish-v4
+Age: 728
+X-Cache: cp1065 hit/5, cp1067 hit/10
+X-Cache-Status: hit-front
+Strict-Transport-Security: max-age=106384710; includeSubDomains; preload
+Set-Cookie: WMF-Last-Access=22-Feb-2018;Path=/;HttpOnly;secure;Expires=Mon, 26 Mar 2018 00:00:00 GMT
+Set-Cookie: WMF-Last-Access-Global=22-Feb-2018;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon, 26 Mar 2018 00:00:00 GMT
+X-Analytics: ns=0;page_id=55778477;https=1;nocookies=1
+X-Client-IP: 35.1.216.31
+Cache-Control: private, s-maxage=0, max-age=0, must-revalidate
+Set-Cookie: GeoIP=US:MI:Ann_Arbor:42.32:-83.71:v4; Path=/; secure; Domain=.wikipedia.org
+Accept-Ranges: bytes
+
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>71st British Academy Film Awards - Wikipedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"71st_British_Academy_Film_Awards","wgTitle":"71st British Academy Film Awards","wgCurRevisionId":826973387,"wgRevisionId":826973387,"wgArticleId":55778477,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["EngvarB from February 2018","Use dmy dates from February 2018","2018 film awards","2018 in British cinema","2018 in London","British Academy Film Awards","February 2018 events in the United Kingdom","Royal Albert Hall"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"71st_British_Academy_Film_Awards","wgRelevantArticleId":55778477,"wgRequestId":"Wo4dvQpAMEoAAA3yh@UAAADH","wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags":{}},"wgStableRevisionId":null,"wgWikiEditorEnabledModules":[],"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsShouldSendModuleToUser":true,"wgPopupsConflictsWithNavPopupGadget":false,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFExpandAllSectionsUserOption":true,"wgMFEnableFontChanger":true,"wgMFDisplayWikibaseDescriptions":{"search":false,"nearby":false,"watchlist":false,"tagline":false},"wgRelatedArticles":null,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgWikibaseItemId":"Q44475296","wgScoreNoteLanguages":{"arabic":"العربية","catalan":"català","deutsch":"Deutsch","english":"English","espanol":"español","italiano":"italiano","nederlands":"Nederlands","norsk":"norsk","portugues":"português","suomi":"suomi","svenska":"svenska","vlaams":"West-Vlams"},"wgScoreDefaultNoteLanguage":"nederlands","wgCentralAuthMobileDomain":false,"wgCodeMirrorEnabled":false,"wgVisualEditorToolbarScrollOffset":0,"wgVisualEditorUnsupportedEditParams":["undo","undoafter","veswitched"],"wgEditSubmitButtonLabelPublish":true});mw.loader.state({"ext.gadget.charinsert-styles":"ready","ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"ready","user.tokens":"loading","ext.cite.styles":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.tokens@1dqfd7l",function($,jQuery,require,module){/*@nomin*/mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});
+});mw.loader.load(["ext.cite.a11y","site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.watchlist-notice","ext.gadget.DRN-wizard","ext.gadget.charinsert","ext.gadget.refToolbar","ext.gadget.extra-toolbar-buttons","ext.gadget.switcher","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.popups","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.interface","ext.centralNotice.geoIP","ext.centralNotice.startUp","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=ext.cite.styles%7Cext.uls.interlanguage%7Cext.visualEditor.desktopArticleTarget.noscript%7Cext.wikimediaBadges%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles%7Cwikibase.client.init&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/w/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=ext.gadget.charinsert-styles&amp;only=styles&amp;skin=vector"/>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
+<meta name="generator" content="MediaWiki 1.31.0-wmf.21"/>
+<meta name="referrer" content="origin"/>
+<meta name="referrer" content="origin-when-crossorigin"/>
+<meta name="referrer" content="origin-when-cross-origin"/>
+<link rel="alternate" href="android-app://org.wikipedia/http/en.m.wikipedia.org/wiki/71st_British_Academy_Film_Awards"/>
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit"/>
+<link rel="edit" title="Edit this page" href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit"/>
+<link rel="apple-��xZtouch-icon" href="/static/apple-touch/wikipedia.png"/>
+<link rel="shortcut icon" href="/static/favicon/wikipedia.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="//en.wikipedia.org/w/api.php?action=rsd"/>
+<link rel="license" href="//creativecommons.org/licenses/by-sa/3.0/"/>
+<link rel="canonical" href="https://en.wikipedia.org/wiki/71st_British_Academy_Film_Awards"/>
+<link rel="dns-prefetch" href="//login.wikimedia.org"/>
+<link rel="dns-prefetch" href="//meta.wikimedia.org" />
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=en&amp;modules=html5shiv&amp;only=scripts&amp;skin=vector&amp;sync=1"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-71st_British_Academy_Film_Awards rootpage-71st_British_Academy_Film_Awards skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="siteNotice" class="mw-body-content"><!-- CentralNotice --></div><div class="mw-indicators mw-body-content">
+</div>
+<h1 id="firstHeading" class="firstHeading" lang="en">71st British Academy Film Awards</h1>			<div id="bodyContent" class="mw-body-content">
+				<div id="siteSub" class="noprint">From Wikipedia, the free encyclopedia</div>				<div id="contentSub"></div>
+								<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="lted: Thu, 22 Feb 2018 01:32:01 GMT
+Backend-Timing: D=111453 t=1519263165353828
+X-Varnish: 396791988 392866000, 507092661 450321090
+Via: 1.1 varnish-v4, 1.1 varnish-v4
+Age: 728
+X-Cache: cp1065 hit/5, cp1067 hit/10
+X-Cache-Status: hit-front
+Strict-Transport-Security: max-age=106384710; includeSubDomains; preload
+Set-Cookie: WMF-Last-Access=22-Feb-2018;Path=/;HttpOnly;secure;Expires=Mon, 26 Mar 2018 00:00:00 GMT
+Set-Cookie: WMF-Last-Access-Global=22-Feb-2018;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon, 26 Mar 2018 00:00:00 GMT
+X-Analytics: ns=0;page_id=55778477;https=1;nocookies=1
+X-Client-IP: 35.1.216.31
+Cache-Control: private, s-maxage=0, max-age=0, must-revalidate
+Set-Cookie: GeoIP=US:MI:Ann_Arbor:42.32:-83.71:v4; Path=/; secure; Domain=.wikipedia.org
+Accept-Ranges: bytes
+
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>71st British Academy Film Awards - Wikipedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"71st_British_Academy_Film_Awards","wgTitle":"71st British Academy Film Awards","wgCurRevisionId":826973387,"wgRevisionId":826973387,"wgArticleId":55778477,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["EngvarB from February 2018","Use dmy dates from February 2018","2018 film awards","2018 in British cinema","2018 in London","British Academy Film Awards","February 2018 events in the United Kingdom","Royal Albert Hall"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"71st_British_Academy_Film_Awards","wgRelevantArticleId":55778477,"wgRequestId":"Wo4dvQpAMEoAAA3yh@UAAADH","wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags":{}},"wgStableRevisionId":null,"wgWikiEditorEnabledModules":[],"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsShouldSendModuleToUser":true,"wgPopupsConflictsWithNavPopupGadget":false,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFExpandAllSectionsUserOption":true,"wgMFEnableFontChanger":true,"wgMFDisplayWikibaseDescriptions":{"search":false,"nearby":false,"watchlist":false,"tagline":false},"wgRelatedArticles":null,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgWikibaseItemId":"Q44475296","wgScoreNoteLanguages":{"arabic":"العربية","catalan":"català","deutsch":"Deutsch","english":"English","espanol":"español","italiano":"italiano","nederlands":"Nederlands","norsk":"norsk","portugues":"português","suomi":"suomi","svenska":"svenska","vlaams":"West-Vlams"},"wgScoreDefaultNoteLanguage":"nederlands","wgCentralAuthMobileDomain":false,"wgCodeMirrorEnabled":false,"wgVisualEditorToolbarScrollOffset":0,"wgVisualEditorUnsupportedEditParams":["undo","undoafter","veswitched"],"wgEditSubmitButtonLabelPublish":true});mw.loader.state({"ext.gadget.charinsert-styles":"ready","ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"ready","user.tokens":"loading","ext.cite.styles":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","ext.wikimediaBadges":"ready","mediawikir" class="mw-content-ltr"><div class="mw-parser-output"><table class="infobox vevent" style="width:22em">
+<tr>
+<th colspan="2" class="summary" style="text-align:center;font-size:125%;font-weight:bold;background-color: #BDB76B">71st British Academy Film Awards</th>
+</tr>
+<tr>
+<th scope="row">Date</th>
+<td>18 February 2018</td>
+</tr>
+<tr>
+<th scope="row">Site</th>
+<td><a href="/wiki/Royal_Albert_Hall" title="Royal Albert Hall">Royal Albert Hall</a>, London</td>
+</tr>
+<tr>
+<th scope="row">Hosted by</th>
+<td><a href="/wiki/Joanna_Lumley" title="Joanna Lumley">Joanna Lumley</a><sup id="cite_ref-Lumley_1-0" class="reference"><a href="#cite_note-Lumley-1">[1]</a></sup></td>
+</tr>
+<tr>
+<th colspan="2" style="text-align:center;background-color: #BDB76B">Highlights</th>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/BAFTA_Award_for_Best_Film" title="BAFTA Award for Best Film">Best Film</a></th>
+<td><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i></td>
+</tr>
+<tr>
+<th scope="row">Best British Film</th>
+<td><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i></td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/BAFTA_Award_for_Best_Actor_in_a_Leading_Role" title="BAFTA Award for Best Actor in a Leading Role">Best Actor</a></th>
+<td><b><a href="/wiki/Gary_Oldman" title="Gary Oldman">Gary Oldman</a></b><br />
+<span style="font-style: italic;"><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i></span></td>
+</tr>
+<tr>
+<th scope="row"><a href="/wiki/BAFTA_Award_for_Best_Actress_in_a_Leading_Role" title="BAFTA Award for Best Actress in a Leading Role">Best Actress</a></th>
+<td><b><a href="/wiki/Frances_McDormand" title="Frances McDormand">Frances McDormand</a></b><br />
+<span style="font-style: italic;"><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i></span></td>
+</tr>
+<tr>
+<th scope="row">Most awards</th>
+<td><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> (5)</td>
+</tr>
+<tr>
+<th scope="row">Most nominations</th>
+<td><i><b><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></b></i> (12)</td>
+</tr>
+<tr>
+<td colspan="2" class="hlist noprint nowraplinks" style="text-align:center;border-top: 1px solid #000; padding-top: 5px; font-weight: bold;">
+<ul>
+<li>←&#160;<a href="/wiki/70th_British_Academy_Film_Awards" title="70th British Academy Film Awards">70th</a></li>
+<li><a href="/wiki/British_Academy_Film_Awards" title="British Academy Film Awards">BAFTA Awards</a></li>
+<li>72nd&#160;→</li>
+</ul>
+</td>
+</tr>
+</table>
+<p>The <b>71st British Academy Film Awards</b>, more commonly known as the <a href="/wiki/British_Academy_Film_Awards" title="British Academy Film Awards">BAFTAs</a>, were held on 18 February 2018 at the <a href="/wiki/Royal_Albert_Hall" title="Royal Albert Hall">Royal Albert Hall</a> in London, to honour the best national and foreign films of 2017. Presented by the <a href="/wiki/British_Academy_of_Film_and_Television_Arts" title="British Academy of Film and Television Arts">British Academy of Film and Television Arts</a> (BAFTA), accolades were given for the best feature-length film and documentaries from any nation screened at British cinemas in 2017. Following revelations of sexual harassment by men in the film industry, many attendees wore black or a badge to show their support for the <a href="/wiki/Time%27s_Up_(movement)" title="Time's Up (movement)">"Time's Up" movement</a>.</p>
+<p>The nominees were announced on 9 January 2018 by <a href="/wiki/Letitia_Wright" title="Letitia Wright">Letitia Wright</a> and <a href="/wiki/Natalie_Dormer" title="Natalie Dormer">Natalie Dormer</a>. <i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> had the most nominations of any film, with twelve; <i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> and <i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> followed with nine nominations each. As with the <a href="/wiki/75th_Golden_Globe_Awards" title="75th Golden Globe Awards">75th Golden Globe Awards</a>, there was criticism for the lack of female nominees in the best director category, with <a href="/wiki/Greta_Gerwig" title="Greta Gerwig">Greta Gerwig</a> notably not nominated for <i><a href="/wiki/Lady_Bird_(film)" title="Lady Bird (film)">Lady Bird</a></i>.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+<p><i>Three Billboards Outside Ebbing, Missouri</i>, directed by Martin McDonagh, won five awards including best film and best British film; <a href="/wiki/Frances_McDormand" title="Frances McDormand">Frances McDormand</a> won the best actress award for her performance in the film. <a href="/wiki/Gary_Oldman" title="Gary Oldman">Gary Oldman</a> won the best actor award for his portrayal of <a href="/wiki/Winston_Churchill" title="Winston Churchill">Winston Churchill</a> in <i>Darkest Hour</i>. <a href="/wiki/Guillermo_del_Toro" title="Guillermo del Toro">Guillermo del Toro</a> won best director award for <i>The Shape of Water</i>, one of three awards for the film. In the supporting-actor categories, <a href="/wiki/Allison_Janney" title="Allison Janney">Allison Janney</a> won Best supporting actress for her role in <i><a href="/wiki/I,_Tonya" title="I, Tonya">I, Tonya</a></i>, and <a href="/wiki/Sam_Rockwell" title="Sam Rockwell">Sam Rockwell</a> won best supporting actor for his role in <i>Three Billboards</i>.<sup id="cite_ref-“variety”_3-0" class="reference"><a href="#cite_note-“variety”-3">[3]</a></sup> <a href="/wiki/Roger_Deakins" title="Roger Deakins">Roger Deakins</a> won his fourth BAFTA for best cinematography for <i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> and <a href="/wiki/Ridley_Scott" title="Ridley Scott">Sir Ridley Scott</a> was awarded the BAFTA fellowship for contribution to cinema, presented by the <a href="/wiki/Prince_William,_Duke_of_Cambridge" title="Prince William, Duke of Cambridge">Duke of Cambridge</a>.<sup id="cite_ref-“variety”_3-1" class="reference"><a href="#cite_note-“variety”-3">[3]</a></sup><sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<p></p>
+<div id="toc" class="toc">
+<div class="toctitle" lang="en" dir="ltr" xml:lang="en">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ceremony"><span class="tocnumber">1</span> <span class="toctext">Ceremony</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Winners_and_nominees"><span class="tocnumber">2</span> <span class="toctext">Winners and nominees</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#BAFTA_Fellowship"><span class="tocnumber">2.1</span> <span class="toctext">BAFTA Fellowship</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#BAFTA_Outstanding_British_Contribution_to_Cinema_Award"><span class="tocnumber">2.2</span> <span class="toctext">BAFTA Outstanding British Contribution to Cinema Award</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Films_with_multiple_nominations_and_awards"><span class="tocnumber">2.3</span> <span class="toctext">Films with multiple nominations and awards</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">4</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#External_links"><span class="tocnumber">5</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Ceremony">Ceremony</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=1" title="Edit section: Ceremony">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The ceremony was broadcast on <a href="/wiki/BBC_One" title="BBC One">BBC One</a> at 9 p.m. <a href="/wiki/UTC" class="mw-redirect" title="UTC">UTC</a>, around an hour later than the actual ceremony. <a href="/wiki/Joanna_Lumley" title="Joanna Lumley">Joanna Lumley</a> presented the awards for the first time, succeeding <a href="/wiki/Stephen_Fry" title="Stephen Fry">Stephen Fry</a> who had previously hosted the ceremony twelve times.<sup id="cite_ref-Lumley_1-1" class="reference"><a href="#cite_note-Lumley-1">[1]</a></sup> Lumley was the first female host since <a href="/wiki/Mariella_Frostrup" title="Mariella Frostrup">Mariella Frostrup</a> co-presented with Fry in 2001.<sup id="cite_ref-Lumley_1-2" class="reference"><a href="#cite_note-Lumley-1">[1]</a></sup> The ceremony remained at the <a href="/wiki/Royal_Albert_Hall" title="Royal Albert Hall">Royal Albert Hall</a> for a second consecutive year. Following revelations of sexual harassment by men in the film industry, many attendees wore black or a badge to show their support for the <a href="/wiki/Time%27s_Up_(movement)" title="Time's Up (movement)">"Time's Up" movement</a>. In addition, several brought activists as their partner to the ceremony.<sup id="cite_ref-“variety”_3-2" class="reference"><a href="#cite_note-“variety”-3">[3]</a></sup></p>
+<p>The ceremony began with a dance segment by <a href="/wiki/Cirque_du_Soleil" title="Cirque du Soleil">Cirque du Soleil</a> in homage to <i>The Shape of Water</i>. Cellist <a href="/wiki/Sheku_Kanneh-Mason" title="Sheku Kanneh-Mason">Sheku Kanneh-Mason</a> performed for the second consecutive year during the in Memoriam section. He, along with some of his siblings, played the Hebrew love song "Evening of Roses" ("Erev Shel Shoshanim") during the segment.<sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup> Those remembered included <a href="/wiki/Bill_Paxton" title="Bill Paxton">Bill Paxton</a>, <a href="/wiki/Sam_Shepard" title="Sam Shepard">Sam Shepard</a>, <a href="/wiki/Roger_Moore" title="Roger Moore">Roger Moore</a>, <a href="/wiki/Jill_Messick" title="Jill Messick">Jill Messick</a> and <a href="/wiki/Allison_Shearmur" title="Allison Shearmur">Allison Shearmur</a>.<sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+<h2><span class="mw-headline" id="Winners_and_nominees">Winners and nominees</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=2" title="Edit section: Winners and nominees">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:Guillermo_del_Toro_in_2017.jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Guillermo_del_Toro_in_2017.jpg/150px-Guillermo_del_Toro_in_2017.jpg" width="150" height="200" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Guillermo_del_Toro_in_2017.jpg/225px-Guillermo_del_Toro_in_2017.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Guillermo_del_Toro_in_2017.jpg/300px-Guillermo_del_Toro_in_2017.jpg 2x" data-file-width="1638" data-file-height="2189" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Guillermo_del_Toro_in_2017.jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/Guillermo_del_Toro" title="Guillermo del Toro">Guillermo del Toro</a>, Best Director winner</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:Gary_Oldman_in_2017_(36334517524).jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/4/43/Gary_Oldman_in_2017_%2836334517524%29.jpg/150px-Gary_Oldman_in_2017_%2836334517524%29.jpg" width="150" height="206" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/4/43/Gary_Oldman_in_2017_%2836334517524%29.jpg/225px-Gary_Oldman_in_2017_%2836334517524%29.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/43/Gary_Oldman_in_2017_%2836334517524%29.jpg/300px-Gary_Oldman_in_2017_%2836334517524%29.jpg 2x" data-file-width="2543" data-file-height="3490" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Gary_Oldman_in_2017_(36334517524).jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/Gary_Oldman" title="Gary Oldman">Gary Oldman</a>, Best Actor winner</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:Frances_McDormand_2015_(cropped).jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Frances_McDormand_2015_%28cropped%29.jpg/150px-Frances_McDormand_2015_%28cropped%29.jpg" width="150" height="204" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Frances_McDormand_2015_%28cropped%29.jpg/225px-Frances_McDormand_2015_%28cropped%29.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Frances_McDormand_2015_%28cropped%29.jpg/300px-Frances_McDormand_2015_%28cropped%29.jpg 2x" data-file-width="2942" data-file-height="4010" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Frances_McDormand_2015_(cropped).jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/Frances_McDormand" title="Frances McDormand">Frances McDormand</a>, Best Actress winner</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/0/06/Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg/150px-Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg" width="150" height="226" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/06/Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg/225px-Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/06/Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg/300px-Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg 2x" data-file-width="1555" data-file-height="2341" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Sam_Rockwell_at_the_2009_Tribeca_Film_Festival.jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/Sam_Rockwell" title="Sam Rockwell">Sam Rockwell</a>, Best Supporting Actor winner</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:AllisonJanneyTIFFSept2011.jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/91/AllisonJanneyTIFFSept2011.jpg/150px-AllisonJanneyTIFFSept2011.jpg" width="150" height="218" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/91/AllisonJanneyTIFFSept2011.jpg/225px-AllisonJanneyTIFFSept2011.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/91/AllisonJanneyTIFFSept2011.jpg/300px-AllisonJanneyTIFFSept2011.jpg 2x" data-file-width="677" data-file-height="984" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:AllisonJanneyTIFFSept2011.jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/Allison_Janney" title="Allison Janney">Allison Janney</a>, Best Supporting Actress winner</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:Martin_McDonagh_2012.jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Martin_McDonagh_2012.jpg/150px-Martin_McDonagh_2012.jpg" width="150" height="209" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Martin_McDonagh_2012.jpg/225px-Martin_McDonagh_2012.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Martin_McDonagh_2012.jpg/300px-Martin_McDonagh_2012.jpg 2x" data-file-width="3456" data-file-height="4818" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Martin_McDonagh_2012.jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/Martin_McDonagh" title="Martin McDonagh">Martin McDonagh</a>, Best Original Screenplay winner</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:James_Ivory_(1991.09).jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/f/fe/James_Ivory_%281991.09%29.jpg/150px-James_Ivory_%281991.09%29.jpg" width="150" height="195" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/f/fe/James_Ivory_%281991.09%29.jpg/225px-James_Ivory_%281991.09%29.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/fe/James_Ivory_%281991.09%29.jpg/300px-James_Ivory_%281991.09%29.jpg 2x" data-file-width="721" data-file-height="935" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:James_Ivory_(1991.09).jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/James_Ivory" title="James Ivory">James Ivory</a>, Best Adapted Screenplay winner</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:152px;"><a href="/wiki/File:Daniel_Kaluuya_by_Gage_Skidmore.jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Daniel_Kaluuya_by_Gage_Skidmore.jpg/150px-Daniel_Kaluuya_by_Gage_Skidmore.jpg" width="150" height="221" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Daniel_Kaluuya_by_Gage_Skidmore.jpg/225px-Daniel_Kaluuya_by_Gage_Skidmore.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Daniel_Kaluuya_by_Gage_Skidmore.jpg/300px-Daniel_Kaluuya_by_Gage_Skidmore.jpg 2x" data-file-width="1770" data-file-height="2607" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:Daniel_Kaluuya_by_Gage_Skidmore.jpg" class="internal" title="Enlarge"></a></div>
+<a href="/wiki/Daniel_Kaluuya" title="Daniel Kaluuya">Daniel Kaluuya</a>, EE Rising Star Award winner</div>
+</div>
+</div>
+<p>The nominees were announced on 9 January 2018.<sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[7]</a></sup><sup id="cite_ref-8" class="reference"><a href="#cite_note-8">[8]</a></sup> The winners were announced on 18 February 2018.<sup id="cite_ref-9" class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+<h3><span class="mw-headline" id="BAFTA_Fellowship">BAFTA Fellowship</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=3" title="Edit section: BAFTA Fellowship">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul>
+<li><b><a href="/wiki/Ridley_Scott" title="Ridley Scott">Ridley Scott</a></b></li>
+</ul>
+<h3><span class="mw-headline" id="BAFTA_Outstanding_British_Contribution_to_Cinema_Award">BAFTA Outstanding British Contribution to Cinema Award</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=4" title="Edit section: BAFTA Outstanding British Contribution to Cinema Award">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul>
+<li><b><a href="/wiki/National_Film_and_Television_School" title="National Film and Television School">National Film and Television School</a></b></li>
+</ul>
+<table class="wikitable">
+<tr>
+<th style="background:#BDB76B; width: 50%"><a href="/wiki/BAFTA_Award_for_Best_Film" title="BAFTA Award for Best Film">Best Film</a></th>
+<th style="background:#BDB76B; width: 50%"><a href="/wiki/BAFTA_Award_for_Best_Direction" title="BAFTA Award for Best Direction">Best Director</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> – <a href="/wiki/Graham_Broadbent" title="Graham Broadbent">Graham Broadbent</a>, Pete Czernin, and <a href="/wiki/Martin_McDonagh" title="Martin McDonagh">Martin McDonagh</a></b>
+<ul>
+<li><i><a href="/wiki/Call_Me_by_Your_Name_(film)" title="Call Me by Your Name (film)">Call Me by Your Name</a></i> – Emilie Georges, <a href="/wiki/Luca_Guadagnino" title="Luca Guadagnino">Luca Guadagnino</a>, Marco Morabito, and <a href="/wiki/Peter_Spears" title="Peter Spears">Peter Spears</a></li>
+<li><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> – <a href="/wiki/Tim_Bevan" title="Tim Bevan">Tim Bevan</a>, <a href="/wiki/Lisa_Bruce" title="Lisa Bruce">Lisa Bruce</a>, <a href="/wiki/Eric_Fellner" title="Eric Fellner">Eric Fellner</a>, <a href="/wiki/Anthony_McCarten" title="Anthony McCarten">Anthony McCarten</a>, and <a href="/wiki/Douglas_Urbanski" title="Douglas Urbanski">Douglas Urbanski</a></li>
+<li><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i> – <a href="/wiki/Christopher_Nolan" title="Christopher Nolan">Christopher Nolan</a> and <a href="/wiki/Emma_Thomas" title="Emma Thomas">Emma Thomas</a></li>
+<li><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – <a href="/wiki/Guillermo_del_Toro" title="Guillermo del Toro">Guillermo del Toro</a> and J. Miles Dale</li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/Guillermo_del_Toro" title="Guillermo del Toro">Guillermo del Toro</a> – <i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i></b>
+<ul>
+<li><a href="/wiki/Denis_Villeneuve" title="Denis Villeneuve">Denis Villeneuve</a> – <i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i></li>
+<li><a href="/wiki/Luca_Guadagnino" title="Luca Guadagnino">Luca Guadagnino</a> – <i><a href="/wiki/Call_Me_by_Your_Name_(film)" title="Call Me by Your Name (film)">Call Me by Your Name</a></i></li>
+<li><a href="/wiki/Christopher_Nolan" title="Christopher Nolan">Christopher Nolan</a> – <i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i></li>
+<li><a href="/wiki/Martin_McDonagh" title="Martin McDonagh">Martin McDonagh</a> – <i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Actor_in_a_Leading_Role" title="BAFTA Award for Best Actor in a Leading Role">Best Actor in a Leading Role</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Actress_in_a_Leading_Role" title="BAFTA Award for Best Actress in a Leading Role">Best Actress in a Leading Role</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/Gary_Oldman" title="Gary Oldman">Gary Oldman</a> – <i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> as <a href="/wiki/Winston_Churchill" title="Winston Churchill">Winston Churchill</a></b>
+<ul>
+<li><a href="/wiki/Jamie_Bell" title="Jamie Bell">Jamie Bell</a> – <i><a href="/wiki/Film_Stars_Don%27t_Die_in_Liverpool" title="Film Stars Don't Die in Liverpool">Film Stars Don't Die in Liverpool</a></i> as Peter Turner</li>
+<li><a href="/wiki/Timoth%C3%A9e_Chalamet" title="Timothée Chalamet">Timothée Chalamet</a> – <i><a href="/wiki/Call_Me_by_Your_Name_(film)" title="Call Me by Your Name (film)">Call Me by Your Name</a></i> as Elio Perlman</li>
+<li><a href="/wiki/Daniel_Day-Lewis" title="Daniel Day-Lewis">Daniel Day-Lewis</a> – <i><a href="/wiki/Phantom_Thread" title="Phantom Thread">Phantom Thread</a></i> as Reynolds Woodcock</li>
+<li><a href="/wiki/Daniel_Kaluuya" title="Daniel Kaluuya">Daniel Kaluuya</a> – <i><a href="/wiki/Get_Out" title="Get Out">Get Out</a></i> as Chris Washington</li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/Frances_McDormand" title="Frances McDormand">Frances McDormand</a> – <i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> as Mildred Hayes</b>
+<ul>
+<li><a href="/wiki/Annette_Bening" title="Annette Bening">Annette Bening</a> – <i><a href="/wiki/Film_Stars_Don%27t_Die_in_Liverpool" title="Film Stars Don't Die in Liverpool">Film Stars Don't Die in Liverpool</a></i> as <a href="/wiki/Gloria_Grahame" title="Gloria Grahame">Gloria Grahame</a></li>
+<li><a href="/wiki/Sally_Hawkins" title="Sally Hawkins">Sally Hawkins</a> – <i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> as Elisa Esposito</li>
+<li><a href="/wiki/Margot_Robbie" title="Margot Robbie">Margot Robbie</a> – <i><a href="/wiki/I,_Tonya" title="I, Tonya">I, Tonya</a></i> as <a href="/wiki/Tonya_Harding" title="Tonya Harding">Tonya Harding</a></li>
+<li><a href="/wiki/Saoirse_Ronan" title="Saoirse Ronan">Saoirse Ronan</a> – <i><a href="/wiki/Lady_Bird_(film)" title="Lady Bird (film)">Lady Bird</a></i> as Christine "Lady Bird" McPherson</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Actor_in_a_Supporting_Role" title="BAFTA Award for Best Actor in a Supporting Role">Best Actor in a Supporting Role</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Actress_in_a_Supporting_Role" title="BAFTA Award for Best Actress in a Supporting Role">Best Actress in a Supporting Role</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/Sam_Rockwell" title="Sam Rockwell">Sam Rockwell</a> – <i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> as Jason Dixon</b>
+<ul>
+<li><a href="/wiki/Willem_Dafoe" title="Willem Dafoe">Willem Dafoe</a> – <i><a href="/wiki/The_Florida_Project" title="The Florida Project">The Florida Project</a></i> as Bobby Hicks</li>
+<li><a href="/wiki/Hugh_Grant" title="Hugh Grant">Hugh Grant</a> – <i><a href="/wiki/Paddington_2" title="Paddington 2">Paddington 2</a></i> as Phoenix Buchanan</li>
+<li><a href="/wiki/Woody_Harrelson" title="Woody Harrelson">Woody Harrelson</a> – <i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> as Sheriff Bill Willoughby</li>
+<li><a href="/wiki/Christopher_Plummer" title="Christopher Plummer">Christopher Plummer</a> – <i><a href="/wiki/All_the_Money_in_the_World" title="All the Money in the World">All the Money in the World</a></i> as <a href="/wiki/J._Paul_Getty" title="J. Paul Getty">J. Paul Getty</a></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/Allison_Janney" title="Allison Janney">Allison Janney</a> – <i><a href="/wiki/I,_Tonya" title="I, Tonya">I, Tonya</a></i> as LaVona Golden</b>
+<ul>
+<li><a href="/wiki/Lesley_Manville" title="Lesley Manville">Lesley Manville</a> – <i><a href="/wiki/Phantom_Thread" title="Phantom Thread">Phantom Thread</a></i> as Cyril Woodcock</li>
+<li><a href="/wiki/Laurie_Metcalf" title="Laurie Metcalf">Laurie Metcalf</a> – <i><a href="/wiki/Lady_Bird_(film)" title="Lady Bird (film)">Lady Bird</a></i> as Marion McPherson</li>
+<li><a href="/wiki/Kristin_Scott_Thomas" title="Kristin Scott Thomas">Kristin Scott Thomas</a> – <i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> as <a href="/wiki/Clementine_Churchill" title="Clementine Churchill">Clementine Churchill</a></li>
+<li><a href="/wiki/Octavia_Spencer" title="Octavia Spencer">Octavia Spencer</a> – <i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> as Zelda Fuller</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Original_Screenplay" title="BAFTA Award for Best Original Screenplay">Best Original Screenplay</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Adapted_Screenplay" title="BAFTA Award for Best Adapted Screenplay">Best Adapted Screenplay</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/Martin_McDonagh" title="Martin McDonagh">Martin McDonagh</a> – <i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i></b>
+<ul>
+<li><a href="/wiki/Guillermo_del_Toro" title="Guillermo del Toro">Guillermo del Toro</a> and <a href="/wiki/Vanessa_Taylor" title="Vanessa Taylor">Vanessa Taylor</a> – <i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i></li>
+<li><a href="/wiki/Greta_Gerwig" title="Greta Gerwig">Greta Gerwig</a> – <i><a href="/wiki/Lady_Bird_(film)" title="Lady Bird (film)">Lady Bird</a></i></li>
+<li><a href="/wiki/Jordan_Peele" title="Jordan Peele">Jordan Peele</a> – <i><a href="/wiki/Get_Out" title="Get Out">Get Out</a></i></li>
+<li><a href="/wiki/Steven_Rogers_(screenwriter)" title="Steven Rogers (screenwriter)">Steven Rogers</a> – <i><a href="/wiki/I,_Tonya" title="I, Tonya">I, Tonya</a></i></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/James_Ivory" title="James Ivory">James Ivory</a> – <i><a href="/wiki/Call_Me_by_Your_Name_(film)" title="Call Me by Your Name (film)">Call Me by Your Name</a></i></b>
+<ul>
+<li><a href="/wiki/Simon_Farnaby" title="Simon Farnaby">Simon Farnaby</a> and <a href="/wiki/Paul_King_(director)" title="Paul King (director)">Paul King</a> – <i><a href="/wiki/Paddington_2" title="Paddington 2">Paddington 2</a></i></li>
+<li><a href="/wiki/Matt_Greenhalgh" title="Matt Greenhalgh">Matt Greenhalgh</a> – <i><a href="/wiki/Film_Stars_Don%27t_Die_in_Liverpool" title="Film Stars Don't Die in Liverpool">Film Stars Don't Die in Liverpool</a></i></li>
+<li><a href="/wiki/Armando_Iannucci" title="Armando Iannucci">Armando Iannucci</a>, <a href="/wiki/Ian_Martin_(writer)" title="Ian Martin (writer)">Ian Martin</a> and <a href="/wiki/David_Schneider_(actor)" title="David Schneider (actor)">David Schneider</a> – <i><a href="/wiki/The_Death_of_Stalin" title="The Death of Stalin">The Death of Stalin</a></i></li>
+<li><a href="/wiki/Aaron_Sorkin" title="Aaron Sorkin">Aaron Sorkin</a> – <i><a href="/wiki/Molly%27s_Game" title="Molly's Game">Molly's Game</a></i></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Cinematography" title="BAFTA Award for Best Cinematography">Best Cinematography</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Outstanding_Debut_by_a_British_Writer,_Director_or_Producer" title="BAFTA Award for Outstanding Debut by a British Writer, Director or Producer">Outstanding Debut by a British Writer, Director or Producer</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> – <a href="/wiki/Roger_Deakins" title="Roger Deakins">Roger Deakins</a></b>
+<ul>
+<li><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> – <a href="/wiki/Bruno_Delbonnel" title="Bruno Delbonnel">Bruno Delbonnel</a></li>
+<li><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i> – <a href="/wiki/Hoyte_van_Hoytema" title="Hoyte van Hoytema">Hoyte van Hoytema</a></li>
+<li><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – <a href="/wiki/Dan_Laustsen" title="Dan Laustsen">Dan Laustsen</a></li>
+<li><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> – <a href="/wiki/Ben_Davis_(cinematographer)" title="Ben Davis (cinematographer)">Ben Davis</a></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b>Rungano Nyoni (Writer/Director), Emily Morgan (Producer) – <i><a href="/wiki/I_Am_Not_a_Witch" title="I Am Not a Witch">I Am Not a Witch</a></i></b>
+<ul>
+<li>Gareth Tunley (Writer/Director/Producer), Jack Healy Guttman &amp; <a href="/wiki/Tom_Meeten" title="Tom Meeten">Tom Meeten</a> (Producers) – <i>The Ghoul</i></li>
+<li><a href="/wiki/Johnny_Harris_(actor)" title="Johnny Harris (actor)">Johnny Harris</a> (Writer/Producer), Thomas Napper (Director) – <i><a href="/wiki/Jawbone_(film)" title="Jawbone (film)">Jawbone</a></i></li>
+<li>Lucy Cohen (Director) – <i>Kingdom of Us</i></li>
+<li>Alice Birch (Writer), William Oldroyd (Director), <a href="/wiki/Fodhla_Cronin_O%27Reilly" title="Fodhla Cronin O'Reilly">Fodhla Cronin O'Reilly</a> (Producer) – <i><a href="/wiki/Lady_Macbeth_(film)" title="Lady Macbeth (film)">Lady Macbeth</a></i></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_British_Film" title="BAFTA Award for Best British Film">Outstanding British Film</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Documentary" title="BAFTA Award for Best Documentary">Best Documentary</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> – <a href="/wiki/Graham_Broadbent" title="Graham Broadbent">Graham Broadbent</a>, Pete Czernin, and <a href="/wiki/Martin_McDonagh" title="Martin McDonagh">Martin McDonagh</a></b>
+<ul>
+<li><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> – <a href="/wiki/Tim_Bevan" title="Tim Bevan">Tim Bevan</a>, <a href="/wiki/Lisa_Bruce" title="Lisa Bruce">Lisa Bruce</a>, <a href="/wiki/Eric_Fellner" title="Eric Fellner">Eric Fellner</a>, <a href="/wiki/Anthony_McCarten" title="Anthony McCarten">Anthony McCarten</a>, and <a href="/wiki/Douglas_Urbanski" title="Douglas Urbanski">Douglas Urbanski</a></li>
+<li><i><a href="/wiki/The_Death_of_Stalin" title="The Death of Stalin">The Death of Stalin</a></i> – <a href="/wiki/Armando_Iannucci" title="Armando Iannucci">Armando Iannucci</a>, <a href="/wiki/Kevin_Loader" title="Kevin Loader">Kevin Loader</a>, Laurent Zeitoun, Yann Zenou, <a href="/wiki/Ian_Martin_(writer)" title="Ian Martin (writer)">Ian Martin</a>, and <a href="/wiki/David_Schneider_(actor)" title="David Schneider (actor)">David Schneider</a></li>
+<li><i><a href="/wiki/God%27s_Own_Country_(2017_film)" title="God's Own Country (2017 film)">God's Own Country</a></i> – Francis Lee, Manon Ardisson, and Jack Tarling</li>
+<li><i><a href="/wiki/Lady_Macbeth_(film)" title="Lady Macbeth (film)">Lady Macbeth</a></i> – William Oldroyd, <a href="/wiki/Fodhla_Cronin_O%27Reilly" title="Fodhla Cronin O'Reilly">Fodhla Cronin O'Reilly</a>, and Alice Birch</li>
+<li><i><a href="/wiki/Paddington_2" title="Paddington 2">Paddington 2</a></i> – <a href="/wiki/Paul_King_(director)" title="Paul King (director)">Paul King</a>, <a href="/wiki/David_Heyman" title="David Heyman">David Heyman</a>, and Simon Farnaby</li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/I_Am_Not_Your_Negro" title="I Am Not Your Negro">I Am Not Your Negro</a></i> – <a href="/wiki/Raoul_Peck" title="Raoul Peck">Raoul Peck</a></b>
+<ul>
+<li><i><a href="/wiki/City_of_Ghosts_(2017_film)" title="City of Ghosts (2017 film)">City of Ghosts</a></i> – <a href="/wiki/Matthew_Heineman" title="Matthew Heineman">Matthew Heineman</a></li>
+<li><i><a href="/wiki/Icarus_(2017_film)" title="Icarus (2017 film)">Icarus</a></i> – <a href="/wiki/Bryan_Fogel" title="Bryan Fogel">Bryan Fogel</a> and <a href="/wiki/Dan_Cogan" title="Dan Cogan">Dan Cogan</a></li>
+<li><i><a href="/wiki/An_Inconvenient_Sequel:_Truth_to_Power" title="An Inconvenient Sequel: Truth to Power">An Inconvenient Sequel: Truth to Power</a></i> – Bonni Cohen and Jon Shenk</li>
+<li><i><a href="/wiki/Jane_(2017_film)" title="Jane (2017 film)">Jane</a></i> – <a href="/wiki/Brett_Morgen" title="Brett Morgen">Brett Morgen</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Film_Music" title="BAFTA Award for Best Film Music">Best Original Music</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Sound" title="BAFTA Award for Best Sound">Best Sound</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – <a href="/wiki/Alexandre_Desplat" title="Alexandre Desplat">Alexandre Desplat</a></b>
+<ul>
+<li><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> – <a href="/wiki/Benjamin_Wallfisch" title="Benjamin Wallfisch">Benjamin Wallfisch</a> and <a href="/wiki/Hans_Zimmer" title="Hans Zimmer">Hans Zimmer</a></li>
+<li><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> – <a href="/wiki/Dario_Marianelli" title="Dario Marianelli">Dario Marianelli</a></li>
+<li><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i> – <a href="/wiki/Hans_Zimmer" title="Hans Zimmer">Hans Zimmer</a></li>
+<li><i><a href="/wiki/Phantom_Thread" title="Phantom Thread">Phantom Thread</a></i> – <a href="/wiki/Jonny_Greenwood" title="Jonny Greenwood">Jonny Greenwood</a></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i> – <a href="/wiki/Alex_Gibson_(sound_editor)" title="Alex Gibson (sound editor)">Alex Gibson</a>, <a href="/wiki/Richard_King_(sound_designer)" title="Richard King (sound designer)">Richard King</a>, <a href="/wiki/Gregg_Landaker" title="Gregg Landaker">Gregg Landaker</a>, <a href="/wiki/Gary_Rizzo" title="Gary Rizzo">Gary A. Rizzo</a>, and <a href="/wiki/Mark_Weingarten" title="Mark Weingarten">Mark Weingarten</a></b>
+<ul>
+<li><i><a href="/wiki/Baby_Driver" title="Baby Driver">Baby Driver</a></i> – <a href="/wiki/Tim_Cavagin" title="Tim Cavagin">Tim Cavagin</a>, <a href="/wiki/Mary_H._Ellis" title="Mary H. Ellis">Mary H. Ellis</a>, Dan Morgan, <a href="/wiki/Jeremy_Price" title="Jeremy Price">Jeremy Price</a>, and <a href="/wiki/Julian_Slater" title="Julian Slater">Julian Slater</a></li>
+<li><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> – <a href="/wiki/Ron_Bartlett" title="Ron Bartlett">Ron Bartlett</a>, <a href="/wiki/Theo_Green" title="Theo Green">Theo Green</a>,<sup id="cite_ref-10" class="reference"><a href="#cite_note-10">[10]</a></sup> <a href="/wiki/Doug_Hemphill" title="Doug Hemphill">Doug Hemphill</a>, <a href="/wiki/Mark_Mangini" title="Mark Mangini">Mark Mangini</a>, and <a href="/wiki/Mac_Ruth" title="Mac Ruth">Mac Ruth</a></li>
+<li><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – <a href="/wiki/Christian_Cooke_(sound_engineer)" title="Christian Cooke (sound engineer)">Christian Cooke</a>, <a href="/wiki/Glen_Gauthier" title="Glen Gauthier">Glen Gauthier</a>, <a href="/wiki/Nathan_Robitaille" title="Nathan Robitaille">Nathan Robitaille</a>, <a href="/wiki/Nelson_Ferreira_(sound_editor)" title="Nelson Ferreira (sound editor)">Nelson Ferreira</a>, and <a href="/wiki/Brad_Zoern" title="Brad Zoern">Brad Zoern</a></li>
+<li><i><a href="/wiki/Star_Wars:_The_Last_Jedi" title="Star Wars: The Last Jedi">Star Wars: The Last Jedi</a></i> – <a href="/wiki/Ren_Klyce" title="Ren Klyce">Ren Klyce</a>, <a href="/wiki/David_Parker_(sound_engineer)" title="David Parker (sound engineer)">David Parker</a>, <a href="/wiki/Michael_Semanick" title="Michael Semanick">Michael Semanick</a>, <a href="/wiki/Stuart_Wilson_(sound_engineer)" title="Stuart Wilson (sound engineer)">Stuart Wilson</a>, and <a href="/wiki/Matthew_Wood_(sound_editor)" title="Matthew Wood (sound editor)">Matthew Wood</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Production_Design" title="BAFTA Award for Best Production Design">Best Production Design</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Special_Visual_Effects" title="BAFTA Award for Best Special Visual Effects">Best Special Visual Effects</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – <a href="/wiki/Paul_Denham_Austerberry" title="Paul Denham Austerberry">Paul Denham Austerberry</a>, <a href="/wiki/Jeff_Melvin" title="Jeff Melvin">Jeff Melvin</a>, and <a href="/wiki/Shane_Vieau" title="Shane Vieau">Shane Vieau</a></b>
+<ul>
+<li><i><a href="/wiki/Beauty_and_the_Beast_(2017_film)" title="Beauty and the Beast (2017 film)">Beauty and the Beast</a></i> – <a href="/wiki/Sarah_Greenwood" title="Sarah Greenwood">Sarah Greenwood</a> and <a href="/wiki/Katie_Spencer" title="Katie Spencer">Katie Spencer</a></li>
+<li><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> – <a href="/wiki/Dennis_Gassner" title="Dennis Gassner">Dennis Gassner</a> and <a href="/wiki/Alessandra_Querzola" title="Alessandra Querzola">Alessandra Querzola</a></li>
+<li><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> – <a href="/wiki/Sarah_Greenwood" title="Sarah Greenwood">Sarah Greenwood</a> and <a href="/wiki/Katie_Spencer" title="Katie Spencer">Katie Spencer</a></li>
+<li><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i> – <a href="/wiki/Nathan_Crowley" title="Nathan Crowley">Nathan Crowley</a> and <a href="/wiki/Gary_Fettis" title="Gary Fettis">Gary Fettis</a></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> – <a href="/wiki/Richard_R._Hoover" title="Richard R. Hoover">Richard R. Hoover</a>, <a href="/wiki/Paul_Lambert_(special_effects_artist)" title="Paul Lambert (special effects artist)">Paul Lambert</a>, <a href="/wiki/Gerd_Nefzer" title="Gerd Nefzer">Gerd Nefzer</a>, and <a href="/wiki/John_Nelson_(visual_effects_artist)" title="John Nelson (visual effects artist)">John Nelson</a></b>
+<ul>
+<li><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i> – <a href="/wiki/Scott_R._Fisher" title="Scott R. Fisher">Scott Fisher</a>, <a href="/wiki/Andrew_Jackson_(visual_effects)" title="Andrew Jackson (visual effects)">Andrew Jackson</a>, <a href="/wiki/Paul_Corbould" title="Paul Corbould">Paul Corbould</a>, and <a href="/wiki/Andrew_Lockley" title="Andrew Lockley">Andrew Lockley</a></li>
+<li><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – Dennis Berardi, Trey Harrell, Mike Hill, and Kevin Scott</li>
+<li><i><a href="/wiki/Star_Wars:_The_Last_Jedi" title="Star Wars: The Last Jedi">Star Wars: The Last Jedi</a></i> – Stephen Aplin, <a href="/wiki/Chris_Corbould" title="Chris Corbould">Chris Corbould</a>, <a href="/wiki/Ben_Morris_(special_effects_artist)" title="Ben Morris (special effects artist)">Ben Morris</a>, and <a href="/wiki/Neal_Scanlan" title="Neal Scanlan">Neal Scanlan</a></li>
+<li><i><a href="/wiki/War_for_the_Planet_of_the_Apes" title="War for the Planet of the Apes">War for the Planet of the Apes</a></i> – <a href="/wiki/Daniel_Barrett_(visual_effects_supervisor)" title="Daniel Barrett (visual effects supervisor)">Daniel Barrett</a>, <a href="/wiki/Dan_Lemmon" title="Dan Lemmon">Dan Lemmon</a>, <a href="/wiki/Joe_Letteri" title="Joe Letteri">Joe Letteri</a>, and <a href="/wiki/Joel_Whist_(visual_effects_supervisor)" title="Joel Whist (visual effects supervisor)">Joel Whist</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Costume_Design" title="BAFTA Award for Best Costume Design">Best Costume Design</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Makeup_and_Hair" title="BAFTA Award for Best Makeup and Hair">Best Makeup and Hair</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Phantom_Thread" title="Phantom Thread">Phantom Thread</a></i> – <a href="/wiki/Mark_Bridges_(costume_designer)" title="Mark Bridges (costume designer)">Mark Bridges</a></b>
+<ul>
+<li><i><a href="/wiki/Beauty_and_the_Beast_(2017_film)" title="Beauty and the Beast (2017 film)">Beauty and the Beast</a></i> – <a href="/wiki/Jacqueline_Durran" title="Jacqueline Durran">Jacqueline Durran</a></li>
+<li><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> – <a href="/wiki/Jacqueline_Durran" title="Jacqueline Durran">Jacqueline Durran</a></li>
+<li><i><a href="/wiki/I,_Tonya" title="I, Tonya">I, Tonya</a></i> – Jennifer Johnson</li>
+<li><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – <a href="/wiki/Luis_Sequeira" title="Luis Sequeira">Luis Sequeira</a></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i> – <a href="/wiki/David_Malinowski" title="David Malinowski">David Malinowski</a>, <a href="/wiki/Ivana_Primorac" title="Ivana Primorac">Ivana Primorac</a>, <a href="/wiki/Lucy_Sibbick" title="Lucy Sibbick">Lucy Sibbick</a>, and <a href="/wiki/Kazuhiro_Tsuji" title="Kazuhiro Tsuji">Kazuhiro Tsuji</a></b>
+<ul>
+<li><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> – Donald Mowat and Kerry Warn</li>
+<li><i><a href="/wiki/I,_Tonya" title="I, Tonya">I, Tonya</a></i> – Deborah La Mia Denaver and <a href="/wiki/Adruitha_Lee" title="Adruitha Lee">Adruitha Lee</a></li>
+<li><i><a href="/wiki/Victoria_%26_Abdul" title="Victoria &amp; Abdul">Victoria &amp; Abdul</a></i> – <a href="/wiki/Daniel_Phillips_(make-up_artist)" title="Daniel Phillips (make-up artist)">Daniel Phillips</a> and <a href="/wiki/Lou_Sheppard" title="Lou Sheppard">Lou Sheppard</a></li>
+<li><i><a href="/wiki/Wonder_(film)" title="Wonder (film)">Wonder</a></i> – Naomi Bakstad, <a href="/wiki/Robert_A._Pandini" class="mw-redirect" title="Robert A. Pandini">Robert A. Pandini</a>, and <a href="/wiki/Arjen_Tuiten" title="Arjen Tuiten">Arjen Tuiten</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Editing" title="BAFTA Award for Best Editing">Best Editing</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Film_Not_in_the_English_Language" title="BAFTA Award for Best Film Not in the English Language">Best Film Not in the English Language</a></th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Baby_Driver" title="Baby Driver">Baby Driver</a></i> – <a href="/wiki/Paul_Machliss" title="Paul Machliss">Paul Machliss</a> and <a href="/wiki/Jonathan_Amos" title="Jonathan Amos">Jonathan Amos</a></b>
+<ul>
+<li><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i> – <a href="/wiki/Joe_Walker_(editor)" title="Joe Walker (editor)">Joe Walker</a></li>
+<li><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i> – <a href="/wiki/Lee_Smith_(editor)" title="Lee Smith (editor)">Lee Smith</a></li>
+<li><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i> – <a href="/wiki/Sidney_Wolinsky" title="Sidney Wolinsky">Sidney Wolinsky</a></li>
+<li><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i> – <a href="/wiki/Jon_Gregory_(editor)" title="Jon Gregory (editor)">Jon Gregory</a></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/The_Handmaiden" title="The Handmaiden">The Handmaiden</a></i> – <a href="/wiki/Park_Chan-wook" title="Park Chan-wook">Park Chan-wook</a> and Syd Lim</b>
+<ul>
+<li><i><a href="/wiki/Elle_(film)" title="Elle (film)">Elle</a></i> – <a href="/wiki/Paul_Verhoeven" title="Paul Verhoeven">Paul Verhoeven</a> and Saïd Ben Saïd</li>
+<li><i><a href="/wiki/First_They_Killed_My_Father_(film)" title="First They Killed My Father (film)">First They Killed My Father</a></i> – <a href="/wiki/Angelina_Jolie" title="Angelina Jolie">Angelina Jolie</a> and <a href="/wiki/Rithy_Panh" title="Rithy Panh">Rithy Panh</a></li>
+<li><i><a href="/wiki/Loveless_(film)" title="Loveless (film)">Loveless</a></i> – <a href="/wiki/Andrey_Zvyagintsev" title="Andrey Zvyagintsev">Andrey Zvyagintsev</a> and <a href="/wiki/Alexander_Rodnyansky" title="Alexander Rodnyansky">Alexander Rodnyansky</a></li>
+<li><i><a href="/wiki/The_Salesman_(2016_film)" title="The Salesman (2016 film)">The Salesman</a></i> – <a href="/wiki/Asghar_Farhadi" title="Asghar Farhadi">Asghar Farhadi</a> and Alexandre Mallet-Guy</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Animated_Film" title="BAFTA Award for Best Animated Film">Best Animated Film</a></th>
+<th style="background:#BDB76B;">Best Short Animation</th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i><a href="/wiki/Coco_(2017_film)" title="Coco (2017 film)">Coco</a></i> – <a href="/wiki/Lee_Unkrich" title="Lee Unkrich">Lee Unkrich</a> and <a href="/wiki/Darla_K._Anderson" title="Darla K. Anderson">Darla K. Anderson</a></b>
+<ul>
+<li><i><a href="/wiki/Loving_Vincent" title="Loving Vincent">Loving Vincent</a></i> – <a href="/wiki/Dorota_Kobiela" title="Dorota Kobiela">Dorota Kobiela</a>, <a href="/wiki/Hugh_Welchman" title="Hugh Welchman">Hugh Welchman</a>, and <a href="/wiki/Ivan_Mactaggart" title="Ivan Mactaggart">Ivan Mactaggart</a></li>
+<li><i><a href="/wiki/My_Life_as_a_Courgette" title="My Life as a Courgette">My Life as a Courgette</a></i> – <a href="/wiki/Claude_Barras" title="Claude Barras">Claude Barras</a> and <a href="/wiki/Max_Karli" title="Max Karli">Max Karli</a></li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><i>Poles Apart</i> – <a href="/wiki/Paloma_Baeza" title="Paloma Baeza">Paloma Baeza</a> and Ser En Low</b>
+<ul>
+<li><i>Have Heart</i> – Will Anderson</li>
+<li><i>Mamoon</i> – Ben Steer</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Award_for_Best_Short_Film" title="BAFTA Award for Best Short Film">Best Short Film</a></th>
+<th style="background:#BDB76B;"><a href="/wiki/BAFTA_Rising_Star_Award" title="BAFTA Rising Star Award">EE Rising Star Award</a> (voted for by the public)</th>
+</tr>
+<tr>
+<td valign="top">
+<ul>
+<li><b><i>Cowboy Dave</i> – Colin O'Toole and Jonas Mortensen</b>
+<ul>
+<li><i>Aamir</i> – Vika Evdokimenko, Emma Stone, and Oliver Shuster</li>
+<li><i>Bronco</i> – SLB</li>
+<li><i>A Drowning Man</i> – Mahdi Fleifel, <a href="/wiki/Signe_Byrge_S%C3%B8rensen" title="Signe Byrge Sørensen">Signe Byrge Sørensen</a>, and Patrick Campbell</li>
+<li><i>Work</i> – Aneil Karia and Scott O'Donnell</li>
+<li><i>Wren Boys</i> – Harry Lighton, Sorcha Bacon, and John Fitzpatrick</li>
+</ul>
+</li>
+</ul>
+</td>
+<td valign="top">
+<ul>
+<li><b><a href="/wiki/Daniel_Kaluuya" title="Daniel Kaluuya">Daniel Kaluuya</a></b>
+<ul>
+<li><a href="/wiki/Florence_Pugh" title="Florence Pugh">Florence Pugh</a></li>
+<li><a href="/wiki/Josh_O%27Connor" title="Josh O'Connor">Josh O'Connor</a></li>
+<li><a href="/wiki/Tessa_Thompson" title="Tessa Thompson">Tessa Thompson</a></li>
+<li><a href="/wiki/Timoth%C3%A9e_Chalamet" title="Timothée Chalamet">Timothée Chalamet</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h3><span class="mw-headline" id="Films_with_multiple_nominations_and_awards">Films with multiple nominations and awards</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=5" title="Edit section: Films with multiple nominations and awards">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="" style="clear:none;float:left;width:30.0em;">
+<table class="wikitable" style="text-align:center;">
+<caption>Films that received multiple nominations</caption>
+<tr>
+<th style="background:#BDB76B;">Nominations</th>
+<th style="background:#BDB76B;">Film</th>
+</tr>
+<tr>
+<td>12</td>
+<td><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i></td>
+</tr>
+<tr>
+<td rowspan="2">9</td>
+<td><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i></td>
+</tr>
+<tr>
+<td rowspan="2">8</td>
+<td><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Dunkirk_(2017_film)" title="Dunkirk (2017 film)">Dunkirk</a></i></td>
+</tr>
+<tr>
+<td>5</td>
+<td><i><a href="/wiki/I,_Tonya" title="I, Tonya">I, Tonya</a></i></td>
+</tr>
+<tr>
+<td rowspan="2">4</td>
+<td><i><a href="/wiki/Call_Me_by_Your_Name_(film)" title="Call Me by Your Name (film)">Call Me by Your Name</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Phantom_Thread" title="Phantom Thread">Phantom Thread</a></i></td>
+</tr>
+<tr>
+<td rowspan="3">3</td>
+<td><i><a href="/wiki/Film_Stars_Don%27t_Die_in_Liverpool" title="Film Stars Don't Die in Liverpool">Film Stars Don't Die in Liverpool</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Lady_Bird_(film)" title="Lady Bird (film)">Lady Bird</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Paddington_2" title="Paddington 2">Paddington 2</a></i></td>
+</tr>
+<tr>
+<td rowspan="6">2</td>
+<td><i><a href="/wiki/Baby_Driver" title="Baby Driver">Baby Driver</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Beauty_and_the_Beast_(2017_film)" title="Beauty and the Beast (2017 film)">Beauty and the Beast</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/The_Death_of_Stalin" title="The Death of Stalin">The Death of Stalin</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Get_Out" title="Get Out">Get Out</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Lady_Macbeth_(film)" title="Lady Macbeth (film)">Lady Macbeth</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Star_Wars:_The_Last_Jedi" title="Star Wars: The Last Jedi">Star Wars: The Last Jedi</a></i></td>
+</tr>
+</table>
+</div>
+<div class="" style="clear:none;float:left;width:;">
+<table class="wikitable" style="text-align:center;">
+<caption>Films that received multiple awards</caption>
+<tr>
+<th style="background:#BDB76B;">Wins</th>
+<th style="background:#BDB76B;">Film</th>
+</tr>
+<tr>
+<td>5</td>
+<td><i><a href="/wiki/Three_Billboards_Outside_Ebbing,_Missouri" title="Three Billboards Outside Ebbing, Missouri">Three Billboards Outside Ebbing, Missouri</a></i></td>
+</tr>
+<tr>
+<td>3</td>
+<td><i><a href="/wiki/The_Shape_of_Water_(film)" title="The Shape of Water (film)">The Shape of Water</a></i></td>
+</tr>
+<tr>
+<td rowspan="2">2</td>
+<td><i><a href="/wiki/Blade_Runner_2049" title="Blade Runner 2049">Blade Runner 2049</a></i></td>
+</tr>
+<tr>
+<td><i><a href="/wiki/Darkest_Hour_(film)" title="Darkest Hour (film)">Darkest Hour</a></i></td>
+</tr>
+</table>
+</div>
+<div class="" style="clear: left; float: none;"></div>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=6" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="/wiki/7th_AACTA_International_Awards" title="7th AACTA International Awards">7th AACTA International Awards</a></li>
+<li><a href="/wiki/24th_Screen_Actors_Guild_Awards" title="24th Screen Actors Guild Awards">24th Screen Actors Guild Awards</a></li>
+<li><a href="/wiki/38th_Golden_Raspberry_Awards" title="38th Golden Raspberry Awards">38th Golden Raspberry Awards</a></li>
+<li><a href="/wiki/23rd_Critics%27_Choice_Awards" title="23rd Critics' Choice Awards">23rd Critics' Choice Awards</a></li>
+<li><a href="/wiki/72nd_Tony_Awards" title="72nd Tony Awards">72nd Tony Awards</a></li>
+<li><a href="/wiki/75th_Golden_Globe_Awards" title="75th Golden Globe Awards">75th Golden Globe Awards</a></li>
+<li><a href="/wiki/90th_Academy_Awards" title="90th Academy Awards">90th Academy Awards</a></li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=7" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<div class="mw-references-wrap">
+<ol class="references">
+<li id="cite_note-Lumley-1"><span class="mw-cite-backlink">^ <a href="#cite_ref-Lumley_1-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Lumley_1-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Lumley_1-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://www.bbc.com/news/entertainment-arts-42618237">"Joanna Lumley to be new Bafta Film Awards host"</a>. <a href="/wiki/BBC_News" title="BBC News">BBC News</a>. 9 January 2018. <a rel="nofollow" class="external text" href="https://web.archive.org/web/20180109090005/http://www.bbc.com/news/entertainment-arts-42618237">Archived</a> from the original on 9 January 2018<span class="reference-accessdate">. Retrieved <span class="nowrap">9 January</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=unknown&amp;rft.btitle=Joanna+Lumley+to+be+new+Bafta+Film+Awards+host&amp;rft.pub=BBC+News&amp;rft.date=2018-01-09&amp;rft_id=http%3A%2F%2Fwww.bbc.com%2Fnews%2Fentertainment-arts-42618237&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2">^</a></b></span> <span class="reference-text"><cite class="citation web">Desta, Yohana. <a rel="nofollow" class="external text" href="https://www.vanityfair.com/hollywood/2018/01/baftas-2018-nominations">"Zero Female Directors Nominated at the BAFTAs This Year"</a>. <i>Vanity Fair</i><span class="reference-accessdate">. Retrieved <span class="nowrap">20 February</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=Vanity+Fair&amp;rft.atitle=Zero+Female+Directors+Nominated+at+the+BAFTAs+This+Year&amp;rft.aulast=Desta&amp;rft.aufirst=Yohana&amp;rft_id=https%3A%2F%2Fwww.vanityfair.com%2Fhollywood%2F2018%2F01%2Fbaftas-2018-nominations&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-“variety”-3"><span class="mw-cite-backlink">^ <a href="#cite_ref-“variety”_3-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-“variety”_3-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-“variety”_3-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="https://variety.com/2018/film/news/bafta-winners-main-story-1202702020/">"BAFTA Winners:Updating Live"</a>. <i>Variety</i><span class="reference-accessdate">. Retrieved <span class="nowrap">19 February</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=Variety&amp;rft.atitle=BAFTA+Winners%3AUpdating+Live&amp;rft_id=https%3A%2F%2Fvariety.com%2F2018%2Ffilm%2Fnews%2Fbafta-winners-main-story-1202702020%2F&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="https://www.theguardian.com/film/live/2018/feb/18/baftas-2018-the-frocks-the-speeches-and-joanna-lumley-live">"Baftas 2018: Three Billboards wins best film and dancing fish-men – as it happened"</a>. <i>The Guardian</i>. 18 February 2018<span class="reference-accessdate">. Retrieved <span class="nowrap">21 February</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=The+Guardian&amp;rft.atitle=Baftas+2018%3A+Three+Billboards+wins+best+film+and+dancing+fish-men+%E2%80%93+as+it+happened&amp;rft.date=2018-02-18&amp;rft_id=https%3A%2F%2Fwww.theguardian.com%2Ffilm%2Flive%2F2018%2Ffeb%2F18%2Fbaftas-2018-the-frocks-the-speeches-and-joanna-lumley-live&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://www.classicfm.com/events/baftas/sheku-kanneh-mason-evening-of-roses/">"Sheku Kanneh-Mason performs at the Baftas 2018 – and becomes first musician to perform at the awards twice"</a>. <i>Classic FM</i><span class="reference-accessdate">. Retrieved <span class="nowrap">20 February</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=Classic+FM&amp;rft.atitle=Sheku+Kanneh-Mason+performs+at+the+Baftas+2018+%E2%80%93+and+becomes+first+musician+to+perform+at+the+awards+twice&amp;rft_id=http%3A%2F%2Fwww.classicfm.com%2Fevents%2Fbaftas%2Fsheku-kanneh-mason-evening-of-roses%2F&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://tv.bt.com/tv/tv-news/baftas-winners-full-list-2018-film-nominations-red-carpet-photos-gossip-11364251145115">"Baftas 2018: Winners list – In Full"</a>. BT.com<span class="reference-accessdate">. Retrieved <span class="nowrap">19 February</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=%27%27BT.com%27%27&amp;rft.atitle=Baftas+2018%3A+Winners+list+%E2%80%93+In+Full&amp;rft_id=http%3A%2F%2Ftv.bt.com%2Ftv%2Ftv-news%2Fbaftas-winners-full-list-2018-film-nominations-red-carpet-photos-gossip-11364251145115&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-7">^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://awards.bafta.org/sites/default/files/images/ee_british_academy_film_awards_1718-_key_dates.pdf">"71st British Academy Film Awards"</a>. BAFTA.org.</span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-8">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://www.bbc.co.uk/news/entertainment-arts-42618239">"Bafta Film Awards 2018: All the nominees"</a>. BBC<span class="reference-accessdate">. Retrieved <span class="nowrap">9 January</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=unknown&amp;rft.btitle=Bafta+Film+Awards+2018%3A+All+the+nominees&amp;rft.pub=BBC&amp;rft_id=http%3A%2F%2Fwww.bbc.co.uk%2Fnews%2Fentertainment-arts-42618239&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="#cite_ref-9">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://www.bbc.co.uk/news/entertainment-arts-42618239">"Bafta Film Awards 2018: All the winners"</a>. BBC News. 18 February 2018<span class="reference-accessdate">. Retrieved <span class="nowrap">19 February</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=%27%27BBC+News%27%27&amp;rft.atitle=Bafta+Film+Awards+2018%3A+All+the+winners&amp;rft.date=2018-02-18&amp;rft_id=http%3A%2F%2Fwww.bbc.co.uk%2Fnews%2Fentertainment-arts-42618239&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="#cite_ref-10">^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://www.bafta.org/film/awards/ee-british-academy-film-awards-in-2018#sound">"EE British Academy Film Awards Nominations in 2018"</a>. bafta.org<span class="reference-accessdate">. Retrieved <span class="nowrap">16 January</span> 2018</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=%27%27bafta.org%27%27&amp;rft.atitle=EE+British+Academy+Film+Awards+Nominations+in+2018&amp;rft_id=http%3A%2F%2Fwww.bafta.org%2Ffilm%2Fawards%2Fee-british-academy-film-awards-in-2018%23sound&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3A71st+British+Academy+Film+Awards" class="Z3988"><span style="display:none;">&#160;</span></span></span></li>
+</ol>
+</div>
+</div>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit&amp;section=8" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://www.bafta.org/">Official web site</a></li>
+</ul>
+<div role="navigation" class="navbox" aria-labelledby="British_Academy_Film_Awards" style="padding:3px">
+<table class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit">
+<tr>
+<th scope="col" class="navbox-title" colspan="2" style="background: #BDB76B">
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="/wiki/Template:BAFTA_Film_Awards_Chron" title="Template:BAFTA Film Awards Chron"><abbr title="View this template" style=";background: #BDB76B;background:none transparent;border:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;">v</abbr></a></li>
+<li class="nv-talk"><a href="/wiki/Template_talk:BAFTA_Film_Awards_Chron" title="Template talk:BAFTA Film Awards Chron"><abbr title="Discuss this template" style=";background: #BDB76B;background:none transparent;border:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;">t</abbr></a></li>
+<li class="nv-edit"><a class="external text" href="//en.wikipedia.org/w/index.php?title=Template:BAFTA_Film_Awards_Chron&amp;action=edit"><abbr title="Edit this template" style=";background: #BDB76B;background:none transparent;border:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;">e</abbr></a></li>
+</ul>
+</div>
+<div id="British_Academy_Film_Awards" style="font-size:114%;margin:0 4em"><a href="/wiki/British_Academy_Film_Awards" title="British Academy Film Awards">British Academy Film Awards</a></div>
+</th>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style="width:1%;background: #C5B358">Current Awards</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/BAFTA_Award_for_Best_Actor_in_a_Leading_Role" title="BAFTA Award for Best Actor in a Leading Role">Actor</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Actress_in_a_Leading_Role" title="BAFTA Award for Best Actress in a Leading Role">Actress</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Animated_Film" title="BAFTA Award for Best Animated Film">Animated Feature</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_British_Film" title="BAFTA Award for Best British Film">British Film</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Cinematography" title="BAFTA Award for Best Cinematography">Cinematography</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Costume_Design" title="BAFTA Award for Best Costume Design">Costume Design</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Outstanding_Debut_by_a_British_Writer,_Director_or_Producer" title="BAFTA Award for Outstanding Debut by a British Writer, Director or Producer">Debut by a British Writer, Director or Producer</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Direction" title="BAFTA Award for Best Direction">Director</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Documentary" title="BAFTA Award for Best Documentary">Documentary</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Editing" title="BAFTA Award for Best Editing">Editing</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Film" title="BAFTA Award for Best Film">Film</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Film_Not_in_the_English_Language" title="BAFTA Award for Best Film Not in the English Language">Film Not in the English Language</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Makeup_and_Hair" title="BAFTA Award for Best Makeup and Hair">Makeup and Hair</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Film_Music" title="BAFTA Award for Best Film Music">Music</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Production_Design" title="BAFTA Award for Best Production Design">Production Design</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Adapted_Screenplay" title="BAFTA Award for Best Adapted Screenplay">Screenplay: Adapted</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Original_Screenplay" title="BAFTA Award for Best Original Screenplay">Screenplay: Original</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Short_Animation" title="BAFTA Award for Best Short Animation">Short Animation</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Short_Film" title="BAFTA Award for Best Short Film">Short Film</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Sound" title="BAFTA Award for Best Sound">Sound</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Actor_in_a_Supporting_Role" title="BAFTA Award for Best Actor in a Supporting Role">Supporting Actor</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Actress_in_a_Supporting_Role" title="BAFTA Award for Best Actress in a Supporting Role">Supporting Actress</a></li>
+<li><a href="/wiki/BAFTA_Rising_Star_Award" title="BAFTA Rising Star Award">Rising Star</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Special_Visual_Effects" title="BAFTA Award for Best Special Visual Effects">Visual Effects</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style="width:1%;background: #C5B358">Special awards</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/BAFTA_Fellowship" title="BAFTA Fellowship">Fellowship Award</a></li>
+<li><a href="/wiki/BAFTA_Outstanding_British_Contribution_to_Cinema_Award" title="BAFTA Outstanding British Contribution to Cinema Award">Outstanding British Contribution to Cinema Award</a></li>
+<li>Special Award</li>
+</ul>
+</div>
+</td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style="width:1%;background: #C5B358">Retired awards</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/BAFTA_Award_for_Most_Promising_Newcomer_to_Leading_Film_Roles" title="BAFTA Award for Most Promising Newcomer to Leading Film Roles">Most Promising Newcomer to Leading Film Roles</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Screenplay" title="BAFTA Award for Best Screenplay">Screenplay</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_British_Screenplay" title="BAFTA Award for Best British Screenplay">British Screenplay</a></li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Actor_in_a_Leading_Role" title="BAFTA Award for Best Actor in a Leading Role">British Actor</a></li>
+<li>Foreign Actor</li>
+<li><a href="/wiki/BAFTA_Award_for_Best_Actress_in_a_Leading_Role" title="BAFTA Award for Best Actress in a Leading Role">British Actress</a></li>
+<li>Foreign Actress</li>
+</ul>
+</div>
+</td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style="width:1%;background: #C5B358">Ceremonies</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="/wiki/1st_British_Academy_Film_Awards" title="1st British Academy Film Awards">1947</a></li>
+<li><a href="/wiki/2nd_British_Academy_Film_Awards" title="2nd British Academy Film Awards">1948</a></li>
+<li><a href="/wiki/3rd_British_Academy_Film_Awards" title="3rd British Academy Film Awards">1949</a></li>
+<li><a href="/wiki/4th_British_Academy_Film_Awards" title="4th British Academy Film Awards">1950</a></li>
+<li><a href="/wiki/5th_British_Academy_Film_Awards" title="5th British Academy Film Awards">1951</a></li>
+<li><a href="/wiki/6th_British_Academy_Film_Awards" title="6th British Academy Film Awards">1952</a></li>
+<li><a href="/wiki/7th_British_Academy_Film_Awards" title="7th British Academy Film Awards">1953</a></li>
+<li><a href="/wiki/8th_British_Academy_Film_Awards" title="8th British Academy Film Awards">1954</a></li>
+<li><a href="/wiki/9th_British_Academy_Film_Awards" title="9th British Academy Film Awards">1955</a></li>
+<li><a href="/wiki/10th_British_Academy_Film_Awards" title="10th British Academy Film Awards">1956</a></li>
+<li><a href="/wiki/11th_British_Academy_Film_Awards" title="11th British Academy Film Awards">1957</a></li>
+<li><a href="/wiki/12th_British_Academy_Film_Awards" title="12th British Academy Film Awards">1958</a></li>
+<li><a href="/wiki/13th_British_Academy_Film_Awards" title="13th British Academy Film Awards">1959</a></li>
+<li><a href="/wiki/14th_British_Academy_Film_Awards" title="14th British Academy Film Awards">1960</a></li>
+<li><a href="/wiki/15th_British_Academy_Film_Awards" title="15th British Academy Film Awards">1961</a></li>
+<li><a href="/wiki/16th_British_Academy_Film_Awards" title="16th British Academy Film Awards">1962</a></li>
+<li><a href="/wiki/17th_British_Academy_Film_Awards" title="17th British Academy Film Awards">1963</a></li>
+<li><a href="/wiki/18th_British_Academy_Film_Awards" title="18th British Academy Film Awards">1964</a></li>
+<li><a href="/wiki/19th_British_Academy_Film_Awards" title="19th British Academy Film Awards">1965</a></li>
+<li><a href="/wiki/20th_British_Academy_Film_Awards" title="20th British Academy Film Awards">1966</a></li>
+<li><a href="/wiki/21st_British_Academy_Film_Awards" title="21st British Academy Film Awards">1967</a></li>
+<li><a href="/wiki/22nd_British_Academy_Film_Awards" title="22nd British Academy Film Awards">1968</a></li>
+<li><a href="/wiki/23rd_British_Academy_Film_Awards" title="23rd British Academy Film Awards">1969</a></li>
+<li><a href="/wiki/24th_British_Academy_Film_Awards" title="24th British Academy Film Awards">1970</a></li>
+<li><a href="/wiki/25th_British_Academy_Film_Awards" title="25th British Academy Film Awards">1971</a></li>
+<li><a href="/wiki/26th_British_Academy_Film_Awards" title="26th British Academy Film Awards">1972</a></li>
+<li><a href="/wiki/27th_British_Academy_Film_Awards" title="27th British Academy Film Awards">1973</a></li>
+<li><a href="/wiki/28th_British_Academy_Film_Awards" title="28th British Academy Film Awards">1974</a></li>
+<li><a href="/wiki/29th_British_Academy_Film_Awards" title="29th British Academy Film Awards">1975</a></li>
+<li><a href="/wiki/30th_British_Academy_Film_Awards" title="30th British Academy Film Awards">1976</a></li>
+<li><a href="/wiki/31st_British_Academy_Film_Awards" title="31st British Academy Film Awards">1977</a></li>
+<li><a href="/wiki/32nd_British_Academy_Film_Awards" title="32nd British Academy Film Awards">1978</a></li>
+<li><a href="/wiki/33rd_British_Academy_Film_Awards" title="33rd British Academy Film Awards">1979</a></li>
+<li><a href="/wiki/34th_British_Academy_Film_Awards" title="34th British Academy Film Awards">1980</a></li>
+<li><a href="/wiki/35th_British_Academy_Film_Awards" title="35th British Academy Film Awards">1981</a></li>
+<li><a href="/wiki/36th_British_Academy_Film_Awards" title="36th British Academy Film Awards">1982</a></li>
+<li><a href="/wiki/37th_British_Academy_Film_Awards" title="37th British Academy Film Awards">1983</a></li>
+<li><a href="/wiki/38th_British_Academy_Film_Awards" title="38th British Academy Film Awards">1984</a></li>
+<li><a href="/wiki/39th_British_Academy_Film_Awards" title="39th British Academy Film Awards">1985</a></li>
+<li><a href="/wiki/40th_British_Academy_Film_Awards" title="40th British Academy Film Awards">1986</a></li>
+<li><a href="/wiki/41st_British_Academy_Film_Awards" title="41st British Academy Film Awards">1987</a></li>
+<li><a href="/wiki/42nd_British_Academy_Film_Awards" title="42nd British Academy Film Awards">1988</a></li>
+<li><a href="/wiki/43rd_British_Academy_Film_Awards" title="43rd British Academy Film Awards">1989</a></li>
+<li><a href="/wiki/44th_British_Academy_Film_Awards" title="44th British Academy Film Awards">1990</a></li>
+<li><a href="/wiki/45th_British_Academy_Film_Awards" title="45th British Academy Film Awards">1991</a></li>
+<li><a href="/wiki/46th_British_Academy_Film_Awards" title="46th British Academy Film Awards">1992</a></li>
+<li><a href="/wiki/47th_British_Academy_Film_Awards" title="47th British Academy Film Awards">1993</a></li>
+<li><a href="/wiki/48th_British_Academy_Film_Awards" title="48th British Academy Film Awards">1994</a></li>
+<li><a href="/wiki/49th_British_Academy_Film_Awards" title="49th British Academy Film Awards">1995</a></li>
+<li><a href="/wiki/50th_British_Academy_Film_Awards" title="50th British Academy Film Awards">1996</a></li>
+<li><a href="/wiki/51st_British_Academy_Film_Awards" title="51st British Academy Film Awards">1997</a></li>
+<li><a href="/wiki/52nd_British_Academy_Film_Awards" title="52nd British Academy Film Awards">1998</a></li>
+<li><a href="/wiki/53rd_British_Academy_Film_Awards" title="53rd British Academy Film Awards">1999</a></li>
+<li><a href="/wiki/54th_British_Academy_Film_Awards" title="54th British Academy Film Awards">2000</a></li>
+<li><a href="/wiki/55th_British_Academy_Film_Awards" title="55th British Academy Film Awards">2001</a></li>
+<li><a href="/wiki/56th_British_Academy_Film_Awards" title="56th British Academy Film Awards">2002</a></li>
+<li><a href="/wiki/57th_British_Academy_Film_Awards" title="57th British Academy Film Awards">2003</a></li>
+<li><a href="/wiki/58th_British_Academy_Film_Awards" title="58th British Academy Film Awards">2004</a></li>
+<li><a href="/wiki/59th_British_Academy_Film_Awards" title="59th British Academy Film Awards">2005</a></li>
+<li><a href="/wiki/60th_British_Academy_Film_Awards" title="60th British Academy Film Awards">2006</a></li>
+<li><a href="/wiki/61st_British_Academy_Film_Awards" title="61st British Academy Film Awards">2007</a></li>
+<li><a href="/wiki/62nd_British_Academy_Film_Awards" title="62nd British Academy Film Awards">2008</a></li>
+<li><a href="/wiki/63rd_British_Academy_Film_Awards" title="63rd British Academy Film Awards">2009</a></li>
+<li><a href="/wiki/64th_British_Academy_Film_Awards" title="64th British Academy Film Awards">2010</a></li>
+<li><a href="/wiki/65th_British_Academy_Film_Awards" title="65th British Academy Film Awards">2011</a></li>
+<li><a href="/wiki/66th_British_Academy_Film_Awards" title="66th British Academy Film Awards">2012</a></li>
+<li><a href="/wiki/67th_British_Academy_Film_Awards" title="67th British Academy Film Awards">2013</a></li>
+<li><a href="/wiki/68th_British_Academy_Film_Awards" title="68th British Academy Film Awards">2014</a></li>
+<li><a href="/wiki/69th_British_Academy_Film_Awards" title="69th British Academy Film Awards">2015</a></li>
+<li><a href="/wiki/70th_British_Academy_Film_Awards" title="70th British Academy Film Awards">2016</a></li>
+<li><a class="mw-selflink selflink">2017</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1286
+Cached time: 20180222013131
+Cache expiry: 1900800
+Dynamic content: false
+CPU time usage: 0.224 seconds
+Real time usage: 0.295 seconds
+Preprocessor visited node count: 1823/1000000
+Preprocessor generated node count: 0/1500000
+Post‐expand include size: 44633/2097152 bytes
+Template argument size: 2117/2097152 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 4/500
+Lua time usage: 0.067/10.000 seconds
+Lua memory usage: 3.76 MB/50 MB
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  191.438      1 -total
+ 41.81%   80.043      1 Template:Reflist
+ 32.84%   62.875      1 Template:Infobox_film_awards
+ 30.42%   58.227      8 Template:Cite_web
+ 26.19%   50.147      1 Template:Infobox
+ 11.47%   21.960      1 Template:EngvarB
+  6.10%   11.681      2 Template:DMCA
+  5.38%   10.299      2 Template:Dated_maintenance_category
+  5.38%   10.291      1 Template:BAFTA_Film_Awards_Chron
+  4.80%    9.181      1 Template:Unbulleted_list
+-->
+</div>
+<!-- Saved in parser cache with key enwiki:pcache:idhash:55778477-0!canonical and timestamp 20180222013201 and revision id 826973387
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=71st_British_Academy_Film_Awards&amp;oldid=826973387">https://en.wikipedia.org/w/index.php?title=71st_British_Academy_Film_Awards&amp;oldid=826973387</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="/wiki/Category:2018_film_awards" title="Category:2018 film awards">2018 film awards</a></li><li><a href="/wiki/Category:2018_in_British_cinema" title="Category:2018 in British cinema">2018 in British cinema</a></li><li><a href="/wiki/Category:2018_in_London" title="Category:2018 in London">2018 in London</a></li><li><a href="/wiki/Category:British_Academy_Film_Awards" title="Category:British Academy Film Awards">British Academy Film Awards</a></li><li><a href="/wiki/Category:February_2018_events_in_the_United_Kingdom" title="Category:February 2018 events in the United Kingdom">February 2018 events in the United Kingdom</a></li><li><a href="/wiki/Category:Royal_Albert_Hall" title="Category:Royal Albert Hall">Royal Albert Hall</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="/wiki/Category:EngvarB_from_February_2018" title="Category:EngvarB from February 2018">EngvarB from February 2018</a></li><li><a href="/wiki/Category:Use_dmy_dates_from_February_2018" title="Category:Use dmy dates from February 2018">Use dmy dates from February 2018</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="/wiki/Special:MyTalk" title="Discussion about edits from this IP address [n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="/wiki/Special:MyContributions" title="A list of edits made from this IP address [y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="/w/index.php?title=Special:CreateAccount&amp;returnto=71st+British+Academy+Film+Awards" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=71st+British+Academy+Film+Awards" title="You&#039;re encouraged to log in; however, it&#039;s not mandatory. [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+							<li id="ca-nstab-main" class="selected"><span><a href="/wiki/71st_British_Academy_Film_Awards" title="View the content page [c]" accesskey="c">Article</a></span></li><li id="ca-talk"><span><a href="/wiki/Talk:71st_British_Academy_Film_Awards" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Talk</a></span></li>						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<input type="checkbox" class="vectorMenuCheckbox" aria-labelledby="p-variants-label" />
+						<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+							<li id="ca-view" class="collapsible selected"><span><a href="/wiki/71st_British_Academy_Film_Awards">Read</a></span></li><li id="ca-edit" class="collapsible"><span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=edit" title="Edit this page [e]" accesskey="e">Edit</a></span></li><li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<input type="checkbox" class="vectorMenuCheckbox" aria-labelledby="p-cactions-label" />
+						<h3 id="p-cactions-label"><span>More</span></h3>
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+						<form action="/w/index.php" id="searchform">
+							<div id="simpleSearch">
+								<input type="search" name="search" placeholder="Search Wikipedia" title="Search Wikipedia [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search Wikipedia for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+			<h3 id='p-navigation-label'>Navigation</h3>
+			<div class="body">
+								<ul>
+					<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-featuredcontent"><a href="/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li><li id="n-currentevents"><a href="/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li><li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li><li id="n-shoplink"><a href="//shop.wikimedia.org" title="Visit the Wikipedia store">Wikipedia store</a></li>				</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-interaction' aria-labelledby='p-interaction-label'>
+			<h3 id='p-interaction-label'>Interaction</h3>
+			<div class="body">
+								<ul>
+					<li id="n-help"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-aboutsite"><a href="/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li><li id="n-portal"><a href="/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li><li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li><li id="n-contactpage"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact page</a></li>				</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+			<h3 id='p-tb-label'>Tools</h3>
+			<div class="body">
+								<ul>
+					<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/71st_British_Academy_Film_Awards" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/71st_British_Academy_Film_Awards" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;oldid=826973387" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;action=info" title="More information about this page">Page information</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q44475296" title="Link to connected data repository item [g]" accesskey="g">Wikidata item</a></li><li id="t-cite"><a href="/w/index.php?title=Special:CiteThisPage&amp;page=71st_British_Academy_Film_Awards&amp;id=826973387" title="Information on how to cite this page">Cite this page</a></li>				</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-coll-print_export' aria-labelledby='p-coll-print_export-label'>
+			<h3 id='p-coll-print_export-label'>Print/export</h3>
+			<div class="body">
+								<ul>
+					<li id="coll-create_a_book"><a href="/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=71st+British+Academy+Film+Awards">Create a book</a></li><li id="coll-download-as-rdf2latex"><a href="/w/index.php?title=Special:ElectronPdf&amp;page=71st+British+Academy+Film+Awards&amp;action=show-download-screen">Download as PDF</a></li><li id="t-print"><a href="/w/index.php?title=71st_British_Academy_Film_Awards&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>				</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-lang' aria-labelledby='p-lang-label'>
+			<h3 id='p-lang-label'>Languages</h3>
+			<div class="body">
+								<ul>
+					<li class="interlanguage-link interwiki-cs"><a href="https://cs.wikipedia.org/wiki/71._ro%C4%8Dn%C3%ADk_ud%C3%ADlen%C3%AD_Filmov%C3%BDch_cen_Britsk%C3%A9_akademie" title="71. ročník udílení Filmových cen Britské akademie – Czech" lang="cs" hreflang="cs" class="interlanguage-link-target">Čeština</a></li><li class="interlanguage-link interwiki-de"><a href="https://de.wikipedia.org/wiki/British_Academy_Film_Awards_2018" title="British Academy Film Awards 2018 – German" lang="de" hreflang="de" class="interlanguage-link-target">Deutsch</a></li><li class="interlanguage-link interwiki-es"><a href="https://es.wikipedia.org/wiki/Anexo:Premios_BAFTA_2017" title="Anexo:Premios BAFTA 2017 – Spanish" lang="es" hreflang="es" class="interlanguage-link-target">Español</a></li><li class="interlanguage-link interwiki-fr"><a href="https://fr.wikipedia.org/wiki/71e_c%C3%A9r%C3%A9monie_des_British_Academy_Film_Awards" title="71e cérémonie des British Academy Film Awards – French" lang="fr" hreflang="fr" class="interlanguage-link-target">Français</a></li><li class="interlanguage-link interwiki-it"><a href="https://it.wikipedia.org/wiki/Premi_BAFTA_2018" title="Premi BAFTA 2018 – Italian" lang="it" hreflang="it" class="interlanguage-link-target">Italiano</a></li><li class="interlanguage-link interwiki-hu"><a href="https://hu.wikipedia.org/wiki/71._BAFTA-g%C3%A1la" title="71. BAFTA-gála – Hungarian" lang="hu" hreflang="hu" class="interlanguage-link-target">Magyar</a></li><li class="interlanguage-link interwiki-nl"><a href="https://nl.wikipedia.org/wiki/71e_BAFTA_Awards" title="71e BAFTA Awards – Dutch" lang="nl" hreflang="nl" class="interlanguage-link-target">Nederlands</a></li><li class="interlanguage-link interwiki-pt"><a href="https://pt.wikipedia.org/wiki/BAFTA_2018" title="BAFTA 2018 – Portuguese" lang="pt" hreflang="pt" class="interlanguage-link-target">Português</a></li><li class="interlanguage-link interwiki-ru"><a href="https://ru.wikipedia.org/wiki/BAFTA_(%D0%BF%D1%80%D0%B5%D0%BC%D0%B8%D1%8F,_2018)" title="BAFTA (премия, 2018) – Russian" lang="ru" hreflang="ru" class="interlanguage-link-target">Русский</a></li><li class="interlanguage-link interwiki-fi"><a href="https://fi.wikipedia.org/wiki/British_Academy_Film_Awards_2018" title="British Academy Film Awards 2018 – Finnish" lang="fi" hreflang="fi" class="interlanguage-link-target">Suomi</a></li><li class="interlanguage-link interwiki-sv"><a href="https://sv.wikipedia.org/wiki/BAFTA-galan_2018" title="BAFTA-galan 2018 – Swedish" lang="sv" hreflang="sv" class="interlanguage-link-target">Svenska</a></li><li class="interlanguage-link interwiki-tr"><a href="https://tr.wikipedia.org/wiki/71._%C4%B0ngiliz_Akademisi_Film_%C3%96d%C3%BClleri" title="71. İngiliz Akademisi Film Ödülleri – Turkish" lang="tr" hreflang="tr" class="interlanguage-link-target">Türkçe</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%9F%D1%80%D0%B5%D0%BC%D1%96%D1%8F_%D0%91%D0%90%D0%A4%D0%A2%D0%90_%D1%83_%D0%BA%D1%96%D0%BD%D0%BE_(71-%D1%88%D0%B0_%D1%86%D0%B5%D1%80%D0%B5%D0%BC%D0%BE%D0%BD%D1%96%D1%8F_%D0%B2%D1%80%D1%83%D1%87%D0%B5%D0%BD%D0%BD%D1%8F)" title="Премія БАФТА у кіно (71-ша церемонія вручення) – Ukrainian" lang="uk" hreflang="uk" class="interlanguage-link-target">Українська</a></li><li class="interlanguage-link interwiki-vi"><a href="https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_BAFTA_l%E1%BA%A7n_th%E1%BB%A9_71" title="Giải BAFTA lần thứ 71 – Vietnamese" lang="vi" hreflang="vi" class="interlanguage-link-target">Tiếng Việt</a></li><li class="interlanguage-link interwiki-zh"><a href="https://zh.wikipedia.org/wiki/%E7%AC%AC71%E5%B1%86%E8%8B%B1%E5%9C%8B%E9%9B%BB%E5%BD%B1%E5%AD%B8%E9%99%A2%E7%8D%8E" title="第71屆英國電影學院獎 – Chinese" lang="zh" hreflang="zh" class="interlanguage-link-target">中文</a></li>				</ul>
+				<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q44475296#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+				<div id="footer" role="contentinfo">
+						<ul id="footer-info">
+								<li id="footer-info-lastmod"> This page was last edited on 22 February 2018, at 01:32.</li>
+								<li id="footer-info-copyright">Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+							</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="https://wikimediafoundation.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+								<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-contact"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+								<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+								<li id="footer-places-cookiestatement"><a href="https://wikimediafoundation.org/wiki/Cookie_statement">Cookie statement</a></li>
+								<li id="footer-places-mobileview"><a href="//en.m.wikipedia.org/w/index.php?title=71st_British_Academy_Film_Awards&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://wikimediafoundation.org/"><img src="/static/images/wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"/></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="/static/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/static/images/poweredby_mediawiki_132x47.png 1.5x, /static/images/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.224","walltime":"0.295","ppvisitednodes":{"value":1823,"limit":1000000},"ppgeneratednodes":{"value":0,"limit":1500000},"postexpandincludesize":{"value":44633,"limit":2097152},"templateargumentsize":{"value":2117,"limit":2097152},"expansiondepth":{"value":12,"limit":40},"expensivefunctioncount":{"value":4,"limit":500},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%  191.438      1 -total"," 41.81%   80.043      1 Template:Reflist"," 32.84%   62.875      1 Template:Infobox_film_awards"," 30.42%   58.227      8 Template:Cite_web"," 26.19%   50.147      1 Template:Infobox"," 11.47%   21.960      1 Template:EngvarB","  6.10%   11.681      2 Template:DMCA","  5.38%   10.299      2 Template:Dated_maintenance_category","  5.38%   10.291      1 Template:BAFTA_Film_Awards_Chron","  4.80%    9.181      1 Template:Unbulleted_list"]},"scribunto":{"limitreport-timeusage":{"value":"0.067","limit":"10.000"},"limitreport-memusage":{"value":3947757,"limit":52428800}},"cachereport":{"origin":"mw1286","timestamp":"20180222013131","ttl":1900800,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":97,"wgHostname":"mw1239"});});</script>
+	</body>
+</html>

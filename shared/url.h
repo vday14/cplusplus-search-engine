@@ -106,6 +106,7 @@ public:
 
 	~ParsedUrl( )
 		{
+		pathBuffer = 0;
 		delete [ ] pathBuffer;
 		}
 
