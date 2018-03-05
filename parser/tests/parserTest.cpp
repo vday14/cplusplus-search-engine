@@ -26,10 +26,10 @@ int main ( )
 void testSimple ( )
 	{
 
-	ProducerConsumerQueue < string > * urlFrontierTest;
+	ProducerConsumerQueue < string >  urlFrontierTest;
 	Document document ( "<title>This Cat Title Cat</title>" );
 
-	Parser parser ( urlFrontierTest );
+	Parser parser ( &urlFrontierTest );
 	auto dictionary = parser.execute ( &document );
 
 	assert ( dictionary != nullptr );
@@ -46,7 +46,7 @@ void testSimple ( )
 void testComplex ( )
 	{
 
-	ProducerConsumerQueue < string > * urlFrontierTest;
+	ProducerConsumerQueue < string >  urlFrontierTest;
 	ifstream file("../tests/cats.html");
 	string temp;
 	string docString = "<title>Joe the Cat</title>\n";
@@ -57,7 +57,7 @@ void testComplex ( )
 
 	Document document ( docString );
 
-	Parser parser ( urlFrontierTest );
+	Parser parser ( &urlFrontierTest );
 	auto dictionary = parser.execute ( &document );
 
 //	cout << dictionary->size () << endl;
