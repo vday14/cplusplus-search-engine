@@ -14,17 +14,16 @@ class Tokenizer
 public:
 	Tokenizer ( )
 		{
-		doc_index = new unordered_map< string, vector< int>>;
+		docIndex = new unordered_map< string, vector< int>>;
 		}
 
 	unordered_map< string, vector< int>> *get ( ) const
 		{
-		return doc_index;
+		return docIndex;
 		}
 
-	void execute ( string originalText )
+	void execute ( string originalText, int offset )
 		{
-		int offset = 0;
 		vector< string > splitText = splitStr ( originalText, ' ' );
 		string lowerString = "";
 		for ( int i = 0; i < splitText.size ( ); ++i )
@@ -32,12 +31,12 @@ public:
 			lowerString = toLower ( splitText[ i ] );
 			if ( !isStopWord ( lowerString ) )
 				{
-				( *doc_index )[ lowerString ].push_back ( offset );
+				( *docIndex )[ lowerString ].push_back ( offset );
 				++offset;
 				}
 			}
 		}
 
 private:
-	unordered_map< string, vector< int>> *doc_index;
+	unordered_map< string, vector< int>> *docIndex;
 	};

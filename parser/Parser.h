@@ -54,39 +54,46 @@ private:
 	 * @param inFile
 	 * @return
 	 */
+	//TODO instead of grabbing each line, look to see if beginning of
+	// TODO title/url/anchortext, etc. Then continue until close tag and add to tokenizer after end of tag found
 	void parse ( string html, Tokenizer *tokenizer )
 		{
-
-		string tokenizerInput = "";
-		string currentTerm = "";
-		int index = 0;
-		while (index != html.size())
+		auto htmlIt = html.begin();
+		int offset = 0;
+		while (htmlIt != html.end())
 			{
-			currentTerm = "";
-			while ( html.at( index ) != '\n' )
+			// if open bracket
+			if ( *htmlIt == '<' )
 				{
-				currentTerm += html[ index ];
-				++index;
-				}
-			++index;
+				auto begCloseTag = findNext ("</", htmlIt);
+				auto endCloseTag = findNext ( ">", begCloseTag);
+				string line (htmlIt, endCloseTag + 1);
+				htmlIt = endCloseTag + 2;
 
-
-			string url = extract_url ( currentTerm );
-			if (url != "")
-				{
-				urlFrontier->Push (url);
+				// check if line is url
+				string url = extract_url ( line );
+				if (url != "")
+					{
+					urlFrontier->Push ( url );
+					}
+				// check if line is title
+				else
+					{
+					string title = extract_title ( line );
+					if (title != "")
+						{
+						tokenizer->execute ( title, offset );
+						}
+					}
+				//TODO fix offset?
+				offset = htmlIt - html.begin();
 				}
 			else
 				{
-				string title = extract_title ( currentTerm );
-				if (title != "")
-					{
-					tokenizerInput += title;
-					}
+				++htmlIt;
 				}
-
 			}
-		tokenizer->execute ( tokenizerInput );
+
 
 		}
 
@@ -98,16 +105,15 @@ private:
 	string extract_url ( string word )
 		{
 		string url = "";
-
-		if ( *findStr ( word, "<a" ) != '\0' )
+		if ( *findStr ( "<a", word ) != '\0' )
 			{
-			auto foundHttp = findStr ( word, "href=http" );
+			auto foundHref = findStr ( "href", word );
+			auto foundHttp = findNext ( "http", foundHref );
 			if ( *foundHttp != '\0' )
 				{
-				url = "http";
-				foundHttp += 9;
-
-				while ( *foundHttp != *findStr ( word, "\">" ) )
+				url = "";
+				auto closeTag = findNext ( ">", word.begin ( ) );
+				while ( *foundHttp != *closeTag )
 					{
 					url += *foundHttp;
 					++foundHttp;
