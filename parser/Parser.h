@@ -59,12 +59,17 @@ private:
 
 		string tokenizerInput = "";
 		string currentTerm = "";
-		for ( int i = 0; i < html.size ( ); ++i )
+		int index = 0;
+		while (index != html.size())
 			{
-			while ( html.at( i ) != '\n' )
+			currentTerm = "";
+			while ( html.at( index ) != '\n' )
 				{
-				currentTerm += html[ i ];
+				currentTerm += html[ index ];
+				++index;
 				}
+			++index;
+
 
 			string url = extract_url ( currentTerm );
 			if (url != "")
@@ -121,14 +126,15 @@ private:
 	string extract_title ( string & word )
 		{
 		string title = "";
+		char end = '<';
 		auto pos = findStr ( "<title>", word );
 		if ( *pos != '\0')
 			{
-			pos += 6;
-			while ( *pos != *findStr ( "</title>", word ) )
+			pos += 7;
+			while ( *pos != end )
 				{
-				++pos;
 				title += *pos;
+				++pos;
 				}
 			}
 		return title;

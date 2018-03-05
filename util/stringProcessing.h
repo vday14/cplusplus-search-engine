@@ -28,7 +28,7 @@ set< string > stopWords = { "a", "all", "an", "and", "any", "are", "as", "at", "
  * @param needle
  * @return
  */
-string::iterator findStr ( string haystack, string needle )
+string::iterator findStr (string needle, string haystack )
 	{
 
 	auto beginNeedle = needle.begin ( );
