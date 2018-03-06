@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named URLTEST
+
+# Build rule for target.
+URLTEST: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 URLTEST
+.PHONY : URLTEST
+
+# fast build rule for target.
+URLTEST/fast:
+	$(MAKE) -f CMakeFiles/URLTEST.dir/build.make CMakeFiles/URLTEST.dir/build
+.PHONY : URLTEST/fast
+
+#=============================================================================
 # Target rules for targets named ParserEndToEndTest
 
 # Build rule for target.
@@ -432,6 +445,33 @@ shared/ProducerConsumerQueue.cpp.s:
 	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/shared/ProducerConsumerQueue.cpp.s
 .PHONY : shared/ProducerConsumerQueue.cpp.s
 
+shared/urlTest.o: shared/urlTest.cpp.o
+
+.PHONY : shared/urlTest.o
+
+# target to build an object file
+shared/urlTest.cpp.o:
+	$(MAKE) -f CMakeFiles/URLTEST.dir/build.make CMakeFiles/URLTEST.dir/shared/urlTest.cpp.o
+.PHONY : shared/urlTest.cpp.o
+
+shared/urlTest.i: shared/urlTest.cpp.i
+
+.PHONY : shared/urlTest.i
+
+# target to preprocess a source file
+shared/urlTest.cpp.i:
+	$(MAKE) -f CMakeFiles/URLTEST.dir/build.make CMakeFiles/URLTEST.dir/shared/urlTest.cpp.i
+.PHONY : shared/urlTest.cpp.i
+
+shared/urlTest.s: shared/urlTest.cpp.s
+
+.PHONY : shared/urlTest.s
+
+# target to generate assembly for a file
+shared/urlTest.cpp.s:
+	$(MAKE) -f CMakeFiles/URLTEST.dir/build.make CMakeFiles/URLTEST.dir/shared/urlTest.cpp.s
+.PHONY : shared/urlTest.cpp.s
+
 util/tests/stemmerTest.o: util/tests/stemmerTest.cpp.o
 
 .PHONY : util/tests/stemmerTest.o
@@ -547,6 +587,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... URLTEST"
 	@echo "... ParserEndToEndTest"
 	@echo "... rebuild_cache"
 	@echo "... StemmerTest"
@@ -579,6 +620,9 @@ help:
 	@echo "... shared/ProducerConsumerQueue.o"
 	@echo "... shared/ProducerConsumerQueue.i"
 	@echo "... shared/ProducerConsumerQueue.s"
+	@echo "... shared/urlTest.o"
+	@echo "... shared/urlTest.i"
+	@echo "... shared/urlTest.s"
 	@echo "... util/tests/stemmerTest.o"
 	@echo "... util/tests/stemmerTest.i"
 	@echo "... util/tests/stemmerTest.s"

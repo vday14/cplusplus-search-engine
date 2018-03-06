@@ -40,6 +40,8 @@ add_executable(ParserEndToEndTest
         parser/tests/parserTest.cpp)
 
 
+add_executable(URLTEST shared/url.h shared/urlTest.cpp)
+
 
 find_package(OpenSSL REQUIRED)
 

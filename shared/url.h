@@ -7,10 +7,18 @@
 #include <string>
 #include <iostream>
 #include "../util/util.h"
+#include <math.h>
 //#include "../crawler/SocketReader.h"
 using namespace std;
 
 
+#define GOV   ".gov"
+#define COM   ".com"
+#define EDU   ".edu"
+#define ORG   ".org"
+#define NET   ".net"
+#define MIL   ".mil"
+#define INT   ".int"
 
 
 
@@ -25,6 +33,7 @@ public:
 			*Host,
 			*Domain,
 			*Path;
+	double Score;
 
 	ParsedUrl( string input_url )
 		{
@@ -69,7 +78,12 @@ public:
 
 			//char * domainBuffer = new char[ 20 ];
 			//get the domain:
-			for(int i = strlen(Host); Host[i] != Period; i--){
+			char *i = Host;
+			for(; *i; i++){
+
+				if(*i == Period)
+					Domain = i;
+
 				}
 
 
@@ -90,6 +104,8 @@ public:
 			}
 		else
 			Host = Path = p;
+
+		setScore();
 		}
 
 	void printUrl()
@@ -97,12 +113,32 @@ public:
 		cout << "Complete URL: " << CompleteUrl << endl;
 		cout << "Service: " << Service << endl;
 		cout << "Host: " << Host << endl;
+		cout << "Domain: " << Domain << endl;
 		cout << "Path: " << Path << endl;
+		cout << "Score: " << Score << endl;
 
 
 		}
 
+	void setScore(){
+		double lengthOfUrl = strlen(CompleteUrl);
+		Score += 4 * 1/ log( lengthOfUrl );
 
+		if ( strcmp ( Domain , ORG ) )
+			Score += 5;
+		else if ( strcmp ( Domain , EDU ) )
+			Score += 4;
+		else if ( strcmp ( Domain , GOV ) )
+			Score += 3;
+		else if ( strcmp ( Domain , COM ) )
+			Score += 2;
+		else if ( strcmp ( Domain , NET ) )
+			Score += 1;
+		else if ( strcmp ( Domain , INT ) )
+			Score += 1;
+		else if ( strcmp ( Domain , MIL ) )
+			Score += .5;
+		}
 
 	~ParsedUrl( )
 		{

@@ -20,7 +20,9 @@ private:
 public:
 
     ProducerConsumerQueue() {}
-    void Push(T obj);
+
+
+	void Push(T obj);
     T Pop();
     size_t Size();
 
