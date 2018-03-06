@@ -2,9 +2,7 @@
 // Created by anvia on 1/31/2018.
 //
 
-#ifndef EECS398_SEARCH_STRINGPROCESSING_H
-#define EECS398_SEARCH_STRINGPROCESSING_H
-
+#pragma  once
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -201,4 +199,3 @@ string stemWord(string word)
 	return "";
 	}
 
-#endif //EECS398_SEARCH_STRINGPROCESSING_H

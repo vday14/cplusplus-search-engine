@@ -3,15 +3,22 @@ project(eecs398_search)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(eecs398_search
+add_executable(search
         main.cpp
         shared/ProducerConsumerQueue.cpp
         shared/ProducerConsumerQueue.h
-        shared/ProducerConsumerQueue_test.cpp parser/Parser.h
-        parser/Parser.h
+         parser/Parser.h
         util/Tokenizer.h
         util/stringProcessing.h
         util/Stemmer.h)
+
+
+
+add_executable(crawl main.cpp   shared/ProducerConsumerQueue.h  shared/ThreadClass.h shared/url.h crawler/crawler.cpp crawler/SocketReader.cpp crawler/StreamReader.h   crawler/spider.cpp util/util.h crawler/LocalReader.h crawler/StreamReader.h parser/Parser.h shared/Document.cpp parser/Parser.cpp)
+
+
+add_executable(test1 main.cpp  shared/ProducerConsumerQueue.h
+        shared/ThreadClass.h crawler/crawler.cpp crawler/spider.cpp shared/url.h crawler/StreamReader.h util/util.cpp crawler/SocketReader.cpp crawler/SocketReader.h crawler/LocalReader.h )
 
 add_executable(StringProcessingTest
         util/stringProcessing.h
@@ -32,3 +39,10 @@ add_executable(ParserEndToEndTest
         shared/url.h
         parser/tests/parserTest.cpp)
 
+
+
+find_package(OpenSSL REQUIRED)
+
+target_link_libraries(crawl OpenSSL::SSL)
+
+target_link_libraries(test1 OpenSSL::SSL)

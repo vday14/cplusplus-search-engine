@@ -27,7 +27,10 @@ void testSimple ( )
 	{
 
 	ProducerConsumerQueue < string >  urlFrontierTest;
-	Document document ( "<title>This Cat Title Cat</title>" );
+	ParsedUrl url = ParsedUrl("testurl.com");
+	char docString[10240];
+	strcpy(docString, "<title>This Cat Title Cat</title>");
+	Document document ( url, docString);
 
 	Parser parser ( &urlFrontierTest );
 	auto dictionary = parser.execute ( &document );
@@ -49,13 +52,15 @@ void testComplex ( )
 	ProducerConsumerQueue < string >  urlFrontierTest;
 	ifstream file("../tests/cats.html");
 	string temp;
-	string docString = "<title>Joe the Cat</title>\n";
-	docString += "<a href=\"https://www.w3schools.com/html/\">Visit our HTML tutorial</a>\n";
-	while(std::getline(file, temp)) {
-		docString += temp;
-		}
+	char docString[10240];
+	strcpy(docString, "<title>Joe the Cat</title>\n");
 
-	Document document ( docString );
+	strcat(docString, "<a href=\"https://www.w3schools.com/html/\">Visit our HTML tutorial</a>\n");
+	while(std::getline(file, temp)) {
+		//strcat(docString, str(temp));
+		}
+	ParsedUrl url = ParsedUrl("https://www.w3schools.com/tests/cats.html");
+	Document document ( url, docString );
 
 	Parser parser ( &urlFrontierTest );
 	auto dictionary = parser.execute ( &document );

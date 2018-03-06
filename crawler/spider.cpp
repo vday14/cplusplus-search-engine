@@ -6,18 +6,18 @@
 
 
 #include "spider.h"
+#include "../parser/Parser.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 
 #include <unistd.h>
-#include "../util/util.h"
 
 #include "LocalReader.h"
 #include "SocketReader.h"
 #include "../shared/Document.h"
-
+#include "../util/util.h"
 size_t Spider::hash(const char * s){
 	{
 		// http://www.cse.yorku.ca/~oz/hash.html
@@ -62,7 +62,11 @@ void Spider::FuncToRun()
 				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" + to_string(docID)+ ".txt";
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
 
-				//parser.parse(reader);
+
+				/*
+				Document document ( currentUrl, reader->buffer );
+				auto dictionary = parser.execute ( &document );
+				*/
 				cond = true;
 				}
 			else
@@ -87,7 +91,10 @@ Takes a URL. Hashes it. Checks if the url is in the docMapLookup. If it is, chec
 */
 
 
-
+/*
+ * Takes in a parsed url,  creates a document object, writes information about the document to disk
+ *  returns the begining position of the document on disk, stores that into the in memory lookup hash table
+*/
 bool Spider::writeDocToDisk(ParsedUrl url)
 	{
 	Document d(url);
@@ -103,6 +110,12 @@ bool Spider::writeDocToDisk(ParsedUrl url)
 	return true;
 	}
 
+/*
+ *
+ * Takes a parsed url, checks if its in the local in memory hash table of documents return false
+ * If url was crawled but past a certain point, reindexs or does not exist , indexes the doc
+ * and returns true
+ */
 
 
 bool Spider::shouldURLbeCrawled( ParsedUrl url )

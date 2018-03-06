@@ -1,7 +1,7 @@
 //
 // Created by anvia on 1/31/2018.
 //
-
+#pragma once
 #include <string>
 #include <unordered_map>
 #include <vector>
