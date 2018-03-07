@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named search-engine
+
+# Build rule for target.
+search-engine: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 search-engine
+.PHONY : search-engine
+
+# fast build rule for target.
+search-engine/fast:
+	$(MAKE) -f CMakeFiles/search-engine.dir/build.make CMakeFiles/search-engine.dir/build
+.PHONY : search-engine/fast
+
+#=============================================================================
 # Target rules for targets named URLTEST
 
 # Build rule for target.
@@ -135,6 +148,19 @@ ParserEndToEndTest: cmake_check_build_system
 ParserEndToEndTest/fast:
 	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/build
 .PHONY : ParserEndToEndTest/fast
+
+#=============================================================================
+# Target rules for targets named StemmerTest
+
+# Build rule for target.
+StemmerTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 StemmerTest
+.PHONY : StemmerTest
+
+# fast build rule for target.
+StemmerTest/fast:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/build
+.PHONY : StemmerTest/fast
 
 #=============================================================================
 # Target rules for targets named TokenizerTest
@@ -176,30 +202,17 @@ crawl/fast:
 .PHONY : crawl/fast
 
 #=============================================================================
-# Target rules for targets named StemmerTest
+# Target rules for targets named parser-test
 
 # Build rule for target.
-StemmerTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 StemmerTest
-.PHONY : StemmerTest
+parser-test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 parser-test
+.PHONY : parser-test
 
 # fast build rule for target.
-StemmerTest/fast:
-	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/build
-.PHONY : StemmerTest/fast
-
-#=============================================================================
-# Target rules for targets named search
-
-# Build rule for target.
-search: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 search
-.PHONY : search
-
-# fast build rule for target.
-search/fast:
-	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/build
-.PHONY : search/fast
+parser-test/fast:
+	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/build
+.PHONY : parser-test/fast
 
 crawler/SocketReader.o: crawler/SocketReader.cpp.o
 
@@ -289,7 +302,7 @@ main.o: main.cpp.o
 # target to build an object file
 main.cpp.o:
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/main.cpp.o
-	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -299,7 +312,7 @@ main.i: main.cpp.i
 # target to preprocess a source file
 main.cpp.i:
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/main.cpp.i
-	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -309,7 +322,7 @@ main.s: main.cpp.s
 # target to generate assembly for a file
 main.cpp.s:
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/main.cpp.s
-	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 parser/Parser.o: parser/Parser.cpp.o
@@ -366,6 +379,60 @@ parser/tests/parserTest.cpp.s:
 	$(MAKE) -f CMakeFiles/ParserEndToEndTest.dir/build.make CMakeFiles/ParserEndToEndTest.dir/parser/tests/parserTest.cpp.s
 .PHONY : parser/tests/parserTest.cpp.s
 
+query/Query.o: query/Query.cpp.o
+
+.PHONY : query/Query.o
+
+# target to build an object file
+query/Query.cpp.o:
+	$(MAKE) -f CMakeFiles/search-engine.dir/build.make CMakeFiles/search-engine.dir/query/Query.cpp.o
+.PHONY : query/Query.cpp.o
+
+query/Query.i: query/Query.cpp.i
+
+.PHONY : query/Query.i
+
+# target to preprocess a source file
+query/Query.cpp.i:
+	$(MAKE) -f CMakeFiles/search-engine.dir/build.make CMakeFiles/search-engine.dir/query/Query.cpp.i
+.PHONY : query/Query.cpp.i
+
+query/Query.s: query/Query.cpp.s
+
+.PHONY : query/Query.s
+
+# target to generate assembly for a file
+query/Query.cpp.s:
+	$(MAKE) -f CMakeFiles/search-engine.dir/build.make CMakeFiles/search-engine.dir/query/Query.cpp.s
+.PHONY : query/Query.cpp.s
+
+search.o: search.cpp.o
+
+.PHONY : search.o
+
+# target to build an object file
+search.cpp.o:
+	$(MAKE) -f CMakeFiles/search-engine.dir/build.make CMakeFiles/search-engine.dir/search.cpp.o
+.PHONY : search.cpp.o
+
+search.i: search.cpp.i
+
+.PHONY : search.i
+
+# target to preprocess a source file
+search.cpp.i:
+	$(MAKE) -f CMakeFiles/search-engine.dir/build.make CMakeFiles/search-engine.dir/search.cpp.i
+.PHONY : search.cpp.i
+
+search.s: search.cpp.s
+
+.PHONY : search.s
+
+# target to generate assembly for a file
+search.cpp.s:
+	$(MAKE) -f CMakeFiles/search-engine.dir/build.make CMakeFiles/search-engine.dir/search.cpp.s
+.PHONY : search.cpp.s
+
 shared/Document.o: shared/Document.cpp.o
 
 .PHONY : shared/Document.o
@@ -399,7 +466,7 @@ shared/ProducerConsumerQueue.o: shared/ProducerConsumerQueue.cpp.o
 
 # target to build an object file
 shared/ProducerConsumerQueue.cpp.o:
-	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/shared/ProducerConsumerQueue.cpp.o
+	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/shared/ProducerConsumerQueue.cpp.o
 .PHONY : shared/ProducerConsumerQueue.cpp.o
 
 shared/ProducerConsumerQueue.i: shared/ProducerConsumerQueue.cpp.i
@@ -408,7 +475,7 @@ shared/ProducerConsumerQueue.i: shared/ProducerConsumerQueue.cpp.i
 
 # target to preprocess a source file
 shared/ProducerConsumerQueue.cpp.i:
-	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/shared/ProducerConsumerQueue.cpp.i
+	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/shared/ProducerConsumerQueue.cpp.i
 .PHONY : shared/ProducerConsumerQueue.cpp.i
 
 shared/ProducerConsumerQueue.s: shared/ProducerConsumerQueue.cpp.s
@@ -417,7 +484,7 @@ shared/ProducerConsumerQueue.s: shared/ProducerConsumerQueue.cpp.s
 
 # target to generate assembly for a file
 shared/ProducerConsumerQueue.cpp.s:
-	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/shared/ProducerConsumerQueue.cpp.s
+	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/shared/ProducerConsumerQueue.cpp.s
 .PHONY : shared/ProducerConsumerQueue.cpp.s
 
 shared/urlTest.o: shared/urlTest.cpp.o
@@ -589,14 +656,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... search-engine"
 	@echo "... URLTEST"
 	@echo "... ParserEndToEndTest"
+	@echo "... rebuild_cache"
+	@echo "... StemmerTest"
 	@echo "... TokenizerTest"
 	@echo "... StringProcessingTest"
 	@echo "... crawl"
-	@echo "... rebuild_cache"
-	@echo "... StemmerTest"
-	@echo "... search"
+	@echo "... parser-test"
 	@echo "... crawler/SocketReader.o"
 	@echo "... crawler/SocketReader.i"
 	@echo "... crawler/SocketReader.s"
@@ -615,6 +683,12 @@ help:
 	@echo "... parser/tests/parserTest.o"
 	@echo "... parser/tests/parserTest.i"
 	@echo "... parser/tests/parserTest.s"
+	@echo "... query/Query.o"
+	@echo "... query/Query.i"
+	@echo "... query/Query.s"
+	@echo "... search.o"
+	@echo "... search.i"
+	@echo "... search.s"
 	@echo "... shared/Document.o"
 	@echo "... shared/Document.i"
 	@echo "... shared/Document.s"

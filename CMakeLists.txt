@@ -3,7 +3,7 @@ project(eecs398_search)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(search
+add_executable(parser-test
         main.cpp
         shared/ProducerConsumerQueue.cpp
         shared/ProducerConsumerQueue.h
@@ -53,6 +53,8 @@ add_executable(ParserEndToEndTest
 
 add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
+
+add_executable(search-engine search.cpp query/Query.cpp)
 
 find_package(OpenSSL REQUIRED)
 
