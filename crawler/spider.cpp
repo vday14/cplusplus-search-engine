@@ -6,7 +6,6 @@
 
 
 #include "spider.h"
-#include "../parser/Parser.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -17,7 +16,8 @@
 #include "LocalReader.h"
 #include "SocketReader.h"
 #include "../shared/Document.h"
-#include "../util/util.h"
+#include "../parser/Parser.h"
+
 size_t Spider::hash(const char * s){
 	{
 		// http://www.cse.yorku.ca/~oz/hash.html

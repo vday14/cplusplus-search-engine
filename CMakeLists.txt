@@ -14,7 +14,20 @@ add_executable(search
 
 
 
-add_executable(crawl main.cpp   shared/ProducerConsumerQueue.h  shared/ThreadClass.h shared/url.h crawler/crawler.cpp crawler/SocketReader.cpp crawler/StreamReader.h   crawler/spider.cpp util/util.h crawler/LocalReader.h crawler/StreamReader.h parser/Parser.h shared/Document.cpp parser/Parser.cpp)
+add_executable(crawl
+        main.cpp
+        shared/ProducerConsumerQueue.h
+        shared/ThreadClass.h
+        shared/url.h
+        crawler/crawler.cpp
+        crawler/SocketReader.cpp
+        crawler/StreamReader.h
+        crawler/spider.cpp
+        util/util.cpp
+        crawler/LocalReader.h
+        shared/Document.cpp
+        parser/Parser.cpp
+        util/stringProcessing.cpp)
 
 
 add_executable(test1 main.cpp  shared/ProducerConsumerQueue.h
@@ -45,6 +58,6 @@ add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
 find_package(OpenSSL REQUIRED)
 
-target_link_libraries(crawl OpenSSL::SSL)
+target_link_libraries(crawl OpenSSL::SSL pthread)
 
 target_link_libraries(test1 OpenSSL::SSL)

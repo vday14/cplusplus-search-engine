@@ -9,8 +9,11 @@
 #include<iostream>
 #include <unordered_map>
 #include "StreamReader.h"
-#include "../parser/Parser.h"
 #include "../util/util.h"
+#include "../parser/Parser.h"
+
+
+
 
 using namespace std;
 
@@ -22,7 +25,7 @@ public:
 
 	Spider( string mode_in, ProducerConsumerQueue < string > *url_q_in,
 			  unordered_map < string, int > *doc_map_lookup_in )
-			: mode( mode_in ), urlFrontier( url_q_in ), docMapLookup( doc_map_lookup_in ), parser( Parser( url_q_in))
+			: mode( mode_in ), urlFrontier( url_q_in ), docMapLookup( doc_map_lookup_in )
 		{
 		};
 
@@ -48,7 +51,6 @@ public:
 private:
 
 	int locationOnDisk;
-	Parser parser;
 	ProducerConsumerQueue < string > *urlFrontier;
 	string mode;
 	unordered_map < string, int > *docMapLookup;
