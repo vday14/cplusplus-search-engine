@@ -25,7 +25,7 @@ public:
 
 	Spider( string mode_in, ProducerConsumerQueue < string > *url_q_in,
 			  unordered_map < string, int > *doc_map_lookup_in )
-			: mode( mode_in ), urlFrontier( url_q_in ), docMapLookup( doc_map_lookup_in )
+			: mode( mode_in ), urlFrontier( url_q_in ), docMapLookup( doc_map_lookup_in ), parser( url_q_in)
 		{
 		};
 
@@ -54,6 +54,6 @@ private:
 	ProducerConsumerQueue < string > *urlFrontier;
 	string mode;
 	unordered_map < string, int > *docMapLookup;
-
+	Parser parser;
 
 	};

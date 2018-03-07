@@ -52,8 +52,9 @@ void Spider::FuncToRun()
 		//url has not seen before or time since seen is past certain criteria
 		if ( shouldURLbeCrawled( currentUrl ))
 			{
-			bool success = writeDocToDisk(currentUrl);
-			if ( success && cond )
+			//bool success = writeDocToDisk(currentUrl);
+			//if ( success && cond )
+			if(cond)
 				{
 
 
@@ -63,10 +64,10 @@ void Spider::FuncToRun()
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
 
 
-				/*
+
 				Document document ( currentUrl, reader->buffer );
 				auto dictionary = parser.execute ( &document );
-				*/
+
 				cond = true;
 				}
 			else

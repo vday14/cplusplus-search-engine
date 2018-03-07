@@ -137,17 +137,17 @@ ParserEndToEndTest/fast:
 .PHONY : ParserEndToEndTest/fast
 
 #=============================================================================
-# Target rules for targets named StemmerTest
+# Target rules for targets named TokenizerTest
 
 # Build rule for target.
-StemmerTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 StemmerTest
-.PHONY : StemmerTest
+TokenizerTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 TokenizerTest
+.PHONY : TokenizerTest
 
 # fast build rule for target.
-StemmerTest/fast:
-	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/build
-.PHONY : StemmerTest/fast
+TokenizerTest/fast:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/build
+.PHONY : TokenizerTest/fast
 
 #=============================================================================
 # Target rules for targets named StringProcessingTest
@@ -163,32 +163,6 @@ StringProcessingTest/fast:
 .PHONY : StringProcessingTest/fast
 
 #=============================================================================
-# Target rules for targets named TokenizerTest
-
-# Build rule for target.
-TokenizerTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 TokenizerTest
-.PHONY : TokenizerTest
-
-# fast build rule for target.
-TokenizerTest/fast:
-	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/build
-.PHONY : TokenizerTest/fast
-
-#=============================================================================
-# Target rules for targets named test1
-
-# Build rule for target.
-test1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test1
-.PHONY : test1
-
-# fast build rule for target.
-test1/fast:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/build
-.PHONY : test1/fast
-
-#=============================================================================
 # Target rules for targets named crawl
 
 # Build rule for target.
@@ -200,6 +174,19 @@ crawl: cmake_check_build_system
 crawl/fast:
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/build
 .PHONY : crawl/fast
+
+#=============================================================================
+# Target rules for targets named StemmerTest
+
+# Build rule for target.
+StemmerTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 StemmerTest
+.PHONY : StemmerTest
+
+# fast build rule for target.
+StemmerTest/fast:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/build
+.PHONY : StemmerTest/fast
 
 #=============================================================================
 # Target rules for targets named search
@@ -220,7 +207,6 @@ crawler/SocketReader.o: crawler/SocketReader.cpp.o
 
 # target to build an object file
 crawler/SocketReader.cpp.o:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/SocketReader.cpp.o
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/SocketReader.cpp.o
 .PHONY : crawler/SocketReader.cpp.o
 
@@ -230,7 +216,6 @@ crawler/SocketReader.i: crawler/SocketReader.cpp.i
 
 # target to preprocess a source file
 crawler/SocketReader.cpp.i:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/SocketReader.cpp.i
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/SocketReader.cpp.i
 .PHONY : crawler/SocketReader.cpp.i
 
@@ -240,7 +225,6 @@ crawler/SocketReader.s: crawler/SocketReader.cpp.s
 
 # target to generate assembly for a file
 crawler/SocketReader.cpp.s:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/SocketReader.cpp.s
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/SocketReader.cpp.s
 .PHONY : crawler/SocketReader.cpp.s
 
@@ -250,7 +234,6 @@ crawler/crawler.o: crawler/crawler.cpp.o
 
 # target to build an object file
 crawler/crawler.cpp.o:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/crawler.cpp.o
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/crawler.cpp.o
 .PHONY : crawler/crawler.cpp.o
 
@@ -260,7 +243,6 @@ crawler/crawler.i: crawler/crawler.cpp.i
 
 # target to preprocess a source file
 crawler/crawler.cpp.i:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/crawler.cpp.i
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/crawler.cpp.i
 .PHONY : crawler/crawler.cpp.i
 
@@ -270,7 +252,6 @@ crawler/crawler.s: crawler/crawler.cpp.s
 
 # target to generate assembly for a file
 crawler/crawler.cpp.s:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/crawler.cpp.s
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/crawler.cpp.s
 .PHONY : crawler/crawler.cpp.s
 
@@ -280,7 +261,6 @@ crawler/spider.o: crawler/spider.cpp.o
 
 # target to build an object file
 crawler/spider.cpp.o:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/spider.cpp.o
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/spider.cpp.o
 .PHONY : crawler/spider.cpp.o
 
@@ -290,7 +270,6 @@ crawler/spider.i: crawler/spider.cpp.i
 
 # target to preprocess a source file
 crawler/spider.cpp.i:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/spider.cpp.i
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/spider.cpp.i
 .PHONY : crawler/spider.cpp.i
 
@@ -300,7 +279,6 @@ crawler/spider.s: crawler/spider.cpp.s
 
 # target to generate assembly for a file
 crawler/spider.cpp.s:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/crawler/spider.cpp.s
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/spider.cpp.s
 .PHONY : crawler/spider.cpp.s
 
@@ -310,7 +288,6 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/main.cpp.o
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/main.cpp.o
 	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/main.cpp.o
 .PHONY : main.cpp.o
@@ -321,7 +298,6 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/main.cpp.i
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/main.cpp.i
 	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/main.cpp.i
 .PHONY : main.cpp.i
@@ -332,7 +308,6 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/main.cpp.s
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/main.cpp.s
 	$(MAKE) -f CMakeFiles/search.dir/build.make CMakeFiles/search.dir/main.cpp.s
 .PHONY : main.cpp.s
@@ -472,6 +447,33 @@ shared/urlTest.cpp.s:
 	$(MAKE) -f CMakeFiles/URLTEST.dir/build.make CMakeFiles/URLTEST.dir/shared/urlTest.cpp.s
 .PHONY : shared/urlTest.cpp.s
 
+util/stringProcessing.o: util/stringProcessing.cpp.o
+
+.PHONY : util/stringProcessing.o
+
+# target to build an object file
+util/stringProcessing.cpp.o:
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/util/stringProcessing.cpp.o
+.PHONY : util/stringProcessing.cpp.o
+
+util/stringProcessing.i: util/stringProcessing.cpp.i
+
+.PHONY : util/stringProcessing.i
+
+# target to preprocess a source file
+util/stringProcessing.cpp.i:
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/util/stringProcessing.cpp.i
+.PHONY : util/stringProcessing.cpp.i
+
+util/stringProcessing.s: util/stringProcessing.cpp.s
+
+.PHONY : util/stringProcessing.s
+
+# target to generate assembly for a file
+util/stringProcessing.cpp.s:
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/util/stringProcessing.cpp.s
+.PHONY : util/stringProcessing.cpp.s
+
 util/tests/stemmerTest.o: util/tests/stemmerTest.cpp.o
 
 .PHONY : util/tests/stemmerTest.o
@@ -559,7 +561,7 @@ util/util.o: util/util.cpp.o
 
 # target to build an object file
 util/util.cpp.o:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/util/util.cpp.o
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/util/util.cpp.o
 .PHONY : util/util.cpp.o
 
 util/util.i: util/util.cpp.i
@@ -568,7 +570,7 @@ util/util.i: util/util.cpp.i
 
 # target to preprocess a source file
 util/util.cpp.i:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/util/util.cpp.i
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/util/util.cpp.i
 .PHONY : util/util.cpp.i
 
 util/util.s: util/util.cpp.s
@@ -577,7 +579,7 @@ util/util.s: util/util.cpp.s
 
 # target to generate assembly for a file
 util/util.cpp.s:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/util/util.cpp.s
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/util/util.cpp.s
 .PHONY : util/util.cpp.s
 
 # Help Target
@@ -589,12 +591,11 @@ help:
 	@echo "... edit_cache"
 	@echo "... URLTEST"
 	@echo "... ParserEndToEndTest"
+	@echo "... TokenizerTest"
+	@echo "... StringProcessingTest"
+	@echo "... crawl"
 	@echo "... rebuild_cache"
 	@echo "... StemmerTest"
-	@echo "... StringProcessingTest"
-	@echo "... TokenizerTest"
-	@echo "... test1"
-	@echo "... crawl"
 	@echo "... search"
 	@echo "... crawler/SocketReader.o"
 	@echo "... crawler/SocketReader.i"
@@ -623,6 +624,9 @@ help:
 	@echo "... shared/urlTest.o"
 	@echo "... shared/urlTest.i"
 	@echo "... shared/urlTest.s"
+	@echo "... util/stringProcessing.o"
+	@echo "... util/stringProcessing.i"
+	@echo "... util/stringProcessing.s"
 	@echo "... util/tests/stemmerTest.o"
 	@echo "... util/tests/stemmerTest.i"
 	@echo "... util/tests/stemmerTest.s"

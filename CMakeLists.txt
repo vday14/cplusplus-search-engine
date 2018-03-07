@@ -30,8 +30,6 @@ add_executable(crawl
         util/stringProcessing.cpp)
 
 
-add_executable(test1 main.cpp  shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h crawler/crawler.cpp crawler/spider.cpp shared/url.h crawler/StreamReader.h util/util.cpp crawler/SocketReader.cpp crawler/SocketReader.h crawler/LocalReader.h )
 
 add_executable(StringProcessingTest
         util/stringProcessing.h
@@ -60,4 +58,3 @@ find_package(OpenSSL REQUIRED)
 
 target_link_libraries(crawl OpenSSL::SSL pthread)
 
-target_link_libraries(test1 OpenSSL::SSL)
