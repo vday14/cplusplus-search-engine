@@ -17,7 +17,6 @@
 #include <openssl/ssl.h>
 
 
-
 class StreamReader
 	{
 public:
@@ -28,28 +27,3 @@ public:
 	virtual void closeReader() = 0;
 
 	};
-
-/*
-StreamReader* SR_factory(ParsedUrl url, string mode)
-	{
-	string localFile;
-
-	StreamReader *newReader = nullptr
-	;
-	if ( mode == "local" )
-	{
-		newReader = new LocalReader( url.CompleteUrl );
-	}
-	else if ( mode == "web" )
-	{
-		if(url.Service == "http") {
-			newReader = new HttpReader(url);
-		}
-		else if(url.Service == "https"){
-			newReader = new HttpsReader(url);
-		}
-	}
-
-	return newReader;
-	}
- */

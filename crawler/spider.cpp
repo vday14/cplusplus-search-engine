@@ -12,6 +12,38 @@
 #include <unistd.h>
 #include "../shared/Document.h"
 #include "../parser/Parser.h"
+#include "Readers/HttpsReader.h"
+#include "Readers/HttpReader.h"
+#include "Readers/LocalReader.h"
+
+
+// FIND A BETTER PLACE TO PUT THIS FUNCTION
+
+StreamReader* SR_factory(ParsedUrl url, string mode)
+	{
+	string localFile;
+
+	StreamReader *newReader = nullptr
+	;
+	if ( mode == "local" )
+	{
+		newReader = new LocalReader( url.CompleteUrl );
+	}
+	else if ( mode == "web" )
+	{
+		if(url.Service == "http") {
+			newReader = new HttpReader(url);
+		}
+		else if(url.Service == "https"){
+			newReader = new HttpsReader(url);
+		}
+	}
+
+	return newReader;
+	}
+
+
+
 
 size_t Spider::hash(const char * s)
 	{

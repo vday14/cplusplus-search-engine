@@ -8,17 +8,16 @@
 
 class LocalReader : public StreamReader
 	{
-	string fileName;
-	bool fillBuffer(char * buf, size_t buf_size){
-
-		//FIXME
-		strcpy(buf, util::getFileMap( fileName )) ;
-		return true;
-		//FIXME
-
-		}
 public:
+
 	LocalReader( string url_in ) : fileName( url_in ) { }
+
+	void request();
+	bool fillBuffer(char * buf, size_t buf_size);
+	void closeReader();
+
+private:
+	string fileName;
 
 	};
 
