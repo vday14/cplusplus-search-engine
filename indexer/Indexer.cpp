@@ -88,10 +88,21 @@ void Indexer::save() {
 //        string wordBreak = word.first + "\n";
 //        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
 //        seekOffset += strlen(wordBreak.c_str());
+        bool first = true;
+        size_t lastOne = 0;
         for(auto location : word.second) {
-            string locationSpace = to_string(location) + " ";
-            write(file, locationSpace.c_str(), strlen(locationSpace.c_str()));
-            seekOffset += strlen(locationSpace.c_str());
+            if(first) {
+                string locationSpace = to_string(location) + " ";
+                write(file, locationSpace.c_str(), strlen(locationSpace.c_str()));
+                seekOffset += strlen(locationSpace.c_str());
+                first = false;
+            } else {
+                size_t delta = location - lastOne;
+                string deltaSpace = to_string(delta) + " ";
+                write(file, deltaSpace.c_str(), strlen(deltaSpace.c_str()));
+                seekOffset += strlen(deltaSpace.c_str());
+            }
+            lastOne = location;
         }
         write(file, "\n", 1);
         seekOffset += 1;
