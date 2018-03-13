@@ -11,32 +11,32 @@ using namespace std;
 
 class Tokenizer
 	{
-public:
-	Tokenizer ( )
-		{
-		docIndex = new unordered_map< string, vector< int>>;
-		}
-
-	unordered_map< string, vector< int>> *get ( ) const
-		{
-		return docIndex;
-		}
-
-	void execute ( string originalText, int offset )
-		{
-		vector< string > splitText = splitStr ( originalText, ' ' );
-		string lowerString = "";
-		for ( int i = 0; i < splitText.size ( ); ++i )
+	public:
+		Tokenizer ( )
 			{
-			lowerString = toLower ( splitText[ i ] );
-			if ( !isStopWord ( lowerString ) )
+			docIndex = new unordered_map< string, vector< int>>;
+			}
+
+		unordered_map< string, vector< int>> *get ( ) const
+			{
+			return docIndex;
+			}
+
+		void execute ( string originalText, int offset )
+			{
+			vector< string > splitText = splitStr ( originalText, ' ' );
+			string lowerString = "";
+			for ( int i = 0; i < splitText.size ( ); ++i )
 				{
-				( *docIndex )[ lowerString ].push_back ( offset );
-				++offset;
+				lowerString = toLower ( splitText[ i ] );
+				if ( !isStopWord ( lowerString ) )
+					{
+					( *docIndex )[ lowerString ].push_back ( offset );
+					++offset;
+					}
 				}
 			}
-		}
 
-private:
-	unordered_map< string, vector< int>> *docIndex;
+	private:
+		unordered_map< string, vector< int>> *docIndex;
 	};

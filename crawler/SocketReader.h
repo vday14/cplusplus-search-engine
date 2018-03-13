@@ -2,8 +2,7 @@
 // Created by Ben Bergkamp on 2/14/18.
 //
 
-#ifndef EECS398_SEARCH_SOCKETREADER_H
-#define EECS398_SEARCH_SOCKETREADER_H
+#pragma once
 
 #include "StreamReader.h"
 
@@ -24,4 +23,3 @@ private:
 	};
 
 
-#endif //EECS398_SEARCH_SOCKETREADER_H
