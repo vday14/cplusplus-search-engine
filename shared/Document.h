@@ -14,11 +14,11 @@ using namespace std;
 
 namespace filepath
 	{
-		const char *DOC_MAP = "/docMap.txt";
+		static const char *DOC_MAP = "/docMap.txt";
 	}
 
 
-pthread_mutex_t docMap_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t docMap_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 class Document
 	{

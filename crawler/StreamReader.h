@@ -23,6 +23,8 @@ class StreamReader
 public:
 	StreamReader() {};
 	virtual void fillBuffer() = 0;
+	virtual void close() = 0;
+	virtual void request();
 	char *buffer;
 
 	};

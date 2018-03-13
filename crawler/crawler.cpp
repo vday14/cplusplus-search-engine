@@ -3,7 +3,6 @@
 //
 
 #include "crawler.h"
-#include <unordered_map>
 
 void Crawler::SpawnSpiders( size_t num_spiders, unordered_map < string, int > *docMapLookup )
 	{

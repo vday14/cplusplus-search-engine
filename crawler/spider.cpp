@@ -6,7 +6,6 @@
 
 
 #include "spider.h"
-#include "../parser/Parser.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -17,7 +16,8 @@
 #include "LocalReader.h"
 #include "SocketReader.h"
 #include "../shared/Document.h"
-#include "../util/util.h"
+#include "../parser/Parser.h"
+
 size_t Spider::hash(const char * s){
 	{
 		// http://www.cse.yorku.ca/~oz/hash.html
@@ -52,8 +52,9 @@ void Spider::FuncToRun()
 		//url has not seen before or time since seen is past certain criteria
 		if ( shouldURLbeCrawled( currentUrl ))
 			{
-			bool success = writeDocToDisk(currentUrl);
-			if ( success && cond )
+			//bool success = writeDocToDisk(currentUrl);
+			//if ( success && cond )
+			if(cond)
 				{
 
 
@@ -63,10 +64,10 @@ void Spider::FuncToRun()
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
 
 
-				/*
+
 				Document document ( currentUrl, reader->buffer );
 				auto dictionary = parser.execute ( &document );
-				*/
+
 				cond = true;
 				}
 			else
@@ -187,6 +188,7 @@ returns true if fileMap was created, otherwise false
  Modifies the filemap to be a char* of the file of the url passed
 */
 
+// make this become a stream reader factory
 StreamReader* Spider::request( ParsedUrl url )
 	{
 	string localFile;
@@ -201,9 +203,15 @@ StreamReader* Spider::request( ParsedUrl url )
 		newReader = new SocketReader( url );
 		}
 
+	//remove fill buffer/ change to get request
 	newReader->fillBuffer( );
 	return newReader;
 	}
+
+//request function that handles sending over get request via socket or trying to open file
+
+//Error handling
+
 
 
 
