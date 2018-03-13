@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benbergkamp/Desktop/398/eecs398-search
+# Install script for directory: /Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/benbergkamp/Desktop/398/eecs398-search/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/veronicaday/Desktop/EECS398/eecs_398/project/eecs398-search/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
