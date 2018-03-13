@@ -27,7 +27,7 @@ add_executable(crawl
         crawler/LocalReader.h
         shared/Document.cpp
         parser/Parser.cpp
-        util/stringProcessing.cpp)
+        util/stringProcessing.cpp indexStreamReader/ISR.cpp indexStreamReader/ISR.h)
 
 
 

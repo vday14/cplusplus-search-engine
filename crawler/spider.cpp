@@ -188,6 +188,7 @@ returns true if fileMap was created, otherwise false
  Modifies the filemap to be a char* of the file of the url passed
 */
 
+// make this become a stream reader factory
 StreamReader* Spider::request( ParsedUrl url )
 	{
 	string localFile;
@@ -202,9 +203,15 @@ StreamReader* Spider::request( ParsedUrl url )
 		newReader = new SocketReader( url );
 		}
 
+	//remove fill buffer/ change to get request
 	newReader->fillBuffer( );
 	return newReader;
 	}
+
+//request function that handles sending over get request via socket or trying to open file
+
+//Error handling
+
 
 
 

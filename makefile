@@ -295,6 +295,33 @@ crawler/spider.cpp.s:
 	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/crawler/spider.cpp.s
 .PHONY : crawler/spider.cpp.s
 
+indexStreamReader/ISR.o: indexStreamReader/ISR.cpp.o
+
+.PHONY : indexStreamReader/ISR.o
+
+# target to build an object file
+indexStreamReader/ISR.cpp.o:
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/indexStreamReader/ISR.cpp.o
+.PHONY : indexStreamReader/ISR.cpp.o
+
+indexStreamReader/ISR.i: indexStreamReader/ISR.cpp.i
+
+.PHONY : indexStreamReader/ISR.i
+
+# target to preprocess a source file
+indexStreamReader/ISR.cpp.i:
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/indexStreamReader/ISR.cpp.i
+.PHONY : indexStreamReader/ISR.cpp.i
+
+indexStreamReader/ISR.s: indexStreamReader/ISR.cpp.s
+
+.PHONY : indexStreamReader/ISR.s
+
+# target to generate assembly for a file
+indexStreamReader/ISR.cpp.s:
+	$(MAKE) -f CMakeFiles/crawl.dir/build.make CMakeFiles/crawl.dir/indexStreamReader/ISR.cpp.s
+.PHONY : indexStreamReader/ISR.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -674,6 +701,9 @@ help:
 	@echo "... crawler/spider.o"
 	@echo "... crawler/spider.i"
 	@echo "... crawler/spider.s"
+	@echo "... indexStreamReader/ISR.o"
+	@echo "... indexStreamReader/ISR.i"
+	@echo "... indexStreamReader/ISR.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

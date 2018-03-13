@@ -172,6 +172,8 @@ void SocketReader::httpsRequest(){
 
 
 
+
+
 void SocketReader::fillBuffer(  )
 	{
 	if ( !strcmp(url.Service , "http" ) )

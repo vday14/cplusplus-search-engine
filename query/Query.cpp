@@ -23,6 +23,7 @@ void QueryParser::search()
 	else if(strcmp(CompleteQuery, "-help") == 0)
 		{
 		cout << "Manual" << endl;
+		return;
 		}
 
 
