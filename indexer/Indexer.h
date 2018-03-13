@@ -2,6 +2,7 @@
 #define indexer_h
 #include "../ProducerConsumerQueue.h"
 #include "../ProducerConsumerQueue.cpp"
+#include "DocumentEnding.h"
 #include <unordered_map>
 #include <map>
 #include <vector>
@@ -39,6 +40,8 @@ class Indexer {
 
         unordered_map<string, vector<size_t> > masterDictionary;
 		unordered_map<string, vector<size_t> > lastOne;
+
+        vector<DocumentEnding> docEndings;
 
         size_t indexedCount;
         size_t currentFile;

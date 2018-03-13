@@ -12,21 +12,29 @@ Indexer::Indexer() {
 
 void Indexer::run() {
     while(pointerToDictionaries.Size() != 0) {
-        unordered_map<string, vector<int>>* dictionary = pointerToDictionaries.Pop();
+        unordered_map<string, vector<int> >* dictionary = pointerToDictionaries.Pop();
+        DocumentEnding docEnd = DocumentEnding();
         currentBlockNumberDocs++;
         for(auto word : *dictionary) {
             indexedCount += word.second.size();
             totalIndexed += word.second.size();
             currentBlockNumberWords += word.second.size();
+            if(word.first.at(0) == '=') {
+                docEnd.url = word.first;
+                continue;
+            }
             for(auto location : word.second) {
                 masterDictionary[word.first].push_back(currentlyIndexed + location);
             }
         }
+        currentlyIndexed += indexedCount;
+        docEnd.docEndPosition = currentlyIndexed;
+        docEnd.docNumWords = indexedCount;
+        docEndings.push_back(docEnd);
         if(currentBlockNumberWords >= 300000) {
             save();
             reset();
         }
-        currentlyIndexed += indexedCount;
         indexedCount = 0;
     }
     save();
@@ -54,7 +62,7 @@ void Indexer::save() {
     string uniqueWords = "unique words: " + to_string(masterDictionary.size()) + "\n";
     string numberWords = "number words: " + to_string(currentBlockNumberWords) + "\n";
     string numberDocs = "number docs: " + to_string(currentBlockNumberDocs) + "\n";
-    string footer = "===SEEK===\n";
+    string footer = "===========\n";
     write(file, header.c_str(), strlen(header.c_str()));
     write(file, uniqueWords.c_str(), strlen(uniqueWords.c_str()));
     write(file, numberWords.c_str(), strlen(numberWords.c_str()));
@@ -70,6 +78,17 @@ void Indexer::save() {
         }
         seeker[word.first] = 013;
         write(file, "\n", 1);
+    }
+
+    string docEndingHeader = "===Document Endings===\n";
+    write(file, docEndingHeader.c_str(), strlen(docEndingHeader.c_str()));
+
+    for(auto ending : docEndings) {
+        string docEndString = "[" +
+                ending.url + ", " +
+                to_string(ending.docEndPosition) + ", " +
+                to_string(ending.docNumWords) + "]\n";
+        write(file, docEndString.c_str(), strlen(docEndString.c_str()));
     }
 
     // TODO: seek dictionary
@@ -97,7 +116,7 @@ void Indexer::verbose_save() {
     }
 
 void Indexer::reset() {
-    unordered_map<string, vector<size_t>> lastOne;
+    unordered_map<string, vector<size_t> > lastOne;
 
     for(auto bucket : masterDictionary) {
         lastOne[bucket.first].push_back(bucket.second.back());
