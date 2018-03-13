@@ -18,6 +18,10 @@ void testToLower ( );
 
 void testIsStopWord ( );
 
+void testFindNext ( );
+
+void testFindPrev ( );
+
 int main ( )
 	{
 
@@ -31,6 +35,8 @@ int main ( )
 	testSplitStr ( original );
 	testToLower ( );
 	testIsStopWord ( );
+	testFindNext ( );
+	testFindPrev ( );
 
 	cout << "\nTests passed for StringProcessing_unit :D" << endl;
 
@@ -127,4 +133,48 @@ void testIsStopWord ( )
 
 	cout << "testIsStopWord passed" << endl;
 
+	}
+
+void testFindNext ( )
+	{
+	cout << "Testing findNext..." << endl;
+
+	string racecar = "racecar";
+	string hello = "hello";
+	string blank = "";
+
+	assert ( *findNext ( "race", racecar.begin( ) ) == 'r' );
+	assert ( *findNext ( "race", racecar.begin( ) + 4 ) == '\0' );
+	assert ( *findNext ( "car", racecar.begin( ) + 4 ) == 'c' );
+
+	assert ( *findNext ( "hello", hello.begin( ) ) == 'h' );
+	assert ( *findNext ( "ello", hello.begin( ) ) == 'e' );
+	assert ( *findNext ( "ello", hello.begin( ) + 2 ) == 'e' );
+
+	assert ( *findNext ( "", blank.begin( ) ) == '\0' );
+
+	cout << "testFindNext passed" << endl;
+
+	}
+
+void testFindPrev ( )
+	{
+	cout << "Testing findPrev..." << endl;
+
+	string racecar = "racecar";
+	string hello = "hello";
+	string blank = "";
+
+	assert ( *findNext ( "race", racecar.begin( ) ) == '\0' );
+	assert ( *findNext ( "race", racecar.begin( ) + 4 ) == 'r' );
+	assert ( *findNext ( "car", racecar.begin( ) + 4 ) == '\0' );
+	assert ( *findNext ( "car", racecar.begin( ) + 7 ) == 'c' );
+
+	assert ( *findNext ( "hello", hello.begin( ) ) == '\0' );
+	assert ( *findNext ( "ello", hello.begin( ) + 3 ) == '\0' );
+	assert ( *findNext ( "ello", hello.begin( ) + 5 ) == 'e' );
+
+	assert ( *findNext ( "", blank.begin( ) ) == '\0' );
+
+	cout << "testFindPrev passed" << endl;
 	}

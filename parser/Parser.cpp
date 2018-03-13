@@ -1,8 +1,3 @@
-//
-// Created by Jake Close on 3/5/18.
-//
-
-
 
 #include "Parser.h"
 

@@ -1,10 +1,3 @@
-//
-// Created by Veronica Day on 1/28/18.
-//
-
-// keep running count of offset, if stop word: don't incrememnt and remove stopword
-// tokenizer returns pointer to document dictionary, parser puts it on the indexer's queue
-//
 
 #pragma once
 #include <string>
