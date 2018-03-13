@@ -85,9 +85,9 @@ void Indexer::save() {
         } else {
             seeker[word.first] = seekOffset;
         }
-        string wordBreak = word.first + "\n";
-        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
-        seekOffset += strlen(wordBreak.c_str());
+//        string wordBreak = word.first + "\n";
+//        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
+//        seekOffset += strlen(wordBreak.c_str());
         for(auto location : word.second) {
             string locationSpace = to_string(location) + " ";
             write(file, locationSpace.c_str(), strlen(locationSpace.c_str()));

@@ -10,9 +10,9 @@ using namespace std;
 
 int main() {
     int index1 = open("index0.txt", O_CREAT|O_RDWR, S_IRWXU);
-    lseek(index1, 129545, SEEK_SET);
+    lseek(index1, 129522, SEEK_SET);
     char buffer[10];
-    if(read(index1, buffer, 20) != 20) {
+    if(read(index1, buffer, 10) != 10) {
         cout << "ERROR" << endl;
     }
     cout << buffer << endl;
