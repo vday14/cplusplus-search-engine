@@ -19,7 +19,7 @@ master index.
 TODO:
  Use deltas between the offsets
  Save with UTF-8 encoding
- Concrete block size - 500MB per block?
+ Concrete block size - 100MB per block?
  Save document endings and other relevant metadata?
 
 */
@@ -36,11 +36,17 @@ class Indexer {
     private:
         void save();
         void reset();
+
         unordered_map<string, vector<size_t> > masterDictionary;
+		unordered_map<string, vector<size_t> > lastOne;
+
         size_t indexedCount;
         size_t currentFile;
         size_t totalIndexed;
         size_t currentlyIndexed;
+
+        size_t currentBlockNumberWords;
+        size_t currentBlockNumberDocs;
 };
 
 #endif /*indexer_h*/

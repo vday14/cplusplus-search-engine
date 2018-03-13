@@ -30,6 +30,7 @@ int main() {
             id++;
         }
     }
+    test1["=tests/test1.txt"].push_back(0);
     id = 0;
     while(ifstream2 >> word) {
         std::transform(word.begin(), word.end(), word.begin(), ::tolower);
@@ -39,6 +40,7 @@ int main() {
             id++;
         }
     }
+    test2["=tests/test2.txt"].push_back(0);
     id = 0;
     while(ifstream3 >> word) {
         std::transform(word.begin(), word.end(), word.begin(), ::tolower);
@@ -48,6 +50,7 @@ int main() {
             id++;
         }
     }
+    test3["=tests/test3.txt"].push_back(0);
     id = 0;
     while(ifstream4 >> word) {
         std::transform(word.begin(), word.end(), word.begin(), ::tolower);
@@ -57,6 +60,7 @@ int main() {
             id++;
         }
     }
+    test4["=tests/test4.txt"].push_back(0);
     indexer.pointerToDictionaries.Push(&test1);
     indexer.pointerToDictionaries.Push(&test2);
     indexer.pointerToDictionaries.Push(&test3);
