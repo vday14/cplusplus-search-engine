@@ -10,15 +10,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-#include <unistd.h>
-
-#include "LocalReader.h"
-#include "SocketReader.h"
 #include "../shared/Document.h"
 #include "../parser/Parser.h"
 
-size_t Spider::hash(const char * s){
+size_t Spider::hash(const char * s)
 	{
 		// http://www.cse.yorku.ca/~oz/hash.html
 		size_t h = 5381;
@@ -26,7 +21,6 @@ size_t Spider::hash(const char * s){
 		while ((c = *s++))
 			h = ((h << 5) + h) + c;
 		return h;
-	}
 	}
 
 
@@ -57,16 +51,21 @@ void Spider::FuncToRun()
 			if(cond)
 				{
 
+					//StreamReader *reader = SR_factory( currentUrl, this->mode );
 
-				StreamReader *reader = request( currentUrl );
+
+
+					/*
+					 OLD VERSION
+
 				size_t docID = hash(currentUrl.CompleteUrl);
 				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" + to_string(docID)+ ".txt";
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
-
-
-
 				Document document ( currentUrl, reader->buffer );
 				auto dictionary = parser.execute ( &document );
+					 */
+
+
 
 				cond = true;
 				}
@@ -138,7 +137,7 @@ bool Spider::shouldURLbeCrawled( ParsedUrl url )
 	return false;
 	}
 
-
+/*
 //check if path in url is in the robots txt
 bool Spider::checkRobots(ParsedUrl url)
 	{
@@ -181,32 +180,8 @@ int Spider::getRobots(ParsedUrl url )
 
 
 
-	};
-
-/*
-returns true if fileMap was created, otherwise false
- Modifies the filemap to be a char* of the file of the url passed
-*/
-
-// make this become a stream reader factory
-StreamReader* Spider::request( ParsedUrl url )
-	{
-	string localFile;
-
-	StreamReader *newReader;
-	if ( this->mode == "local" )
-		{
-		newReader = new LocalReader( url.CompleteUrl );
-		}
-	else if ( this->mode == "web" )
-		{
-		newReader = new SocketReader( url );
-		}
-
-	//remove fill buffer/ change to get request
-	newReader->fillBuffer( );
-	return newReader;
 	}
+*/
 
 //request function that handles sending over get request via socket or trying to open file
 
