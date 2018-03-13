@@ -9,12 +9,13 @@
 using namespace std;
 
 int main() {
-    int index1 = open("index0.txt", O_CREAT|O_WRONLY, S_IRWXU);
-    lseek(index1, 25, SEEK_SET);
-    string fs = "hello";
-    if(write(index1, fs.c_str(), strlen(fs.c_str())) != strlen(fs.c_str())) {
+    int index1 = open("index0.txt", O_CREAT|O_RDWR, S_IRWXU);
+    lseek(index1, 129545, SEEK_SET);
+    char buffer[10];
+    if(read(index1, buffer, 20) != 20) {
         cout << "ERROR" << endl;
     }
+    cout << buffer << endl;
     close(index1);
     return 0;
 }

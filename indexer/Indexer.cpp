@@ -68,16 +68,33 @@ void Indexer::save() {
     write(file, numberWords.c_str(), strlen(numberWords.c_str()));
     write(file, numberDocs.c_str(), strlen(numberDocs.c_str()));
     write(file, footer.c_str(), strlen(footer.c_str()));
+    // REALLY GROSS HACK
+    int seekOffset = strlen(header.c_str()) +
+                     strlen(numberDocs.c_str()) +
+                     strlen(numberWords.c_str()) +
+                     strlen(uniqueWords.c_str()) +
+                     strlen(footer.c_str());
+
+
+    bool first = true;
 
     for(auto word : maps) {
+        if(first) { //REALLY BAD HACKK
+            first = false;
+            seeker[word.first] = seekOffset;
+        } else {
+            seeker[word.first] = seekOffset;
+        }
         string wordBreak = word.first + "\n";
         write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
+        seekOffset += strlen(wordBreak.c_str());
         for(auto location : word.second) {
             string locationSpace = to_string(location) + " ";
             write(file, locationSpace.c_str(), strlen(locationSpace.c_str()));
+            seekOffset += strlen(locationSpace.c_str());
         }
-        seeker[word.first] = 013;
         write(file, "\n", 1);
+        seekOffset += 1;
     }
 
     string docEndingHeader = "===Document Endings===\n";
