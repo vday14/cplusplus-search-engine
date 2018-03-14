@@ -39,8 +39,6 @@ class Indexer {
         void reset();
 
         unordered_map<string, vector<size_t> > masterDictionary;
-        map<string, size_t> seekDictionary;
-		unordered_map<string, vector<size_t> > lastOne;
 
         vector<DocumentEnding> docEndings;
 

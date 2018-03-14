@@ -16,13 +16,13 @@ void Indexer::run() {
         DocumentEnding docEnd = DocumentEnding();
         currentBlockNumberDocs++;
         for(auto word : *dictionary) {
-            indexedCount += word.second.size();
-            totalIndexed += word.second.size();
-            currentBlockNumberWords += word.second.size();
             if(word.first.at(0) == '=') {
                 docEnd.url = word.first.substr(1, word.first.length());
                 continue;
             }
+            indexedCount += word.second.size();
+            totalIndexed += word.second.size();
+            currentBlockNumberWords += word.second.size();
             for(auto location : word.second) {
                 masterDictionary[word.first].push_back(currentlyIndexed + location);
             }
@@ -145,13 +145,6 @@ void Indexer::verbose_save() {
     }
 
 void Indexer::reset() {
-    unordered_map<string, vector<size_t> > lastOne;
-
-    for(auto bucket : masterDictionary) {
-        lastOne[bucket.first].push_back(bucket.second.back());
-    }
-
-    this->lastOne = lastOne;
     masterDictionary.clear();
 
     docEndings.clear();
