@@ -1,9 +1,7 @@
 #include "Indexer.h"
 
 Indexer::Indexer() {
-    indexedCount = 0;
     currentFile = 0;
-    totalIndexed = 0;
     currentlyIndexed = 0;
 
     currentBlockNumberWords = 0;
@@ -14,29 +12,34 @@ void Indexer::run() {
     while(pointerToDictionaries.Size() != 0) {
         unordered_map<string, vector<int> >* dictionary = pointerToDictionaries.Pop();
         DocumentEnding docEnd = DocumentEnding();
+        size_t indexedCount = 0;
         currentBlockNumberDocs++;
+
         for(auto word : *dictionary) {
             if(word.first.at(0) == '=') {
                 docEnd.url = word.first.substr(1, word.first.length());
                 continue;
             }
+
             indexedCount += word.second.size();
-            totalIndexed += word.second.size();
             currentBlockNumberWords += word.second.size();
+
             for(auto location : word.second) {
                 masterDictionary[word.first].push_back(currentlyIndexed + location);
             }
         }
+
         currentlyIndexed += indexedCount;
         docEnd.docEndPosition = currentlyIndexed;
         docEnd.docNumWords = indexedCount;
         docEndings.push_back(docEnd);
+
         if(currentBlockNumberWords >= 300000) {
             save();
             reset();
         }
-        indexedCount = 0;
     }
+
     save();
     reset();
 }
@@ -46,7 +49,7 @@ void Indexer::verbose_run() {
         unordered_map<string, vector<int>> dictionary = *pointerToDictionaries.Pop();
         for(auto word : dictionary) {
 	        for(auto location : word.second) {
-                indexedCount++;
+//                indexedCount++;
                 masterDictionary[word.first].push_back(location);
                 }
             }
@@ -58,6 +61,7 @@ void Indexer::save() {
     map<string, size_t> seeker;
     string fileName = "index" + to_string(currentFile) + ".txt";
     int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
+
     // TODO: these should really be c strings
     string header = "===STATS===\n";
     string uniqueWords = "unique words: " + to_string(masterDictionary.size()) + "\n";
@@ -69,34 +73,27 @@ void Indexer::save() {
     write(file, numberWords.c_str(), strlen(numberWords.c_str()));
     write(file, numberDocs.c_str(), strlen(numberDocs.c_str()));
     write(file, footer.c_str(), strlen(footer.c_str()));
+
     // REALLY GROSS HACK
-    int seekOffset = strlen(header.c_str()) +
+    size_t seekOffset = strlen(header.c_str()) +
                      strlen(numberDocs.c_str()) +
                      strlen(numberWords.c_str()) +
                      strlen(uniqueWords.c_str()) +
                      strlen(footer.c_str());
 
-
-    bool first = true;
-
     for(auto word : maps) {
-        if(first) { //REALLY BAD HACKK
-            first = false;
-            seeker[word.first] = seekOffset;
-        } else {
-            seeker[word.first] = seekOffset;
-        }
+        seeker[word.first] = seekOffset;
 //        string wordBreak = word.first + "\n";
 //        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
 //        seekOffset += strlen(wordBreak.c_str());
-        bool first = true;
+        bool firstPost = true;
         size_t lastOne = 0;
         for(auto location : word.second) {
-            if(first) {
+            if(firstPost) {
                 string locationSpace = to_string(location) + " ";
                 write(file, locationSpace.c_str(), strlen(locationSpace.c_str()));
                 seekOffset += strlen(locationSpace.c_str());
-                first = false;
+                firstPost = false;
             } else {
                 size_t delta = location - lastOne;
                 string deltaSpace = to_string(delta) + " ";
@@ -146,7 +143,6 @@ void Indexer::verbose_save() {
 
 void Indexer::reset() {
     masterDictionary.clear();
-
     docEndings.clear();
 
     currentBlockNumberWords = 0;

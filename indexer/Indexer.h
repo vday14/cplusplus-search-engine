@@ -42,9 +42,7 @@ class Indexer {
 
         vector<DocumentEnding> docEndings;
 
-        size_t indexedCount;
         size_t currentFile;
-        size_t totalIndexed;
         size_t currentlyIndexed;
 
         size_t currentBlockNumberWords;
