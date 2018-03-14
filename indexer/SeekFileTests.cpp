@@ -11,15 +11,23 @@ using namespace std;
 size_t testSum();
 
 int main() {
-    int index1 = open("index0.txt", O_CREAT|O_RDWR, S_IRWXU);
-    lseek(index1, 129522, SEEK_SET);
-    char buffer[10];
-    if(read(index1, buffer, 10) != 10) {
-        cout << "ERROR" << endl;
+    int index1 = open("index1.txt", O_CREAT|O_RDWR, S_IRWXU);
+    lseek(index1, 3478357, SEEK_SET);
+    char buffer[1024];
+    string b;
+    while(read(index1, buffer, 1024)) {
+        for(int i = 0; i < 1024; i++) {
+            if(buffer[i] == '\0') {
+                break;
+            }
+            cout << buffer[i];
+        }
     }
-    cout << buffer << endl;
+//    if(read(index1, buffer, 10) != 10) {
+//        cout << "ERROR" << endl;
+//    }
     close(index1);
-    cout << testSum() << endl;
+//    cout << testSum() << endl;
     return 0;
 }
 

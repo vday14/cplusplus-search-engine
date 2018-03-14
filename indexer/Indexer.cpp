@@ -20,7 +20,7 @@ void Indexer::run() {
             totalIndexed += word.second.size();
             currentBlockNumberWords += word.second.size();
             if(word.first.at(0) == '=') {
-                docEnd.url = word.first;
+                docEnd.url = word.first.substr(1, word.first.length());
                 continue;
             }
             for(auto location : word.second) {
@@ -38,6 +38,7 @@ void Indexer::run() {
         indexedCount = 0;
     }
     save();
+    reset();
 }
 
 void Indexer::verbose_run() {
@@ -152,6 +153,8 @@ void Indexer::reset() {
 
     this->lastOne = lastOne;
     masterDictionary.clear();
+
+    docEndings.clear();
 
     currentBlockNumberWords = 0;
     currentBlockNumberDocs = 0;
