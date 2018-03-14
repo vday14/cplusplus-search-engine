@@ -28,6 +28,8 @@ unordered_map< string, vector< int>> *Tokenizer::get ( ) const
 void Tokenizer::execute ( string originalText, int offset )
 	{
 	vector< string > splitText = splitStr ( originalText, ' ' );
+	//TODO make function to remove characters
+	//TODO normalize contractions
 	string lowerString = "";
 	for ( int i = 0; i < splitText.size ( ); ++i )
 		{

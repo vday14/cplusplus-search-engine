@@ -25,11 +25,12 @@ add_executable(StringProcessingTest
         util/tests/stringProcessingTest.cpp)
 
 add_executable(TokenizerTest
-        util/Tokenizer.h
+        util/Tokenizer.cpp
+        util/stringProcessing.cpp
         util/tests/tokenizerTest.cpp)
 
 add_executable(StemmerTest
-        util/Stemmer.h
+        util/Stemmer.cpp
         util/tests/stemmerTest.cpp)
 
 add_executable(ParserTest

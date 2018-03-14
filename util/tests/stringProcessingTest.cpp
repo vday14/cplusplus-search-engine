@@ -1,6 +1,3 @@
-//
-// Created by Veronica Day on 2/13/18.
-//
 
 #include <string>
 #include <vector>
@@ -25,7 +22,7 @@ void testFindPrev ( );
 int main ( )
 	{
 
-	cout << "Beginning testing for StringProcessing_unit" << endl << endl;
+	cout << "Beginning testing for StringProcessing" << endl << endl;
 
 	string original = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. "
 			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',"
@@ -38,7 +35,7 @@ int main ( )
 	testFindNext ( );
 	testFindPrev ( );
 
-	cout << "\nTests passed for StringProcessing_unit :D" << endl;
+	cout << "\nTests passed for StringProcessing :D" << endl;
 
 	}
 

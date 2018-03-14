@@ -1,6 +1,3 @@
-//
-// Created by Veronica Day on 2/13/18.
-//
 
 #include <string>
 #include <vector>
@@ -31,7 +28,7 @@ int main ( )
 void testExecute ( string original )
 	{
 	Tokenizer myTokenizer;
-	myTokenizer.execute ( original );
+	myTokenizer.execute ( original, 0 );
 
 	auto dict = myTokenizer.get ( );
 

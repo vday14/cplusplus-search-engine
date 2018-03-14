@@ -3,10 +3,18 @@
 //
 
 #include "stringProcessing.h"
+#include "Stemmer.h"
 
 using namespace std;
 
-
+/**
+ * Finds the needle in the haystack
+ * returns position of first match
+ *
+ * @param haystack
+ * @param needle
+ * @return string::iterator
+ */
 string::iterator findStr (string needle, string haystack )
 	{
 
@@ -54,7 +62,13 @@ string::iterator findStr (string needle, string haystack )
 
 	}
 
-
+/**
+ * Finds the next position of the needle in the string
+ *
+ * @param needle
+ * @param pointer
+ * @return string::iterator
+ */
 string::iterator findNext (string needle, string::iterator haystackPointer )
 	{
 	auto beginNeedle = needle.begin ( );
@@ -99,6 +113,13 @@ string::iterator findNext (string needle, string::iterator haystackPointer )
 	return beginHaystack;
 	}
 
+/**
+ * Finds the previous position of the needle in the string
+ *
+ * @param needle
+ * @param haystackPointer
+ * @return
+ */
 string::iterator findPrev ( string needle, string::iterator haystackPointer )
 	{
 		auto beginNeedle = needle.begin ( );
@@ -143,7 +164,13 @@ string::iterator findPrev ( string needle, string::iterator haystackPointer )
 		return beginHaystack;
 	}
 
-
+/**
+ * Returns a vector of strings from @originalText, split by @delim
+ *
+ * @param originalText
+ * @param delim
+ * @return
+ */
 vector< string > splitStr ( string originalText, char delim )
 	{
 	vector< string > splitWords;
@@ -166,14 +193,24 @@ vector< string > splitStr ( string originalText, char delim )
 
 	}
 
-
+/**
+ * Returns true if @word is a stopword
+ *
+ * @param word
+ * @return
+ */
 bool isStopWord ( string word )
 	{
 	return ( stopWords.find ( word ) != stopWords.end ( ) );
 
 	}
 
-
+/**
+ * Returns lowercase @word
+ *
+ * @param word
+ * @return
+ */
 string toLower ( string word )
 	{
 	auto iter = word.begin ( );
@@ -195,9 +232,15 @@ string toLower ( string word )
 	return lowerWord;
 	}
 
-
-
+/**
+ * Returns stemmed @word
+ *
+ * @param word
+ * @return
+ */
 string stemWord(string word)
 	{
-	return "";
+	Stemmer stemmer;
+	word = stemmer.execute ( word );
+	return word;
 	}

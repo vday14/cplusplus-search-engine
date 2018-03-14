@@ -477,12 +477,40 @@ shared/urlTest.cpp.s:
 	$(MAKE) -f CMakeFiles/URLTEST.dir/build.make CMakeFiles/URLTEST.dir/shared/urlTest.cpp.s
 .PHONY : shared/urlTest.cpp.s
 
+util/Stemmer.o: util/Stemmer.cpp.o
+
+.PHONY : util/Stemmer.o
+
+# target to build an object file
+util/Stemmer.cpp.o:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/util/Stemmer.cpp.o
+.PHONY : util/Stemmer.cpp.o
+
+util/Stemmer.i: util/Stemmer.cpp.i
+
+.PHONY : util/Stemmer.i
+
+# target to preprocess a source file
+util/Stemmer.cpp.i:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/util/Stemmer.cpp.i
+.PHONY : util/Stemmer.cpp.i
+
+util/Stemmer.s: util/Stemmer.cpp.s
+
+.PHONY : util/Stemmer.s
+
+# target to generate assembly for a file
+util/Stemmer.cpp.s:
+	$(MAKE) -f CMakeFiles/StemmerTest.dir/build.make CMakeFiles/StemmerTest.dir/util/Stemmer.cpp.s
+.PHONY : util/Stemmer.cpp.s
+
 util/Tokenizer.o: util/Tokenizer.cpp.o
 
 .PHONY : util/Tokenizer.o
 
 # target to build an object file
 util/Tokenizer.cpp.o:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/Tokenizer.cpp.o
 	$(MAKE) -f CMakeFiles/ParserTest.dir/build.make CMakeFiles/ParserTest.dir/util/Tokenizer.cpp.o
 .PHONY : util/Tokenizer.cpp.o
 
@@ -492,6 +520,7 @@ util/Tokenizer.i: util/Tokenizer.cpp.i
 
 # target to preprocess a source file
 util/Tokenizer.cpp.i:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/Tokenizer.cpp.i
 	$(MAKE) -f CMakeFiles/ParserTest.dir/build.make CMakeFiles/ParserTest.dir/util/Tokenizer.cpp.i
 .PHONY : util/Tokenizer.cpp.i
 
@@ -501,6 +530,7 @@ util/Tokenizer.s: util/Tokenizer.cpp.s
 
 # target to generate assembly for a file
 util/Tokenizer.cpp.s:
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/Tokenizer.cpp.s
 	$(MAKE) -f CMakeFiles/ParserTest.dir/build.make CMakeFiles/ParserTest.dir/util/Tokenizer.cpp.s
 .PHONY : util/Tokenizer.cpp.s
 
@@ -511,6 +541,7 @@ util/stringProcessing.o: util/stringProcessing.cpp.o
 # target to build an object file
 util/stringProcessing.cpp.o:
 	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/util/stringProcessing.cpp.o
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/stringProcessing.cpp.o
 	$(MAKE) -f CMakeFiles/ParserTest.dir/build.make CMakeFiles/ParserTest.dir/util/stringProcessing.cpp.o
 	$(MAKE) -f CMakeFiles/crawler-parser-test.dir/build.make CMakeFiles/crawler-parser-test.dir/util/stringProcessing.cpp.o
 .PHONY : util/stringProcessing.cpp.o
@@ -522,6 +553,7 @@ util/stringProcessing.i: util/stringProcessing.cpp.i
 # target to preprocess a source file
 util/stringProcessing.cpp.i:
 	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/util/stringProcessing.cpp.i
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/stringProcessing.cpp.i
 	$(MAKE) -f CMakeFiles/ParserTest.dir/build.make CMakeFiles/ParserTest.dir/util/stringProcessing.cpp.i
 	$(MAKE) -f CMakeFiles/crawler-parser-test.dir/build.make CMakeFiles/crawler-parser-test.dir/util/stringProcessing.cpp.i
 .PHONY : util/stringProcessing.cpp.i
@@ -533,6 +565,7 @@ util/stringProcessing.s: util/stringProcessing.cpp.s
 # target to generate assembly for a file
 util/stringProcessing.cpp.s:
 	$(MAKE) -f CMakeFiles/StringProcessingTest.dir/build.make CMakeFiles/StringProcessingTest.dir/util/stringProcessing.cpp.s
+	$(MAKE) -f CMakeFiles/TokenizerTest.dir/build.make CMakeFiles/TokenizerTest.dir/util/stringProcessing.cpp.s
 	$(MAKE) -f CMakeFiles/ParserTest.dir/build.make CMakeFiles/ParserTest.dir/util/stringProcessing.cpp.s
 	$(MAKE) -f CMakeFiles/crawler-parser-test.dir/build.make CMakeFiles/crawler-parser-test.dir/util/stringProcessing.cpp.s
 .PHONY : util/stringProcessing.cpp.s
@@ -693,6 +726,9 @@ help:
 	@echo "... shared/urlTest.o"
 	@echo "... shared/urlTest.i"
 	@echo "... shared/urlTest.s"
+	@echo "... util/Stemmer.o"
+	@echo "... util/Stemmer.i"
+	@echo "... util/Stemmer.s"
 	@echo "... util/Tokenizer.o"
 	@echo "... util/Tokenizer.i"
 	@echo "... util/Tokenizer.s"
