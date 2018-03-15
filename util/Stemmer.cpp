@@ -43,51 +43,53 @@ int Stemmer::measure ( std::string word )
 	int m = 0;
 	int begin = 0;
 	unsigned long end = word.size( ) - 1;
-
-	while ( true )
+	// Looking for CVC pattern
+	while ( begin <= end )
 		{
-		if ( begin > end )
-			{
-			return m;
-			}
 		if ( !isConsonant( word.begin( ) + begin, word.begin( ) ) )
 			{
 			break;
 			}
 		begin += 1;
 		}
+	if ( begin > end )
+		{
+		return m;
+		}
 	begin += 1;
 
-	while ( true )
+	while ( begin <= end )
 		{
-		while ( true )
+		while ( begin <= end )
 			{
-			if ( begin > end )
-				{
-				return m;
-				}
 			if ( isConsonant( word.begin( ) + begin, word.begin( ) ) )
 				{
 				break;
 				}
 			begin += 1;
 			}
+		if ( begin > end )
+			{
+			return m;
+			}
 		begin += 1;
 		m += 1;
-		while ( true )
+		while ( begin <= end )
 			{
-			if ( begin > end )
-				{
-				return m;
-				}
 			if ( !isConsonant( word.begin( ) + begin, word.begin( ) ) )
 				{
 				break;
 				}
 			begin += 1;
 			}
+		if ( begin > end )
+			{
+			return m;
+			}
 		begin += 1;
 		}
+		return m;
+
 	}
 
 /**
