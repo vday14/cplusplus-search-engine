@@ -38,19 +38,14 @@ public:
 			lowerString = toLower ( splitText[ i ] );
 			if ( !isStopWord ( lowerString ) )
 				{
-				//crawler will have to delete these off the heap as well
-				//when would a dtor come into play here?
-				wordData *currentWord = new wordData;
-				currentWord -> offset = offset;
+				wordData currentWord;
+				currentWord.offset = offset;
 				vectorLength = ( *docIndex )[ lowerString ].size( );
-				( *docIndex )[ lowerString ].push_back ( *currentWord );
+				( *docIndex )[ lowerString ].push_back ( currentWord );
 				( *docIndex )[ lowerString ][ vectorLength - 1 ].frequency += 1;
-				//I don't know if this is good practice or not
-				delete currentWord;
 				++offset;
 				}
 			}
-			currentWord = nullptr;
 		}
 
 private:

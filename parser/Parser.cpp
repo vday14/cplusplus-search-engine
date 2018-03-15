@@ -1,8 +1,3 @@
-//
-// Created by Jake Close on 3/5/18.
-//
-
-
 
 #include "Parser.h"
 
@@ -42,17 +37,20 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
 				// DO NOTHING
 				}
 			// check if line is url
-			else if ( extract_url( line ) != "" )
+			else if ( url = extract_url( line ) != "" )
 				{
 				//where is urlFrontier defined?
 				urlFrontier->push ( url );
 				}
 			// check if line is title
-			else if ( extract_title( line ) != "" )
+			else if ( title = extract_title( line ) != "" )
 				{
 				tokenizer->execute ( title, offset );
 				}
-
+            else if ( body = extract_body( line ) != "")
+                {
+                tokenizer->execute( body, offset );
+                }
 			else
 				{
 				//DO NOTHING
@@ -83,6 +81,20 @@ bool Parser::isScript ( string word )
 		}
 	return false;
 	}
+
+string Parser::extract_body( string word )
+    {
+    string body = "";
+    auto foundBody = findStr("<p", word) != '\0';
+    if ( *foundBody != '\0' )
+        {
+        while ( *findStr != '<' )
+            {
+            body += *findStr;
+            }
+        }
+    return body;
+    }
 
 string Parser::extract_url ( string word )
 	{
