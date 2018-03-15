@@ -1,8 +1,3 @@
-//
-// Created by Jake Close on 3/5/18.
-//
-
-
 
 #include "Parser.h"
 
@@ -60,7 +55,7 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
  * @param word
  * @return
  */
-string Parser::extract_url ( string word )
+string Parser::extract_url ( string & word )
 	{
 	string url = "";
 	if ( *findStr ( "<a", word ) != '\0' )
