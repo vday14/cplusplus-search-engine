@@ -96,7 +96,8 @@ string Parser::extract_body( string word )
     return body;
     }
 
-string Parser::extract_url ( string word )
+
+string Parser::extract_url ( string & word )
 	{
 	string url = "";
 	if ( *findStr ( "<a", word ) != '\0' )

@@ -53,12 +53,11 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/URLTEST.dir/DependInfo.cmake"
-  "CMakeFiles/ParserEndToEndTest.dir/DependInfo.cmake"
   "CMakeFiles/StemmerTest.dir/DependInfo.cmake"
   "CMakeFiles/StringProcessingTest.dir/DependInfo.cmake"
   "CMakeFiles/TokenizerTest.dir/DependInfo.cmake"
-  "CMakeFiles/test1.dir/DependInfo.cmake"
-  "CMakeFiles/crawl.dir/DependInfo.cmake"
-  "CMakeFiles/search.dir/DependInfo.cmake"
+  "CMakeFiles/URLTEST.dir/DependInfo.cmake"
+  "CMakeFiles/ParserTest.dir/DependInfo.cmake"
+  "CMakeFiles/search-engine.dir/DependInfo.cmake"
+  "CMakeFiles/crawler-parser-test.dir/DependInfo.cmake"
   )

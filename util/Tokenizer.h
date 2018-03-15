@@ -1,11 +1,10 @@
-//
-// Created by anvia on 1/31/2018.
-//
+
 #pragma once
 #include <string>
 #include <unordered_map>
 #include <vector>
 #include "stringProcessing.h"
+#include "Stemmer.h"
 
 using namespace std;
 
@@ -16,13 +15,14 @@ struct wordData {
 };
 class Tokenizer
 	{
+
 public:
 	Tokenizer ( )
 		{
 		docIndex = new unordered_map< string, vector<wordData>>;
 		}
 
-	unordered_map< string, vector< int>> *get ( ) const
+	unordered_map< string, vector< wordData>> *get ( ) const
 		{
 		return docIndex;
 		}
@@ -48,6 +48,31 @@ public:
 			}
 		}
 
-private:
-	unordered_map< string, vector<wordData>> *docIndex;
+
+
+	/**
+ 	* Tokenizer Cstor
+ 	*/
+	Tokenizer ( );
+
+	/**
+ 	* Returns pointer to the docIndex dictionary
+	 *
+ 	* @return pointer to unordered_map< string, vector< int>>
+ 	*/
+	unordered_map< string, vector<wordData>> *get ( ) const;
+
+	/**
+	 * Executes the Tokenizer
+	 * Sends tokens to dictionary
+	 *
+	 * token -> [offsets]
+	 * @param originalText
+	 * @param offset
+	 */
+	void execute ( string &originalText, int offset );
+
+	private:
+        unordered_map< string, vector<wordData>> *docIndex;
+		Stemmer stem;
 	};
