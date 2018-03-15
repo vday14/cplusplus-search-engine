@@ -34,7 +34,7 @@ void Indexer::run() {
         docEnd.docNumWords = indexedCount;
         docEndings.push_back(docEnd);
 
-        if(currentBlockNumberWords >= 300000) {
+        if(currentBlockNumberWords >= 100000) {
             save();
             reset();
         }
@@ -63,23 +63,15 @@ void Indexer::save() {
     int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
 
     // TODO: these should really be c strings
-    string header = "===STATS===\n";
-    string uniqueWords = "unique words: " + to_string(masterDictionary.size()) + "\n";
-    string numberWords = "number words: " + to_string(currentBlockNumberWords) + "\n";
-    string numberDocs = "number docs: " + to_string(currentBlockNumberDocs) + "\n";
-    string footer = "===========\n";
-    write(file, header.c_str(), strlen(header.c_str()));
-    write(file, uniqueWords.c_str(), strlen(uniqueWords.c_str()));
-    write(file, numberWords.c_str(), strlen(numberWords.c_str()));
-    write(file, numberDocs.c_str(), strlen(numberDocs.c_str()));
-    write(file, footer.c_str(), strlen(footer.c_str()));
+    string statsHeader = "===STATS==="
+            "\nunique words: " + to_string(masterDictionary.size()) +
+            "\nnumber words: " + to_string(currentBlockNumberWords) +
+            "\nnumber docs: " + to_string(currentBlockNumberDocs) +
+            "\n===========\n";
+    write(file, statsHeader.c_str(), strlen(statsHeader.c_str()));
 
     // REALLY GROSS HACK
-    size_t seekOffset = strlen(header.c_str()) +
-                     strlen(numberDocs.c_str()) +
-                     strlen(numberWords.c_str()) +
-                     strlen(uniqueWords.c_str()) +
-                     strlen(footer.c_str());
+    size_t seekOffset = strlen(statsHeader.c_str());
 
     for(auto word : maps) {
         seeker[word.first] = seekOffset;

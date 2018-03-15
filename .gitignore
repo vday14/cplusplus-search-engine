@@ -5,3 +5,5 @@ cmake-build-debug/*
 Vagrantfile
 .vscode/settings.json
 .DS_Store
+
+indexer/tests/twitter/
