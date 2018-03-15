@@ -193,7 +193,10 @@ vector< string > splitStr ( string & originalText, char delim )
 			++begin;
 			}
 
-		splitWords.push_back( word );
+		if (word != "" && word != " ")
+			{
+			splitWords.push_back( word );
+			}
 		++begin;
 		}
 

@@ -16,6 +16,8 @@ add_executable(crawler-parser-test
         crawler/LocalReader.h
         shared/Document.cpp
         parser/Parser.cpp
+        util/Tokenizer.cpp
+        util/Stemmer.cpp
         util/stringProcessing.cpp)
 
 
@@ -35,7 +37,7 @@ add_executable(StemmerTest
         util/Stemmer.cpp
         util/tests/stemmerTest.cpp)
 
-add_executable(ParserTestE2E
+add_executable(ParserTest
         parser/Parser.cpp
         shared/Document.cpp
         shared/url.h

@@ -41,7 +41,8 @@ void Tokenizer::execute ( string & originalText, int offset )
 		if ( !isStopWord( processedString ) )
 			{
 			// stem word
-			processedString = stem.execute( processedString );
+			//FIXME
+//			processedString = stem.execute( processedString );
 			( *docIndex )[ processedString ].push_back( offset );
 			++offset;
 			}

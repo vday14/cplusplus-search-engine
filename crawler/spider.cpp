@@ -60,13 +60,30 @@ void Spider::FuncToRun()
 
 				StreamReader *reader = request( currentUrl );
 				size_t docID = hash(currentUrl.CompleteUrl);
-				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" + to_string(docID)+ ".txt";
+				string localPath = util::GetCurrentWorkingDir( );
+				// don't include debug in file path
+				auto debug = findPrev( "cmake-build-debug", localPath.begin( ) + localPath.size( ) - 1, localPath.begin( ) );
+				if ( *debug != '\0' )
+					{
+					localPath = subStr( localPath.begin( ), debug - 1 );
+					}
+
+				string pathToDisk = localPath + "/crawlerOutput/" + to_string(docID)+ ".txt";
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
 
 
 
 				Document document ( currentUrl, reader->buffer );
-				auto dictionary = parser.execute ( &document );
+				auto dict = parser.execute ( &document );
+				for ( auto it = dict->begin( ); it != dict->end( ); it++ )
+					{
+					cout << it->first << " : ";
+					for ( int i = 0; i < it->second.size( ); ++i )
+						{
+						cout << it->second[ i ] << " ";
+						}
+					cout << std::endl;
+					}
 
 				cond = true;
 				}

@@ -103,6 +103,7 @@ int main( int argc, char *argv[] )
 		{
 		if ( *seeds == '\n')
 			{
+			cout << "Pushing to Url Frontier..." << endl;
 			urlFrontier.Push(testFile);
 			testFile = "";
 			}
@@ -111,6 +112,7 @@ int main( int argc, char *argv[] )
 			testFile.push_back(*seeds);
 		++seeds;
 	}
+	cout << "Pushing to Url Frontier..." << endl;
 	urlFrontier.Push(testFile);
 //urlFrontier.Push("tests/store.html");
 

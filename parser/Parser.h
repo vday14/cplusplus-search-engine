@@ -22,22 +22,18 @@ class Parser
 
 public:
 
-	Parser ( ProducerConsumerQueue < string > * urlFrontierIn)
-		{
-		urlFrontier = urlFrontierIn;
-		}
+	/**
+	 * Parser Cstor
+	 * @param urlFrontierIn
+	 */
+	Parser ( ProducerConsumerQueue < string > * urlFrontierIn);
 
 
 	/**
-	 * Parser
+	 * Executes the Parser
 	 * @return
 	 */
-	const unordered_map< string, vector< int>> * execute ( Document* document)
-		{
-		Tokenizer tokenizer;
-		parse ( document->DocToString (), &tokenizer );
-		return tokenizer.get ( );
-		}
+	const unordered_map< string, vector< int> > *execute ( Document *document );
 
 
 private:

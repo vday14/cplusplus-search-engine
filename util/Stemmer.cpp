@@ -88,7 +88,7 @@ int Stemmer::measure ( std::string word )
 			}
 		begin += 1;
 		}
-		return m;
+	return m;
 
 	}
 
@@ -235,27 +235,24 @@ std::string Stemmer::step1a ( std::string word )
 	auto endPtr = begPtr + end;
 
 	// check S at end
-	if ( word.at( end ) == 's' )
+	if ( *endPtr == 's' )
 		{
 		string wordStem( word.begin( ), word.end( ) );
 
 		auto substrSSES = findPrev( "sses", endPtr, begPtr + word.size( ) - 5 );
 		auto substrIES = findPrev( "ies", endPtr, begPtr + word.size( ) - 4 );
 		auto substrSS = findPrev( "ss", endPtr, begPtr + word.size( ) - 3 );
-		auto substrS = findPrev( "s", endPtr, begPtr + word.size( ) - 2 );
 		// sses -> ss
 		// caresses -> caress
 		if ( *substrSSES != '\0' )
 			{
-			wordStem = subStr( word.begin( ), substrSSES );
-			wordStem += "ss";
+			wordStem = subStr( word.begin( ), substrSSES + 2 );
 			}
 			// ies -> i
 			// ponies -> poni
 		else if ( *substrIES != '\0' )
 			{
-			wordStem = subStr( word.begin( ), substrIES );
-			wordStem += 'i';
+			wordStem = subStr( word.begin( ), substrIES + 1 );
 			}
 			// ss -> ss
 			// caress -> caress
@@ -265,9 +262,9 @@ std::string Stemmer::step1a ( std::string word )
 			}
 			// s ->
 			// cats -> cat
-		else if ( *substrS != '\0' )
+		else if ( *endPtr == 's' )
 			{
-			wordStem = subStr( word.begin( ), substrS );
+			wordStem = subStr( word.begin( ), endPtr );
 			}
 		else
 			{
@@ -297,31 +294,27 @@ std::string Stemmer::step1b ( std::string word )
 	auto substrED = findPrev( "ed", endPtr, begPtr + word.size( ) - 3 );
 	auto substrING = findPrev( "ing", endPtr, begPtr + word.size( ) - 4 );
 
+	auto m = measure( word );
 	// check EED at end and m > 0
 	// feed -> feed
 	// agreed -> agree
-	if ( measure( word ) > 1 && *substrEED != '\0' )
+	if ( m > 1 && *substrEED != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrEED );
-		wordStem += "ee";
+		wordStem = subStr( word.begin( ), substrEED + 2 );
 		}
 		// check ED at end and preceeded by substr with vowel
 		// plastered -> plaster
 		// bled -> bled
-	else if ( measure( word ) > 1 && *substrED != '\0' && isVowelPresent( word.begin( ), substrED, word ) )
+	else if ( m > 1 && *substrED != '\0' && isVowelPresent( word.begin( ), substrED, word ) )
 		{
 		wordStem = subStr( word.begin( ), substrED );
-		if ( addE( wordStem ) )
+		if ( addE( wordStem ) || ( m == 1 && endCVC( wordStem + 'e' ) ) )
 			{
 			wordStem += 'e';
 			}
 		else if ( doubleCon( wordStem ) )
 			{
 			wordStem = subStr( word, 0, wordStem.size( ) - 1 );
-			}
-		else if ( measure( word ) == 1 && endCVC( wordStem + 'e' ) )
-			{
-			wordStem += 'e';
 			}
 		}
 		// check ING at end and proceeded by substr with vowel
@@ -330,17 +323,13 @@ std::string Stemmer::step1b ( std::string word )
 	else if ( *substrING != '\0' && isVowelPresent( word.begin( ), substrING, word ) )
 		{
 		wordStem = subStr( word.begin( ), substrING );
-		if ( addE( wordStem ) )
+		if ( addE( wordStem ) || ( m == 1 && endCVC( wordStem + 'e' ) ) )
 			{
 			wordStem += 'e';
 			}
 		else if ( doubleCon( wordStem ) )
 			{
 			wordStem = subStr( word, 0, wordStem.size( ) - 1 );
-			}
-		else if ( measure( wordStem ) == 1 && endCVC( wordStem + 'e' ) )
-			{
-			wordStem += 'e';
 			}
 		}
 
@@ -415,142 +404,131 @@ string Stemmer::step2 ( std::string word )
 	// relational -> relate
 	if ( *substrATIONAL != '\0' && ( begPtr + 1 ) != substrATIONAL )
 		{
-		wordStem = subStr( word.begin( ), substrATIONAL );
-		wordStem += "ate";
+		wordStem = subStr( word.begin( ), substrATIONAL + 2 );
+		wordStem += 'e';
 		}
 		// TIONAL -> TION
 		// conditional -> condition
 		// rational -> rational
 	else if ( *substrTIONAL != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrTIONAL );
-		wordStem += "tion";
+		wordStem = subStr( word.begin( ), substrTIONAL + 4 );
 		}
 		// ENCI -> ENCE
 		// valenci -> valence
 	else if ( *substrENCI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrENCI );
-		wordStem += "ence";
+		wordStem = subStr( word.begin( ), substrENCI + 3 );
+		wordStem += 'e';
 		}
 		// ANCI -> ANCE
 		// hesitanci ->	hesitance
 	else if ( *substrANCI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrANCI );
-		wordStem += "ance";
+		wordStem = subStr( word.begin( ), substrANCI + 3 );
+		wordStem += 'e';
 		}
 		// IZER -> IZE
 		// digitizer -> digitize
 	else if ( *substrIZER != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrIZER );
-		wordStem += "ize";
+		wordStem = subStr( word.begin( ), substrIZER + 3 );
 		}
 		// ABLI -> ABLE
 		// conformabli -> comformable
 	else if ( *substrABLI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrABLI );
-		wordStem += "able";
+		wordStem = subStr( word.begin( ), substrABLI + 3 );
+		wordStem += 'e';
 		}
 		// ALLI -> AL
 		// radicalli -> radical
 	else if ( *substrALLI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrALLI );
-		wordStem += "al";
+		wordStem = subStr( word.begin( ), substrALLI + 2 );
 		}
 		// ENTLI -> ENT
 		// differentli -> different
 	else if ( *substrENTLI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrENTLI );
-		wordStem += "ent";
+		wordStem = subStr( word.begin( ), substrENTLI + 3 );
 		}
 		// ELI -> E
 		// vileli -> vile
 	else if ( *substrELI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrELI );
-		wordStem += 'e';
+		wordStem = subStr( word.begin( ), substrELI + 1 );
 		}
 		// OUSLI -> OUS
 		// analogousli	->	analogous
 	else if ( *substrOUSLI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrOUSLI );
-		wordStem += "ous";
+		wordStem = subStr( word.begin( ), substrOUSLI + 3 );
 		}
 		// IZATION -> IZE
 		// vietnamization	->	vietnamize
 	else if ( *substrIZATION != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrIZATION );
-		wordStem += "ize";
+		wordStem = subStr( word.begin( ), substrIZATION + 2 );
+		wordStem += 'e';
 		}
 		// ATION -> ATE
 		// predication	->	predicate
 	else if ( *substrATION != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrATION );
-		wordStem += "ate";
+		wordStem = subStr( word.begin( ), substrATION + 2 );
+		wordStem += 'e';
 		}
 		// ATOR -> ATE
 		// predication	->	predicate
 	else if ( *substrATOR != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrATOR );
-		wordStem += "ate";
+		wordStem = subStr( word.begin( ), substrATOR + 2 );
+		wordStem += 'e';
 		}
 		// ALISM -> AL
 		// feudalism -> feudal
 	else if ( *substrALISM != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrALISM );
-		wordStem += "al";
+		wordStem = subStr( word.begin( ), substrALISM + 2 );
 		}
 		// IVENESS -> IVE
 		// decisivenss	->	decisive
 	else if ( *substrIVENESS != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrIVENESS );
-		wordStem += "ive";
+		wordStem = subStr( word.begin( ), substrIVENESS + 3 );
 		}
 		// FULNESS -> FUL
 		// hopefulness	->	hopeful
 	else if ( *substrFULNESS != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrFULNESS );
-		wordStem += "ful";
+		wordStem = subStr( word.begin( ), substrFULNESS + 3 );
 		}
 		// OUSNESS -> OUS
 		// callousness	->	callous
 	else if ( *substrOUSNESS != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrOUSNESS );
-		wordStem += "ous";
+		wordStem = subStr( word.begin( ), substrOUSNESS + 3 );
 		}
 		// ALITI -> AL
-		// formalit	->	callous
-	else if ( *substrOUSNESS != '\0' )
+		// formalit	->	formal
+	else if ( *substrALITI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrOUSNESS );
-		wordStem += "al";
+		wordStem = subStr( word.begin( ), substrALITI + 2 );
 		}
 		// IVITI -> IVE
 		// sensitiviti	->	sensitive
 	else if ( *substrIVITI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrIVITI );
-		wordStem += "ive";
+		wordStem = subStr( word.begin( ), substrIVITI + 2 );
+		wordStem += 'e';
 		}
 		// BILITI -> BLE
 		// sensibiliti	->	sensible
 	else if ( *substrBILITI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrBILITI );
-		wordStem += "ble";
+		wordStem = subStr( word.begin( ), substrBILITI + 1 );
+		wordStem += "le";
 		}
 
 	return wordStem;
@@ -587,8 +565,7 @@ std::string Stemmer::step3 ( std::string word )
 	// triplicate -> triplic
 	if ( *substrICATE != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrICATE );
-		wordStem += "ic";
+		wordStem = subStr( word.begin( ), substrICATE + 2 );
 		}
 		// ATIVE ->
 		// formative -> form
@@ -600,22 +577,19 @@ std::string Stemmer::step3 ( std::string word )
 		// formalize -> formal
 	else if ( *substrALIZE != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrALIZE );
-		wordStem += "al";
+		wordStem = subStr( word.begin( ), substrALIZE + 2 );
 		}
 		// ICITI -> IC
 		// electriciti ->	electric
 	else if ( *substrICITI != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrICITI );
-		wordStem += "ic";
+		wordStem = subStr( word.begin( ), substrICITI + 2 );
 		}
 		// ICAL -> IC
 		// electrical -> electric
 	else if ( *substrICAL != '\0' )
 		{
-		wordStem = subStr( word.begin( ), substrICAL );
-		wordStem += "ic";
+		wordStem = subStr( word.begin( ), substrICAL + 2 );
 		}
 		// FUL ->
 		// hopeful -> hope
@@ -801,17 +775,17 @@ std::string Stemmer::step5a ( std::string word )
 	{
 	unsigned long end = word.size( ) - 1;
 	auto endPtr = word.begin( ) + end;
-
+	auto m = measure( word );
 	// E ->
 	// probabte -> probat
-	if ( measure( word ) > 1 && *endPtr == 'e' )
+	if ( m > 1 && *endPtr == 'e' )
 		{
 		word = subStr( word, 0, word.size( ) - 1 );
 		return word;
 		}
 	// E ->
 	// cease -> cease
-	if ( measure( word ) == 1 && !endCVC( word ) && *endPtr == 'e' )
+	if ( m == 1 && !endCVC( word ) && *endPtr == 'e' )
 		{
 		word = subStr( word, 0, word.size( ) - 1 );
 		}
