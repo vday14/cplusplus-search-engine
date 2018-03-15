@@ -42,6 +42,7 @@ void Indexer::run() {
 
     save();
     reset();
+    saveChunkDictionary();
 }
 
 void Indexer::verbose_run() {
@@ -75,6 +76,7 @@ void Indexer::save() {
 
     for(auto word : maps) {
         seeker[word.first] = seekOffset;
+        chunkDictionary[word.first].push_back(currentFile);
 //        string wordBreak = word.first + "\n";
 //        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
 //        seekOffset += strlen(wordBreak.c_str());
@@ -100,6 +102,8 @@ void Indexer::save() {
 
     string docEndingHeader = "===Document Endings===\n";
     write(file, docEndingHeader.c_str(), strlen(docEndingHeader.c_str()));
+    seekOffset += strlen(docEndingHeader.c_str());
+    seeker["=docEnding"] = seekOffset;
 
     for(auto ending : docEndings) {
         string docEndString = "[" +
@@ -119,6 +123,20 @@ void Indexer::save() {
 
     close(file);
     currentFile++;
+}
+
+void Indexer::saveChunkDictionary() {
+    string fileName = "master-index.txt";
+    int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
+    for(auto word : chunkDictionary) {
+        string wordDictionary = word.first + " ";
+        for(auto chunk : word.second) {
+            wordDictionary += to_string(chunk) + " ";
+        }
+        wordDictionary += "\n";
+        write(file, wordDictionary.c_str(), strlen(wordDictionary.c_str()));
+    }
+    close(file);
 }
 
 void Indexer::verbose_save() {

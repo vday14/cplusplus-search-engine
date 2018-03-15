@@ -36,9 +36,11 @@ class Indexer {
 		ProducerConsumerQueue<unordered_map<string, vector<int> > * > pointerToDictionaries;
     private:
         void save();
+		void saveChunkDictionary();
         void reset();
 
         unordered_map<string, vector<size_t> > masterDictionary;
+		map<string, vector<size_t> > chunkDictionary;
 
         vector<DocumentEnding> docEndings;
 
