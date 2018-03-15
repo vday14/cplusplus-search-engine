@@ -58,7 +58,7 @@ private:
 	 * @param word
 	 * @return
 	 */
-	string extract_url ( string word );
+	string extract_url ( string & word );
 
 
 	/**

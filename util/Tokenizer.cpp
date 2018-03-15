@@ -11,6 +11,7 @@ Tokenizer::Tokenizer ( )
 
 /**
  * Returns pointer to the docIndex dictionary
+ *
  * @return pointer to unordered_map< string, vector< int>>
  */
 unordered_map< string, vector< int>> *Tokenizer::get ( ) const
@@ -21,22 +22,27 @@ unordered_map< string, vector< int>> *Tokenizer::get ( ) const
 /**
  * Executes the Tokenizer
  * Sends tokens to dictionary
+ *
  * token -> [offsets]
  * @param originalText
  * @param offset
  */
-void Tokenizer::execute ( string originalText, int offset )
+void Tokenizer::execute ( string & originalText, int offset )
 	{
-	vector< string > splitText = splitStr ( originalText, ' ' );
-	//TODO make function to remove characters
-	//TODO normalize contractions
-	string lowerString = "";
-	for ( int i = 0; i < splitText.size ( ); ++i )
+	vector< string > splitText = splitStr( originalText, ' ' );
+	string processedString = "";
+	for ( int i = 0; i < splitText.size( ); ++i )
 		{
-		lowerString = toLower ( splitText[ i ] );
-		if ( !isStopWord ( lowerString ) )
+		// case fold
+		processedString = toLower( splitText[ i ] );
+		//strip all characters
+		processedString = stripStr( processedString );
+
+		if ( !isStopWord( processedString ) )
 			{
-			( *docIndex )[ lowerString ].push_back ( offset );
+			// stem word
+			processedString = stem.execute( processedString );
+			( *docIndex )[ processedString ].push_back( offset );
 			++offset;
 			}
 		}

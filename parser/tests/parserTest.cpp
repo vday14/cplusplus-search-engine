@@ -35,10 +35,10 @@ void testSimple ( )
 	assert ( dictionary != nullptr );
 	assert ( dictionary->size () == 2);
 	assert ( dictionary->find ( "cat" ) != dictionary->end () );
-	assert ( dictionary->find ( "title" ) != dictionary->end () );
+	assert ( dictionary->find ( "titl" ) != dictionary->end () );
 	assert ( dictionary->find ( "this" ) == dictionary->end () );
 	assert ( dictionary->at ( "cat" )[ 0 ] == 0 && dictionary->at ( "cat" )[ 1 ] == 2 );
-	assert ( dictionary->at ( "title" )[ 0 ] == 1 );
+	assert ( dictionary->at ( "titl" )[ 0 ] == 1 );
 
 	delete dictionary;
 
@@ -70,7 +70,7 @@ void testComplex ( )
 	assert ( dictionary->size () == 3);
 
 	assert ( dictionary->find ( "cat" ) != dictionary->end () );
-	assert ( dictionary->find ( "story" ) != dictionary->end () );
+	assert ( dictionary->find ( "stori" ) != dictionary->end () );
 	assert ( dictionary->find ( "joe" ) != dictionary->end () );
 
 	assert ( dictionary->find ( "the" ) == dictionary->end () );

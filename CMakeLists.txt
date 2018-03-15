@@ -21,19 +21,21 @@ add_executable(crawler-parser-test
 
 add_executable(StringProcessingTest
         util/stringProcessing.cpp
-        util/Stemmer.h
+        util/Stemmer.cpp
         util/tests/stringProcessingTest.cpp)
 
 add_executable(TokenizerTest
         util/Tokenizer.cpp
         util/stringProcessing.cpp
+        util/Stemmer.cpp
         util/tests/tokenizerTest.cpp)
 
 add_executable(StemmerTest
+        util/stringProcessing.cpp
         util/Stemmer.cpp
         util/tests/stemmerTest.cpp)
 
-add_executable(ParserTest
+add_executable(ParserTestE2E
         parser/Parser.cpp
         shared/Document.cpp
         shared/url.h
@@ -41,6 +43,7 @@ add_executable(ParserTest
         util/Tokenizer.cpp
         shared/ProducerConsumerQueue.h
         util/stringProcessing.cpp
+        util/Stemmer.cpp
         parser/tests/parserTest.cpp)
 
 

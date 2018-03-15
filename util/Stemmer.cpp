@@ -1,5 +1,6 @@
 
 #include "Stemmer.h"
+#include "stringProcessing.h"
 
 /**
  * Stemmer Cstor
@@ -15,14 +16,14 @@ Stemmer::Stemmer ( )
  */
 std::string Stemmer::execute ( std::string word )
 	{
-	word = step1a ( word );
-	word = step1b ( word );
-	word = step1c ( word );
-	word = step2 ( word );
-	word = step3 ( word );
-	word = step4 ( word );
-	word = step5a ( word );
-	word = step5b ( word );
+	word = step1a( word );
+	word = step1b( word );
+	word = step1c( word );
+	word = step2( word );
+	word = step3( word );
+	word = step4( word );
+	word = step5a( word );
+	word = step5b( word );
 	return word;
 	}
 
@@ -41,7 +42,7 @@ int Stemmer::measure ( std::string word )
 	{
 	int m = 0;
 	int begin = 0;
-	unsigned long end = word.size ( ) - 1;
+	unsigned long end = word.size( ) - 1;
 
 	while ( true )
 		{
@@ -49,7 +50,7 @@ int Stemmer::measure ( std::string word )
 			{
 			return m;
 			}
-		if ( isConsonant ( word.begin ( ) + begin, word.begin ( ) ) )
+		if ( !isConsonant( word.begin( ) + begin, word.begin( ) ) )
 			{
 			break;
 			}
@@ -65,7 +66,7 @@ int Stemmer::measure ( std::string word )
 				{
 				return m;
 				}
-			if ( isConsonant ( word.begin ( ) + begin, word.begin ( ) ) )
+			if ( isConsonant( word.begin( ) + begin, word.begin( ) ) )
 				{
 				break;
 				}
@@ -79,7 +80,7 @@ int Stemmer::measure ( std::string word )
 				{
 				return m;
 				}
-			if ( isConsonant ( word.begin ( ) + begin, word.begin ( ) ) )
+			if ( !isConsonant( word.begin( ) + begin, word.begin( ) ) )
 				{
 				break;
 				}
@@ -101,10 +102,11 @@ bool Stemmer::isVowelPresent ( string::iterator wordBeg, string::iterator wordEn
 	{
 	while ( wordBeg != wordEnd )
 		{
-		if ( !isConsonant ( wordBeg, word.begin ( ) ) )
+		if ( !isConsonant( wordBeg, word.begin( ) ) )
 			{
 			return true;
 			}
+		++wordBeg;
 		}
 	return false;
 	}
@@ -118,7 +120,7 @@ bool Stemmer::isVowelPresent ( string::iterator wordBeg, string::iterator wordEn
  */
 bool Stemmer::isConsonant ( string::iterator wordIt, string::iterator wordBegin )
 	{
-	if ( *wordIt == 'a' || *wordIt == 'e' || *wordIt == 'i' || *wordIt == 'u' )
+	if ( *wordIt == 'a' || *wordIt == 'e' || *wordIt == 'i' || *wordIt == 'o' || *wordIt == 'u' )
 		{
 		return false;
 		}
@@ -130,7 +132,7 @@ bool Stemmer::isConsonant ( string::iterator wordIt, string::iterator wordBegin 
 			}
 		else
 			{
-			return ( !isConsonant ( wordIt - 1, wordBegin ) );
+			return ( !isConsonant( wordIt - 1, wordBegin ) );
 			}
 		}
 	return true;
@@ -147,11 +149,12 @@ bool Stemmer::addE ( string word )
 	// AT -> ATE
 	// BL -> BLE
 	// IZ -> IZE
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
-	auto substrAT = findPrev ( "at", endPtr );
-	auto substrBL = findPrev ( "bl", endPtr );
-	auto substrIZ = findPrev ( "iz", endPtr );
+	unsigned long end = word.size( ) - 1;
+	auto begPtr = word.begin( );
+	auto endPtr = begPtr + end;
+	auto substrAT = findPrev( "at", endPtr, begPtr + word.size( ) - 3 );
+	auto substrBL = findPrev( "bl", endPtr, begPtr + word.size( ) - 3 );
+	auto substrIZ = findPrev( "iz", endPtr, begPtr + word.size( ) - 3 );
 
 	if ( *substrAT != '\0' || *substrBL != '\0' || *substrIZ != '\0' )
 		{
@@ -171,10 +174,10 @@ bool Stemmer::addE ( string word )
  */
 bool Stemmer::doubleCon ( string word )
 	{
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
+	unsigned long end = word.size( ) - 1;
+	auto endPtr = word.begin( ) + end;
 
-	if ( word.size ( ) > 2 && *endPtr == *( endPtr - 1 ) )
+	if ( word.size( ) > 2 && *endPtr == *( endPtr - 1 ) )
 		{
 		if ( *endPtr == 'l' || *endPtr == 's' || *endPtr == 'z' )
 			{
@@ -198,14 +201,14 @@ bool Stemmer::doubleCon ( string word )
  */
 bool Stemmer::endCVC ( std::string word )
 	{
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
+	unsigned long end = word.size( ) - 1;
+	auto endPtr = word.begin( ) + end - 1;
 
-	if ( word.size ( ) > 2 )
+	if ( word.size( ) > 3 )
 		{
 		// the stem ends cvc
-		if ( isConsonant ( endPtr, word.begin ( ) ) && !isConsonant ( endPtr - 1, word.begin ( ) ) &&
-		     isConsonant ( endPtr - 2, word.begin ( ) ) )
+		if ( isConsonant( endPtr, word.begin( ) ) && !isConsonant( endPtr - 1, word.begin( ) ) &&
+		     isConsonant( endPtr - 2, word.begin( ) ) )
 			{
 			// the second c is not W, X or Y
 			if ( *( endPtr - 1 ) != 'w' && *( endPtr - 1 ) != 'x' && *( endPtr - 1 ) != 'y' )
@@ -225,45 +228,48 @@ bool Stemmer::endCVC ( std::string word )
  */
 std::string Stemmer::step1a ( std::string word )
 	{
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
+	unsigned long end = word.size( ) - 1;
+	auto begPtr = word.begin( );
+	auto endPtr = begPtr + end;
 
 	// check S at end
-	if ( word.at ( end ) == 's' )
+	if ( word.at( end ) == 's' )
 		{
-		string wordStem ( word.begin ( ), word.end ( ) );
+		string wordStem( word.begin( ), word.end( ) );
 
-		auto substrSSES = findPrev ( "sses", endPtr );
-		auto substrIES = findPrev ( "ies", endPtr );
-		auto substrSS = findPrev ( "ss", endPtr );
-		auto substrS = findPrev ( "s", endPtr );
+		auto substrSSES = findPrev( "sses", endPtr, begPtr + word.size( ) - 5 );
+		auto substrIES = findPrev( "ies", endPtr, begPtr + word.size( ) - 4 );
+		auto substrSS = findPrev( "ss", endPtr, begPtr + word.size( ) - 3 );
+		auto substrS = findPrev( "s", endPtr, begPtr + word.size( ) - 2 );
 		// sses -> ss
 		// caresses -> caress
 		if ( *substrSSES != '\0' )
 			{
-			string wordStem ( word.begin ( ), substrSSES + 1 );
+			wordStem = subStr( word.begin( ), substrSSES );
+			wordStem += "ss";
 			}
 			// ies -> i
 			// ponies -> poni
 		else if ( *substrIES != '\0' )
 			{
-			string wordStem ( word.begin ( ), substrIES + 1 );
+			wordStem = subStr( word.begin( ), substrIES );
+			wordStem += 'i';
 			}
 			// ss -> ss
 			// caress -> caress
 		else if ( *substrSS != '\0' )
 			{
-			string wordStem ( word.begin ( ), word.end ( ) );
+			// do nothing
 			}
 			// s ->
 			// cats -> cat
 		else if ( *substrS != '\0' )
 			{
-			string wordStem ( word.begin ( ), substrS + 1 );
+			wordStem = subStr( word.begin( ), substrS );
 			}
 		else
 			{
-			string wordStem ( word.begin ( ), word.end ( ) );
+			wordStem = subStr( word.begin( ), word.end( ) );
 			}
 
 		return wordStem;
@@ -279,59 +285,65 @@ std::string Stemmer::step1a ( std::string word )
  */
 std::string Stemmer::step1b ( std::string word )
 	{
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
+	unsigned long end = word.size( ) - 1;
+	auto begPtr = word.begin( );
+	auto endPtr = begPtr + end;
 
-	if ( measure ( word ) > 0 )
+	string wordStem( word.begin( ), word.end( ) );
+
+	auto substrEED = findPrev( "eed", endPtr, begPtr + word.size( ) - 4 );
+	auto substrED = findPrev( "ed", endPtr, begPtr + word.size( ) - 3 );
+	auto substrING = findPrev( "ing", endPtr, begPtr + word.size( ) - 4 );
+
+	// check EED at end and m > 0
+	// feed -> feed
+	// agreed -> agree
+	if ( measure( word ) > 1 && *substrEED != '\0' )
 		{
-		string wordStem ( word.begin ( ), word.end ( ) );
-
-		auto substrEED = findPrev ( "eed", endPtr );
-		auto substrED = findPrev ( "ed", endPtr );
-		auto substrING = findPrev ( "ing", endPtr );
-
-		// check EED at end and m > 0
-		// feed -> feed
-		// agreed -> agree
-		if ( *substrEED != '\0' )
-			{
-			string wordStem ( word.begin ( ), substrEED + 1 );
-			}
-			// check ED at end and preceeded by substr with vowel
-			// plastered -> plaster
-			// bled -> bled
-		else if ( *substrED != '\0' && isVowelPresent ( word.begin ( ), substrED, word ) )
-			{
-
-			string wordStem ( word.begin ( ), substrED + 1 );
-			if ( addE ( wordStem ) )
-				{
-				wordStem += 'e';
-				}
-			else if ( doubleCon ( wordStem ) )
-				{
-				wordStem = wordStem.substr ( 0, wordStem.size ( ) - 1 );
-				}
-			else if ( measure ( wordStem ) > 1 && endCVC ( wordStem ) )
-				{
-				wordStem += 'e';
-				}
-			}
-			// check ING at end and proceeded by substr with vowel
-			// motoring -> motor
-			// sing -> sing
-		else if ( *substrING != '\0' && isVowelPresent ( word.begin ( ), substrING, word ) )
-			{
-			string wordStem ( word.begin ( ), substrING + 1 );
-			if ( addE ( wordStem ) )
-				{
-				wordStem += 'e';
-				}
-			}
-
-		return wordStem;
+		wordStem = subStr( word.begin( ), substrEED );
+		wordStem += "ee";
 		}
-	return word;
+		// check ED at end and preceeded by substr with vowel
+		// plastered -> plaster
+		// bled -> bled
+	else if ( measure( word ) > 1 && *substrED != '\0' && isVowelPresent( word.begin( ), substrED, word ) )
+		{
+		wordStem = subStr( word.begin( ), substrED );
+		if ( addE( wordStem ) )
+			{
+			wordStem += 'e';
+			}
+		else if ( doubleCon( wordStem ) )
+			{
+			wordStem = subStr( word, 0, wordStem.size( ) - 1 );
+			}
+		else if ( measure( word ) == 1 && endCVC( wordStem + 'e' ) )
+			{
+			wordStem += 'e';
+			}
+		}
+		// check ING at end and proceeded by substr with vowel
+		// motoring -> motor
+		// sing -> sing
+	else if ( *substrING != '\0' && isVowelPresent( word.begin( ), substrING, word ) )
+		{
+		wordStem = subStr( word.begin( ), substrING );
+		if ( addE( wordStem ) )
+			{
+			wordStem += 'e';
+			}
+		else if ( doubleCon( wordStem ) )
+			{
+			wordStem = subStr( word, 0, wordStem.size( ) - 1 );
+			}
+		else if ( measure( wordStem ) == 1 && endCVC( wordStem + 'e' ) )
+			{
+			wordStem += 'e';
+			}
+		}
+
+	return wordStem;
+
 	}
 
 /**
@@ -339,19 +351,19 @@ std::string Stemmer::step1b ( std::string word )
  * @param word
  * @return
  */
-string step1c ( string word )
+string Stemmer::step1c ( string word )
 	{
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
+	unsigned long end = word.size( ) - 1;
+	auto endPtr = word.begin( ) + end;
 
 	// Y -> I
 	// happy -> happi
 	// sky -> sky
 	if ( *endPtr == 'y' )
 		{
-		if ( isVowelPresent ( word.begin ( ), endPtr, word ) )
+		if ( isVowelPresent( word.begin( ), endPtr, word ) )
 			{
-			word = word.substr ( 0, word.size ( ) - 1 );
+			word = subStr( word, 0, word.size( ) - 1 );
 			word += 'i';
 			}
 		}
@@ -366,177 +378,177 @@ string step1c ( string word )
  */
 string Stemmer::step2 ( std::string word )
 	{
-
-	if ( measure ( word ) == 0 )
+	if ( measure( word ) == 0 )
 		{
 		return word;
 		}
 
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
-	string wordStem ( word.begin ( ), word.end ( ) );
+	unsigned long end = word.size( ) - 1;
+	auto begPtr = word.begin( );
+	auto endPtr = begPtr + end;
+	string wordStem( word.begin( ), word.end( ) );
 
-	auto substrATIONAL = findPrev ( "ational", endPtr );
-	auto substrTIONAL = findPrev ( "tional", endPtr );
-	auto substrENCI = findPrev ( "enci", endPtr );
-	auto substrANCI = findPrev ( "anci", endPtr );
-	auto substrIZER = findPrev ( "izer", endPtr );
-	auto substrABLI = findPrev ( "abli", endPtr );
-	auto substrALLI = findPrev ( "alli", endPtr );
-	auto substrENTLI = findPrev ( "entli", endPtr );
-	auto substrELI = findPrev ( "eli", endPtr );
-	auto substrOUSLI = findPrev ( "ousli", endPtr );
-	auto substrIZATION = findPrev ( "ization", endPtr );
-	auto substrATION = findPrev ( "ation", endPtr );
-	auto substrATOR = findPrev ( "ator", endPtr );
-	auto substrALISM = findPrev ( "alism", endPtr );
-	auto substrIVENESS = findPrev ( "iveness", endPtr );
-	auto substrFULNESS = findPrev ( "fulness", endPtr );
-	auto substrOUSNESS = findPrev ( "ousness", endPtr );
-	auto substrALITI = findPrev ( "aliti", endPtr );
-	auto substrIVITI = findPrev ( "iviti", endPtr );
-	auto substrBILITI = findPrev ( "biliti", endPtr );
+	auto substrATIONAL = findPrev( "ational", endPtr, begPtr + word.size( ) - 8 );
+	auto substrTIONAL = findPrev( "tional", endPtr, begPtr + word.size( ) - 7 );
+	auto substrENCI = findPrev( "enci", endPtr, begPtr + word.size( ) - 5 );
+	auto substrANCI = findPrev( "anci", endPtr, begPtr + word.size( ) - 5 );
+	auto substrIZER = findPrev( "izer", endPtr, begPtr + word.size( ) - 5 );
+	auto substrABLI = findPrev( "abli", endPtr, begPtr + word.size( ) - 5 );
+	auto substrALLI = findPrev( "alli", endPtr, begPtr + word.size( ) - 5 );
+	auto substrENTLI = findPrev( "entli", endPtr, begPtr + word.size( ) - 6 );
+	auto substrELI = findPrev( "eli", endPtr, begPtr + word.size( ) - 4 );
+	auto substrOUSLI = findPrev( "ousli", endPtr, begPtr + word.size( ) - 6 );
+	auto substrIZATION = findPrev( "ization", endPtr, begPtr + word.size( ) - 8 );
+	auto substrATION = findPrev( "ation", endPtr, begPtr + word.size( ) - 6 );
+	auto substrATOR = findPrev( "ator", endPtr, begPtr + word.size( ) - 5 );
+	auto substrALISM = findPrev( "alism", endPtr, begPtr + word.size( ) - 6 );
+	auto substrIVENESS = findPrev( "iveness", endPtr, begPtr + word.size( ) - 8 );
+	auto substrFULNESS = findPrev( "fulness", endPtr, begPtr + word.size( ) - 8 );
+	auto substrOUSNESS = findPrev( "ousness", endPtr, begPtr + word.size( ) - 8 );
+	auto substrALITI = findPrev( "aliti", endPtr, begPtr + word.size( ) - 6 );
+	auto substrIVITI = findPrev( "iviti", endPtr, begPtr + word.size( ) - 6 );
+	auto substrBILITI = findPrev( "biliti", endPtr, begPtr + word.size( ) - 7 );
 
 	// ATIONAL -> ATE
 	// relational -> relate
-	if ( *substrATIONAL != '\0' )
+	if ( *substrATIONAL != '\0' && ( begPtr + 1 ) != substrATIONAL )
 		{
-		string wordStem ( word.begin ( ), substrATIONAL + 1 );
-		wordStem + 'ate';
+		wordStem = subStr( word.begin( ), substrATIONAL );
+		wordStem += "ate";
 		}
 		// TIONAL -> TION
 		// conditional -> condition
 		// rational -> rational
 	else if ( *substrTIONAL != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrTIONAL + 1 );
-		wordStem += 'tion';
+		wordStem = subStr( word.begin( ), substrTIONAL );
+		wordStem += "tion";
 		}
 		// ENCI -> ENCE
 		// valenci -> valence
 	else if ( *substrENCI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrENCI + 1 );
-		wordStem += 'ence';
+		wordStem = subStr( word.begin( ), substrENCI );
+		wordStem += "ence";
 		}
 		// ANCI -> ANCE
 		// hesitanci ->	hesitance
 	else if ( *substrANCI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrANCI + 1 );
-		wordStem += 'ance';
+		wordStem = subStr( word.begin( ), substrANCI );
+		wordStem += "ance";
 		}
 		// IZER -> IZE
 		// digitizer -> digitize
 	else if ( *substrIZER != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIZER + 1 );
-		wordStem += 'ize';
+		wordStem = subStr( word.begin( ), substrIZER );
+		wordStem += "ize";
 		}
 		// ABLI -> ABLE
 		// conformabli -> comformable
 	else if ( *substrABLI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrABLI + 1 );
-		wordStem += 'able';
+		wordStem = subStr( word.begin( ), substrABLI );
+		wordStem += "able";
 		}
 		// ALLI -> AL
 		// radicalli -> radical
 	else if ( *substrALLI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrALLI + 1 );
-		wordStem += 'al';
+		wordStem = subStr( word.begin( ), substrALLI );
+		wordStem += "al";
 		}
 		// ENTLI -> ENT
 		// differentli -> different
 	else if ( *substrENTLI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrENTLI + 1 );
-		wordStem += 'ent';
+		wordStem = subStr( word.begin( ), substrENTLI );
+		wordStem += "ent";
 		}
 		// ELI -> E
 		// vileli -> vile
 	else if ( *substrELI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrELI + 1 );
+		wordStem = subStr( word.begin( ), substrELI );
 		wordStem += 'e';
 		}
 		// OUSLI -> OUS
 		// analogousli	->	analogous
 	else if ( *substrOUSLI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrOUSLI + 1 );
-		wordStem += 'ous';
+		wordStem = subStr( word.begin( ), substrOUSLI );
+		wordStem += "ous";
 		}
 		// IZATION -> IZE
 		// vietnamization	->	vietnamize
 	else if ( *substrIZATION != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIZATION + 1 );
-		wordStem += 'ize';
+		wordStem = subStr( word.begin( ), substrIZATION );
+		wordStem += "ize";
 		}
 		// ATION -> ATE
 		// predication	->	predicate
 	else if ( *substrATION != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrATION + 1 );
-		wordStem += 'ate';
+		wordStem = subStr( word.begin( ), substrATION );
+		wordStem += "ate";
 		}
 		// ATOR -> ATE
 		// predication	->	predicate
 	else if ( *substrATOR != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrATOR + 1 );
-		wordStem += 'ate';
+		wordStem = subStr( word.begin( ), substrATOR );
+		wordStem += "ate";
 		}
 		// ALISM -> AL
 		// feudalism -> feudal
 	else if ( *substrALISM != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrALISM + 1 );
-		wordStem += 'al';
+		wordStem = subStr( word.begin( ), substrALISM );
+		wordStem += "al";
 		}
 		// IVENESS -> IVE
 		// decisivenss	->	decisive
 	else if ( *substrIVENESS != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIVENESS + 1 );
-		wordStem += 'ive';
+		wordStem = subStr( word.begin( ), substrIVENESS );
+		wordStem += "ive";
 		}
 		// FULNESS -> FUL
 		// hopefulness	->	hopeful
 	else if ( *substrFULNESS != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrFULNESS + 1 );
-		wordStem += 'ful';
+		wordStem = subStr( word.begin( ), substrFULNESS );
+		wordStem += "ful";
 		}
 		// OUSNESS -> OUS
 		// callousness	->	callous
 	else if ( *substrOUSNESS != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrOUSNESS + 1 );
-		wordStem += 'ous';
+		wordStem = subStr( word.begin( ), substrOUSNESS );
+		wordStem += "ous";
 		}
 		// ALITI -> AL
 		// formalit	->	callous
 	else if ( *substrOUSNESS != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrOUSNESS + 1 );
-		wordStem += 'al';
+		wordStem = subStr( word.begin( ), substrOUSNESS );
+		wordStem += "al";
 		}
 		// IVITI -> IVE
 		// sensitiviti	->	sensitive
 	else if ( *substrIVITI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIVITI + 1 );
-		wordStem += 'ive';
+		wordStem = subStr( word.begin( ), substrIVITI );
+		wordStem += "ive";
 		}
 		// BILITI -> BLE
 		// sensibiliti	->	sensible
 	else if ( *substrBILITI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrBILITI + 1 );
-		wordStem += 'ble';
+		wordStem = subStr( word.begin( ), substrBILITI );
+		wordStem += "ble";
 		}
 
 	return wordStem;
@@ -551,68 +563,69 @@ string Stemmer::step2 ( std::string word )
 std::string Stemmer::step3 ( std::string word )
 	{
 
-	if ( measure ( word ) == 0 )
+	if ( measure( word ) == 0 )
 		{
 		return word;
 		}
 
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
-	string wordStem ( word.begin ( ), word.end ( ) );
+	unsigned long end = word.size( ) - 1;
+	auto begPtr = word.begin( );
+	auto endPtr = begPtr + end;
+	string wordStem( word.begin( ), word.end( ) );
 
-	auto substrICATE = findPrev ( "icate", endPtr );
-	auto substrATIVE = findPrev ( "ative", endPtr );
-	auto substrALIZE = findPrev ( "alize", endPtr );
-	auto substrICITI = findPrev ( "iciti", endPtr );
-	auto substrICAL = findPrev ( "ical", endPtr );
-	auto substrFUL = findPrev ( "ful", endPtr );
-	auto substrNESS = findPrev ( "ness", endPtr );
+	auto substrICATE = findPrev( "icate", endPtr, begPtr + word.size( ) - 6 );
+	auto substrATIVE = findPrev( "ative", endPtr, begPtr + word.size( ) - 6 );
+	auto substrALIZE = findPrev( "alize", endPtr, begPtr + word.size( ) - 6 );
+	auto substrICITI = findPrev( "iciti", endPtr, begPtr + word.size( ) - 6 );
+	auto substrICAL = findPrev( "ical", endPtr, begPtr + word.size( ) - 4 );
+	auto substrFUL = findPrev( "ful", endPtr, begPtr + word.size( ) - 4 );
+	auto substrNESS = findPrev( "ness", endPtr, begPtr + word.size( ) - 5 );
 
 	// ICATE -> IC
 	// triplicate -> triplic
 	if ( *substrICATE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrICATE + 1 );
-		wordStem + 'ic';
+		wordStem = subStr( word.begin( ), substrICATE );
+		wordStem += "ic";
 		}
 		// ATIVE ->
 		// formative -> form
 	else if ( *substrATIVE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrATIVE + 1 );
+		wordStem = subStr( word.begin( ), substrATIVE );
 		}
 		// ALIZE -> AL
 		// formalize -> formal
 	else if ( *substrALIZE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrALIZE + 1 );
-		wordStem += 'al';
+		wordStem = subStr( word.begin( ), substrALIZE );
+		wordStem += "al";
 		}
 		// ICITI -> IC
 		// electriciti ->	electric
 	else if ( *substrICITI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrICITI + 1 );
-		wordStem += 'ic';
+		wordStem = subStr( word.begin( ), substrICITI );
+		wordStem += "ic";
 		}
 		// ICAL -> IC
 		// electrical -> electric
 	else if ( *substrICAL != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrICAL + 1 );
-		wordStem += 'ic';
+		wordStem = subStr( word.begin( ), substrICAL );
+		wordStem += "ic";
 		}
 		// FUL ->
 		// hopeful -> hope
 	else if ( *substrFUL != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrFUL + 1 );
+		wordStem = subStr( word.begin( ), substrFUL );
 		}
 		// NESS ->
 		// goodness -> good
 	else if ( *substrNESS != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrNESS + 1 );
+		wordStem = subStr( word.begin( ), substrNESS );
 		}
 
 	return wordStem;
@@ -626,150 +639,151 @@ std::string Stemmer::step3 ( std::string word )
  */
 std::string Stemmer::step4 ( std::string word )
 	{
-	if ( measure ( word ) <= 1 )
+	if ( measure( word ) <= 2 )
 		{
 		return word;
 		}
 
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
-	string wordStem ( word.begin ( ), word.end ( ) );
+	unsigned long end = word.size( ) - 1;
+	auto begPtr = word.begin( );
+	auto endPtr = begPtr + end;
+	string wordStem( word.begin( ), word.end( ) );
 
 
-	auto substrAL = findPrev ( "al", endPtr );
-	auto substrANCE = findPrev ( "ance", endPtr );
-	auto substrENCE = findPrev ( "ence", endPtr );
-	auto substrER = findPrev ( "er", endPtr );
-	auto substrIC = findPrev ( "ic", endPtr );
-	auto substrABLE = findPrev ( "able", endPtr );
-	auto substrIBLE = findPrev ( "ible", endPtr );
-	auto substrANT = findPrev ( "ant", endPtr );
-	auto substrEMENT = findPrev ( "ement", endPtr );
-	auto substrMENT = findPrev ( "ment", endPtr );
-	auto substrENT = findPrev ( "ent", endPtr );
-	auto substrTION = findPrev ( "tion", endPtr );
-	auto substrOU = findPrev ( "ou", endPtr );
-	auto substrISM = findPrev ( "ism", endPtr );
-	auto substrATE = findPrev ( "ate", endPtr );
-	auto substrITI = findPrev ( "iti", endPtr );
-	auto substrOUS = findPrev ( "ous", endPtr );
-	auto substrIVE = findPrev ( "ive", endPtr );
-	auto substrIZE = findPrev ( "ize", endPtr );
+	auto substrAL = findPrev( "al", endPtr, begPtr + word.size( ) - 3 );
+	auto substrANCE = findPrev( "ance", endPtr, begPtr + word.size( ) - 5 );
+	auto substrENCE = findPrev( "ence", endPtr, begPtr + word.size( ) - 5 );
+	auto substrER = findPrev( "er", endPtr, begPtr + word.size( ) - 3 );
+	auto substrIC = findPrev( "ic", endPtr, begPtr + word.size( ) - 3 );
+	auto substrABLE = findPrev( "able", endPtr, begPtr + word.size( ) - 5 );
+	auto substrIBLE = findPrev( "ible", endPtr, begPtr + word.size( ) - 5 );
+	auto substrANT = findPrev( "ant", endPtr, begPtr + word.size( ) - 4 );
+	auto substrEMENT = findPrev( "ement", endPtr, begPtr + word.size( ) - 6 );
+	auto substrMENT = findPrev( "ment", endPtr, begPtr + word.size( ) - 5 );
+	auto substrENT = findPrev( "ent", endPtr, begPtr + word.size( ) - 4 );
+	auto substrION = findPrev( "ion", endPtr, begPtr + word.size( ) - 4 );
+	auto substrOU = findPrev( "ou", endPtr, begPtr + word.size( ) - 3 );
+	auto substrISM = findPrev( "ism", endPtr, begPtr + word.size( ) - 4 );
+	auto substrATE = findPrev( "ate", endPtr, begPtr + word.size( ) - 4 );
+	auto substrITI = findPrev( "iti", endPtr, begPtr + word.size( ) - 4 );
+	auto substrOUS = findPrev( "ous", endPtr, begPtr + word.size( ) - 4 );
+	auto substrIVE = findPrev( "ive", endPtr, begPtr + word.size( ) - 4 );
+	auto substrIZE = findPrev( "ize", endPtr, begPtr + word.size( ) - 4 );
 
 	// AL ->
 	// revival -> reviv
 	if ( *substrAL != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrAL + 1 );
+		wordStem = subStr( word.begin( ), substrAL );
 		}
 		// ANCE ->
 		// allowance -> allow
 	else if ( *substrANCE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrANCE + 1 );
+		wordStem = subStr( word.begin( ), substrANCE );
 		}
 		// ENCE ->
 		// inference -> infer
 	else if ( *substrENCE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrENCE + 1 );
+		wordStem = subStr( word.begin( ), substrENCE );
 		}
 		// ER ->
 		// airliner ->	airlin
 	else if ( *substrER != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrER + 1 );
+		wordStem = subStr( word.begin( ), substrER );
 		}
 		// IC ->
 		// gyroscopic -> gyroscope
 	else if ( *substrIC != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIC + 1 );
+		wordStem = subStr( word.begin( ), substrIC );
 		}
 		// ABLE ->
 		// adjustable -> adjust
 	else if ( *substrABLE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrABLE + 1 );
+		wordStem = subStr( word.begin( ), substrABLE );
 		}
 		// IBLE ->
 		// goodness -> good
 	else if ( *substrIBLE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIBLE + 1 );
+		wordStem = subStr( word.begin( ), substrIBLE );
 		}
 		// ANT ->
 		// irritant -> irrit
 	else if ( *substrANT != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrANT + 1 );
+		wordStem = subStr( word.begin( ), substrANT );
 		}
 		// EMENT ->
 		// replacement -> replace
 	else if ( *substrEMENT != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrEMENT + 1 );
+		wordStem = subStr( word.begin( ), substrEMENT );
 		}
 		// MENT ->
 		// adjustment -> adjust
 	else if ( *substrMENT != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrMENT + 1 );
+		wordStem = subStr( word.begin( ), substrMENT );
 		}
 		// ENT ->
 		// dependent -> depend
 	else if ( *substrENT != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrENT + 1 );
+		wordStem = subStr( word.begin( ), substrENT );
 		}
 		// TION ->
 		// stem must end in 't' or 's'
 		// adoption -> adopt
-	else if ( *substrTION != '\0' && ( *( substrTION - 1 ) == 's' || *( substrTION - 1 ) == 't' ) )
+	else if ( *substrION != '\0' && ( *( substrION - 1 ) == 's' || *( substrION - 1 ) == 't' ) )
 		{
-		string wordStem ( word.begin ( ), substrTION + 1 );
+		wordStem = subStr( word.begin( ), substrION );
 		}
 		// OU ->
 		// homologou -> homolog
 	else if ( *substrOU != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrOU + 1 );
+		wordStem = subStr( word.begin( ), substrOU );
 		}
 		// ISM ->
 		// communism -> commun
 	else if ( *substrISM != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrISM + 1 );
+		wordStem = subStr( word.begin( ), substrISM );
 		}
 		// ATE ->
 		// activate -> activ
 	else if ( *substrATE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrATE + 1 );
+		wordStem = subStr( word.begin( ), substrATE );
 		}
 		// ITI ->
 		// angulariti -> angular
 	else if ( *substrITI != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrITI + 1 );
+		wordStem = subStr( word.begin( ), substrITI );
 		}
 		// OUS ->
 		// homologous -> homolog
 	else if ( *substrOUS != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrOUS + 1 );
+		wordStem = subStr( word.begin( ), substrOUS );
 		}
 		// IVE ->
 		// effective -> effect
 	else if ( *substrIVE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIVE + 1 );
+		wordStem = subStr( word.begin( ), substrIVE );
 		}
 		// IZE ->
 		// bowdlerize -> bowdler
 	else if ( *substrIZE != '\0' )
 		{
-		string wordStem ( word.begin ( ), substrIZE + 1 );
+		wordStem = subStr( word.begin( ), substrIZE );
 		}
 	return wordStem;
 
@@ -783,21 +797,21 @@ std::string Stemmer::step4 ( std::string word )
  */
 std::string Stemmer::step5a ( std::string word )
 	{
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
+	unsigned long end = word.size( ) - 1;
+	auto endPtr = word.begin( ) + end;
 
 	// E ->
 	// probabte -> probat
-	if ( measure ( word ) > 1 && *endPtr == 'e' )
+	if ( measure( word ) > 1 && *endPtr == 'e' )
 		{
-		word = word.substr ( 0, word.size ( ) - 1 );
+		word = subStr( word, 0, word.size( ) - 1 );
 		return word;
 		}
 	// E ->
 	// cease -> cease
-	if ( measure ( word ) == 1 && !endCVC ( word ) && *endPtr == 'e' )
+	if ( measure( word ) == 1 && !endCVC( word ) && *endPtr == 'e' )
 		{
-		word = word.substr ( 0, word.size ( ) - 1 );
+		word = subStr( word, 0, word.size( ) - 1 );
 		}
 	return word;
 
@@ -811,12 +825,12 @@ std::string Stemmer::step5a ( std::string word )
  */
 std::string Stemmer::step5b ( std::string word )
 	{
-	unsigned long end = word.size ( ) - 1;
-	auto endPtr = word.begin ( ) + end;
+	unsigned long end = word.size( ) - 1;
+	auto endPtr = word.begin( ) + end;
 
-	if ( word.size ( ) > 2 && measure ( word ) > 1 && *endPtr == 'l' && *( endPtr - 1 ) == 'l' )
+	if ( word.size( ) > 2 && measure( word ) > 1 && *endPtr == 'l' && *( endPtr - 1 ) == 'l' )
 		{
-		word = word.substr ( 0, word.size ( ) - 1 );
+		word = subStr( word, 0, word.size( ) - 1 );
 		}
 	return word;
 	}

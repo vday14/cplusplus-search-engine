@@ -48,40 +48,93 @@ string::iterator findNext ( string needle, string::iterator haystackPointer );
  *
  * @param needle
  * @param haystackPointer
- * @return
+ * @param haystackBeg
+ * @return string::iterator
  */
-string::iterator findPrev ( string needle, string::iterator haystackPointer );
+string::iterator findPrev ( string needle, string::iterator haystackPointer, string::iterator haystackBeg );
 
 /**
  * Returns a vector of strings from @originalText, split by @delim
  *
  * @param originalText
  * @param delim
- * @return
+ * @return vector< string >
  */
-vector< string > splitStr ( string originalText, char delim );
+vector< string > splitStr ( string & originalText, char delim );
 
 /**
  * Returns true if @word is a stopword
  *
  * @param word
- * @return
+ * @return bool
  */
-bool isStopWord ( string word );
+bool isStopWord ( string & word );
 
 /**
  * Returns lowercase @word
  *
  * @param word
- * @return
+ * @return string
  */
-string toLower ( string word );
+string toLower ( string & word );
 
 /**
  * Returns stemmed @word
  *
  * @param word
- * @return
+ * @return string
  */
-string stemWord ( string word );
+string stemWord ( string & word );
 
+/**
+ * Returns a substring [ post, len )
+ *
+ * @param word
+ * @param pos
+ * @param len
+ * @return string
+ */
+string subStr ( string & word, size_t pos, size_t len );
+
+/**
+ * Returns a substring [ begin, end )
+ *
+ * @param pos
+ * @param len
+ * @return string
+ */
+string subStr ( string::iterator begin, string::iterator end );
+
+/**
+ * Removes the chars in vector from word
+ *
+ * @param word
+ * @param chars
+ * @return string
+ */
+string stripStr ( string & word, vector< char > chars );
+
+/**
+ * Removes all chars from word
+ * Assumes word is lowercase
+ *
+ * @param word
+ * @return string
+ */
+string stripStr ( string & word );
+
+/**
+ * Returns true is character is a letter
+ *
+ * @param ch
+ * @return bool
+ */
+bool isAlpha ( char ch );
+
+/**
+ * Returns true is character is a number
+ *
+ * @param ch
+ * @return bool
+ */
+bool isNum ( char ch );
