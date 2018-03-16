@@ -19,14 +19,14 @@ class Post
 	 	 //What Start / End Location
 		 virtual Location GetStartLocation( );
 		 virtual Location GetEndLocation( );
-		 virtual Attributes GetAttributes( );
+	   virtual Attributes GetAttributes( );
 		//Returns Next next delta
 
 		//TO-DO NICK/ZANE
 		 virtual Post* Next( );
-
+		Location currentLocation;
 		//*why?
-		 virtual ISR* GetIsr( );
+		 //virtual ISR* GetIsr( );
 
 	};
 
