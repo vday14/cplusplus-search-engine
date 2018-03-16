@@ -12,34 +12,14 @@ void testSimple ( );
 
 void testComplex ( );
 
+void testURL ( );
 
 int main ( )
 	{
 	cout << "Testing Parser ... " << endl << endl;
-
-	const char * line = "<li><span class=\"official-website\"><span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a></span></span></li>";
-
-	ProducerConsumerQueue< string > urlFrontierTest;
-	ParsedUrl url = ParsedUrl( "testurl.com" );
-	char docString[10240];
-	strcpy( docString, line );
-	Document document( url, docString );
-
-	Parser parser( &urlFrontierTest );
-	auto dict = parser.execute( &document );
-
-	for ( auto it = dict->begin( ); it != dict->end( ); it++ )
-		{
-		cout << it->first << ':';
-		for ( int i = 0; i < it->second.size( ); ++i )
-			{
-			cout << it->second[ i ] << " ";
-			}
-		cout << std::endl;
-		}
-
-//	testSimple( );
-//	testComplex( );
+	testURL ( );
+	testSimple( );
+	testComplex( );
 	cout << "Parser Tests Passed! :D" << endl;
 
 	}
@@ -48,7 +28,7 @@ void testSimple ( )
 	{
 
 	ProducerConsumerQueue< string > urlFrontierTest;
-	ParsedUrl url = ParsedUrl( "testurl.com" );
+	ParsedUrl url = ParsedUrl( "http://www.testurl.com" );
 	char docString[10240];
 	strcpy( docString, "<title>This Cat Title Cat</title>" );
 	Document document( url, docString );
@@ -104,4 +84,20 @@ void testComplex ( )
 	delete dictionary;
 	delete[] writable;
 
+	}
+
+void testURL ( )
+	{
+	const char *line = "<li><span class=\"official-website\"><span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a></span></span></li>";
+
+	ProducerConsumerQueue< string > urlFrontierTest;
+	ParsedUrl url = ParsedUrl( "testurl.com" );
+	char docString[10240];
+	strcpy( docString, line );
+	Document document( url, docString );
+
+	Parser parser( &urlFrontierTest );
+	auto dict = parser.execute( &document );
+	assert ( urlFrontierTest.Pop( ) == "http://www.bafta.org/");
+	delete dict;
 	}

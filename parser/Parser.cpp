@@ -49,7 +49,6 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
 			if ( url != "" )
 				{
 				urlFrontier->Push( url );
-				cout << url << endl;
 				}
 				// check if line is title
 			else

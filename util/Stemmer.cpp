@@ -323,7 +323,7 @@ std::string Stemmer::step1b ( std::string word )
 	else if ( *substrING != '\0' && isVowelPresent( word.begin( ), substrING, word ) )
 		{
 		wordStem = subStr( word.begin( ), substrING );
-		if ( addE( wordStem ) || ( m == 1 && endCVC( wordStem + 'e' ) ) )
+		if ( addE( wordStem ) || ( measure ( wordStem ) == 1 && endCVC( wordStem + 'e' ) ) )
 			{
 			wordStem += 'e';
 			}
