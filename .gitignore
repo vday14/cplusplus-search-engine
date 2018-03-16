@@ -5,6 +5,7 @@ openssl-1.1.0g/*
 cmake*
 CMakeLists.txt
 Vagrantfile
+<<<<<<< HEAD
 cmake-build-debug/*
 CMakeCache.txt
 CMakeFiles/*
@@ -33,3 +34,5 @@ cmake-build-debug/CMakeFiles/feature_tests.cxx
 cmake-build-debug/CMakeFiles/Makefile2
 cmake-build-debug/CMakeFiles/progress.marks
 cmake-build-debug/Makefile
+.vscode/settings.json
+.DS_Store
