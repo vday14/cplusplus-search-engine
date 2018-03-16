@@ -3,6 +3,7 @@
 #include "../ProducerConsumerQueue.h"
 #include "../ProducerConsumerQueue.cpp"
 #include "DocumentEnding.h"
+#include "PostingsSeekTableEntry.h"
 #include <unordered_map>
 #include <map>
 #include <vector>
@@ -41,6 +42,7 @@ class Indexer {
 
         unordered_map<string, vector<size_t> > masterDictionary;
 		map<string, vector<size_t> > chunkDictionary;
+		unordered_map<string, vector<PostingsSeekTableEntry> > postingsSeekTable;
 
         vector<DocumentEnding> docEndings;
 

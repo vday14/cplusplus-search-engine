@@ -82,7 +82,16 @@ void Indexer::save() {
 //        seekOffset += strlen(wordBreak.c_str());
         bool firstPost = true;
         size_t lastOne = 0;
+        int numIndexed = 0;
         for(auto location : word.second) {
+            numIndexed++;
+            if(numIndexed >= 100) {
+                PostingsSeekTableEntry entry = PostingsSeekTableEntry();
+                entry.offset = seekOffset;
+                entry.realLocation = location;
+                postingsSeekTable[word.first].push_back(entry);
+                numIndexed = 0;
+            }
             if(firstPost) {
                 string locationSpace = to_string(location) + " ";
                 write(file, locationSpace.c_str(), strlen(locationSpace.c_str()));
@@ -119,6 +128,18 @@ void Indexer::save() {
     for(auto word : seeker) {
         string line = word.first + " " + to_string(word.second) + "\n";
         write(seekFile, line.c_str(), strlen(line.c_str()));
+        if(postingsSeekTable.find(word.first) != postingsSeekTable.end()) {
+            string offsetLine = "\t";
+            for(int i = 0; i < postingsSeekTable[word.first].size(); i++) {
+                offsetLine += "<" +
+                        to_string(postingsSeekTable[word.first][i].realLocation) +
+                        ", " +
+                        to_string(postingsSeekTable[word.first][i].offset) +
+                        "> ";
+            }
+            offsetLine += "\n";
+            write(seekFile, offsetLine.c_str(), strlen(offsetLine.c_str()));
+        }
     }
 
     close(file);
@@ -154,6 +175,7 @@ void Indexer::verbose_save() {
 void Indexer::reset() {
     masterDictionary.clear();
     docEndings.clear();
+    postingsSeekTable.clear();
 
     currentBlockNumberWords = 0;
     currentBlockNumberDocs = 0;

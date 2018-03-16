@@ -1,5 +1,6 @@
 =docEnding 118019
 a 81
+	<805205, 380> <811012, 681> <817259, 985> 
 aaa 1198
 aaaa 1206
 aaaaah 1214
@@ -326,6 +327,7 @@ analyser 5160
 anapyrogeliofc 5168
 anche 5176
 and 5184
+	<815776, 5536> 
 andabas 5654
 andaluzas 5662
 andare 5670
@@ -1686,6 +1688,7 @@ dd 21926
 ddlinspires 21934
 ddlovato 21942
 de 21950
+	<808806, 22275> <818627, 22594> 
 dead 22685
 deadstock 22707
 deadth 22715
@@ -2653,6 +2656,7 @@ fooling 35469
 foor 35477
 footin 35485
 for 35493
+	<818092, 35836> 
 fora 35925
 foram 35943
 force 35951
@@ -3410,6 +3414,7 @@ hydride 45609
 hypothermia 45617
 hyves 45625
 i 45633
+	<806159, 45939> <810770, 46229> <817280, 46528> 
 ia 46720
 iae 46728
 iaintnice 46736
@@ -3494,6 +3499,7 @@ impressionada 48250
 imundoloco 48258
 imyooursoulmate 48266
 in 48274
+	<819643, 48631> 
 inbox 48653
 inc 48661
 incbwetrust 48669
@@ -3597,6 +3603,7 @@ irmo 49705
 ironia 49718
 irritar 49726
 is 49734
+	<815631, 50066> 
 isaacepicarium 50176
 isabijloo 50184
 isacoutinho 50192
@@ -4580,6 +4587,7 @@ mcguire 62538
 mcyoshioficial 62546
 mdalnouri 62554
 me 62562
+	<810177, 62894> <819680, 63210> 
 meadows 63261
 mean 63274
 meanmoneyma 63282
@@ -4918,6 +4926,7 @@ muziek 67388
 muzika 67396
 mvil 67404
 my 67412
+	<817053, 67762> 
 mya 67873
 mydreamkey 67881
 myhorse 67889
@@ -5090,6 +5099,7 @@ nmeros 70365
 nmpak 70373
 nmx 70381
 no 70389
+	<811804, 70723> 
 noble 70976
 nobody 70984
 nobodybigyet 70997
@@ -5193,6 +5203,7 @@ nyembunyiin 72404
 nylon 72412
 nyt 72420
 o 72428
+	<817992, 72766> 
 obama 72849
 obeskura 72857
 obeyalesia 72865
@@ -5925,6 +5936,7 @@ quanto 82630
 quase 82646
 quavia 82654
 que 82662
+	<809186, 82972> <817389, 83290> 
 quedar 83430
 quedo 83438
 queen 83456
@@ -6222,6 +6234,7 @@ royal 86385
 rrepende 86399
 rs 86407
 rt 86425
+	<804465, 86721> <808841, 87019> <814321, 87323> <819119, 87625> 
 rthoshifamily 87756
 rtyvela 87764
 ru 87772
@@ -7131,6 +7144,7 @@ thats 99501
 thaysabarbosa 99574
 thbailey 99582
 the 99590
+	<808740, 99904> <815280, 100210> 
 thebermanr 100454
 thebiebercow 100462
 theborneopost 100470
@@ -7241,6 +7255,7 @@ tl 102620
 tm 102638
 tngo 102646
 to 102654
+	<808466, 102976> <816126, 103289> 
 tobistar 103506
 tocaido 103514
 tocando 103522
@@ -8026,6 +8041,7 @@ york 116257
 yosraam 116270
 yotegusto 116278
 you 116286
+	<811708, 116611> 
 youandigraphics 116883
 youhre 116891
 youll 116899
