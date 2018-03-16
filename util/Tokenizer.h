@@ -33,7 +33,7 @@ public:
 	 * @param originalText
 	 * @param offset
 	 */
-	void execute ( string &originalText, int offset );
+	void execute ( string &originalText, unsigned long offset );
 
 	private:
 		unordered_map< string, vector< int>> *docIndex;

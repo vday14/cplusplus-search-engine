@@ -174,12 +174,14 @@ string::iterator findPrev ( string needle, string::iterator haystackPointer, str
 
 /**
  * Returns a vector of strings from @originalText, split by @delim
+ * Will remove symbols if bool is set
  *
  * @param originalText
  * @param delim
+ * @param removeChars
  * @return vector < string >
  */
-vector< string > splitStr ( string & originalText, char delim )
+vector< string > splitStr ( string & originalText, char delim , bool removeSyms)
 	{
 	vector< string > splitWords;
 	auto begin = originalText.begin( );
@@ -189,7 +191,10 @@ vector< string > splitStr ( string & originalText, char delim )
 		string word = "";
 		while ( *begin != delim && *begin != '\0' )
 			{
-			word += *begin;
+			if (removeSyms && ( isAlpha( *begin ) || isNum( *begin ) ) )
+				{
+				word += *begin;
+				}
 			++begin;
 			}
 

@@ -33,7 +33,7 @@ const unordered_map< string, vector< int > > *Parser::execute ( Document *docume
 void Parser::parse ( string html, Tokenizer *tokenizer )
 	{
 	auto htmlIt = html.begin( );
-	int offset = 0;
+	unsigned long offset = 0;
 	while ( htmlIt != html.end( ) )
 		{
 		// if open bracket
@@ -49,6 +49,7 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
 			if ( url != "" )
 				{
 				urlFrontier->Push( url );
+				cout << url << endl;
 				}
 				// check if line is title
 			else
@@ -59,7 +60,6 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
 					tokenizer->execute( title, offset );
 					}
 				}
-			//TODO fix offset?
 			offset = htmlIt - html.begin( );
 			}
 		else
@@ -86,7 +86,11 @@ string Parser::extract_url ( string & word )
 		if ( *foundHttp != '\0' )
 			{
 			url = "";
-			auto closeTag = findNext( ">", word.begin( ) );
+			auto closeTag = findNext( ">", foundHref );
+			if ( *closeTag != '\0' && *( closeTag - 1 ) == '\"' )
+				{
+				closeTag -= 1;
+				}
 			while ( *foundHttp != *closeTag )
 				{
 				url += *foundHttp;

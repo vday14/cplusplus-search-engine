@@ -27,22 +27,20 @@ unordered_map< string, vector< int>> *Tokenizer::get ( ) const
  * @param originalText
  * @param offset
  */
-void Tokenizer::execute ( string & originalText, int offset )
+void Tokenizer::execute ( string & originalText, unsigned long offset )
 	{
-	vector< string > splitText = splitStr( originalText, ' ' );
+	vector< string > splitText = splitStr( originalText, ' ', true );
 	string processedString = "";
 	for ( int i = 0; i < splitText.size( ); ++i )
 		{
 		// case fold
 		processedString = toLower( splitText[ i ] );
 		//strip all characters
-		processedString = stripStr( processedString );
 
 		if ( !isStopWord( processedString ) )
 			{
 			// stem word
-			//FIXME
-//			processedString = stem.execute( processedString );
+			processedString = stem.execute( processedString );
 			( *docIndex )[ processedString ].push_back( offset );
 			++offset;
 			}

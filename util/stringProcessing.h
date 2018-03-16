@@ -55,12 +55,14 @@ string::iterator findPrev ( string needle, string::iterator haystackPointer, str
 
 /**
  * Returns a vector of strings from @originalText, split by @delim
+ * Will remove symbols if bool is set
  *
  * @param originalText
  * @param delim
+ * @param removeSyms
  * @return vector< string >
  */
-vector< string > splitStr ( string & originalText, char delim );
+vector< string > splitStr ( string & originalText, char delim, bool removeSyms );
 
 /**
  * Returns true if @word is a stopword

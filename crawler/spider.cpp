@@ -71,10 +71,9 @@ void Spider::FuncToRun()
 				string pathToDisk = localPath + "/crawlerOutput/" + to_string(docID)+ ".txt";
 				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
 
-
-
 				Document document ( currentUrl, reader->buffer );
 				auto dict = parser.execute ( &document );
+				cout << "docID: " << docID << endl;
 				for ( auto it = dict->begin( ); it != dict->end( ); it++ )
 					{
 					cout << it->first << " : ";
@@ -84,6 +83,8 @@ void Spider::FuncToRun()
 						}
 					cout << std::endl;
 					}
+				cout << std::endl;
+				delete dict;
 
 				cond = true;
 				}

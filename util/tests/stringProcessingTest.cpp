@@ -136,11 +136,11 @@ void testSplitStr ( string original )
 	{
 	cout << "Testing splitStr..." << endl;
 
-	vector< string > vec = splitStr( original, ' ' );
+	vector< string > vec = splitStr( original, ' ', true);
 	assert( vec.size( ) == 53 );
 
 	string word = "hello\ngoodbye";
-	vec = splitStr( word, '\n' );
+	vec = splitStr( word, '\n', true );
 	assert( vec.size( ) == 2 );
 	assert( vec[ 0 ] == "hello" && vec[ 1 ] == "goodbye" );
 
