@@ -7,12 +7,15 @@
  * @param inFile
  * @return
  */
-//TODO instead of grabbing each line, look to see if beginning of
 // TODO title/url/anchortext, etc. Then continue until close tag and add to tokenizer after end of tag found
-// TODO have to read input in as a stream of chars eventually - cat into string?
 // TODO different counts: frequency, total num unique words, etc
-// TODO handle bad html style (ie no closing p tag)
 //TODO flag different types of words - determine if we want to do this in key of dict or value (in wordData struct)
+/*
+ * Anchor text = #
+ * Title = *
+ * Url = @
+ * Body = %
+ */
 
 void Parser::parse ( string html, Tokenizer *tokenizer )
 	{
@@ -63,17 +66,13 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
 			++htmlIt;
 			}
 		}
-
-
 	}
 
-/**
- * Returns a url, or "" if none
- * @param word
- * @return
- */
 
-bool Parser::isScript ( string word )
+/*
+ * Returns true if script tag, false if not
+*/
+bool Parser::isScript ( string & word )
 	{
 	if ( *findStr ( "<script", word ) != '\0' )
 		{
@@ -81,8 +80,11 @@ bool Parser::isScript ( string word )
 		}
 	return false;
 	}
-
-string Parser::extract_body( string word )
+/*
+ * Returns body text if p tags, empty string if not
+ * If there's no closing tag, stops at the first opening tag or when it hits end of file
+*/
+string Parser::extract_body( string & word, int & offset )
     {
     string body = "";
     auto foundBody = findStr("<p", word) != '\0';
@@ -91,11 +93,20 @@ string Parser::extract_body( string word )
         while ( *findStr != '<' )
             {
             body += *findStr;
+			if ( *findStr == ' ')
+				{
+				count += 1;
+				}
             }
         }
     return body;
     }
 
+/**
+ * Returns a url, or "" if none
+ * @param word
+ * @return
+ */
 
 string Parser::extract_url ( string & word )
 	{

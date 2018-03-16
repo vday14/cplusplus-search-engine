@@ -27,21 +27,29 @@ public:
 		return docIndex;
 		}
 	//add type of word parameter, ie paragraph, url etc
-	void execute ( string originalText, int offset )
-		{
 
+    void execute ( string & originalText, int offset )
+		{
 		vector< string > splitText = splitStr ( originalText, ' ' );
-		string lowerString = "";
+        string processedString = "";
 		int vectorLength = 0;
-		for ( int i = 0; i < splitText.size ( ); ++i )
-			{
-			lowerString = toLower ( splitText[ i ] );
-			if ( !isStopWord ( lowerString ) )
+        for ( int i = 0; i < splitText.size( ); ++i )
+            {
+             // case fold
+             processedString = toLower( splitText[ i ] );
+             //strip all characters
+             processedString = stripStr( processedString );
+
+             if ( !isStopWord ( lowerString ) )
 				{
-				wordData currentWord;
+                // stem word
+                processedString = stem.execute( processedString );
+
+                wordData currentWord;
 				currentWord.offset = offset;
 				vectorLength = ( *docIndex )[ lowerString ].size( );
 				( *docIndex )[ lowerString ].push_back ( currentWord );
+                //incrementing frequency value of the current word
 				( *docIndex )[ lowerString ][ vectorLength - 1 ].frequency += 1;
 				++offset;
 				}

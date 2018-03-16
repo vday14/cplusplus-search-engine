@@ -32,6 +32,7 @@ public:
 	 * Parser
 	 * @return
 	 */
+	// TODO need to change vector type to word data, change where struct is declared
 	const unordered_map< string, vector< int>> * execute ( Document* document)
 		{
 		Tokenizer tokenizer;
@@ -48,8 +49,6 @@ private:
 	 * @param inFile
 	 * @return
 	 */
-	//TODO instead of grabbing each line, look to see if beginning of
-	// TODO title/url/anchortext, etc. Then continue until close tag and add to tokenizer after end of tag found
 	void parse ( string html, Tokenizer *tokenizer );
 
 
@@ -68,6 +67,8 @@ private:
 	 */
 	string extract_title ( string & word );
 
+	bool isScript ( string & word );
 
+	string extract_body( string & word );
 	};
 
