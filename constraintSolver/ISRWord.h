@@ -4,36 +4,46 @@
 
 #pragma once
 
-#include "ISR.h"
+//#include "ISR.h"
+#include <vector>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+size_t FileSize(int f) {
+    struct stat fileInfo;
+    fstat( f, &fileInfo);
+    return fileInfo.st_size;
+}
+
+using namespace std;
 
 //Find occurrences of individual words
 
-class ISRWord : ISR
+typedef size_t Location;
+
+class ISRWord
 	{
-	public:
-		unsigned GetDocumentCount( );
+public:
+        ISRWord(char* word);
+        vector<size_t> getSeekContents(string fileName);
+        unsigned GetDocumentCount( );
 		unsigned GetNumberOfOccurrences( );
-		ISR* DocumentEnd;
-		// Returns
-		virtual Location First( );
-
-		//Returns next post of a word given current location
-		virtual Location Next( );
-
-		//Calls seek onto one past the current end doc location
-		//Return first instance of word at new document
-		virtual Location NextDocument( );
-		//Returns first instance of word after target location
-		virtual Location Seek( Location target);
+		// ISR* DocumentEnd;
+        Location first( );
+        Location next( );
+        Location nextDocument( );
+        Location seek( Location target);
 
 
-		virtual ISR *GetDocumentISR( );
+        // ISR *GetDocumentISR( );
 
-		//Returns the location of the end of the document
-		virtual Location GetEndDocument( );
-
-		//Current location of word on disk
-		Location currentLocation;
+        Location GetEndDocument( );
+	    Location currentLocation;
 		char* term;
 		char* masterIndex;
 		vector<size_t> listOfChunks;
@@ -41,17 +51,8 @@ class ISRWord : ISR
 		char* currentMemMap;
 
 		//set member variables to all of the chunks that occur, update current chunk
-		virtual getChunks();
-
-
-
-	ISRWord(char * term_in ) : term( term_in )
-			{
-				getChunks();
-				currentLocation = First();
-
-
-			}
-	};
+        void getChunks();
+private:
+};
 
 

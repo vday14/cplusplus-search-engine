@@ -53,6 +53,8 @@ add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
 add_executable(search-engine search.cpp query/Query.cpp)
 
-find_package(OpenSSL REQUIRED)
+add_executable(ISRWord-tests constraintSolver/tests/ISRWordTests.cpp)
 
-target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)
+#find_package(OpenSSL REQUIRED)
+
+#target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)
