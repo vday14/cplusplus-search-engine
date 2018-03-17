@@ -4,7 +4,9 @@
 
 #pragma once
 
-#include "Post.h"
+//#include "Post.h"
+
+typedef size_t Location;      // Location 0 is the null location.
 
 class ISR
 	{
