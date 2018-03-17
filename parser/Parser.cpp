@@ -16,10 +16,10 @@ Parser::Parser ( ProducerConsumerQueue< string > *urlFrontierIn )
  * Executes the Parser
  * @return
  */
-const unordered_map< string, vector< int > > *Parser::execute ( Document *document )
+const unordered_map< string, vector< unsigned long > > *Parser::execute ( Document *document )
 	{
 	Tokenizer tokenizer;
-	parse( document->DocToString( ), &tokenizer );
+	parse( document->DocToString( ), document->getUrl( ), &tokenizer );
 	return tokenizer.get( );
 	}
 
@@ -28,12 +28,21 @@ const unordered_map< string, vector< int > > *Parser::execute ( Document *docume
  * @param inFile
  * @return
  */
-//TODO instead of grabbing each line, look to see if beginning of
-// TODO title/url/anchortext, etc. Then continue until close tag and add to tokenizer after end of tag found
-void Parser::parse ( string html, Tokenizer *tokenizer )
+void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 	{
+
 	auto htmlIt = html.begin( );
 	unsigned long offset = 0;
+
+	// tokenize url
+	string host = "";
+	host.assign( currentUrl.Host );
+	string path = "";
+	path.assign( currentUrl.Path );
+	string url = host + "/" + path;
+
+	tokenizer->execute( url, offset, Tokenizer::URL );
+
 	while ( htmlIt != html.end( ) )
 		{
 		// if open bracket
@@ -48,7 +57,14 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
 			string url = extract_url( line );
 			if ( url != "" )
 				{
+				if ( isLocal ( url ) )
+					{
+					string completeUrl = "";
+					completeUrl.assign( currentUrl.CompleteUrl );
+					url = completeUrl + url;
+					}
 				urlFrontier->Push( url );
+				cout << url << endl;
 				}
 				// check if line is title
 			else
@@ -56,7 +72,7 @@ void Parser::parse ( string html, Tokenizer *tokenizer )
 				string title = extract_title( line );
 				if ( title != "" )
 					{
-					tokenizer->execute( title, offset );
+					tokenizer->execute( title, offset, Tokenizer::TITLE );
 					}
 				}
 			offset = htmlIt - html.begin( );
@@ -123,3 +139,13 @@ string Parser::extract_title ( string & word )
 	return title;
 	}
 
+/**
+ * Will return true if local url
+ *
+ * @param url
+ * @return
+ */
+bool Parser::isLocal ( string url )
+	{
+	return ( *url.begin( ) == '/' );
+	}

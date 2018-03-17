@@ -33,7 +33,7 @@ public:
 	 * Executes the Parser
 	 * @return
 	 */
-	const unordered_map< string, vector< int> > *execute ( Document *document );
+	const unordered_map< string, vector< unsigned long > > *execute ( Document *document );
 
 
 private:
@@ -44,9 +44,7 @@ private:
 	 * @param inFile
 	 * @return
 	 */
-	//TODO instead of grabbing each line, look to see if beginning of
-	// TODO title/url/anchortext, etc. Then continue until close tag and add to tokenizer after end of tag found
-	void parse ( string html, Tokenizer *tokenizer );
+	void parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer );
 
 
 	/**
@@ -64,6 +62,13 @@ private:
 	 */
 	string extract_title ( string & word );
 
+	/**
+	 * Will return true if local url
+	 *
+	 * @param url
+	 * @return
+	 */
+	bool isLocal ( string url );
 
 	};
 

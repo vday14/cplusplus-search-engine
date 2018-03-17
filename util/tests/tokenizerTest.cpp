@@ -42,5 +42,5 @@ void testExecute ( string original )
 		cout << std::endl;
 		}
 	delete dict;
-
+	dict = nullptr;
 	}

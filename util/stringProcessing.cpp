@@ -5,7 +5,7 @@
 #include "stringProcessing.h"
 #include "Stemmer.h"
 #include <cassert>
-
+#include <iostream>
 using namespace std;
 
 /**
@@ -181,7 +181,7 @@ string::iterator findPrev ( string needle, string::iterator haystackPointer, str
  * @param removeChars
  * @return vector < string >
  */
-vector< string > splitStr ( string & originalText, char delim , bool removeSyms)
+vector< string > splitStr ( string originalText, char delim , bool removeSyms)
 	{
 	vector< string > splitWords;
 	auto begin = originalText.begin( );
@@ -210,12 +210,71 @@ vector< string > splitStr ( string & originalText, char delim , bool removeSyms)
 	}
 
 /**
+ * Splits string by multiple delimiters
+ *
+ * @param originalText
+ * @param delims
+ * @param removeSyms
+ * @return
+ */
+vector< string > splitStr ( string originalText, vector < char > delims , bool removeSyms)
+	{
+	vector< string > splitWords;
+	char begin;
+	for( int i = 0; i < originalText.size( ); ++i)
+		{
+		begin = originalText[i];
+		string word = "";
+		while ( !inArray( begin, delims ) && i < originalText.size() )
+			{
+			begin = originalText[i];
+			if (removeSyms && ( isAlpha( begin ) || isNum( begin ) ) )
+				{
+				word += begin;
+				}
+			++i;
+			}
+
+		if(inArray( begin, delims ))
+			--i;
+
+
+		if (word != "" && word != " " )
+			{
+			splitWords.push_back( word );
+			}
+		}
+
+	return splitWords;
+
+	}
+
+/**
+ * Returns true if element is in array, false otherwise
+ *
+ * @param vec
+ * @return
+ */
+template <typename T> bool inArray ( T needle, vector < T > haystack )
+	{
+	for ( int i = 0; i < haystack.size( ); ++ i)
+		{
+		if ( haystack[ i ] == needle )
+			{
+			return true;
+			}
+		}
+	return false;
+	}
+
+
+/**
  * Returns true if @word is a stopword
  *
  * @param word
  * @return bool
  */
-bool isStopWord ( string & word )
+bool isStopWord ( string word )
 	{
 	return ( stopWords.find( word ) != stopWords.end( ) );
 
@@ -227,7 +286,7 @@ bool isStopWord ( string & word )
  * @param word
  * @return string
  */
-string toLower ( string & word )
+string toLower ( string word )
 	{
 	auto iter = word.begin( );
 	string lowerWord = "";
@@ -254,7 +313,7 @@ string toLower ( string & word )
  * @param word
  * @return string
  */
-string stemWord ( string & word )
+string stemWord ( string word )
 	{
 	Stemmer stemmer;
 	word = stemmer.execute( word );
@@ -269,7 +328,7 @@ string stemWord ( string & word )
  * @param len
  * @return string
  */
-string subStr ( string & word, size_t pos, size_t len )
+string subStr ( string word, size_t pos, size_t len )
 	{
 	string substr = "";
 	for ( int i = 0; i < len; ++i )
@@ -305,7 +364,7 @@ string subStr ( string::iterator begin, string::iterator end )
  * @param chars
  * @return string
  */
-string stripStr ( string & word, vector< char > chars )
+string stripStr ( string word, vector< char > chars )
 	{
 	string wordStripped = "";
 	auto begin = word.begin( );
@@ -337,7 +396,7 @@ string stripStr ( string & word, vector< char > chars )
  * @param chars
  * @return string
  */
-string stripStr ( string & word )
+string stripStr ( string word )
 	{
 	string wordStripped = "";
 	auto begin = word.begin( );

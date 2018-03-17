@@ -73,6 +73,7 @@ void Spider::FuncToRun()
 
 				Document document ( currentUrl, reader->buffer );
 				auto dict = parser.execute ( &document );
+				
 				cout << "docID: " << docID << endl;
 				for ( auto it = dict->begin( ); it != dict->end( ); it++ )
 					{
@@ -85,7 +86,7 @@ void Spider::FuncToRun()
 					}
 				cout << std::endl;
 				delete dict;
-
+				dict = nullptr;
 				cond = true;
 				}
 			else

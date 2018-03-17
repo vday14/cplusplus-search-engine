@@ -21,7 +21,7 @@ static set< string > stopWords = { "a", "all", "an", "and", "any", "are", "as", 
                                    "she",
                                    "some", "the", "their", "them", "there", "they", "that",
                                    "this", "to", "us", "was", "what", "when", "where", "which", "who", "why", "will",
-                                   "with",
+                                   "with", "www",
                                    "you", "your" };
 
 /**
@@ -62,7 +62,25 @@ string::iterator findPrev ( string needle, string::iterator haystackPointer, str
  * @param removeSyms
  * @return vector< string >
  */
-vector< string > splitStr ( string & originalText, char delim, bool removeSyms );
+vector< string > splitStr ( string originalText, char delim, bool removeSyms );
+
+/**
+ * Splits string by multiple delimiters
+ *
+ * @param originalText
+ * @param delims
+ * @param removeSyms
+ * @return
+ */
+vector< string > splitStr ( string originalText, vector < char > delims, bool removeSyms );
+
+/**
+ * Returns true if element is in array, false otherwise
+ *
+ * @param vec
+ * @return
+ */
+template <typename T> bool inArray ( T needle, vector < T > haystack );
 
 /**
  * Returns true if @word is a stopword
@@ -70,7 +88,7 @@ vector< string > splitStr ( string & originalText, char delim, bool removeSyms )
  * @param word
  * @return bool
  */
-bool isStopWord ( string & word );
+bool isStopWord ( string word );
 
 /**
  * Returns lowercase @word
@@ -78,7 +96,7 @@ bool isStopWord ( string & word );
  * @param word
  * @return string
  */
-string toLower ( string & word );
+string toLower ( string word );
 
 /**
  * Returns stemmed @word
@@ -86,7 +104,7 @@ string toLower ( string & word );
  * @param word
  * @return string
  */
-string stemWord ( string & word );
+string stemWord ( string word );
 
 /**
  * Returns a substring [ post, len )
@@ -96,7 +114,7 @@ string stemWord ( string & word );
  * @param len
  * @return string
  */
-string subStr ( string & word, size_t pos, size_t len );
+string subStr ( string word, size_t pos, size_t len );
 
 /**
  * Returns a substring [ begin, end )
@@ -114,7 +132,7 @@ string subStr ( string::iterator begin, string::iterator end );
  * @param chars
  * @return string
  */
-string stripStr ( string & word, vector< char > chars );
+string stripStr ( string word, vector< char > chars );
 
 /**
  * Removes all chars from word
@@ -123,7 +141,7 @@ string stripStr ( string & word, vector< char > chars );
  * @param word
  * @return string
  */
-string stripStr ( string & word );
+string stripStr ( string word );
 
 /**
  * Returns true is character is a letter

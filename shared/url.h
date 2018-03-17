@@ -47,7 +47,7 @@ public:
 
 		pathBuffer = new char[ strlen( url ) + 1 ];
 		char *f, *t;
-		for ( t = pathBuffer, f = url;  *t++ = *f++; )
+		for ( t = pathBuffer, f = url;  ( *t++ = *f++ ); )
 			;
 
 		Service = pathBuffer;
