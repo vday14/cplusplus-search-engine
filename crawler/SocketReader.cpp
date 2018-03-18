@@ -48,6 +48,7 @@ char * GetArbitrarySizeBuffer(int s )
 		front = temp + strlen(http_buff);
 		delete[] http_buff;
 		http_buff = temp;
+
 		}
 
 	return http_buff;

@@ -40,7 +40,7 @@ public:
 	 * @param offset
 	 * @param decorator
 	 */
-	void execute ( string originalText, unsigned long offset, char decorator = '\0' );
+	unsigned long execute ( string originalText, unsigned long offset, char decorator = '\0' );
 
 private:
 
@@ -54,6 +54,6 @@ private:
 	 * @param offset
 	 * @param decorator
 	 */
-	void tokenize ( vector< string > splitText, unsigned long offset, char decorator );
+	unsigned long tokenize ( vector< string > splitText, unsigned long offset, char decorator );
 
 	};

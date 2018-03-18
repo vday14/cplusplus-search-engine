@@ -28,7 +28,7 @@ unordered_map< string, vector< unsigned long > > *Tokenizer::get ( ) const
  * @param offset
  * @param decorator
  */
-void Tokenizer::execute ( string originalText, unsigned long offset, char decorator )
+unsigned long Tokenizer::execute ( string originalText, unsigned long offset, char decorator )
 	{
 	// split by symbols
 	if ( decorator == Tokenizer::URL )
@@ -36,12 +36,12 @@ void Tokenizer::execute ( string originalText, unsigned long offset, char decora
 		vector < char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
 		                          '(', ')', '*', '+', ',', ';', '='};
 
-		tokenize( splitStr( originalText, split, true ), offset, decorator );
+		return tokenize( splitStr( originalText, split, true ), offset, decorator );
 		}
 	// split by spaces
 	else
 		{
-		tokenize( splitStr( originalText, ' ', true ), offset, decorator );
+		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
 		}
 	}
 
@@ -52,7 +52,7 @@ void Tokenizer::execute ( string originalText, unsigned long offset, char decora
  * @param offset
  * @param decorator
  */
-void Tokenizer::tokenize ( vector< string > splitText , unsigned long offset, char decorator )
+unsigned long Tokenizer::tokenize ( vector< string > splitText , unsigned long offset, char decorator )
 	{
 	string processedString = "";
 	for ( int i = 0; i < splitText.size( ); ++i )
@@ -73,5 +73,6 @@ void Tokenizer::tokenize ( vector< string > splitText , unsigned long offset, ch
 				++offset;
 			}
 		}
+	return offset;
 	}
 

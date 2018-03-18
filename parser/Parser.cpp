@@ -32,7 +32,8 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 	{
 
 	auto htmlIt = html.begin( );
-	unsigned long offset = 0;
+	unsigned long offsetTitle = 0;
+	unsigned long offsetURL = 0;
 
 	// tokenize url
 	string host = "";
@@ -41,7 +42,7 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 	path.assign( currentUrl.Path );
 	string url = host + "/" + path;
 
-	tokenizer->execute( url, offset, Tokenizer::URL );
+	offsetURL = tokenizer->execute( url, offsetURL, Tokenizer::URL );
 
 	while ( htmlIt != html.end( ) )
 		{
@@ -72,10 +73,9 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 				string title = extract_title( line );
 				if ( title != "" )
 					{
-					tokenizer->execute( title, offset, Tokenizer::TITLE );
+					offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
 					}
 				}
-			offset = htmlIt - html.begin( );
 			}
 		else
 			{
