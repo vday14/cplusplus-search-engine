@@ -6,7 +6,7 @@
  * Parser Cstor
  * @param urlFrontierIn
  */
-Parser::Parser ( ProducerConsumerQueue< string > *urlFrontierIn )
+Parser::Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn )
 	{
 	urlFrontier = urlFrontierIn;
 	}
@@ -63,7 +63,10 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 					completeUrl.assign( currentUrl.CompleteUrl );
 					url = completeUrl + url;
 					}
-				urlFrontier->Push( url );
+
+
+				ParsedUrl pUrl = ParsedUrl(url);
+				urlFrontier->Push( pUrl );
 				cout << url << endl;
 				}
 				// check if line is title
