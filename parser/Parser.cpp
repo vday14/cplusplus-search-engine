@@ -39,18 +39,18 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 	host.assign( currentUrl.Host );
 	string path = "";
 	path.assign( currentUrl.Path );
-	string url = host + "/" + path;
+	string urlCurrent = host + "/" + path;
 
-	offsetURL = tokenizer->execute( url, offsetURL, Tokenizer::URL );
+	offsetURL = tokenizer->execute( urlCurrent, offsetURL, Tokenizer::URL );
 
 	while ( htmlIt < html.size( ) )
 		{
 		// if open bracket
-		if ( html[ htmlIt  ]== '<' )
+		if ( html[ htmlIt ] == '<' )
 			{
 			unsigned long begCloseTag = findNext( "</", htmlIt, html );
 			unsigned long endCloseTag = findNext( ">", begCloseTag, html );
-			string line = subStr( html, htmlIt, endCloseTag );
+			string line = subStr( html, htmlIt, endCloseTag + 1 - htmlIt );
 			htmlIt = endCloseTag + 2;
 
 			// check if line is url
@@ -63,7 +63,7 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 					completeUrl.assign( currentUrl.CompleteUrl );
 					url = completeUrl + url;
 					}
-				if ( isValid( url ) )
+				if ( isValid( url ) && url != urlCurrent )
 					{
 					// TODO ParsedUrl with anchor text
 					ParsedUrl pUrl = ParsedUrl( url );
@@ -106,13 +106,30 @@ string Parser::extract_url ( string html )
 			{
 			url = "";
 			unsigned long closeTag = findNext( ">", foundHref, html );
-			if ( closeTag < html.size( ) && html[ closeTag - 1 ] == '\"' )
+			unsigned long closeSpace = findNext( " ", foundHref, html );
+			unsigned long closeUrl = 0;
+			// end == ' >'
+			if ( closeSpace < html.size( ) && closeTag < html.size( ) && closeSpace < closeTag )
 				{
-				closeTag -= 1;
+				if ( html[ closeSpace - 1 ] == '\"' )
+					{
+					closeSpace -= 1;
+					}
+				closeUrl = closeSpace;
 				}
-			while ( html[ foundHttp ] != html[ closeTag ] )
+			// end == '>'
+			else if ( closeTag < html.size( ) )
 				{
-				url += html[ foundHttp ];
+				if ( html[ closeTag - 1 ] == '\"' )
+					{
+					closeTag -= 1;
+					}
+				closeUrl = closeTag;
+				}
+
+			while ( foundHttp != closeUrl && html[ foundHttp ] != '\n')
+				{
+				url.push_back( html[ foundHttp ] );
 				++foundHttp;
 				}
 			}
@@ -173,9 +190,9 @@ bool Parser::isValid ( string url )
 		return true;
 		}
 
-	// png || jpg || css || gif || pdf || wav || mp3 || mp4
-	if ( lastFour == ".png" ||  lastFour == ".jpg" || lastFour == ".css" ||  lastFour == ".gif" 
-	     || lastFour == ".pdf" ||  lastFour == ".wav" || lastFour == ".mp3" || lastFour == ".mp4" )
+	// png || jpg || css || gif || pdf || wav || mp3 || mp4 || ico
+	if ( lastFour == ".png" ||  lastFour == ".jpg" || lastFour == ".css" ||  lastFour == ".gif"
+	     || lastFour == ".pdf" ||  lastFour == ".wav" || lastFour == ".mp3" || lastFour == ".mp4" || lastFour == ".ico" )
 		{
 		return false;
 		}

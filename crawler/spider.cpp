@@ -63,11 +63,10 @@ void Spider::FuncToRun ( )
 				size_t docID = hash( currentUrl.CompleteUrl );
 				string localPath = util::GetCurrentWorkingDir( );
 				// don't include debug in file path
-				auto debug = findPrev( "cmake-build-debug", localPath.begin( ) + localPath.size( ) - 1,
-				                       localPath.begin( ) );
-				if ( *debug != '\0' )
+				unsigned long debug = findPrev( "cmake-build-debug", localPath.size( ) - 1, localPath );
+				if ( debug < localPath.size( ) )
 					{
-					localPath = subStr( localPath.begin( ), debug - 1 );
+					localPath = subStr( localPath, 0, debug);
 					}
 
 				string pathToDisk = localPath + "/crawlerOutput/" + to_string( docID ) + ".txt";
