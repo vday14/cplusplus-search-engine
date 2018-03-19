@@ -48,6 +48,7 @@ add_executable(ParserTest
         util/Stemmer.cpp
         parser/tests/parserTest.cpp)
 
+add_executable(SharedTableTest shared/SharedHashMapTest.cpp )
 
 add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 

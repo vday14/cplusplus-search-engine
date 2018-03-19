@@ -176,6 +176,19 @@ URLTEST/fast:
 .PHONY : URLTEST/fast
 
 #=============================================================================
+# Target rules for targets named SharedTableTest
+
+# Build rule for target.
+SharedTableTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SharedTableTest
+.PHONY : SharedTableTest
+
+# fast build rule for target.
+SharedTableTest/fast:
+	$(MAKE) -f CMakeFiles/SharedTableTest.dir/build.make CMakeFiles/SharedTableTest.dir/build
+.PHONY : SharedTableTest/fast
+
+#=============================================================================
 # Target rules for targets named ParserTest
 
 # Build rule for target.
@@ -517,6 +530,33 @@ shared/Document.cpp.s:
 	$(MAKE) -f CMakeFiles/crawler-parser-test.dir/build.make CMakeFiles/crawler-parser-test.dir/shared/Document.cpp.s
 .PHONY : shared/Document.cpp.s
 
+shared/SharedHashMapTest.o: shared/SharedHashMapTest.cpp.o
+
+.PHONY : shared/SharedHashMapTest.o
+
+# target to build an object file
+shared/SharedHashMapTest.cpp.o:
+	$(MAKE) -f CMakeFiles/SharedTableTest.dir/build.make CMakeFiles/SharedTableTest.dir/shared/SharedHashMapTest.cpp.o
+.PHONY : shared/SharedHashMapTest.cpp.o
+
+shared/SharedHashMapTest.i: shared/SharedHashMapTest.cpp.i
+
+.PHONY : shared/SharedHashMapTest.i
+
+# target to preprocess a source file
+shared/SharedHashMapTest.cpp.i:
+	$(MAKE) -f CMakeFiles/SharedTableTest.dir/build.make CMakeFiles/SharedTableTest.dir/shared/SharedHashMapTest.cpp.i
+.PHONY : shared/SharedHashMapTest.cpp.i
+
+shared/SharedHashMapTest.s: shared/SharedHashMapTest.cpp.s
+
+.PHONY : shared/SharedHashMapTest.s
+
+# target to generate assembly for a file
+shared/SharedHashMapTest.cpp.s:
+	$(MAKE) -f CMakeFiles/SharedTableTest.dir/build.make CMakeFiles/SharedTableTest.dir/shared/SharedHashMapTest.cpp.s
+.PHONY : shared/SharedHashMapTest.cpp.s
+
 shared/urlTest.o: shared/urlTest.cpp.o
 
 .PHONY : shared/urlTest.o
@@ -782,6 +822,7 @@ help:
 	@echo "... StringProcessingTest"
 	@echo "... TokenizerTest"
 	@echo "... URLTEST"
+	@echo "... SharedTableTest"
 	@echo "... ParserTest"
 	@echo "... search-engine"
 	@echo "... crawler-parser-test"
@@ -818,6 +859,9 @@ help:
 	@echo "... shared/Document.o"
 	@echo "... shared/Document.i"
 	@echo "... shared/Document.s"
+	@echo "... shared/SharedHashMapTest.o"
+	@echo "... shared/SharedHashMapTest.i"
+	@echo "... shared/SharedHashMapTest.s"
 	@echo "... shared/urlTest.o"
 	@echo "... shared/urlTest.i"
 	@echo "... shared/urlTest.s"
