@@ -58,14 +58,18 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 			string url = extract_url( line );
 			if ( url != "" )
 				{
-				if ( isLocal ( url ) )
+				if ( isLocal( url ) )
 					{
 					string completeUrl = "";
 					completeUrl.assign( currentUrl.CompleteUrl );
 					url = completeUrl + url;
 					}
-				urlFrontier->Push( url );
-				cout << url << endl;
+				if ( isValid( url ) )
+					{
+					// TODO ParsedUrl with anchor text
+					urlFrontier->Push( url );
+					cout << url << endl;
+					}
 				}
 				// check if line is title
 			else
@@ -148,4 +152,66 @@ string Parser::extract_title ( string & word )
 bool Parser::isLocal ( string url )
 	{
 	return ( *url.begin( ) == '/' );
+	}
+
+/**
+ * Returns false if the link is an invalid type
+ *
+ * @param url
+ * @return
+ */
+bool Parser::isValid ( string url )
+	{
+	auto begPtr = url.begin( );
+	auto endPtr = begPtr + url.size( ) - 1;
+	unsigned long size = url.size( );
+
+	auto html = findPrev( ".html", endPtr, begPtr + size - 6 );
+
+	if ( *html != '\0' )
+		{
+		return true;
+		}
+
+	// png
+	if ( *findPrev( ".png", endPtr, begPtr + size - 5 ) != '\0' )
+		{
+		return false;
+		}
+	//jpg
+	if ( *findPrev( ".jpg", endPtr, begPtr + size - 5 ) )
+		{
+		return false;
+		}
+	//jpeg
+	if ( *findPrev( ".jpeg", endPtr, begPtr + size - 6 ) )
+		{
+		return false;
+		}
+	//css
+	if ( *findPrev( ".css", endPtr, begPtr + size - 5 ) )
+		{
+		return false;
+		}
+	//gif
+	if ( *findPrev( ".gif", endPtr, begPtr + size - 5 ) )
+		{
+		return false;
+		}
+	//pdf
+	if ( *findPrev( ".pdf", endPtr, begPtr + size - 5 ) )
+		{
+		return false;
+		}
+	//wav
+	if ( *findPrev( ".wav", endPtr, begPtr + size - 5 ) )
+		{
+		return false;
+		}
+	//mp3
+	if ( *findPrev( ".mp3", endPtr, begPtr + size - 5 ) )
+		{
+		return false;
+		}
+	return true;
 	}

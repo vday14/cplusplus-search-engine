@@ -70,5 +70,12 @@ private:
 	 */
 	bool isLocal ( string url );
 
+	/**
+	 * Returns true is url is valid
+	 *
+	 * @param url
+	 * @return
+	 */
+	bool isValid ( string url );
 	};
 
