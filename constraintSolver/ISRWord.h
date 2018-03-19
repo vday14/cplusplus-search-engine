@@ -14,6 +14,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+//#include "../util/util.h"
+
+
 size_t FileSize(int f) {
     struct stat fileInfo;
     fstat( f, &fileInfo);
@@ -52,6 +55,8 @@ public:
 
 		//set member variables to all of the chunks that occur, update current chunk
         void getChunks();
+
+
 private:
 };
 

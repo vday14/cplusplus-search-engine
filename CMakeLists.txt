@@ -16,8 +16,8 @@ add_executable(crawler-parser-test
         crawler/LocalReader.h
         shared/Document.cpp
         parser/Parser.cpp
-        util/Tokenizer.cpp
         util/Stemmer.cpp
+        util/Tokenizer.cpp
         util/stringProcessing.cpp)
 
 
@@ -53,8 +53,8 @@ add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
 add_executable(search-engine search.cpp query/Query.cpp)
 
-add_executable(ISRWord-tests constraintSolver/tests/ISRWordTests.cpp)
+add_executable(ISRWord-tests util/util.cpp constraintSolver/ISRWord.cpp constraintSolver/tests/ISRWordTests.cpp )
 
-#find_package(OpenSSL REQUIRED)
+find_package(OpenSSL REQUIRED)
 
-#target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)
+target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)

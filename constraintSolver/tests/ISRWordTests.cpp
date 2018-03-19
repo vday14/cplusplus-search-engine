@@ -6,10 +6,14 @@
 #include "../ISRWord.h"
 #include "../ISRWord.cpp"
 
+
 using namespace std;
 
 int main() {
-    ISRWord word = ISRWord("hello");
+    char* w = new char [ 10 ];
+    strcpy(w, "hello");
+    ISRWord word = ISRWord(w);
+
     while(1) {
         cout << word.next() << endl;
     }

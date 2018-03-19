@@ -27,6 +27,7 @@ namespace util
 				return open( fileName.c_str( ), O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR );
 				}
 
+			return -1;
 
 			}
 
