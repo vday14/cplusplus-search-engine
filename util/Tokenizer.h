@@ -5,18 +5,20 @@
 #include <vector>
 #include "stringProcessing.h"
 #include "Stemmer.h"
+#include "../parser/Parser.h"
 
 using namespace std;
 
-struct wordData {
-	int offset;
-	int frequency = 0;
-	//total num words/unique words??
-};
+
 class Tokenizer
 	{
 
 public:
+	struct wordData {
+		int frequency = 0;
+		int offset;
+	};
+	
 	Tokenizer ( )
 		{
 		docIndex = new unordered_map< string, vector<wordData>>;

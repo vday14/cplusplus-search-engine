@@ -22,6 +22,7 @@ class Parser
 
 public:
 
+
 	Parser ( ProducerConsumerQueue < string > * urlFrontierIn)
 		{
 		urlFrontier = urlFrontierIn;
@@ -33,7 +34,7 @@ public:
 	 * @return
 	 */
 	// TODO need to change vector type to word data, change where struct is declared
-	const unordered_map< string, vector< int>> * execute ( Document* document)
+	const unordered_map< string, vector< Tokenizer::wordData>> * execute ( Document* document)
 		{
 		Tokenizer tokenizer;
 		parse ( document->DocToString (), &tokenizer );
