@@ -5,52 +5,53 @@
 #include "stringProcessing.h"
 #include "Stemmer.h"
 #include <cassert>
+#include <string>
 #include <iostream>
+
 using namespace std;
 
 /**
  * Finds the needle in the haystack
  * returns position of first match
  *
- * @param haystack
  * @param needle
- * @return string::iterator
+ * @param haystack
+ * @return
  */
-string::iterator findStr ( string needle, string haystack )
+unsigned long findStr ( string needle, string haystack )
 	{
+	unsigned long needleIt = 0;
+	unsigned long haystackIt = 0;
 
-	auto beginNeedle = needle.begin( );
-	auto beginHaystack = haystack.begin( );
-
-	while ( *beginHaystack != '\0' )
+	while ( haystackIt < haystack.size( ) )
 		{
 		//keep looking for instance of a match
-		if ( *beginHaystack != *beginNeedle )
+		if ( haystack[ haystackIt ] != needle[ needleIt ] )
 			{
-			++beginHaystack;
+			++haystackIt;
 			}
 
-		else if ( *beginHaystack == *beginNeedle )
+		else if ( haystack[ haystackIt ] == needle[ needleIt ] )
 			{
 			/* want to keep the original iterator where it is so it
 				can return the beginning of the matched word if found */
-			auto temp = beginHaystack;
-			while ( *temp == *beginNeedle )
+			unsigned long temp = haystackIt;
+			while ( haystack[ temp ] == needle[ needleIt ] )
 				{
 				++temp;
-				++beginNeedle;
+				++needleIt;
 				//if it hits the end of the needleing, it signifies an exact match
-				if ( *beginNeedle == '\0' )
+				if ( needleIt == needle.size( ) - 1 )
 					{
 					//this is pointing at the beginning of the match
-					return beginHaystack;
+					return haystackIt;
 					}
 
 				}
 			//need to reset because still has to search rest of the string for a match
-			beginNeedle = needle.begin( );
+			needleIt = 0;
 			//sets the original text pointer to where the last search left off
-			beginHaystack = temp;
+			haystackIt = temp;
 			}
 
 		else
@@ -59,7 +60,7 @@ string::iterator findStr ( string needle, string haystack )
 			}
 		}
 
-	return beginHaystack;
+	return haystackIt;
 
 	}
 
@@ -67,41 +68,46 @@ string::iterator findStr ( string needle, string haystack )
  * Finds the next position of the needle in the string
  *
  * @param needle
- * @param pointer
- * @return string::iterator
+ * @param haystackIt
+ * @param haystack
+ * @return
  */
-string::iterator findNext ( string needle, string::iterator haystackPointer )
+unsigned long findNext ( string needle, unsigned long haystackIt, string haystack )
 	{
-	auto beginNeedle = needle.begin( );
-	while ( *haystackPointer != '\0' )
+	unsigned long needleIt = 0;
+	while ( haystackIt < haystack.size( ) )
 		{
 		//keep looking for instance of a match
-		if ( *haystackPointer != *beginNeedle )
+		if ( haystack[ haystackIt ] != needle[ needleIt ] )
 			{
-			++haystackPointer;
+			++haystackIt;
 			}
 
-		else if ( *haystackPointer == *beginNeedle )
+		else if ( haystack[ haystackIt ] == needle[ needleIt ] )
 			{
 			/* want to keep the original iterator where it is so it
 				can return the beginning of the matched word if found */
-			auto temp = haystackPointer;
-			while ( *temp == *beginNeedle )
+			if ( needle.size( ) == 1 )
+				{
+				return haystackIt;
+				}
+			unsigned long temp = haystackIt;
+			while ( haystack[ temp ] == needle[ needleIt ] )
 				{
 				++temp;
-				++beginNeedle;
+				++needleIt;
 				//if it hits the end of the needleing, it signifies an exact match
-				if ( *beginNeedle == '\0' )
+				if ( needleIt == needle.size( ) - 1 && haystack[ temp ] == needle[ needleIt ] )
 					{
 					//this is pointing at the beginning of the match
-					return haystackPointer;
+					return haystackIt;
 					}
 
 				}
 			//need to reset because still has to search rest of the string for a match
-			beginNeedle = needle.begin( );
+			needleIt = 0;
 			//sets the original text pointer to where the last search left off
-			haystackPointer = temp;
+			haystackIt = temp;
 			}
 
 		else
@@ -110,57 +116,69 @@ string::iterator findNext ( string needle, string::iterator haystackPointer )
 			}
 		}
 
-	return haystackPointer;
+	return haystackIt;
 	}
 
 /**
  * Finds the previous position of the needle in the string
  *
+ *
  * @param needle
- * @param haystackPointer
- * @return string::iterator
+ * @param haystackIt
+ * @return unsigned long
  */
-string::iterator findPrev ( string needle, string::iterator haystackPointer, string::iterator haystackBeg )
+unsigned long findPrev ( string needle, unsigned long haystackIt, string haystack )
 	{
-	auto begNeedle = needle.begin( );
-	auto endNeedle = begNeedle + ( needle.size( ) - 1 );
+	if ( needle == "" )
+		{
+		return haystack.size( );
+		}
+	unsigned long needleIt = needle.size( ) - 1;
 
-	while ( haystackPointer != haystackBeg )
+	while ( haystackIt >= 0 )
 		{
 		//keep looking for instance of a match
-		if ( *haystackPointer != *endNeedle )
+		if ( haystack[ haystackIt ] != needle[ needleIt ] )
 			{
-			--haystackPointer;
+			if ( haystackIt == 0 )
+				{
+				return haystack.size( );
+				}
+			--haystackIt;
 			}
 
-		else if ( *haystackPointer == *endNeedle )
+		else if ( haystack[ haystackIt ] == needle[ needleIt ] )
 			{
 			/* want to keep the original iterator where it is so it
 				can return the beginning of the matched word if found */
-			auto temp = haystackPointer;
-			while ( *temp == *endNeedle )
+			unsigned long temp = haystackIt;
+			while ( haystack[ temp ] == needle[ needleIt ] )
 				{
 				//if it hits the end of the needleing, it signifies an exact match
-				if ( endNeedle == begNeedle && *temp == *endNeedle )
+				if ( needleIt == 0 && haystack[ temp ] == needle[ needleIt ] )
 					{
 					//this is pointing at the beginning of the match
 					return temp;
 					}
 
-				if ( temp != haystackBeg )
+				if ( temp != haystackIt + 1 )
 					{
+					if ( temp == 0 )
+						{
+						return haystack.size( );
+						}
 					--temp;
 					}
-				if ( endNeedle != begNeedle )
+				if ( needleIt != 0 )
 					{
-					--endNeedle;
+					--needleIt;
 					}
 
 				}
 			//need to reset because still has to search rest of the string for a match
-			endNeedle = begNeedle + ( needle.size( ) - 1 );
+			needleIt = needle.size( ) - 1;
 			//sets the original text pointer to where the last search left off
-			haystackPointer = temp;
+			haystackIt = temp;
 			}
 
 		else
@@ -169,7 +187,7 @@ string::iterator findPrev ( string needle, string::iterator haystackPointer, str
 			}
 		}
 
-	return needle.end( );
+	return haystack.size( );
 	}
 
 /**
@@ -181,28 +199,30 @@ string::iterator findPrev ( string needle, string::iterator haystackPointer, str
  * @param removeChars
  * @return vector < string >
  */
-vector< string > splitStr ( string originalText, char delim , bool removeSyms)
+vector< string > splitStr ( string originalText, char delim, bool removeSyms )
 	{
 	vector< string > splitWords;
-	auto begin = originalText.begin( );
-
-	while ( *begin != '\0' )
+	char begin;
+	int i = 0;
+	while ( i < originalText.size( ) )
 		{
+		begin = originalText[ i ];
 		string word = "";
-		while ( *begin != delim && *begin != '\0' )
+		while ( begin != delim && i < originalText.size( ) )
 			{
-			if (removeSyms && ( isAlpha( *begin ) || isNum( *begin ) ) )
+			if ( removeSyms && ( isAlpha( begin ) || isNum( begin ) ) )
 				{
-				word += *begin;
+				word.push_back( begin );
 				}
-			++begin;
+			++i;
+			begin = originalText[ i ];
 			}
 
-		if (word != "" && word != " ")
+		if ( word != "" && word != " " && word[ 0 ] != delim )
 			{
 			splitWords.push_back( word );
 			}
-		++begin;
+		++i;
 		}
 
 	return splitWords;
@@ -217,29 +237,25 @@ vector< string > splitStr ( string originalText, char delim , bool removeSyms)
  * @param removeSyms
  * @return
  */
-vector< string > splitStr ( string originalText, vector < char > delims , bool removeSyms)
+vector< string > splitStr ( string originalText, set< char > delims, bool removeSyms )
 	{
 	vector< string > splitWords;
 	char begin;
-	for( int i = 0; i < originalText.size( ); ++i)
+	for ( int i = 0; i < originalText.size( ); ++i )
 		{
-		begin = originalText[i];
+		begin = originalText[ i ];
 		string word = "";
-		while ( !inArray( begin, delims ) && i < originalText.size() )
+		while ( delims.find( begin ) == delims.end( ) && i < originalText.size( ) )
 			{
-			begin = originalText[i];
-			if (removeSyms && ( isAlpha( begin ) || isNum( begin ) ) )
+			if ( removeSyms && ( isAlpha( begin ) || isNum( begin ) ) )
 				{
-				word += begin;
+				word.push_back( begin );
 				}
 			++i;
+			begin = originalText[ i ];
 			}
 
-		if(inArray( begin, delims ))
-			--i;
-
-
-		if (word != "" && word != " " )
+		if ( word != "" && word != " " )
 			{
 			splitWords.push_back( word );
 			}
@@ -247,24 +263,6 @@ vector< string > splitStr ( string originalText, vector < char > delims , bool r
 
 	return splitWords;
 
-	}
-
-/**
- * Returns true if element is in array, false otherwise
- *
- * @param vec
- * @return
- */
-template <typename T> bool inArray ( T needle, vector < T > haystack )
-	{
-	for ( int i = 0; i < haystack.size( ); ++ i)
-		{
-		if ( haystack[ i ] == needle )
-			{
-			return true;
-			}
-		}
-	return false;
 	}
 
 
@@ -288,20 +286,20 @@ bool isStopWord ( string word )
  */
 string toLower ( string word )
 	{
-	auto iter = word.begin( );
+	unsigned long wordIt = 0;
 	string lowerWord = "";
-	while ( *iter != '\0' )
+	while ( wordIt < word.size( ) )
 		{
-		if ( *iter >= 'A' && *iter <= 'Z' )
+		if ( word[ wordIt ] >= 'A' && word[ wordIt ] <= 'Z' )
 			{
-			lowerWord += ( *iter + 32 );
+			lowerWord += ( word[ wordIt ] + 32 );
 			}
 
 		else
 			{
-			lowerWord += *iter;
+			lowerWord += word[ wordIt ];
 			}
-		++iter;
+		++wordIt;
 		}
 
 	return lowerWord;
@@ -326,33 +324,15 @@ string stemWord ( string word )
  * @param word
  * @param pos
  * @param len
- * @return string
+ * @return
  */
-string subStr ( string word, size_t pos, size_t len )
+string subStr ( string word, unsigned long pos, unsigned long len )
 	{
 	string substr = "";
 	for ( int i = 0; i < len; ++i )
 		{
-		substr += word.at( pos );
+		substr.push_back( word[ pos ] );
 		++pos;
-		}
-	return substr;
-	}
-
-/**
- * Returns a substring [ begin, end )
- *
- * @param pos
- * @param len
- * @return string
- */
-string subStr ( string::iterator begin, string::iterator end )
-	{
-	string substr = "";
-	while ( begin != end )
-		{
-		substr += *begin;
-		++begin;
 		}
 	return substr;
 	}
@@ -367,23 +347,23 @@ string subStr ( string::iterator begin, string::iterator end )
 string stripStr ( string word, vector< char > chars )
 	{
 	string wordStripped = "";
-	auto begin = word.begin( );
 	bool isSymbol = false;
 
-	while ( begin != word.end( ) )
+	int j = 0;
+	while ( j < word.size( ) )
 		{
 		for ( int i = 0; i < chars.size( ); ++i )
 			{
-			if ( *begin == chars[ i ] )
+			if ( word[ j ] == chars[ i ] )
 				{
 				isSymbol = true;
 				}
 			}
 		if ( !isSymbol )
 			{
-			wordStripped += *begin;
+			wordStripped.push_back( word[ j ] );
 			}
-		++begin;
+		++j;
 		}
 	return wordStripped;
 	}
@@ -399,15 +379,14 @@ string stripStr ( string word, vector< char > chars )
 string stripStr ( string word )
 	{
 	string wordStripped = "";
-	auto begin = word.begin( );
-
-	while ( begin != word.end( ) )
+	int i = 0;
+	while ( i < word.size( ) )
 		{
-		if ( isAlpha( *begin ) || isNum( *begin ) )
+		if ( isAlpha( word[ i ] ) || isNum( word[ i ] ) )
 			{
-			wordStripped += *begin;
+			wordStripped.push_back( word[ i ] );
 			}
-		++begin;
+		++i;
 		}
 	return wordStripped;
 	}
@@ -446,4 +425,16 @@ bool isNum ( char ch )
 		return true;
 		}
 	return false;
+	}
+
+/**
+ * Returns last n characters in string
+ * @param input
+ * @param n
+ * @return
+ */
+string lastN ( string input, int n )
+	{
+	unsigned long inputSize = input.size( );
+	return ( n > 0 && inputSize > n ) ? input.substr( inputSize - n ) : "";
 	}

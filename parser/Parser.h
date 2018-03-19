@@ -1,5 +1,6 @@
 
 #pragma once
+
 #include <string>
 #include <functional>
 #include <queue>
@@ -26,7 +27,7 @@ public:
 	 * Parser Cstor
 	 * @param urlFrontierIn
 	 */
-	Parser ( ProducerConsumerQueue < ParsedUrl > * urlFrontierIn);
+	Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn );
 
 
 	/**
@@ -37,7 +38,7 @@ public:
 
 
 private:
-	ProducerConsumerQueue < ParsedUrl >* urlFrontier;
+	ProducerConsumerQueue< ParsedUrl > *urlFrontier;
 
 	/**
 	 * Parses file
@@ -49,18 +50,18 @@ private:
 
 	/**
 	 * Returns a url, or "" if none
-	 * @param word
+	 * @param html
 	 * @return
 	 */
-	string extract_url ( string & word );
+	string extract_url ( string html );
 
 
 	/**
 	 * Returns a title, or "" if none
-	 * @param word
+	 * @param html
 	 * @return
 	 */
-	string extract_title ( string & word );
+	string extract_title ( string html );
 
 	/**
 	 * Will return true if local url

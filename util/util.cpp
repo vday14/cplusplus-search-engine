@@ -37,10 +37,10 @@ namespace util
 
 			string localPath = util::GetCurrentWorkingDir( );
 			// don't include debug in file path
-			auto debug = findPrev( "cmake-build-debug", localPath.begin( ) + localPath.size( ) - 1, localPath.begin( ) );
-			if ( *debug != '\0' )
+			string debug = lastN( localPath, 17 );
+			if ( debug == "cmake-build-debug" )
 				{
-				localPath = subStr( localPath.begin( ), debug - 1 );
+				localPath = subStr( localPath, 0, localPath.size( ) - 17 );
 				}
 
 			fileName = localPath + fileName;
