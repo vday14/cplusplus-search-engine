@@ -47,6 +47,32 @@ bool HttpReader::fillBuffer(char * buf, size_t buf_size)
 	return (recv( sock, buf, buf_size, 0 ) == buf_size);
 	}
 
+string HttpReader::PageToString()
+	{
+	int total_size = 0;
+	int buf_size = 10240;
+	int current_size = buf_size;
+	char* http_buff = new char[buf_size];
+	char* front = http_buff;
+	int bytes;
+
+	while ( ( bytes = recv( sock, front, buf_size, 0 ) ) > 0 )
+	{
+		total_size += bytes;
+		current_size  += buf_size;
+		char *temp = new char[current_size];
+		strcpy(temp, http_buff);
+
+		front = temp + strlen(http_buff);
+		delete[] http_buff;
+		http_buff = temp;
+	}
+
+	return string(http_buff, total_size);
+	}
+
+
+
 void HttpReader::closeReader()
 	{
 	close( sock );

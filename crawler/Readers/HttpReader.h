@@ -13,6 +13,7 @@ public:
 
 		void request();
 		bool fillBuffer(char * buf, size_t buf_size);
+		string PageToString();
 		void closeReader();
 
 

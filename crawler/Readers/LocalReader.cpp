@@ -19,6 +19,14 @@ bool LocalReader::fillBuffer(char * buf, size_t buf_size){
 
 	}
 
+string LocalReader::PageToString()
+	{
+	//FIXME
+	string s("fix me");
+	return s;
+	}
+
+
 void LocalReader::closeReader()
 	{
 	//FIXME

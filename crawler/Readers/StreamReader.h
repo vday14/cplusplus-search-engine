@@ -16,6 +16,8 @@
 #include <cassert>
 #include <openssl/ssl.h>
 
+using namespace std;
+
 
 class StreamReader
 	{
@@ -24,6 +26,8 @@ public:
 
 	virtual void request() = 0;
 	virtual bool fillBuffer(char * buf, size_t buf_size) = 0;
+	virtual string PageToString() = 0;
 	virtual void closeReader() = 0;
+
 
 	};
