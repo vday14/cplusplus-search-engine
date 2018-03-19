@@ -6,7 +6,7 @@
  * Parser Cstor
  * @param urlFrontierIn
  */
-Parser::Parser ( ProducerConsumerQueue< string > *urlFrontierIn )
+Parser::Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn )
 	{
 	urlFrontier = urlFrontierIn;
 	}
@@ -67,7 +67,9 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 				if ( isValid( url ) )
 					{
 					// TODO ParsedUrl with anchor text
-					urlFrontier->Push( url );
+
+					ParsedUrl pUrl = ParsedUrl( url );
+					urlFrontier->Push( pUrl );
 					cout << url << endl;
 					}
 				}

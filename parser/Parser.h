@@ -26,7 +26,7 @@ public:
 	 * Parser Cstor
 	 * @param urlFrontierIn
 	 */
-	Parser ( ProducerConsumerQueue < string > * urlFrontierIn);
+	Parser ( ProducerConsumerQueue < ParsedUrl > * urlFrontierIn);
 
 
 	/**
@@ -37,7 +37,7 @@ public:
 
 
 private:
-	ProducerConsumerQueue < string >* urlFrontier;
+	ProducerConsumerQueue < ParsedUrl >* urlFrontier;
 
 	/**
 	 * Parses file

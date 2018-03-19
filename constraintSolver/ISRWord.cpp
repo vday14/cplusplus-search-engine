@@ -4,6 +4,8 @@
 
 #include "ISRWord.h"
 
+using namespace std;
+
 ISRWord::ISRWord(char* word) : term(word) {
     getChunks();
     currentChunk = 0;
@@ -15,7 +17,10 @@ vector<size_t> ISRWord::getSeekContents(string fileName) {
     int file = open(fileName.c_str(), O_RDONLY);
     ssize_t fileSize = FileSize(file);
     vector<size_t> contents;
+
+
     char* memMap = (char*) mmap(nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0);
+   // char* memMap = util::getFileMap(fileName);
     string word = "";
     bool midWord = false;
     bool midFind = false;
@@ -50,6 +55,7 @@ vector<size_t> ISRWord::getSeekContents(string fileName) {
 }
 
 void ISRWord::getChunks() {
+
     listOfChunks = getSeekContents("index-test-files/twitter/index-master.txt");
 //    int chunkFile = open("index-test-files/twitter/index-master.txt", O_RDONLY);
 //    ssize_t chunkFileSize = FileSize(chunkFile);

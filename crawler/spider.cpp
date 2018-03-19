@@ -30,7 +30,7 @@ size_t Spider::hash(const char * s){
 	}
 
 
-string Spider::getUrl()
+ParsedUrl Spider::getUrl()
 	{
 	return urlFrontier->Pop( );
 	}
@@ -46,9 +46,9 @@ void Spider::FuncToRun()
 		{
 
 
-		string stringUrl = getUrl( );	//get url from url frontier
+		// ParsedUrl stringUrl = getUrl( );	//get url from url frontier
 		char *fileMap;
-		ParsedUrl currentUrl = ParsedUrl(stringUrl);
+		ParsedUrl currentUrl = getUrl();
 		//url has not seen before or time since seen is past certain criteria
 		if ( shouldURLbeCrawled( currentUrl ))
 			{
