@@ -463,6 +463,7 @@ indexer/Indexer.o: indexer/Indexer.cpp.o
 
 # target to build an object file
 indexer/Indexer.cpp.o:
+	$(MAKE) -f CMakeFiles/crawler-parser-test.dir/build.make CMakeFiles/crawler-parser-test.dir/indexer/Indexer.cpp.o
 	$(MAKE) -f CMakeFiles/crawler-parser-indexer-test.dir/build.make CMakeFiles/crawler-parser-indexer-test.dir/indexer/Indexer.cpp.o
 .PHONY : indexer/Indexer.cpp.o
 
@@ -472,6 +473,7 @@ indexer/Indexer.i: indexer/Indexer.cpp.i
 
 # target to preprocess a source file
 indexer/Indexer.cpp.i:
+	$(MAKE) -f CMakeFiles/crawler-parser-test.dir/build.make CMakeFiles/crawler-parser-test.dir/indexer/Indexer.cpp.i
 	$(MAKE) -f CMakeFiles/crawler-parser-indexer-test.dir/build.make CMakeFiles/crawler-parser-indexer-test.dir/indexer/Indexer.cpp.i
 .PHONY : indexer/Indexer.cpp.i
 
@@ -481,6 +483,7 @@ indexer/Indexer.s: indexer/Indexer.cpp.s
 
 # target to generate assembly for a file
 indexer/Indexer.cpp.s:
+	$(MAKE) -f CMakeFiles/crawler-parser-test.dir/build.make CMakeFiles/crawler-parser-test.dir/indexer/Indexer.cpp.s
 	$(MAKE) -f CMakeFiles/crawler-parser-indexer-test.dir/build.make CMakeFiles/crawler-parser-indexer-test.dir/indexer/Indexer.cpp.s
 .PHONY : indexer/Indexer.cpp.s
 

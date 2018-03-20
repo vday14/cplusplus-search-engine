@@ -23,7 +23,8 @@ add_executable(crawler-parser-test
         parser/Parser.cpp
         util/Stemmer.cpp
         util/Tokenizer.cpp
-        util/stringProcessing.cpp)
+        util/stringProcessing.cpp
+        indexer/Indexer.cpp)
 
 
 
