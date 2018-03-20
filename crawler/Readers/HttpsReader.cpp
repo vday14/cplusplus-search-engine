@@ -29,9 +29,6 @@ void HttpsReader::request()
 	// Build an SSL layer and set it to read/write
 	// to the socket we've connected.
 
-
-	SSL_library_init( );
-
 	ctx = SSL_CTX_new( SSLv23_method( ) );
 	assert( ctx );
 	ssl = SSL_new( ctx );

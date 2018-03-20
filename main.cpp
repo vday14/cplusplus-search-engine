@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include <queue>
 #include "crawler/crawler.h"
+#include <openssl/ssl.h>
 #include <string>
 //#include "crawler/CrawlerStatistics.h"
 #include <unordered_map>
@@ -49,7 +50,7 @@ int main( int argc, char *argv[] )
 
 
 	string mode = "web";
-	int numberOfSpiders = 1;
+	int numberOfSpiders = 3;
 
 	opterr = true;
 	int choice;
@@ -94,8 +95,11 @@ int main( int argc, char *argv[] )
 	char *seeds;
 	if (mode == "local")
 		seeds = util::getFileMap("/tests/localSeed.txt");
-	else
+	else {
 		seeds = util::getFileMap("/tests/webSeed.txt");
+		SSL_library_init( );
+
+	}
 
 	string testFile;
 	while (*seeds) {
