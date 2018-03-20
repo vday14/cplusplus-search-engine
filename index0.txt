@@ -1,6 +1,0 @@
-===STATS===
-unique words: 0
-number words: 0
-number docs: 0
-===========
-===Document Endings===

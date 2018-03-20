@@ -4,6 +4,7 @@
 #include "../shared/ThreadClass.h"
 #include "DocumentEnding.h"
 #include "PostingsSeekTableEntry.h"
+#include "../util/util.h"
 #include <unordered_map>
 #include <map>
 #include <vector>
@@ -11,7 +12,6 @@
 #include <fstream>
 #include <fcntl.h>
 #include <unistd.h>
-
 
 /*
 
