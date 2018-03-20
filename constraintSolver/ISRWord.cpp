@@ -55,8 +55,8 @@ vector<size_t> ISRWord::getSeekContents(string fileName) {
 }
 
 void ISRWord::getChunks() {
-
-    listOfChunks = getSeekContents("index-test-files/twitter/index-master.txt");
+    string path = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index-master.txt";
+    listOfChunks = getSeekContents(path);
 //    int chunkFile = open("index-test-files/twitter/index-master.txt", O_RDONLY);
 //    ssize_t chunkFileSize = FileSize(chunkFile);
 //    char* chunkMemMap = (char*) mmap(nullptr, chunkFileSize, PROT_READ, MAP_PRIVATE, chunkFile, 0);
@@ -103,9 +103,9 @@ Location ISRWord::first() {
     if(listOfChunks.size() <= currentChunk) {
         exit(0);
     }
-    string currentChunkSeekFileLocation = "index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + "-seek.txt";
+    string currentChunkSeekFileLocation = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + "-seek.txt";
     vector<size_t> location = getSeekContents(currentChunkSeekFileLocation);
-    string currentChunkFileLocation = "index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
+    string currentChunkFileLocation = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
     int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
     ssize_t currentChunkFileSize = FileSize(currentChunkFile);
     currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);

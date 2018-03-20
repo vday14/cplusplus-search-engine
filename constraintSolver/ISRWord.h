@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-//#include "../util/util.h"
+#include "../util/util.h"
 
 
 size_t FileSize(int f) {

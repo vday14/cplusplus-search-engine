@@ -90,7 +90,6 @@ void Spider::run()
 				DocIndex * dict = parser.execute (reader);
 				IndexerQueue->Push(dict);
 
-
 				// printDocIndex(dict);
 				reader->closeReader();
 				//delete dict;

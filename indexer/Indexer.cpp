@@ -38,7 +38,7 @@ void Indexer::run() {
         docEnd.docNumWords = indexedCount;
         docEndings.push_back(docEnd);
 
-        if(currentBlockNumberWords >= 100000) {
+        if(currentBlockNumberWords >= 30) {
             save();
             reset();
         }
@@ -66,7 +66,7 @@ void Indexer::verbose_run() {
 void Indexer::save() {
     map<string, vector<size_t> > maps(masterDictionary.begin(), masterDictionary.end());
     map<string, size_t> seeker;
-    string fileName = "index" + to_string(currentFile) + ".txt";
+    string fileName = util::GetCurrentWorkingDir() + "/indexer/output/" + to_string(currentFile) + ".txt";
     int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
 
     // TODO: these should really be c strings
@@ -129,7 +129,7 @@ void Indexer::save() {
     }
 
     // TODO: seek dictionary
-    string seekFileName = "index" + to_string(currentFile) + "-seek.txt";
+    string seekFileName = util::GetCurrentWorkingDir() + "/indexer/output/" + to_string(currentFile) + "-seek.txt";
     int seekFile = open(seekFileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
     for(auto word : seeker) {
         string line = word.first + " " + to_string(word.second) + "\n";
@@ -153,7 +153,7 @@ void Indexer::save() {
 }
 
 void Indexer::saveChunkDictionary() {
-    string fileName = "master-index.txt";
+    string fileName = util::GetCurrentWorkingDir() + "/indexer/output/master-index.txt";
     int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
     for(auto word : chunkDictionary) {
         string wordDictionary = word.first + " ";
