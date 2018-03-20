@@ -82,6 +82,8 @@ bool HttpReader::checkStatus()
 		cerr << "URL REDIRECTION" << endl;
 		return false;
 		}
+	cerr << "Bad Request of TYPE::  " << buff << endl;
+	return false;
 	}
 
 

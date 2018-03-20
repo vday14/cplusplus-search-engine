@@ -24,3 +24,14 @@ void Crawler::WaitOnAllSpiders()
 			delete spider; //FIXME do this in destructor?
 		}
 	}
+
+
+void Crawler::KillAllSpiders()
+	{
+	cout << "Waiting for spiders to finish...\n";
+	for ( Spider *spider : spiders )
+		{
+		spider->Die( );
+		delete spider; //FIXME do this in destructor?
+		}
+	}

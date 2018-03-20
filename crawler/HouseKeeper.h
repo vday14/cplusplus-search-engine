@@ -2,16 +2,17 @@
 // Created by Ben Bergkamp on 2/1/18.
 //
 
-#ifndef EECS398_SEARCH_CRAWLERSTATISTICS_H
-#define EECS398_SEARCH_CRAWLERSTATISTICS_H
+#pragma once
 
 #include "../shared/ThreadClass.h"
-
-class CrawlerStatistics : public ThreadClass
+#include<string>
+#include <pthread.h>
+#include <iostream>
+class HouseKeeper : public ThreadClass
 	{
 
 public:
-	CrawlerStatistics()
+	HouseKeeper()
 		{ };
 
 	virtual void FuncToRun();

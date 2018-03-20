@@ -86,7 +86,7 @@ void Spider::FuncToRun()
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while ( cond < 5 )
+	while ( cond < 25 )
 		{
 
 		ParsedUrl currentUrl = getUrl();

@@ -26,7 +26,8 @@ public:
 	//Creates a housekeeping thread
 	void houseKeeper();
 
-	void WaitOnAllSpiders();
+	void KillAllSpiders( );
+	void WaitOnAllSpiders( );
 
 private:
 	vector < Spider * > spiders;

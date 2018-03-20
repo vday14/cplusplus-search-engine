@@ -42,7 +42,6 @@ public:
 	//int getRobots(ParsedUrl url );
 	bool checkRobots(ParsedUrl url);
 
-
 private:
 
 	int locationOnDisk;

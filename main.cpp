@@ -128,6 +128,8 @@ crawler.SpawnSpiders(numberOfSpiders , docMapLookUp, duplicateUrlMap);
 
 crawler.WaitOnAllSpiders();
 
+
+
 	auto f = urlFrontier->Pop();
 	int x = 0;
 	delete urlFrontier;

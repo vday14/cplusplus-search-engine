@@ -14,15 +14,20 @@ public:
 
     //Returns true if thread was created successfully
     bool StartThread()
-    {
+        {
         return (pthread_create(&thread, NULL, StaticFuncToRun, this) == 0);
-    }
+        }
 
     //Blocks until thread finishes
     void WaitForFinish()
-    {
+        {
         pthread_join(thread, NULL);
-    }
+        }
+
+   void Die()
+       {
+       pthread_cancel(thread);
+       }
 
 protected:
     //IMPLEMENT THIS METHOD IN YOUR SUB CLASS WITH CODE YOU WANT YOUR THREAD TO RUN

@@ -2,9 +2,9 @@
 // Created by Ben Bergkamp on 2/1/18.
 //
 
-#include "CrawlerStatistics.h"
+#include "HouseKeeper.h"
 
-void CrawlerStatistics::FuncToRun()
+void HouseKeeper::FuncToRun()
 	{
 	//Sleep(3 minutes)
 	//Gather data
