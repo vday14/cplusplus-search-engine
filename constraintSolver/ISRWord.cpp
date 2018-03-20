@@ -2,9 +2,14 @@
 // Created by Jake Close on 3/13/18.
 //
 
+#include <string>
 #include "ISRWord.h"
 
-using namespace std;
+size_t FileSize(int f) {
+    struct stat fileInfo;
+    fstat( f, &fileInfo);
+    return fileInfo.st_size;
+}
 
 ISRWord::ISRWord(char* word) : term(word) {
     getChunks();
@@ -24,15 +29,28 @@ vector<size_t> ISRWord::getSeekContents(string fileName) {
     string word = "";
     bool midWord = false;
     bool midFind = false;
+    WordSeek wordDictionaryEntry;
     if(memMap != MAP_FAILED) {
         for(char* map = memMap; map < memMap + fileSize; map++) {
             if(midFind && isalpha(*map)) {
                 break;
             }
             switch(*map) {
-                case '\t':
+                if(midFind) {
+                    case '<':
+                        wordDictionaryEntry = WordSeek();
+                        break;
+                    case '>':
+                        wordDictionaryEntry.seekOffset = stoll(word);
+                        wordSeekLookupTable.push_back(wordDictionaryEntry);
+                        break;
+                    case ',':
+                        wordDictionaryEntry.realLocation = stoll(word);
+                        break;
+                }
                 case '\n':
                 case '\r':
+                case '\t':
                 case ' ':
                     if (midFind && word != "") {
                         contents.push_back(stoll(word));
@@ -151,6 +169,25 @@ Location ISRWord::next() {
 //go to next chunk
 
 Location ISRWord::seek( Location target ) {
-
+    if(!wordSeekLookupTable.empty()) {
+        auto best = wordSeekLookupTable.front();
+        for(auto entry : wordSeekLookupTable) {
+            if(entry.realLocation < target) {
+                best = entry;
+            } else {
+                string currentChunkFileLocation = "index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
+                int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
+                ssize_t currentChunkFileSize = FileSize(currentChunkFile);
+                currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
+                currentMemMap += best.seekOffset;
+                currentLocation = best.realLocation;
+                return best.realLocation;
+            }
+        }
+    } else {
+        while(next() <= target) {
+        }
+        return currentLocation;
+    }
 }
 
