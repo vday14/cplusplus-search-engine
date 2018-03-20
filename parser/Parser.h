@@ -47,13 +47,19 @@ private:
 	 */
 	void parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer );
 
-
+	/**
+	 * Returns anchor text if found
+	 * @param html 
+	 * @return 
+	 */
+	string extractAnchorText( string html );
+	
 	/**
 	 * Returns a url, or "" if none
 	 * @param html
 	 * @return
 	 */
-	string extract_url ( string html );
+	string extractUrl ( string html );
 
 
 	/**
@@ -61,7 +67,7 @@ private:
 	 * @param html
 	 * @return
 	 */
-	string extract_title ( string html );
+	string extractTitle ( string html );
 
 	/**
 	 * Will return true if local url
@@ -78,5 +84,16 @@ private:
 	 * @return
 	 */
 	bool isValid ( string url );
+
+	/**
+	 * Sends to Url Frontier
+	 * 
+	 * @param url 
+	 * @param currentUrl 
+	 * @param anchorText 
+	 * @param debug --> will print urls to std::cout
+	 */
+	void pushToUrlQueue( string url, ParsedUrl currentUrl, string anchorText, bool debug );
+
 	};
 

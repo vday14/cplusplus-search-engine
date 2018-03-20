@@ -33,16 +33,19 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 	unsigned long htmlIt = 0;
 	unsigned long offsetTitle = 0;
 	unsigned long offsetURL = 0;
+	unsigned long offsetAnchor = 0;
 
 	// tokenize url
-	string host = "";
-	host.assign( currentUrl.Host );
-	string path = "";
-	path.assign( currentUrl.Path );
-	string urlCurrent = host + "/" + path;
+	offsetURL = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offsetURL, Tokenizer::URL );
 
-	offsetURL = tokenizer->execute( urlCurrent, offsetURL, Tokenizer::URL );
+	// tokenize anchor
+	string anchorText = currentUrl.getAnchorText( );
+	if ( anchorText != "" )
+		{
+		offsetAnchor = tokenizer->execute( anchorText, offsetAnchor, Tokenizer::ANCHOR );
+		}
 
+	// find titles
 	while ( htmlIt < html.size( ) )
 		{
 		// if open bracket
@@ -54,27 +57,16 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 			htmlIt = endCloseTag + 2;
 
 			// check if line is url
-			string url = extract_url( line );
+			string url = extractUrl( line );
 			if ( url != "" )
 				{
-				if ( isLocal( url ) )
-					{
-					string completeUrl = "";
-					completeUrl.assign( currentUrl.CompleteUrl );
-					url = completeUrl + url;
-					}
-				if ( isValid( url ) && url != urlCurrent )
-					{
-					// TODO ParsedUrl with anchor text
-					ParsedUrl pUrl = ParsedUrl( url );
-					urlFrontier->Push( pUrl );
-					cout << url << endl;
-					}
+
+				pushToUrlQueue( url, currentUrl, extractAnchorText( line ), true );
 				}
-				// check if line is title
+			// check if line is title
 			else
 				{
-				string title = extract_title( line );
+				string title = extractTitle( line );
 				if ( title != "" )
 					{
 					offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
@@ -86,8 +78,16 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
 			++htmlIt;
 			}
 		}
+	}
 
-
+/**
+ * Returns anchor text if found
+ * @param html
+ * @return
+ */
+string Parser::extractAnchorText( string html )
+	{
+	return "";
 	}
 
 /**
@@ -95,7 +95,7 @@ void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
  * @param word
  * @return
  */
-string Parser::extract_url ( string html )
+string Parser::extractUrl ( string html )
 	{
 	string url = "";
 	if ( findStr( "<a", html ) != html.size( ) )
@@ -143,7 +143,7 @@ string Parser::extract_url ( string html )
  * @param word
  * @return
  */
-string Parser::extract_title ( string html )
+string Parser::extractTitle ( string html )
 	{
 	string title = "";
 	char end = '<';
@@ -202,4 +202,31 @@ bool Parser::isValid ( string url )
 		return false;
 		}
 	return true;
+	}
+
+/**
+ * Sends to Url Frontier
+ *
+ * @param url
+ * @param currentUrl
+ * @param anchorText --> will be "null" if empty
+ * @param debug --> will print urls to std::cout
+ */
+void Parser::pushToUrlQueue( string url, ParsedUrl currentUrl, string anchorText, bool debug )
+	{
+	if ( isLocal( url ) )
+		{
+		url = currentUrl.getCompleteUrl( ) + url;
+		}
+	if ( isValid( url ) && url != currentUrl.getCompleteUrl( ) )
+		{
+		ParsedUrl pUrl = ParsedUrl( url );
+		pUrl.setAnchorText( anchorText );
+		urlFrontier->Push( pUrl );
+		if ( debug )
+			{
+			cout << url << endl;
+			cout << anchorText << endl;
+			}
+		}
 	}
