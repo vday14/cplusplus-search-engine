@@ -23,9 +23,8 @@ add_executable(crawler-parser-test
         parser/Parser.cpp
         util/Stemmer.cpp
         util/Tokenizer.cpp
-        util/stringProcessing.cpp)
-
-
+        util/stringProcessing.cpp
+        indexer/Indexer.cpp)
 
 add_executable(crawler-parser-indexer-test
         main.cpp
@@ -45,8 +44,6 @@ add_executable(crawler-parser-indexer-test
         util/Tokenizer.cpp
         util/stringProcessing.cpp
         indexer/Indexer.cpp)
-
-
 
 add_executable(StringProcessingTest
         util/stringProcessing.cpp

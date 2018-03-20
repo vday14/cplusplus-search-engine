@@ -79,9 +79,7 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 						}
 					if ( isValid( url ) )
 						{
-						ParsedUrl pUrl = ParsedUrl( url );
-						urlFrontier->Push( pUrl );
-						//cout << url << endl;
+						pushToUrlQueue( url, currentUrl, anchorText, true );
 						}
 					}
 					// check if line is title
