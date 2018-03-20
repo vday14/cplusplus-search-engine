@@ -157,26 +157,6 @@ bool Spider::shouldURLbeCrawled( size_t docID )
 		this->duplicateUrlMap->insert(std::make_pair(docID, 1));
 		return true;
 		}
-
-<<<<<<< HEAD
-	auto locationOnDisk = this->docMapLookup->find( url.CompleteUrl );
-
-	//bool protectedByRobots = checkRobots( url );
-	//if it doesnt find anything for that url key
-	if ( locationOnDisk == this->docMapLookup->end( ) )
-		{
-		return true;
-		}
-	else
-		{
-		//Just for testing
-		Document::PrintDocMap( url.CompleteUrl, locationOnDisk->second );
-		}
-	return false;
-	 */
-	return true;
-=======
->>>>>>> 36fc45a221e65d4a3a55422486c6e3b8d4aae369
 	}
 
 /*
