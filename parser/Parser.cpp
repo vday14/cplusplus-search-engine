@@ -47,10 +47,6 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 		offsetAnchor = tokenizer->execute( anchorText, offsetAnchor, Tokenizer::ANCHOR );
 		}
 
-	reader->request();
-	bool success = reader->checkStatus();
-	if(success)
-		{
 		string html = reader->PageToString( );
 		while ( htmlIt < html.size( ) )
 			{
@@ -71,18 +67,9 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 				string url = extractUrl( line );
 				if ( url != "" )
 					{
-					if ( isLocal( url ) )
-						{
-						string completeUrl = "";
-						completeUrl.assign( currentUrl.CompleteUrl );
-						url = completeUrl + url;
-						}
-					if ( isValid( url ) )
-						{
-						ParsedUrl pUrl = ParsedUrl( url );
-						urlFrontier->Push( pUrl );
-						cout << url << endl;
-						}
+
+						pushToUrlQueue( url, currentUrl, anchorText, false );
+
 					}
 					// check if line is title
 				else
@@ -99,7 +86,6 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 				++htmlIt;
 				}
 			}
-		}
 	}
 
 /**

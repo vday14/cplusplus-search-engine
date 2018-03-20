@@ -120,22 +120,26 @@ public:
 	void setScore(){
 		double lengthOfUrl = strlen(CompleteUrl);
 		Score += 4 * 1/ log( lengthOfUrl );
+		if(this->Domain != nullptr)
+			{
 
-		if ( strcmp ( Domain , ORG ) )
-			Score += 5;
-		else if ( strcmp ( Domain , EDU ) )
-			Score += 4;
-		else if ( strcmp ( Domain , GOV ) )
-			Score += 3;
-		else if ( strcmp ( Domain , COM ) )
-			Score += 2;
-		else if ( strcmp ( Domain , NET ) )
-			Score += 1;
-		else if ( strcmp ( Domain , INT ) )
-			Score += 1;
-		else if ( strcmp ( Domain , MIL ) )
-			Score += .5;
-		}
+
+			if ( strcmp ( Domain , ORG ) )
+				Score += 5;
+			else if ( strcmp ( Domain , EDU ) )
+				Score += 4;
+			else if ( strcmp ( Domain , GOV ) )
+				Score += 3;
+			else if ( strcmp ( Domain , COM ) )
+				Score += 2;
+			else if ( strcmp ( Domain , NET ) )
+				Score += 1;
+			else if ( strcmp ( Domain , INT ) )
+				Score += 1;
+			else if ( strcmp ( Domain , MIL ) )
+				Score += .5;
+			}
+			}
 
 	std::string getCompleteUrl( )
 		{

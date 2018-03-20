@@ -126,7 +126,8 @@ bool Stemmer::isVowelPresent ( unsigned long wordBeg, unsigned long wordEnd, str
  */
 bool Stemmer::isConsonant ( unsigned long wordIt, string word )
 	{
-	assert ( wordIt < word.size( ) );
+	if ( wordIt >= word.size( ) )
+		return false;
 
 	char wordChar = word[ wordIt ];
 	if ( wordChar == 'a' || wordChar == 'e' || wordChar == 'i' || wordChar == 'o' || wordChar == 'u' )

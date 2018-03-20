@@ -27,7 +27,6 @@ add_executable(crawler-parser-test
         indexer/Indexer.cpp)
 
 
-
 add_executable(crawler-parser-indexer-test
         main.cpp
         shared/ProducerConsumerQueue.h
@@ -46,8 +45,6 @@ add_executable(crawler-parser-indexer-test
         util/Tokenizer.cpp
         util/stringProcessing.cpp
         indexer/Indexer.cpp)
-
-
 
 add_executable(StringProcessingTest
         util/stringProcessing.cpp
