@@ -3,43 +3,56 @@
 //
 
 #include "HttpReader.h"
+std::runtime_error HTTPConnectionError("Error connecting HTTP to url");
 
-
-void HttpReader::request()
+bool HttpReader::request()
 	{
-	sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
-	assert( sock != -1 );
+	try
+		{
+		sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
+		assert( sock != -1 );
 
-	// Get the host address.
+		// Get the host address.
 
-	struct hostent *host = gethostbyname( url.Host );
-	assert( host );
+		struct hostent *host = gethostbyname( url.Host );
+		if( host == nullptr)
+			throw HTTPConnectionError;
+		assert( host );
 
-	struct sockaddr_in address;
-	memset( &address, 0, sizeof( address ) );
-	address.sin_family = AF_INET;
-	address.sin_port = htons( 80 );
-	memcpy( &address.sin_addr, host->h_addr, host->h_length );
+		struct sockaddr_in address;
+		memset( &address, 0, sizeof( address ));
+		address.sin_family = AF_INET;
+		address.sin_port = htons( 80 );
+		memcpy( &address.sin_addr, host->h_addr, host->h_length );
 
-	// Connect to the host.
+		// Connect to the host.
 
-	int connectResult = connect( sock, ( struct sockaddr * )&address,
-								 sizeof( address ) );
-	assert( connectResult == 0 );
+		int connectResult = connect( sock, (struct sockaddr *) &address,
+											  sizeof( address ));
+		assert( connectResult == 0 );
 
-	// Send a GET message for the desired page.
+		// Send a GET message for the desired page.
 
-	cout << "Socket Reader is pulling from the web" << endl;
+		cout << "Socket Reader is pulling from the web" << endl;
 
-	string getMessage = "GET ";
-	getMessage += url.CompleteUrl;
-	getMessage += " HTTP/1.1\r\nHost: ";
-	getMessage += url.Host;
-	getMessage += "\r\nConnection: close\r\n\r\n";
+		string getMessage = "GET ";
+		getMessage += url.CompleteUrl;
+		getMessage += " HTTP/1.1\r\nHost: ";
+		getMessage += url.Host;
+		getMessage += "\r\nConnection: close\r\n\r\n";
 
-	cout << getMessage << endl;
-	send( sock, getMessage.c_str( ), getMessage.length( ), 0 );
+		cout << getMessage << endl;
+		send( sock, getMessage.c_str( ), getMessage.length( ), 0 );
 
+		bool isSuccess = checkStatus( );
+		return isSuccess;
+
+		}
+	catch (std::exception& e)
+		{
+		cerr << "Error trying to connect to Host" << endl;
+		return false;
+		}
 	}
 
 bool HttpReader::fillBuffer(char * buf, size_t buf_size)

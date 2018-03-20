@@ -31,9 +31,8 @@ const unordered_map< string, vector< unsigned long > > *Parser::execute ( Stream
  */
 void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 	{
-	reader->request();
-	bool success = reader->checkStatus();
-	if(success) {
+
+
 		string html = reader->PageToString();
 		ParsedUrl currentUrl = reader->getUrl();
 
@@ -50,9 +49,12 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 
 		offsetURL = tokenizer->execute( url, offsetURL, Tokenizer::URL );
 
-		while ( htmlIt != html.end( ) )
+		while ( htmlIt != html.end( )  )
 			{
 			// if open bracket
+			if( *htmlIt == '\0')
+				break;
+
 			if ( *htmlIt == '<' )
 				{
 				auto begCloseTag = findNext( "</", htmlIt );
@@ -95,7 +97,7 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 				}
 			}
 
-		}
+
 	}
 
 /**

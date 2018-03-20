@@ -8,7 +8,7 @@ void Crawler::SpawnSpiders( size_t num_spiders, unordered_map < string, int > *d
 	{
 	for ( size_t i = 0; i < num_spiders; i++ )
 		{
-		Spider *temp = new Spider( this->mode, this->urlFrontier, docMapLookup, duplicateUrlMap );
+		Spider *temp = new Spider( this->mode, this->urlFrontier, docMapLookup, duplicateUrlMap , this->IndexerQueue);
 		temp->StartThread( );
 		this->spiders.push_back( temp );
 		}

@@ -24,6 +24,7 @@
 #define PATH_TO_INDEX = 'bin/index/wordIDX'
 #define PATH_TO_DOC_INDEX = 'bin/index/docIDX'
 
+using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 using namespace std;
 
@@ -93,6 +94,10 @@ int main( int argc, char *argv[] )
 	unordered_map < size_t, int > *duplicateUrlMap = new unordered_map < size_t, int >( );
 
 	ProducerConsumerQueue<ParsedUrl> *urlFrontier = new ProducerConsumerQueue<ParsedUrl>();
+	ProducerConsumerQueue< DocIndex* > *IndexerQueue = new ProducerConsumerQueue<DocIndex*>();
+
+
+
 
 	char *seeds;
 	if (mode == "local")
@@ -122,7 +127,7 @@ int main( int argc, char *argv[] )
 	}
 unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >( );
 
-Crawler crawler( mode, urlFrontier );
+Crawler crawler( mode, urlFrontier, IndexerQueue );
 
 crawler.SpawnSpiders(numberOfSpiders , docMapLookUp, duplicateUrlMap);
 

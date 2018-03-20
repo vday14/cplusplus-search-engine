@@ -95,15 +95,22 @@ void Spider::FuncToRun()
 			{
 
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
-			DocIndex * dict = parser.execute (reader);
+			bool success = reader->request();
+			if(success)
+				{
+				DocIndex * dict = parser.execute (reader);
+				//IndexerQueue->Push(dict);
 
-			printDocIndex(dict);
-			reader->closeReader();
+
+				printDocIndex(dict);
+				reader->closeReader();
+				//delete dict;
+
+				cond++;
+				}
 
 			delete reader;
-			delete dict;
 
-			cond++;
 
 			}
 
@@ -162,26 +169,7 @@ bool Spider::shouldURLbeCrawled( size_t docID )
 		this->duplicateUrlMap->insert(std::make_pair(docID, 1));
 		return true;
 		}
-	/*
-	//search for url in doc cache
 
-
-	auto locationOnDisk = this->docMapLookup->find( url.CompleteUrl );
-
-	//bool protectedByRobots = checkRobots( url );
-	//if it doesnt find anything for that url key
-	if ( locationOnDisk == this->docMapLookup->end( ))
-		{
-			return true;
-		}
-	else
-		{
-			//Just for testing
-			Document::PrintDocMap(url.CompleteUrl, locationOnDisk->second);
-		}
-	return false;
-	 */
-	return true;
 	}
 
 /*

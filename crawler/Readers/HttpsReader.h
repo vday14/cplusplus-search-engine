@@ -12,7 +12,7 @@ public:
 
 	HttpsReader( ParsedUrl url_in ) : url(  url_in  ) { }
 
-	void request();
+	bool request();
 	bool fillBuffer(char * buf, size_t buf_size);
 	string PageToString();
 	ParsedUrl getUrl();
