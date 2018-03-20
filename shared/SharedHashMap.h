@@ -4,6 +4,8 @@
 
 #ifndef EECS398_SEARCH_SHAREDHASHMAP_H
 #define EECS398_SEARCH_SHAREDHASHMAP_H
+
+#pragma  once
 #include <unordered_map>
 #include <pthread.h>
 

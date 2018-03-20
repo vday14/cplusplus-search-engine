@@ -1,2 +1,1 @@
 tests/cats.html
-tests/store.html

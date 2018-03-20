@@ -15,10 +15,10 @@ Parser::Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn )
  * Executes the Parser
  * @return
  */
-const unordered_map< string, vector< unsigned long > > *Parser::execute ( Document *document )
+const unordered_map< string, vector< unsigned long > > *Parser::execute ( StreamReader* reader)
 	{
 	Tokenizer tokenizer;
-	parse( document->DocToString( ), document->getUrl( ), &tokenizer );
+	parse(reader, &tokenizer);
 	return tokenizer.get( );
 	}
 
@@ -27,55 +27,73 @@ const unordered_map< string, vector< unsigned long > > *Parser::execute ( Docume
  * @param inFile
  * @return
  */
-void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
+void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 	{
 
 	unsigned long htmlIt = 0;
 	unsigned long offsetTitle = 0;
 	unsigned long offsetURL = 0;
 	unsigned long offsetAnchor = 0;
+	ParsedUrl currentUrl = reader->getUrl();
 
 	// tokenize url
 	offsetURL = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offsetURL, Tokenizer::URL );
 
 	// tokenize anchor
+	// TODO ParsedUrl with anchor text
 	string anchorText = currentUrl.getAnchorText( );
 	if ( anchorText != "" )
 		{
 		offsetAnchor = tokenizer->execute( anchorText, offsetAnchor, Tokenizer::ANCHOR );
 		}
 
-	// find titles
-	while ( htmlIt < html.size( ) )
+	reader->request();
+	bool success = reader->checkStatus();
+	if(success)
 		{
-		// if open bracket
-		if ( html[ htmlIt ] == '<' )
+		string html = reader->PageToString();
+
+		while ( htmlIt < html.size( ) )
 			{
-			unsigned long begCloseTag = findNext( "</", htmlIt, html );
-			unsigned long endCloseTag = findNext( ">", begCloseTag, html );
-			string line = subStr( html, htmlIt, endCloseTag + 1 - htmlIt );
-			htmlIt = endCloseTag + 2;
-
-			// check if line is url
-			string url = extractUrl( line );
-			if ( url != "" )
+			// if open bracket
+			if ( html[ htmlIt ] == '<' )
 				{
+				unsigned long begCloseTag = findNext( "</", htmlIt, html );
+				unsigned long endCloseTag = findNext( ">", begCloseTag, html );
+				string line = subStr( html, htmlIt, endCloseTag + 1 - htmlIt );
+				htmlIt = endCloseTag + 2;
 
-				pushToUrlQueue( url, currentUrl, extractAnchorText( line ), true );
-				}
-			// check if line is title
-			else
-				{
-				string title = extractTitle( line );
-				if ( title != "" )
+				// check if line is url
+				string url = extractUrl( line );
+				if ( url != "" )
 					{
-					offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
+					if ( isLocal( url ) )
+						{
+						string completeUrl = "";
+						completeUrl.assign( currentUrl.CompleteUrl );
+						url = completeUrl + url;
+						}
+					if ( isValid( url ) )
+						{
+						ParsedUrl pUrl = ParsedUrl( url );
+						urlFrontier->Push( pUrl );
+						cout << url << endl;
+						}
+					}
+					// check if line is title
+				else
+					{
+					string title = extractTitle( line );
+					if ( title != "" )
+						{
+						offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
+						}
 					}
 				}
-			}
-		else
-			{
-			++htmlIt;
+			else
+				{
+				++htmlIt;
+				}
 			}
 		}
 	}

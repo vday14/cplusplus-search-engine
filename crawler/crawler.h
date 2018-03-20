@@ -21,12 +21,13 @@ public:
 		{ };
 
 	//spawns a number of works
-	void SpawnSpiders( size_t num_spiders, unordered_map < string, int > *docMapLookup );
+	void SpawnSpiders( size_t num_spiders, unordered_map < string, int > *docMapLookup  , unordered_map < size_t, int > *duplicateUrlMap);
 
 	//Creates a housekeeping thread
 	void houseKeeper();
 
-	void WaitOnAllSpiders();
+	void KillAllSpiders( );
+	void WaitOnAllSpiders( );
 
 private:
 	vector < Spider * > spiders;

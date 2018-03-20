@@ -10,6 +10,7 @@
 #include "../util/stringProcessing.h"
 #include "../shared/Document.h"
 #include "../shared/ProducerConsumerQueue.h"
+#include "../crawler/Readers/StreamReader.h"
 
 
 using namespace std;
@@ -34,7 +35,7 @@ public:
 	 * Executes the Parser
 	 * @return
 	 */
-	const unordered_map< string, vector< unsigned long > > *execute ( Document *document );
+	const unordered_map< string, vector< unsigned long > > *execute ( StreamReader* reader );
 
 
 private:
@@ -45,7 +46,7 @@ private:
 	 * @param inFile
 	 * @return
 	 */
-	void parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer );
+	void parse ( StreamReader* reader, Tokenizer* tokenizer );
 
 	/**
 	 * Returns anchor text if found

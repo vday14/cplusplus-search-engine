@@ -1,25 +1,62 @@
-//
-// Created by Ben Bergkamp on 1/31/18.
-//
-
-
-
-
 #include "spider.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-#include <unistd.h>
-
-#include "LocalReader.h"
-#include "SocketReader.h"
 #include "../shared/Document.h"
 #include "../parser/Parser.h"
+#include "Readers/HttpsReader.h"
+#include "Readers/HttpReader.h"
+#include "Readers/LocalReader.h"
+#include "../parser/Parser.h"
 
-size_t Spider::hash ( const char *s )
+using DocIndex = const unordered_map< string, vector< unsigned long > >;
+
+// FIND A BETTER PLACE TO PUT THIS FUNCTION
+
+StreamReader* SR_factory(ParsedUrl url, string mode)
 	{
+	string localFile;
+
+	StreamReader *newReader = nullptr
+	;
+	if ( mode == "local" )
+	{
+		newReader = new LocalReader( url.CompleteUrl );
+	}
+	else if ( mode == "web" )
+	{
+		if(!strcmp(url.Service, "http")) {
+			newReader = new HttpReader(url);
+		}
+		else if(!strcmp(url.Service,"https")){
+			newReader = new HttpsReader(url);
+		}
+		else{
+			cerr << "Error reading service type\n";
+		}
+	}
+
+	return newReader;
+	}
+
+void printDocIndex( DocIndex* dict )
+	{
+	for ( auto it = dict->begin( ); it != dict->end( ); it++ )
+	{
+		cout << it->first << " : ";
+		for ( int i = 0; i < it->second.size( ); ++i )
+		{
+			cout << it->second[ i ] << " ";
+		}
+		cout << std::endl;
+	}
+	cout << std::endl;
+
+	}
+
+
+size_t Spider::hash(const char * s)
 	{
 		// http://www.cse.yorku.ca/~oz/hash.html
 		size_t h = 5381;
@@ -27,7 +64,6 @@ size_t Spider::hash ( const char *s )
 		while ( ( c = *s++ ) )
 			h = ( ( h << 5 ) + h ) + c;
 		return h;
-	}
 	}
 
 
@@ -40,67 +76,30 @@ void Spider::FuncToRun ( )
 	{
 
 	std::cout << "Spider is crawling" << endl;
-	bool cond = true;
+	int cond = 0;
 
-
-	while ( cond )
+	while ( cond < 25 )
 		{
-
-
-		// ParsedUrl stringUrl = getUrl( );	//get url from url frontier
-		char *fileMap;
-		ParsedUrl currentUrl = getUrl( );
-		//url has not seen before or time since seen is past certain criteria
-		if ( shouldURLbeCrawled( currentUrl ) )
+		ParsedUrl currentUrl = getUrl();
+		size_t docID = hash(currentUrl.CompleteUrl);
+		if ( shouldURLbeCrawled( docID ))
 			{
-			//bool success = writeDocToDisk(currentUrl);
-			//if ( success && cond )
-			if ( cond )
-				{
+			StreamReader *reader = SR_factory( currentUrl, this->mode );
+			DocIndex * dict = parser.execute (reader);
 
+			printDocIndex(dict);
+			reader->closeReader();
 
-				StreamReader *reader = request( currentUrl );
-				size_t docID = hash( currentUrl.CompleteUrl );
-				string localPath = util::GetCurrentWorkingDir( );
-				// don't include debug in file path
-				unsigned long debug = findPrev( "cmake-build-debug", localPath.size( ) - 1, localPath );
-				if ( debug < localPath.size( ) )
-					{
-					localPath = subStr( localPath, 0, debug);
-					}
+			delete reader;
+			delete dict;
 
-				string pathToDisk = localPath + "/crawlerOutput/" + to_string( docID ) + ".txt";
-				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk );
-
-				Document document( currentUrl, reader->buffer );
-				auto dict = parser.execute( &document );
-
-				cout << "docID: " << docID << endl;
-				for ( auto it = dict->begin( ); it != dict->end( ); it++ )
-					{
-					cout << it->first << " : ";
-					for ( int i = 0; i < it->second.size( ); ++i )
-						{
-						cout << it->second[ i ] << " ";
-						}
-					cout << std::endl;
-					}
-				cout << std::endl;
-				delete dict;
-				dict = nullptr;
-				cond = true;
-				}
-			else
-				{
-				cerr << "Error connecting";
-				}
-
+			cond++;
 
 			}
-
-
 		}
 	}
+
+
 
 /*
 Takes a URL. Hashes it. Checks if the url is in the docMapLookup. If it is, check file on disk to see if its been crawled successfully
@@ -141,10 +140,21 @@ bool Spider::writeDocToDisk ( ParsedUrl url )
  * and returns true
  */
 
-
-bool Spider::shouldURLbeCrawled ( ParsedUrl url )
+bool Spider::shouldURLbeCrawled( size_t docID )
 	{
+
+	if(this->duplicateUrlMap->find(docID) != this->duplicateUrlMap->end()){
+		return false;
+		}
+	else
+		{
+		this->duplicateUrlMap->insert(std::make_pair(docID, 1));
+		return true;
+		}
+	/*
 	//search for url in doc cache
+
+
 	auto locationOnDisk = this->docMapLookup->find( url.CompleteUrl );
 
 	//bool protectedByRobots = checkRobots( url );
@@ -159,9 +169,11 @@ bool Spider::shouldURLbeCrawled ( ParsedUrl url )
 		Document::PrintDocMap( url.CompleteUrl, locationOnDisk->second );
 		}
 	return false;
+	 */
+	return true;
 	}
 
-
+/*
 //check if path in url is in the robots txt
 bool Spider::checkRobots ( ParsedUrl url )
 	{
@@ -202,33 +214,8 @@ int Spider::getRobots ( ParsedUrl url )
 	cerr << "issue filling buffer from robots.txt" << endl;
 	return -1;
 
-
-	};
-
-/*
-returns true if fileMap was created, otherwise false
- Modifies the filemap to be a char* of the file of the url passed
-*/
-
-// make this become a stream reader factory
-StreamReader *Spider::request ( ParsedUrl url )
-	{
-	string localFile;
-
-	StreamReader *newReader;
-	if ( this->mode == "local" )
-		{
-		newReader = new LocalReader( url.CompleteUrl );
-		}
-	else if ( this->mode == "web" )
-		{
-		newReader = new SocketReader( url );
-		}
-
-	//remove fill buffer/ change to get request
-	newReader->fillBuffer( );
-	return newReader;
 	}
+*/
 
 //request function that handles sending over get request via socket or trying to open file
 

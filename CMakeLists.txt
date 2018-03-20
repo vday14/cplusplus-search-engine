@@ -3,17 +3,22 @@ project(eecs398_search)
 
 set(CMAKE_CXX_STANDARD 11)
 
+add_executable(QueueTest
+        shared/ProducerConsumerQueue.h
+        shared/ProducerConsumerQueue_test.cpp)
+
 add_executable(crawler-parser-test
         main.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
         shared/url.h
         crawler/crawler.cpp
-        crawler/SocketReader.cpp
-        crawler/StreamReader.h
+        crawler/Readers/StreamReader.h
+        crawler/Readers/HttpReader.cpp
+        crawler/Readers/HttpsReader.cpp
+        crawler/Readers/LocalReader.cpp
         crawler/spider.cpp
         util/util.cpp
-        crawler/LocalReader.h
         shared/Document.cpp
         parser/Parser.cpp
         util/Stemmer.cpp
@@ -59,3 +64,5 @@ add_executable(ISRWord-tests util/util.cpp constraintSolver/ISRWord.cpp constrai
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)
+
+target_link_libraries(QueueTest pthread)
