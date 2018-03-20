@@ -10,12 +10,16 @@
 
 class ISREndDoc : ISR
 	{
-	public:
-		Location GetCurrentLocation( );
-		Location GetPreviousLocation( );
-		unsigned GetDocumentLength( );
-		unsigned GetTitleLength( );
-		unsigned GetUrlLength( );
+public:
+	Location GetCurrentLocation ( );
+
+	Location GetPreviousLocation ( );
+
+	unsigned GetDocumentLength ( );
+
+	unsigned GetTitleLength ( );
+
+	unsigned GetUrlLength ( );
 	};
 
 

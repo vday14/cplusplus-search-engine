@@ -13,10 +13,14 @@ class ISRContainer : ISR
 	{
 public:
 	ISR **Contained,
-			*Excluded; ISREndDoc *EndDoc; unsigned CountContained,
-			CountExcluded; Location Next( );
+			*Excluded;
+	ISREndDoc *EndDoc;
+	unsigned CountContained,
+			CountExcluded;
 
-	Post *Seek( Location target )
+	Location Next ( );
+
+	Post *Seek ( Location target )
 		{
 // 1. Seek all the included ISRs to the first occurrence beginning at
 //    the target location.
@@ -34,7 +38,7 @@ public:
 		};
 
 
-	Post *Next( )
+	Post *Next ( )
 		{
 		Seek( Contained[ nearestContained ]->GetStartlocation( ) + 1 );
 		}
@@ -45,6 +49,6 @@ private:
 	Location nearestStartLocation, nearestEndLocation;
 	};
 
-	};
+};
 
 

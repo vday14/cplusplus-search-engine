@@ -22,38 +22,41 @@
 
 #include <cstdlib>
 
-enum file_flag { read_only, write_only };
+enum file_flag
+	{
+	read_only, write_only
+	};
 
 using namespace std;
 
 namespace util
 	{
-		size_t FileSize(int f);
+		size_t FileSize ( int f );
 
 
 /*
  * Takes filename as input, maps file into character pointer
  * If cannot open file, returns a nullptr
  */
-		int getFileDescriptor(string fileName, string type);
+		int getFileDescriptor ( string fileName, string type );
 
 
-		char *getFileMap(string fileName);
+		char *getFileMap ( string fileName );
 
 
 /*
  * Takes integer file descriptor, returns char* map of file
  */
-		char *getFileMap(int fileDescriptor);
+		char *getFileMap ( int fileDescriptor );
 
 
 /*
  * Takes a point to start of a file and string of a location on disk
  * writes filemap to disk at location, and returns the file descriptor to the new file
  */
-		int writeToNewFileToLocation(char *fileContents, string locationOnDisk);
+		int writeToNewFileToLocation ( char *fileContents, string locationOnDisk );
 
 
-		string GetCurrentWorkingDir(void);
+		string GetCurrentWorkingDir ( void );
 	}
 

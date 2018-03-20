@@ -5,19 +5,20 @@
 #pragma once
 
 using namespace std;
+
 class QueryParser
 	{
 
 public:
-	QueryParser( const char * query_in) : CompleteQuery( query_in )
+	QueryParser ( const char *query_in ) : CompleteQuery( query_in )
 		{ };
 
-	void search();
+	void search ( );
 
-	void printResults();
+	void printResults ( );
 
 private:
-	const char* CompleteQuery;
+	const char *CompleteQuery;
 
 	};
 

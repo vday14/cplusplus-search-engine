@@ -8,14 +8,15 @@
 #include<string>
 #include <pthread.h>
 #include <iostream>
+
 class HouseKeeper : public ThreadClass
 	{
 
 public:
-	HouseKeeper()
+	HouseKeeper ( )
 		{ };
 
-	virtual void FuncToRun();
+	virtual void FuncToRun ( );
 
 private:
 	//members

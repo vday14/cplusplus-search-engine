@@ -35,7 +35,7 @@ public:
 	 * Executes the Parser
 	 * @return
 	 */
-	const unordered_map< string, vector< unsigned long > > *execute ( StreamReader* reader );
+	const unordered_map< string, vector< unsigned long > > *execute ( StreamReader *reader );
 
 
 private:
@@ -46,15 +46,15 @@ private:
 	 * @param inFile
 	 * @return
 	 */
-	void parse ( StreamReader* reader, Tokenizer* tokenizer );
+	void parse ( StreamReader *reader, Tokenizer *tokenizer );
 
 	/**
 	 * Returns anchor text if found
 	 * @param html 
 	 * @return 
 	 */
-	string extractAnchorText( string html );
-	
+	string extractAnchorText ( string html );
+
 	/**
 	 * Returns a url, or "" if none
 	 * @param html
@@ -94,7 +94,7 @@ private:
 	 * @param anchorText 
 	 * @param debug --> will print urls to std::cout
 	 */
-	void pushToUrlQueue( string url, ParsedUrl currentUrl, string anchorText, bool debug );
+	void pushToUrlQueue ( string url, ParsedUrl currentUrl, string anchorText, bool debug );
 
 	};
 

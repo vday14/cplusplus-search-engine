@@ -72,13 +72,13 @@ add_executable(ParserTest
         util/Stemmer.cpp
         parser/tests/parserTest.cpp)
 
-add_executable(SharedTableTest shared/SharedHashMapTest.cpp )
+add_executable(SharedTableTest shared/SharedHashMapTest.cpp)
 
 add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
 add_executable(search-engine search.cpp query/Query.cpp)
 
-add_executable(ISRWord-tests util/util.cpp constraintSolver/ISRWord.cpp constraintSolver/tests/ISRWordTests.cpp )
+add_executable(ISRWord-tests util/util.cpp constraintSolver/ISRWord.cpp constraintSolver/tests/ISRWordTests.cpp)
 
 find_package(OpenSSL REQUIRED)
 

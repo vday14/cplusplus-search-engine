@@ -1,5 +1,6 @@
 #ifndef indexer_h
 #define indexer_h
+
 #include "../shared/ProducerConsumerQueue.h"
 #include "../shared/ThreadClass.h"
 #include "DocumentEnding.h"
@@ -29,32 +30,38 @@ TODO:
 using namespace std;
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
-class Indexer : public ThreadClass {
-    public:
-        Indexer(ProducerConsumerQueue < DocIndex* > *doc_index_queue_in);
+class Indexer : public ThreadClass
+	{
+public:
+	Indexer ( ProducerConsumerQueue< DocIndex * > *doc_index_queue_in );
 
 
-		void run();
-		void verbose_run();
-		void verbose_save();
+	void run ( );
+
+	void verbose_run ( );
+
+	void verbose_save ( );
 
 
-    private:
-        void save();
-		void saveChunkDictionary();
-        void reset();
-		ProducerConsumerQueue < DocIndex* > *pointerToDictionaries;
-        unordered_map<string, vector<size_t> > masterDictionary;
-		map<string, vector<size_t> > chunkDictionary;
-		unordered_map<string, vector<PostingsSeekTableEntry> > postingsSeekTable;
+private:
+	void save ( );
 
-        vector<DocumentEnding> docEndings;
+	void saveChunkDictionary ( );
 
-        size_t currentFile;
-        size_t currentlyIndexed;
+	void reset ( );
 
-        size_t currentBlockNumberWords;
-        size_t currentBlockNumberDocs;
-};
+	ProducerConsumerQueue< DocIndex * > *pointerToDictionaries;
+	unordered_map< string, vector< size_t > > masterDictionary;
+	map< string, vector< size_t > > chunkDictionary;
+	unordered_map< string, vector< PostingsSeekTableEntry > > postingsSeekTable;
+
+	vector< DocumentEnding > docEndings;
+
+	size_t currentFile;
+	size_t currentlyIndexed;
+
+	size_t currentBlockNumberWords;
+	size_t currentBlockNumberDocs;
+	};
 
 #endif /*indexer_h*/

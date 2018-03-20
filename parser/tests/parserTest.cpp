@@ -18,7 +18,7 @@ int main ( )
 	{
 	cout << "Testing Parser ... " << endl << endl;
 	cout << "Testing URL: " << endl;
-	testURL ( );
+	testURL( );
 	cout << "URL Test Passed!" << endl << endl;
 	cout << "Testing Simple: " << endl;
 	testSimple( );
@@ -116,7 +116,7 @@ void testComplex ( )
 void testURL ( )
 	{
 //	const char *line = "<li><span class=\"official-website\"><span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a></span></span></li>";
-	const char * line = "<span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a>";
+	const char *line = "<span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a>";
 	ProducerConsumerQueue< ParsedUrl > urlFrontierTest;
 	ParsedUrl url = ParsedUrl( "http://testurl.com" );
 	char docString[10240];

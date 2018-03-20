@@ -17,23 +17,26 @@ class Crawler
 	{
 
 public:
-	Crawler( string mode_in, ProducerConsumerQueue < ParsedUrl > *url_q_in , ProducerConsumerQueue< DocIndex* > *doc_index_queue_in)
-			: IndexerQueue (doc_index_queue_in), mode( mode_in ), urlFrontier( url_q_in )
+	Crawler ( string mode_in, ProducerConsumerQueue< ParsedUrl > *url_q_in,
+	          ProducerConsumerQueue< DocIndex * > *doc_index_queue_in )
+			: IndexerQueue( doc_index_queue_in ), mode( mode_in ), urlFrontier( url_q_in )
 		{ };
 
 	//spawns a number of works
-	void SpawnSpiders( size_t num_spiders, unordered_map < string, int > *docMapLookup  , unordered_map < size_t, int > *duplicateUrlMap);
+	void SpawnSpiders ( size_t num_spiders, unordered_map< string, int > *docMapLookup,
+	                    unordered_map< size_t, int > *duplicateUrlMap );
 
 	//Creates a housekeeping thread
-	void houseKeeper();
+	void houseKeeper ( );
 
-	void KillAllSpiders( );
-	void WaitOnAllSpiders( );
+	void KillAllSpiders ( );
+
+	void WaitOnAllSpiders ( );
 
 private:
-	vector < Spider * > spiders;
-	ProducerConsumerQueue < ParsedUrl > *urlFrontier;
-	ProducerConsumerQueue< DocIndex* > *IndexerQueue;
+	vector< Spider * > spiders;
+	ProducerConsumerQueue< ParsedUrl > *urlFrontier;
+	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	//CrawlerStatistics housekeeper;
 	string mode;
 

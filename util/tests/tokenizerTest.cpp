@@ -42,7 +42,7 @@ void testExecute ( string original )
 		cout << std::endl;
 		}
 
-	assert( dict->size() == 23 );
+	assert( dict->size( ) == 23 );
 	delete dict;
 	dict = nullptr;
 

@@ -10,13 +10,11 @@ int main ( )
 	{
 
 
-
 	}
 
 
-void robotsTest(){
-
-
+void robotsTest ( )
+	{
 
 
 	}

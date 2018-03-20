@@ -5,41 +5,43 @@
 #include "LocalReader.h"
 
 
-bool LocalReader::request()
+bool LocalReader::request ( )
 	{
 	//FIXME
 	//open the file?
 	return true;
 	}
 
-bool LocalReader::fillBuffer(char * buf, size_t buf_size){
+bool LocalReader::fillBuffer ( char *buf, size_t buf_size )
+	{
 
 	//FIXME
-	strcpy(buf, util::getFileMap( fileName )) ;
+	strcpy( buf, util::getFileMap( fileName ) );
 	return true;
 
 	}
 
-string LocalReader::PageToString()
+string LocalReader::PageToString ( )
 	{
 	//FIXME
-	string s("fix me");
+	string s( "fix me" );
 	return s;
 	}
 
-ParsedUrl LocalReader::getUrl()
+ParsedUrl LocalReader::getUrl ( )
 	{
 	//FIXME
-	ParsedUrl url("");
+	ParsedUrl url( "" );
 	return url;
 	}
 
 
-bool LocalReader::checkStatus()
+bool LocalReader::checkStatus ( )
 	{
 	return true;
 	}
-void LocalReader::closeReader()
+
+void LocalReader::closeReader ( )
 	{
 	//FIXME
 	//close the file?

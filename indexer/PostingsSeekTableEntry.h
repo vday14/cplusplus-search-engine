@@ -1,12 +1,14 @@
 #pragma once
 
-class PostingsSeekTableEntry {
+class PostingsSeekTableEntry
+	{
 public:
-    PostingsSeekTableEntry() {
-        offset = 0;
-        realLocation = 0;
-    }
+	PostingsSeekTableEntry ( )
+		{
+		offset = 0;
+		realLocation = 0;
+		}
 
-    size_t offset;
-    size_t realLocation;
-};
+	size_t offset;
+	size_t realLocation;
+	};

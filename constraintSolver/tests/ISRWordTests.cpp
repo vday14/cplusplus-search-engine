@@ -9,13 +9,15 @@
 
 using namespace std;
 
-int main() {
-    char* w = new char [ 10 ];
-    strcpy(w, "hello");
-    ISRWord word = ISRWord(w);
+int main ( )
+	{
+	char *w = new char[10];
+	strcpy( w, "hello" );
+	ISRWord word = ISRWord( w );
 
-    while(1) {
-        cout << word.next() << endl;
-    }
-    return 0;
-}
+	while ( 1 )
+		{
+		cout << word.next( ) << endl;
+		}
+	return 0;
+	}

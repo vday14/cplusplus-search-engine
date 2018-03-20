@@ -6,57 +6,68 @@
 
 using namespace std;
 
-ISRWord::ISRWord(char* word) : term(word) {
-    getChunks();
-    currentChunk = 0;
-    currentLocation = first();
-}
+ISRWord::ISRWord ( char *word ) : term( word )
+	{
+	getChunks( );
+	currentChunk = 0;
+	currentLocation = first( );
+	}
 
 // put into util file
-vector<size_t> ISRWord::getSeekContents(string fileName) {
-    int file = open(fileName.c_str(), O_RDONLY);
-    ssize_t fileSize = FileSize(file);
-    vector<size_t> contents;
+vector< size_t > ISRWord::getSeekContents ( string fileName )
+	{
+	int file = open( fileName.c_str( ), O_RDONLY );
+	ssize_t fileSize = FileSize( file );
+	vector< size_t > contents;
 
 
-    char* memMap = (char*) mmap(nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0);
-   // char* memMap = util::getFileMap(fileName);
-    string word = "";
-    bool midWord = false;
-    bool midFind = false;
-    if(memMap != MAP_FAILED) {
-        for(char* map = memMap; map < memMap + fileSize; map++) {
-            if(midFind && isalpha(*map)) {
-                break;
-            }
-            switch(*map) {
-                case '\t':
-                case '\n':
-                case '\r':
-                case ' ':
-                    if (midFind && word != "") {
-                        contents.push_back(stoll(word));
-                        word = "";
-                    } else if (midWord) {
-                        midWord = false;
-                        if(word == term) {
-                            midFind = true;
-                        }
-                        word = "";
-                    }
-                    break;
-                default:
-                    word += *map;
-                    midWord = true;
-            }
-        }
-    }
-    return contents;
-}
+	char *memMap = ( char * ) mmap( nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0 );
+	// char* memMap = util::getFileMap(fileName);
+	string word = "";
+	bool midWord = false;
+	bool midFind = false;
+	if ( memMap != MAP_FAILED )
+		{
+		for ( char *map = memMap; map < memMap + fileSize; map++ )
+			{
+			if ( midFind && isalpha( *map ) )
+				{
+				break;
+				}
+			switch ( *map )
+				{
+				case '\t':
+				case '\n':
+				case '\r':
+				case ' ':
+					if ( midFind && word != "" )
+						{
+						contents.push_back( stoll( word ) );
+						word = "";
+						}
+					else if ( midWord )
+						{
+						midWord = false;
+						if ( word == term )
+							{
+							midFind = true;
+							}
+						word = "";
+						}
+					break;
+				default:
+					word += *map;
+					midWord = true;
+				}
+			}
+		}
+	return contents;
+	}
 
-void ISRWord::getChunks() {
-    string path = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index-master.txt";
-    listOfChunks = getSeekContents(path);
+void ISRWord::getChunks ( )
+	{
+	string path = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index-master.txt";
+	listOfChunks = getSeekContents( path );
 //    int chunkFile = open("index-test-files/twitter/index-master.txt", O_RDONLY);
 //    ssize_t chunkFileSize = FileSize(chunkFile);
 //    char* chunkMemMap = (char*) mmap(nullptr, chunkFileSize, PROT_READ, MAP_PRIVATE, chunkFile, 0);
@@ -90,7 +101,7 @@ void ISRWord::getChunks() {
 //            }
 //        }
 //    }
-}
+	}
 
 //Go to current chunk
 //Look in seek dictionary for chunk (mem map, binary search)
@@ -99,25 +110,32 @@ void ISRWord::getChunks() {
 //set current memory map
 //returns offset into corpus
 
-Location ISRWord::first() {
-    if(listOfChunks.size() <= currentChunk) {
-        exit(0);
-    }
-    string currentChunkSeekFileLocation = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + "-seek.txt";
-    vector<size_t> location = getSeekContents(currentChunkSeekFileLocation);
-    string currentChunkFileLocation = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
-    int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
-    ssize_t currentChunkFileSize = FileSize(currentChunkFile);
-    currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
-    currentMemMap += location[0];
-    string firstLoc = "";
-    while(*currentMemMap != ' ') {
-        firstLoc += *currentMemMap;
-        currentMemMap++;
-    }
-    currentMemMap++;
-    return stoll(firstLoc);
-}
+Location ISRWord::first ( )
+	{
+	if ( listOfChunks.size( ) <= currentChunk )
+		{
+		exit( 0 );
+		}
+	string currentChunkSeekFileLocation =
+			util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
+			"-seek.txt";
+	vector< size_t > location = getSeekContents( currentChunkSeekFileLocation );
+	string currentChunkFileLocation =
+			util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
+			".txt";
+	int currentChunkFile = open( currentChunkFileLocation.c_str( ), O_RDONLY );
+	ssize_t currentChunkFileSize = FileSize( currentChunkFile );
+	currentMemMap = ( char * ) mmap( nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0 );
+	currentMemMap += location[ 0 ];
+	string firstLoc = "";
+	while ( *currentMemMap != ' ' )
+		{
+		firstLoc += *currentMemMap;
+		currentMemMap++;
+		}
+	currentMemMap++;
+	return stoll( firstLoc );
+	}
 
 //returns next absolute location in corpus
 //looks at memory map
@@ -128,21 +146,26 @@ Location ISRWord::first() {
 //find way to increment to next delta
 //return new location
 
-Location ISRWord::next() {
-    if(*currentMemMap == '\n') {
-        currentChunk++;
-        currentLocation = first();
-    } else {
-        string delta = "";
-        while(*currentMemMap != ' ') {
-            delta += *currentMemMap;
-            currentMemMap++;
-        }
-        currentLocation += stoll(delta);
-        currentMemMap++;
-    }
-    return currentLocation;
-}
+Location ISRWord::next ( )
+	{
+	if ( *currentMemMap == '\n' )
+		{
+		currentChunk++;
+		currentLocation = first( );
+		}
+	else
+		{
+		string delta = "";
+		while ( *currentMemMap != ' ' )
+			{
+			delta += *currentMemMap;
+			currentMemMap++;
+			}
+		currentLocation += stoll( delta );
+		currentMemMap++;
+		}
+	return currentLocation;
+	}
 
 //look thru each chunk
 //check if absolute position at offset in chunk is less then chunk,
@@ -150,7 +173,8 @@ Location ISRWord::next() {
 //if so, set location to that big chunk
 //go to next chunk
 
-Location ISRWord::seek( Location target ) {
+Location ISRWord::seek ( Location target )
+	{
 
-}
+	}
 

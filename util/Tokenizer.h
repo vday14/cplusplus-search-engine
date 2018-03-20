@@ -25,8 +25,6 @@ public:
 	Tokenizer ( );
 
 
-
-
 	/**
  	* Returns pointer to the docIndex dictionary
 	 *
