@@ -1,7 +1,7 @@
 #ifndef indexer_h
 #define indexer_h
-#include "../ProducerConsumerQueue.h"
-#include "../ProducerConsumerQueue.cpp"
+#include "../shared/ProducerConsumerQueue.h"
+#include "../shared/ThreadClass.h"
 #include "DocumentEnding.h"
 #include "PostingsSeekTableEntry.h"
 #include <unordered_map>
@@ -27,19 +27,23 @@ TODO:
 */
 
 using namespace std;
+using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
-class Indexer {
+class Indexer : public ThreadClass {
     public:
-        Indexer();
+        Indexer(ProducerConsumerQueue < DocIndex* > *doc_index_queue_in);
+
+
 		void run();
 		void verbose_run();
 		void verbose_save();
-		ProducerConsumerQueue<unordered_map<string, vector<int> > * > pointerToDictionaries;
+
+
     private:
         void save();
 		void saveChunkDictionary();
         void reset();
-
+		ProducerConsumerQueue < DocIndex* > *pointerToDictionaries;
         unordered_map<string, vector<size_t> > masterDictionary;
 		map<string, vector<size_t> > chunkDictionary;
 		unordered_map<string, vector<PostingsSeekTableEntry> > postingsSeekTable;

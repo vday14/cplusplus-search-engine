@@ -45,7 +45,7 @@ public:
 	//Takes a url off of the url frontier
 	ParsedUrl getUrl();
 
-	virtual void FuncToRun();
+	virtual void run();
 
 	bool writeDocToDisk(ParsedUrl url);
 

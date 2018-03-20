@@ -1,16 +1,20 @@
 #include "Indexer.h"
 
-Indexer::Indexer() {
+Indexer::Indexer(ProducerConsumerQueue < DocIndex* > *doc_index_queue_in) : pointerToDictionaries( doc_index_queue_in ){
     currentFile = 0;
     currentlyIndexed = 0;
 
     currentBlockNumberWords = 0;
     currentBlockNumberDocs = 0;
+
 }
 
 void Indexer::run() {
-    while(pointerToDictionaries.Size() != 0) {
-        unordered_map<string, vector<int> >* dictionary = pointerToDictionaries.Pop();
+
+	bool cond = true;
+    while(cond) {
+        DocIndex * dictionary = pointerToDictionaries->Pop();
+		 cout << "INDEX GOT A NEW dnary" << endl;
         DocumentEnding docEnd = DocumentEnding();
         size_t indexedCount = 0;
         currentBlockNumberDocs++;
@@ -46,8 +50,9 @@ void Indexer::run() {
 }
 
 void Indexer::verbose_run() {
+	/*
     while(pointerToDictionaries.Size() != 0) {
-        unordered_map<string, vector<int>> dictionary = *pointerToDictionaries.Pop();
+		 	DocIndex *pointerToDictionaries.Pop();
         for(auto word : dictionary) {
 	        for(auto location : word.second) {
 //                indexedCount++;
@@ -55,6 +60,7 @@ void Indexer::verbose_run() {
                 }
             }
         }
+        */
     }
 
 void Indexer::save() {

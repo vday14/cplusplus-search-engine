@@ -80,7 +80,7 @@ ParsedUrl Spider::getUrl()
 	return urlFrontier->Pop( );
 	}
 
-void Spider::FuncToRun()
+void Spider::run()
 	{
 
 	std::cout << "Spider is crawling" << endl;
@@ -99,10 +99,10 @@ void Spider::FuncToRun()
 			if(success)
 				{
 				DocIndex * dict = parser.execute (reader);
-				//IndexerQueue->Push(dict);
+				IndexerQueue->Push(dict);
 
 
-				printDocIndex(dict);
+				// printDocIndex(dict);
 				reader->closeReader();
 				//delete dict;
 

@@ -31,10 +31,10 @@ public:
 
 protected:
     //IMPLEMENT THIS METHOD IN YOUR SUB CLASS WITH CODE YOU WANT YOUR THREAD TO RUN
-    virtual void FuncToRun() = 0;
+    virtual void run() = 0;
 
 private:
-    static void * StaticFuncToRun(void * This) { ((ThreadClass *)This)->FuncToRun(); return nullptr;}
+    static void * StaticFuncToRun(void * This) { ((ThreadClass *)This)->run(); return nullptr;}
     pthread_t thread;
 };
 

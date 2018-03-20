@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include "util/util.h"
 #include <getopt.h>
-
+#include "indexer/Indexer.h"
 
 #define PATH_TO_BLACKLIST = '/bin/blacklist.txt'
 #define PATH_TO_VISITED_URL = 'bin/urls.txt'
@@ -127,12 +127,16 @@ int main( int argc, char *argv[] )
 	}
 unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >( );
 
+
+Indexer indexer(IndexerQueue);
+	indexer.StartThread();
+
 Crawler crawler( mode, urlFrontier, IndexerQueue );
 
 crawler.SpawnSpiders(numberOfSpiders , docMapLookUp, duplicateUrlMap);
 
 crawler.WaitOnAllSpiders();
-
+	indexer.WaitForFinish();
 
 
 	auto f = urlFrontier->Pop();

@@ -78,7 +78,7 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 
 						ParsedUrl pUrl = ParsedUrl( url );
 						urlFrontier->Push( pUrl );
-						cout << url << endl;
+						//cout << url << endl;
 						}
 					}
 					// check if line is title
