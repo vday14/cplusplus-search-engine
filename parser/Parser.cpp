@@ -51,11 +51,15 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 	bool success = reader->checkStatus();
 	if(success)
 		{
-		string html = reader->PageToString();
-
+		string html = reader->PageToString( );
 		while ( htmlIt < html.size( ) )
 			{
 			// if open bracket
+			if ( html[ htmlIt ] == '<' )
+				// if open bracket
+				if ( htmlIt >= html.size( ) )
+					break;
+
 			if ( html[ htmlIt ] == '<' )
 				{
 				unsigned long begCloseTag = findNext( "</", htmlIt, html );
@@ -77,7 +81,7 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 						{
 						ParsedUrl pUrl = ParsedUrl( url );
 						urlFrontier->Push( pUrl );
-						cout << url << endl;
+						//cout << url << endl;
 						}
 					}
 					// check if line is title

@@ -5,10 +5,11 @@
 #include "LocalReader.h"
 
 
-void LocalReader::request()
+bool LocalReader::request()
 	{
 	//FIXME
 	//open the file?
+	return true;
 	}
 
 bool LocalReader::fillBuffer(char * buf, size_t buf_size){

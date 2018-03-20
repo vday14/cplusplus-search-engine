@@ -23,7 +23,7 @@ class StreamReader
 	{
 public:
 	StreamReader() {};
-	virtual void request() = 0;
+	virtual bool request() = 0;
 	virtual bool fillBuffer(char * buf, size_t buf_size) = 0;
 	virtual bool checkStatus() = 0;
 	virtual string PageToString() = 0;

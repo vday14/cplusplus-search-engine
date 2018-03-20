@@ -4,54 +4,71 @@
 
 #include "HttpsReader.h"
 
-void HttpsReader::request()
+std::runtime_error HTTPSconnectionError("Error connecting HTTPS to url");
+
+bool HttpsReader::request()
 	{
-	struct hostent *host = gethostbyname( url.Host );
-	assert( host );
+	try
+		{
+		struct hostent *host = gethostbyname( url.Host );
 
-	struct sockaddr_in address;
-	memset( &address, 0, sizeof( address ) );
-	address.sin_family = AF_INET;
-	address.sin_port = htons( 443 );
-	memcpy( &address.sin_addr, host->h_addr, host->h_length );
+		if(host == nullptr)
+			throw HTTPSconnectionError;
 
-	// Create a TCP/IP socket.
+		assert( host );
+		struct sockaddr_in address;
+		memset( &address, 0, sizeof( address ));
+		address.sin_family = AF_INET;
+		address.sin_port = htons( 443 );
+		memcpy( &address.sin_addr, host->h_addr, host->h_length );
 
-	sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
-	assert( sock != -1 );
+		// Create a TCP/IP socket.
 
-	// Connect the socket to the host address.
+		sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
+		assert( sock != -1 );
 
-	int connectResult = connect( sock, ( struct sockaddr * )&address,
-								 sizeof( address ) );
-	assert( connectResult == 0 );
+		// Connect the socket to the host address.
 
-	// Build an SSL layer and set it to read/write
-	// to the socket we've connected.
+		int connectResult = connect( sock, (struct sockaddr *) &address,
+											  sizeof( address ));
+		assert( connectResult == 0 );
 
-	ctx = SSL_CTX_new( SSLv23_method( ) );
-	assert( ctx );
-	ssl = SSL_new( ctx );
-	assert( ssl );
+		// Build an SSL layer and set it to read/write
+		// to the socket we've connected.
 
-	SSL_set_fd( ssl, sock );
+		ctx = SSL_CTX_new( SSLv23_method( ));
 
-	// Establish an SSL connection.
+		assert( ctx );
+		ssl = SSL_new( ctx );
+		assert( ssl );
 
-	int sslConnectResult = SSL_connect( ssl );
-	assert( sslConnectResult == 1 );
+		SSL_set_fd( ssl, sock );
 
-	// Send a GET message for the desired page through the SSL.
+		// Establish an SSL connection.
 
-	string getMessage = "GET ";
-	getMessage += url.CompleteUrl;
-	getMessage += " HTTP/1.1\r\nHost: ";
-	getMessage += url.Host;
-	getMessage += "\r\nConnection: close\r\n\r\n";
+		int sslConnectResult = SSL_connect( ssl );
+		if(sslConnectResult != 1)
+			throw HTTPSconnectionError;
+		assert( sslConnectResult == 1 );
 
-	cout << getMessage << endl;
-	SSL_write( ssl, getMessage.c_str( ), getMessage.length( ) );
+		// Send a GET message for the desired page through the SSL.
 
+		string getMessage = "GET ";
+		getMessage += url.CompleteUrl;
+		getMessage += " HTTP/1.1\r\nHost: ";
+		getMessage += url.Host;
+		getMessage += "\r\nConnection: close\r\n\r\n";
+
+		cout << getMessage << endl;
+		SSL_write( ssl, getMessage.c_str( ), getMessage.length( ));
+
+		bool isSuccess = checkStatus( );
+		return isSuccess;
+		}
+	catch (std::exception& e) {
+			cerr << "Error trying to connect to Host" << endl;
+			return false;
+		}
 	}
 
 bool HttpsReader::fillBuffer(char * buf, size_t buf_size)
@@ -102,6 +119,7 @@ ParsedUrl HttpsReader::getUrl()
 
 void HttpsReader::closeReader()
 	{
+
 	SSL_shutdown(ssl);
 	SSL_free(ssl);
 	SSL_CTX_free(ctx);

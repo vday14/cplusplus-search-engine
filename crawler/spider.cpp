@@ -72,9 +72,8 @@ ParsedUrl Spider::getUrl ( )
 	return urlFrontier->Pop( );
 	}
 
-void Spider::FuncToRun ( )
+void Spider::run()
 	{
-
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
@@ -85,15 +84,22 @@ void Spider::FuncToRun ( )
 		if ( shouldURLbeCrawled( docID ))
 			{
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
-			DocIndex * dict = parser.execute (reader);
+			bool success = reader->request();
+			if(success)
+				{
+				DocIndex * dict = parser.execute (reader);
+				IndexerQueue->Push(dict);
 
-			printDocIndex(dict);
-			reader->closeReader();
+
+				// printDocIndex(dict);
+				reader->closeReader();
+				//delete dict;
+
+				cond++;
+				}
 
 			delete reader;
-			delete dict;
 
-			cond++;
 
 			}
 		}
@@ -151,10 +157,8 @@ bool Spider::shouldURLbeCrawled( size_t docID )
 		this->duplicateUrlMap->insert(std::make_pair(docID, 1));
 		return true;
 		}
-	/*
-	//search for url in doc cache
 
-
+<<<<<<< HEAD
 	auto locationOnDisk = this->docMapLookup->find( url.CompleteUrl );
 
 	//bool protectedByRobots = checkRobots( url );
@@ -171,6 +175,8 @@ bool Spider::shouldURLbeCrawled( size_t docID )
 	return false;
 	 */
 	return true;
+=======
+>>>>>>> 36fc45a221e65d4a3a55422486c6e3b8d4aae369
 	}
 
 /*

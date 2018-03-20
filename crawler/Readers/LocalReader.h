@@ -12,7 +12,7 @@ public:
 
 	LocalReader( string url_in ) : fileName( url_in ) { }
 
-	void request();
+	bool request();
 	bool fillBuffer(char * buf, size_t buf_size);
 	bool checkStatus();
 	string PageToString();

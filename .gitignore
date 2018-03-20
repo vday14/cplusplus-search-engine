@@ -35,3 +35,7 @@ cmake-build-debug/CMakeFiles/progress.marks
 cmake-build-debug/Makefile
 
 \.DS_Store
+.vscode/settings.json
+.DS_Store
+
+indexer/tests/twitter/
