@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include <queue>
 #include "crawler/crawler.h"
+#include <openssl/ssl.h>
 #include <string>
 //#include "crawler/CrawlerStatistics.h"
 #include <unordered_map>
@@ -49,13 +50,13 @@ int main( int argc, char *argv[] )
 
 
 	string mode = "web";
-	int numberOfSpiders = 1;
+	int numberOfSpiders = 3;
 
 	opterr = true;
 	int choice;
 	int option_index = 0;
 	option long_options[] = {
-			{"mode", optional_argument, nullptr, 'm'},
+			{"mode",         optional_argument, nullptr, 'm'},
 			{"num_crawlers", optional_argument, nullptr, 'c'}
 
 	};
@@ -89,47 +90,45 @@ int main( int argc, char *argv[] )
 	bool restoreFromLog;
 
 
-	ProducerConsumerQueue < ParsedUrl > urlFrontier;
 	unordered_map < size_t, int > *duplicateUrlMap = new unordered_map < size_t, int >( );
 
+	ProducerConsumerQueue<ParsedUrl> *urlFrontier = new ProducerConsumerQueue<ParsedUrl>();
 
-	cout << "Pushed File\n";
 	char *seeds;
-	if ( mode == "local" )
-		seeds = util::getFileMap( "/tests/localSeed.txt" );
-	else
-		seeds = util::getFileMap( "/tests/webSeed.txt" );
+	if (mode == "local")
+		seeds = util::getFileMap("/tests/localSeed.txt");
+	else {
+		seeds = util::getFileMap("/tests/webSeed.txt");
+		SSL_library_init( );
+
+	}
 
 	string testFile;
-	while ( *seeds )
-		{
-		if ( *seeds == '\n')
-			{
-			cout << "Pushing to Url Frontier..." << endl;
-			ParsedUrl url = ParsedUrl(testFile);
-			urlFrontier.Push(url);
-			testFile = "";
-			}
+	while (*seeds) {
+		if (*seeds == '\n') {
 
-		else
+			ParsedUrl url = ParsedUrl(testFile);
+			cout << "Pushing: " << testFile << " to queue\n";
+			urlFrontier->Push(url);
+			testFile = "";
+		} else
 			testFile.push_back(*seeds);
 		++seeds;
 	}
-	cout << "Pushing to Url Frontier..." << endl;
-	urlFrontier.Push(testFile);
-//urlFrontier.Push("tests/store.html");
-
-
+	if (testFile != "") {
+		cout << "Pushing: " << testFile << " to queue\n";
+		ParsedUrl url = ParsedUrl(testFile);
+		urlFrontier->Push(url);
+	}
 unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >( );
 
-
-Crawler crawler( mode, &urlFrontier );
+Crawler crawler( mode, urlFrontier );
 
 crawler.SpawnSpiders(numberOfSpiders , docMapLookUp, duplicateUrlMap);
 
-crawler.
+crawler.WaitOnAllSpiders();
 
-WaitOnAllSpiders();
-
-
+auto f = urlFrontier->Pop();
+	int x = 0;
+	delete urlFrontier;
 }

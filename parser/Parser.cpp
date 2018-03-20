@@ -16,10 +16,11 @@ Parser::Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn )
  * Executes the Parser
  * @return
  */
-const unordered_map< string, vector< unsigned long > > *Parser::execute ( Document *document )
+const unordered_map< string, vector< unsigned long > > *Parser::execute ( StreamReader* reader)
 	{
 	Tokenizer tokenizer;
-	parse( document->DocToString( ), document->getUrl( ), &tokenizer );
+	//parse( document->DocToString( ), document->getUrl( ), &tokenizer );
+	parse(reader, &tokenizer);
 	return tokenizer.get( );
 	}
 
@@ -28,8 +29,11 @@ const unordered_map< string, vector< unsigned long > > *Parser::execute ( Docume
  * @param inFile
  * @return
  */
-void Parser::parse ( string html, ParsedUrl currentUrl, Tokenizer *tokenizer )
+void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 	{
+	reader->request();
+	string html = reader->PageToString();
+	ParsedUrl currentUrl = reader->getUrl();
 
 	auto htmlIt = html.begin( );
 	unsigned long offsetTitle = 0;
