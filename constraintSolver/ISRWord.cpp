@@ -170,7 +170,24 @@ Location ISRWord::next() {
 
 Location ISRWord::seek( Location target ) {
     if(!wordSeekLookupTable.empty()) {
-        
+        auto best = wordSeekLookupTable.front();
+        for(auto entry : wordSeekLookupTable) {
+            if(entry.realLocation < target) {
+                best = entry;
+            } else {
+                string currentChunkFileLocation = "index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
+                int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
+                ssize_t currentChunkFileSize = FileSize(currentChunkFile);
+                currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
+                currentMemMap += best.seekOffset;
+                currentLocation = best.realLocation;
+                return best.realLocation;
+            }
+        }
+    } else {
+        while(next() <= target) {
+        }
+        return currentLocation;
     }
 }
 
