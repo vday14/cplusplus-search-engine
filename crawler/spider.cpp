@@ -15,7 +15,10 @@
 #include "Readers/HttpsReader.h"
 #include "Readers/HttpReader.h"
 #include "Readers/LocalReader.h"
+#include "../parser/Parser.h"
 
+
+using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 // FIND A BETTER PLACE TO PUT THIS FUNCTION
 
@@ -31,18 +34,34 @@ StreamReader* SR_factory(ParsedUrl url, string mode)
 	}
 	else if ( mode == "web" )
 	{
-		if(url.Service == "http") {
+		if(!strcmp(url.Service, "http")) {
 			newReader = new HttpReader(url);
 		}
-		else if(url.Service == "https"){
+		else if(!strcmp(url.Service,"https")){
 			newReader = new HttpsReader(url);
+		}
+		else{
+			cerr << "Error reading service type\n";
 		}
 	}
 
 	return newReader;
 	}
 
+void printDocIndex( DocIndex* dict )
+	{
+	for ( auto it = dict->begin( ); it != dict->end( ); it++ )
+	{
+		cout << it->first << " : ";
+		for ( int i = 0; i < it->second.size( ); ++i )
+		{
+			cout << it->second[ i ] << " ";
+		}
+		cout << std::endl;
+	}
+	cout << std::endl;
 
+	}
 
 
 size_t Spider::hash(const char * s)
@@ -56,7 +75,7 @@ size_t Spider::hash(const char * s)
 	}
 
 
-string Spider::getUrl()
+ParsedUrl Spider::getUrl()
 	{
 	return urlFrontier->Pop( );
 	}
@@ -65,47 +84,26 @@ void Spider::FuncToRun()
 	{
 
 	std::cout << "Spider is crawling" << endl;
-	bool cond = true;
+	int cond = 0;
 
-
-	while ( cond )
+	while ( cond < 5 )
 		{
 
+		ParsedUrl currentUrl = getUrl();
 
-		string stringUrl = getUrl( );	//get url from url frontier
-		char *fileMap;
-		ParsedUrl currentUrl = ParsedUrl(stringUrl);
-		//url has not seen before or time since seen is past certain criteria
 		if ( shouldURLbeCrawled( currentUrl ))
 			{
-			//bool success = writeDocToDisk(currentUrl);
-			//if ( success && cond )
-			if(cond)
-				{
 
-					//StreamReader *reader = SR_factory( currentUrl, this->mode );
+			StreamReader *reader = SR_factory( currentUrl, this->mode );
+			DocIndex * dict = parser.execute (reader);
 
+			printDocIndex(dict);
+			reader->closeReader();
 
+			delete reader;
+			delete dict;
 
-					/*
-					 OLD VERSION
-
-				size_t docID = hash(currentUrl.CompleteUrl);
-				string pathToDisk = util::GetCurrentWorkingDir() + "/crawlerOutput/" + to_string(docID)+ ".txt";
-				int fd = util::writeToNewFileToLocation( reader->buffer, pathToDisk);
-				Document document ( currentUrl, reader->buffer );
-				auto dictionary = parser.execute ( &document );
-					 */
-
-
-
-				cond = true;
-				}
-			else
-				{
-				cerr << "Error connecting";
-				}
-
+			cond++;
 
 			}
 
@@ -152,6 +150,7 @@ bool Spider::writeDocToDisk(ParsedUrl url)
 
 bool Spider::shouldURLbeCrawled( ParsedUrl url )
 	{
+	/*
 	//search for url in doc cache
 	auto locationOnDisk = this->docMapLookup->find( url.CompleteUrl );
 
@@ -167,6 +166,8 @@ bool Spider::shouldURLbeCrawled( ParsedUrl url )
 			Document::PrintDocMap(url.CompleteUrl, locationOnDisk->second);
 		}
 	return false;
+	 */
+	return true;
 	}
 
 /*

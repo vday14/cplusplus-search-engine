@@ -17,8 +17,10 @@ void Crawler::SpawnSpiders( size_t num_spiders, unordered_map < string, int > *d
 
 void Crawler::WaitOnAllSpiders()
 	{
+	cout << "Waiting for spiders to finish...\n";
 	for ( Spider *spider : spiders )
 		{
-		spider->WaitForFinish( );
+			spider->WaitForFinish( );
+			delete spider; //FIXME do this in destructor?
 		}
 	}

@@ -1,8 +1,3 @@
-//
-// Created by Jake Close on 3/5/18.
-//
-
-
 
 #include "Document.h"
 
@@ -61,6 +56,12 @@ int  Document::WriteToDocMap ( )
 	close ( file );
 	pthread_mutex_unlock ( &docMap_mutex );
 	return resultPosition;
+	}
+
+
+ParsedUrl Document::getUrl ( )
+	{
+	return this->url;
 	}
 
 

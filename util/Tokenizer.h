@@ -1,42 +1,59 @@
-//
-// Created by anvia on 1/31/2018.
-//
+
 #pragma once
+
 #include <string>
 #include <unordered_map>
 #include <vector>
 #include "stringProcessing.h"
+#include "Stemmer.h"
 
 using namespace std;
 
 class Tokenizer
 	{
+
 public:
-	Tokenizer ( )
-		{
-		docIndex = new unordered_map< string, vector< int>>;
-		}
 
-	unordered_map< string, vector< int>> *get ( ) const
-		{
-		return docIndex;
-		}
+	// decorators
+	static const char TITLE = '#';
+	static const char ANCHOR = '@';
+	static const char URL = '$';
 
-	void execute ( string originalText, int offset )
-		{
-		vector< string > splitText = splitStr ( originalText, ' ' );
-		string lowerString = "";
-		for ( int i = 0; i < splitText.size ( ); ++i )
-			{
-			lowerString = toLower ( splitText[ i ] );
-			if ( !isStopWord ( lowerString ) )
-				{
-				( *docIndex )[ lowerString ].push_back ( offset );
-				++offset;
-				}
-			}
-		}
+	/**
+ 	* Tokenizer Cstor
+ 	*/
+	Tokenizer ( );
+
+	/**
+ 	* Returns pointer to the docIndex dictionary
+	 *
+ 	* @return pointer to unordered_map< string, vector< int>>
+ 	*/
+	unordered_map< string, vector< unsigned long > > *get ( ) const;
+
+	/**
+	 * Executes the Tokenizer
+	 * Sends tokens to dictionary
+	 *
+	 *
+	 * @param originalText
+	 * @param offset
+	 * @param decorator
+	 */
+	unsigned long execute ( string originalText, unsigned long offset, char decorator = '\0' );
 
 private:
-	unordered_map< string, vector< int>> *docIndex;
+
+	unordered_map< string, vector< unsigned long > > *docIndex;
+	Stemmer stem;
+
+	/**
+	 * Tokenizes text (titles, body text)
+	 *
+	 * @param originalText
+	 * @param offset
+	 * @param decorator
+	 */
+	unsigned long tokenize ( vector< string > splitText, unsigned long offset, char decorator );
+
 	};

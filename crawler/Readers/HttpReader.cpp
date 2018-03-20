@@ -61,6 +61,10 @@ string HttpReader::PageToString()
 	return temp;
 	}
 
+ParsedUrl HttpReader::getUrl()
+	{
+	return url;
+	}
 
 
 void HttpReader::closeReader()

@@ -14,12 +14,8 @@ void* Producer(void* p)
 {
     ProducerConsumerQueue<int> * queue = (ProducerConsumerQueue<int>*)p;
 
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 500; i++)
     {
-        if(queue->Size()){
-            pthread_yield_np(); // let the consumer thread run
-        }
-
         queue->Push(i);
 
         pthread_mutex_lock(&cout_lock);
@@ -34,7 +30,7 @@ void* Consumer(void* p)
 {
     ProducerConsumerQueue<int> * queue = (ProducerConsumerQueue<int>*)p;
 
-    for(int i = 0; i < 10; i++)
+    while(true)
     {
         int r = queue->Pop();
 
@@ -64,9 +60,6 @@ int main(int argc, const char * argv[])
     pthread_mutex_unlock(&cout_lock);
     pthread_create(&producer, NULL, Producer, queue);
 
-    pthread_mutex_lock(&cout_lock);
-    std::cout << "Waiting for Producer and Consumer\n";
-    pthread_mutex_unlock(&cout_lock);
     pthread_join(producer, NULL);
     pthread_join(consumer, NULL);
 

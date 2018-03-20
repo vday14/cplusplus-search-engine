@@ -26,6 +26,13 @@ string LocalReader::PageToString()
 	return s;
 	}
 
+ParsedUrl LocalReader::getUrl()
+	{
+	//FIXME
+	ParsedUrl url("");
+	return url;
+	}
+
 
 void LocalReader::closeReader()
 	{

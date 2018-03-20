@@ -76,6 +76,11 @@ string HttpsReader::PageToString()
 	return temp;
 	}
 
+ParsedUrl HttpsReader::getUrl()
+	{
+	return url;
+	}
+
 void HttpsReader::closeReader()
 	{
 	SSL_shutdown(ssl);

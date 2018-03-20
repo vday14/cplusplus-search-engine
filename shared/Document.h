@@ -44,6 +44,7 @@ public:
 
 	int WriteToDocMap();
 
+	ParsedUrl getUrl ( );
 
 	static void PrintDocMap( string url, int location );
 	};

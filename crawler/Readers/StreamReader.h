@@ -23,11 +23,14 @@ class StreamReader
 	{
 public:
 	StreamReader() {};
-
 	virtual void request() = 0;
 	virtual bool fillBuffer(char * buf, size_t buf_size) = 0;
 	virtual string PageToString() = 0;
+	virtual ParsedUrl getUrl() =0;
 	virtual void closeReader() = 0;
-
-
 	};
+
+
+//fix interface with Parsed URL to parser
+//implement getUrl function so parser can just call that
+//remove stale code from spider.cpp

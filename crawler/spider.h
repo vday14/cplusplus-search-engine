@@ -6,7 +6,7 @@
 #include <fstream>
 #include "../shared/ProducerConsumerQueue.h"
 #include "../shared/ThreadClass.h"
-#include<iostream>
+#include <iostream>
 #include <unordered_map>
 #include "Readers/StreamReader.h"
 #include "../util/util.h"
@@ -23,7 +23,7 @@ class Spider : public ThreadClass
 
 public:
 
-	Spider( string mode_in, ProducerConsumerQueue < string > *url_q_in,
+	Spider( string mode_in, ProducerConsumerQueue < ParsedUrl > *url_q_in,
 			  unordered_map < string, int > *doc_map_lookup_in )
 			: mode( mode_in ), urlFrontier( url_q_in ), docMapLookup( doc_map_lookup_in ), parser( url_q_in)
 		{
@@ -31,7 +31,7 @@ public:
 
 
 	//Takes a url off of the url frontier
-	string getUrl();
+	ParsedUrl getUrl();
 
 	virtual void FuncToRun();
 
@@ -46,7 +46,7 @@ public:
 private:
 
 	int locationOnDisk;
-	ProducerConsumerQueue < string > *urlFrontier;
+	ProducerConsumerQueue < ParsedUrl > *urlFrontier;
 	string mode;
 	unordered_map < string, int > *docMapLookup;
 	Parser parser;

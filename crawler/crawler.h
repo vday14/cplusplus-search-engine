@@ -16,7 +16,7 @@ class Crawler
 	{
 
 public:
-	Crawler( string mode_in, ProducerConsumerQueue < string > *url_q_in )
+	Crawler( string mode_in, ProducerConsumerQueue < ParsedUrl > *url_q_in )
 			: mode( mode_in ), urlFrontier( url_q_in )
 		{ };
 
@@ -30,7 +30,7 @@ public:
 
 private:
 	vector < Spider * > spiders;
-	ProducerConsumerQueue < string > *urlFrontier;
+	ProducerConsumerQueue < ParsedUrl > *urlFrontier;
 	//CrawlerStatistics housekeeper;
 	string mode;
 

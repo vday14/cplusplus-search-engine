@@ -1,10 +1,3 @@
-//
-// Created by Veronica Day on 1/28/18.
-//
-
-// keep running count of offset, if stop word: don't incrememnt and remove stopword
-// tokenizer returns pointer to document dictionary, parser puts it on the indexer's queue
-//
 
 #pragma once
 #include <string>
@@ -16,6 +9,7 @@
 #include "../util/stringProcessing.h"
 #include "../shared/Document.h"
 #include "../shared/ProducerConsumerQueue.h"
+#include "../crawler/Readers/StreamReader.h"
 
 
 using namespace std;
@@ -29,35 +23,29 @@ class Parser
 
 public:
 
-	Parser ( ProducerConsumerQueue < string > * urlFrontierIn)
-		{
-		urlFrontier = urlFrontierIn;
-		}
+	/**
+	 * Parser Cstor
+	 * @param urlFrontierIn
+	 */
+	Parser ( ProducerConsumerQueue < ParsedUrl > * urlFrontierIn);
 
 
 	/**
-	 * Parser
+	 * Executes the Parser
 	 * @return
 	 */
-	const unordered_map< string, vector< int>> * execute ( Document* document)
-		{
-		Tokenizer tokenizer;
-		parse ( document->DocToString (), &tokenizer );
-		return tokenizer.get ( );
-		}
+	const unordered_map< string, vector< unsigned long > > *execute ( StreamReader* reader );
 
 
 private:
-	ProducerConsumerQueue < string >* urlFrontier;
+	ProducerConsumerQueue < ParsedUrl >* urlFrontier;
 
 	/**
 	 * Parses file
 	 * @param inFile
 	 * @return
 	 */
-	//TODO instead of grabbing each line, look to see if beginning of
-	// TODO title/url/anchortext, etc. Then continue until close tag and add to tokenizer after end of tag found
-	void parse ( string html, Tokenizer *tokenizer );
+	void parse ( StreamReader* reader, Tokenizer* tokenizer );
 
 
 	/**
@@ -65,7 +53,7 @@ private:
 	 * @param word
 	 * @return
 	 */
-	string extract_url ( string word );
+	string extract_url ( string & word );
 
 
 	/**
@@ -75,6 +63,20 @@ private:
 	 */
 	string extract_title ( string & word );
 
+	/**
+	 * Will return true if local url
+	 *
+	 * @param url
+	 * @return
+	 */
+	bool isLocal ( string url );
 
+	/**
+	 * Returns true is url is valid
+	 *
+	 * @param url
+	 * @return
+	 */
+	bool isValid ( string url );
 	};
 

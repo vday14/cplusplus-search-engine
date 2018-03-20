@@ -55,7 +55,7 @@ int main( int argc, char *argv[] )
 	int choice;
 	int option_index = 0;
 	option long_options[] = {
-			{"mode", optional_argument, nullptr, 'm'},
+			{"mode",         optional_argument, nullptr, 'm'},
 			{"num_crawlers", optional_argument, nullptr, 'c'}
 
 	};
@@ -89,42 +89,40 @@ int main( int argc, char *argv[] )
 	bool restoreFromLog;
 
 
-	ProducerConsumerQueue < string > urlFrontier;
+	ProducerConsumerQueue<ParsedUrl> *urlFrontier = new ProducerConsumerQueue<ParsedUrl>();
 
-	cout << "Pushed File\n";
 	char *seeds;
-	if ( mode == "local" )
-		seeds = util::getFileMap( "/tests/localSeed.txt" );
+	if (mode == "local")
+		seeds = util::getFileMap("/tests/localSeed.txt");
 	else
-		seeds = util::getFileMap( "/tests/webSeed.txt" );
+		seeds = util::getFileMap("/tests/webSeed.txt");
 
 	string testFile;
-	while ( *seeds )
-		{
-		if ( *seeds == '\n')
-			{
-			urlFrontier.Push(testFile);
-			testFile = "";
-			}
+	while (*seeds) {
+		if (*seeds == '\n') {
 
-		else
+			ParsedUrl url = ParsedUrl(testFile);
+			cout << "Pushing: " << testFile << " to queue\n";
+			urlFrontier->Push(url);
+			testFile = "";
+		} else
 			testFile.push_back(*seeds);
 		++seeds;
 	}
-	urlFrontier.Push(testFile);
-//urlFrontier.Push("tests/store.html");
-
-
+	if (testFile != "") {
+		cout << "Pushing: " << testFile << " to queue\n";
+		ParsedUrl url = ParsedUrl(testFile);
+		urlFrontier->Push(url);
+	}
 unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >( );
 
-
-Crawler crawler( mode, &urlFrontier );
+Crawler crawler( mode, urlFrontier );
 
 crawler.SpawnSpiders(numberOfSpiders , docMapLookUp);
 
-crawler.
+crawler.WaitOnAllSpiders();
 
-WaitOnAllSpiders();
-
-
+auto f = urlFrontier->Pop();
+	int x = 0;
+	delete urlFrontier;
 }
