@@ -38,3 +38,18 @@ cmake-build-debug/Makefile
 .DS_Store
 
 indexer/tests/twitter/
+
+.idea/workspace.xml
+cmake-build-debug/CMakeFiles/ParserTest.dir/progress.make
+cmake-build-debug/CMakeFiles/StemmerTest.dir/progress.make
+cmake-build-debug/CMakeFiles/StringProcessingTest.dir/progress.make
+cmake-build-debug/CMakeFiles/TokenizerTest.dir/progress.make
+cmake-build-debug/CMakeFiles/URLTEST.dir/progress.make
+cmake-build-debug/CMakeFiles/clion-log.txt
+cmake-build-debug/CMakeFiles/crawler-parser-test.dir/build.make
+cmake-build-debug/CMakeFiles/crawler-parser-test.dir/cmake_clean.cmake
+cmake-build-debug/CMakeFiles/crawler-parser-test.dir/objects1.rsp
+cmake-build-debug/CMakeFiles/crawler-parser-test.dir/progress.make
+cmake-build-debug/CMakeFiles/search-engine.dir/progress.make
+cmake-build-debug/eecs398_search.cbp
+parser/test/tests
