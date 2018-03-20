@@ -1,4 +1,5 @@
 #include "Parser.h"
+#include "../crawler/Readers/StreamReader.h"
 #include <string>
 
 /**
@@ -9,7 +10,6 @@ Parser::Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn )
 	{
 	urlFrontier = urlFrontierIn;
 	}
-
 
 /**
  * Executes the Parser
@@ -36,9 +36,6 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 	unsigned long offsetAnchor = 0;
 	ParsedUrl currentUrl = reader->getUrl( );
 
-	// tokenize url
-	offsetURL = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offsetURL, Tokenizer::URL );
-
 	// tokenize anchor
 	// TODO ParsedUrl with anchor text
 	string anchorText = currentUrl.getAnchorText( );
@@ -46,6 +43,9 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 		{
 		offsetAnchor = tokenizer->execute( anchorText, offsetAnchor, Tokenizer::ANCHOR );
 		}
+
+	// tokenize url
+	offsetURL = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offsetURL, Tokenizer::URL );
 
 	string html = reader->PageToString( );
 	while ( htmlIt < html.size( ) )
@@ -67,7 +67,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 			string url = extractUrl( line );
 			if ( url != "" )
 				{
-				pushToUrlQueue( url, currentUrl, anchorText, true );
+				pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
 				}
 				// check if line is title
 			else
@@ -143,6 +143,7 @@ string Parser::extractUrl ( string html )
 
 	return url;
 	}
+
 
 /**
  * Returns a title, or "" if none
@@ -235,4 +236,178 @@ void Parser::pushToUrlQueue ( string url, ParsedUrl currentUrl, string anchorTex
 			cout << anchorText << endl;
 			}
 		}
+	}
+
+
+//TODO delete?? may not need
+/**
+ * Removes given html tags
+ *
+ * @param html
+ * @param htmlIt
+ * @param savePosition
+ * @param tag
+ */
+void Parser::removeTag ( string & html, unsigned long & htmlIt, unsigned long savePosition, string tag )
+	{
+	unsigned long openTag = findStr( "<" + tag + ">", html );
+	unsigned long closeTag = findNext( "</" + tag + ">", openTag, html );
+	//TODO write erase functions??
+	html.erase( closeTag, tag.length( ) + 2 );
+	html.erase( openTag, tag.length( ) + 3 );
+
+	htmlIt = savePosition;
+	}
+
+/**
+ * Extracts all text in html
+ *
+ * @param line
+ * @param offsetTitle
+ * @param offsetBody
+ * @param isParagraph
+ * @param tokenizer
+ * @param currentUrl
+ * @param urlCurrent
+ */
+void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
+                  Tokenizer *tokenizer,
+                  ParsedUrl & currentUrl, string & urlCurrent )
+	{
+	// check if line is url
+	string title = extractTitle( line );
+	string url = extractUrl( line );
+	//checking if html line is script
+	if ( isTag( line, "script" ) )
+		{
+		//DO NOTHING
+		}
+		//TODO delete this conditional if keeping whats in main right now
+	else if ( isParagraph )
+		{
+		string body = extractBody( line, offsetTitle, offsetBody, isParagraph, tokenizer, currentUrl, urlCurrent );
+		offsetBody = tokenizer->execute( body, offsetBody, Tokenizer::BODY );
+		}
+
+	else if ( url != "" )
+		{
+		if ( isLocal( url ) )
+			{
+			string completeUrl = "";
+			completeUrl.assign( currentUrl.CompleteUrl );
+			url = completeUrl + url;
+			}
+		if ( isValid( url ) && url != urlCurrent )
+			{
+			pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
+			}
+		}
+		// check if line is title
+		// check if line is title
+	else if ( title != "" )
+		{
+		offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
+		}
+
+	else
+		{
+		//DO NOTHING
+		}
+	}
+
+/**
+ * Returns true if given tag
+ *
+ * @param html
+ * @param tag
+ * @return
+ */
+bool Parser::isTag ( string html, string tag )
+	{
+	string findTag = "<" + tag;
+	if ( findStr( findTag, html ) < html.size( ) )
+		{
+		return true;
+		}
+	return false;
+	}
+
+/**
+ * Extracts the paragraph text
+ *
+ * @param html
+ * @param offsetTitle
+ * @param offsetBody
+ * @param isParagraph
+ * @param tokenizer
+ * @param currentUrl
+ * @param urlCurrent
+ * @return
+ */
+string Parser::extractBody ( string html, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
+                     Tokenizer *tokenizer,
+                     ParsedUrl & currentUrl, string & urlCurrent )
+	{
+	string body = "";
+	unsigned long startParTag = findNext( "<p>", 0, html );
+	unsigned long closeParTag = findNext( "</p>", startParTag, html );
+	unsigned long nextCloseTag = findNext( "</", startParTag, html );
+	startParTag += 3;
+	while ( nextCloseTag != startParTag )
+		{
+		if ( closeParTag == nextCloseTag )
+			{
+			while ( startParTag != closeParTag )
+				{
+				body += html[ startParTag ];
+				++startParTag;
+				if ( startParTag >= html.size( ) )
+					{
+					return body;
+					}
+				}
+			}
+		else
+			{
+			unsigned long newHtmlStart = findNext( "<", startParTag, html );
+			char a = html[ newHtmlStart ];
+			unsigned long closeNewHtml = findNext( ">", newHtmlStart, html );
+			char b = html[ closeNewHtml ];
+			unsigned long newHtmlTagLength = closeNewHtml - newHtmlStart;
+
+			while ( startParTag != newHtmlStart )
+				{
+				body += html[ startParTag ];
+				++startParTag;
+				}
+
+			string newHtml = subStr( html, newHtmlStart, nextCloseTag - newHtmlStart + newHtmlTagLength + 2 );
+			extract_all( newHtml, offsetTitle, offsetBody, false, tokenizer, currentUrl, urlCurrent );
+			startParTag = nextCloseTag + newHtmlTagLength + 2;
+			nextCloseTag = findNext( "</", startParTag, html );
+			}
+		}
+
+	return body;
+	}
+/**
+ * Extracts the header tags and adds to body
+ * @param html
+ * @return
+ */
+string Parser::extractHeader ( string html )
+	{
+	string header = "";
+	unsigned long startHeader = findStr( "<h", html );
+	if ( startHeader != html.size( ) && ( html[ startHeader + 1 ] >= '1' && html[ startHeader + 1 ] <= '6' ) )
+		{
+		unsigned long endHeader = findNext( "</h", startHeader, html );
+		startHeader += 4;
+		while ( startHeader != endHeader )
+			{
+			header += html[ startHeader ];
+			++startHeader;
+			}
+		}
+	return header;
 	}

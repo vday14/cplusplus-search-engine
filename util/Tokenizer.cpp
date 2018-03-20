@@ -19,7 +19,7 @@ Tokenizer::Tokenizer ( )
  *
  * @return pointer to unordered_map< string, vector< int>>
  */
-unordered_map< string, vector< unsigned long > > *Tokenizer::get ( ) const
+const unordered_map< string, vector< unsigned long > > *Tokenizer::get ( ) const
 	{
 	return docIndex;
 	}

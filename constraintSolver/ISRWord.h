@@ -1,10 +1,7 @@
-//
-// Created by Jake Close on 3/13/18.
-//
-
 #pragma once
 
 //#include "ISR.h"
+#include <iostream>
 #include <vector>
 #include <fcntl.h>
 #include <stdio.h>
@@ -13,18 +10,11 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
+#include "WordSeek.h"
 #include "../util/util.h"
 
-
-size_t FileSize ( int f )
-	{
-	struct stat fileInfo;
-	fstat( f, &fileInfo );
-	return fileInfo.st_size;
-	}
-
 using namespace std;
+
 
 //Find occurrences of individual words
 
@@ -54,11 +44,11 @@ public:
 	// ISR *GetDocumentISR( );
 
 	Location GetEndDocument ( );
-
 	Location currentLocation;
 	char *term;
 	char *masterIndex;
 	vector< size_t > listOfChunks;
+	vector< WordSeek > wordSeekLookupTable;
 	size_t currentChunk;
 	char *currentMemMap;
 

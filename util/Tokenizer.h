@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <string>
@@ -10,7 +9,7 @@
 using namespace std;
 
 class Tokenizer
-	{
+{
 
 public:
 
@@ -18,6 +17,7 @@ public:
 	static const char TITLE = '#';
 	static const char ANCHOR = '@';
 	static const char URL = '$';
+	static const char BODY = '%';
 
 	/**
  	* Tokenizer Cstor
@@ -30,7 +30,7 @@ public:
 	 *
  	* @return pointer to unordered_map< string, vector< int>>
  	*/
-	unordered_map< string, vector< unsigned long > > *get ( ) const;
+	const unordered_map< string, vector< unsigned long > > *get ( ) const;
 
 	/**
 	 * Executes the Tokenizer
@@ -45,16 +45,16 @@ public:
 
 private:
 
-	unordered_map< string, vector< unsigned long > > *docIndex;
-	Stemmer stem;
+    unordered_map< string, vector< unsigned long > > *docIndex;
+    Stemmer stem;
 
-	/**
-	 * Tokenizes text (titles, body text)
-	 *
-	 * @param originalText
-	 * @param offset
-	 * @param decorator
-	 */
-	unsigned long tokenize ( vector< string > splitText, unsigned long offset, char decorator );
+    /**
+     * Tokenizes text (titles, body text)
+     *
+     * @param originalText
+     * @param offset
+     * @param decorator
+     */
+    unsigned long tokenize ( vector< string > splitText, unsigned long offset, char decorator );
 
-	};
+};

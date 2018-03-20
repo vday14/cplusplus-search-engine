@@ -1,10 +1,12 @@
-//
-// Created by Jake Close on 3/13/18.
-//
 
+#include <string>
 #include "ISRWord.h"
 
-using namespace std;
+size_t FileSize(int f) {
+    struct stat fileInfo;
+    fstat( f, &fileInfo);
+    return fileInfo.st_size;
+}
 
 ISRWord::ISRWord ( char *word ) : term( word )
 	{
@@ -14,60 +16,63 @@ ISRWord::ISRWord ( char *word ) : term( word )
 	}
 
 // put into util file
-vector< size_t > ISRWord::getSeekContents ( string fileName )
-	{
-	int file = open( fileName.c_str( ), O_RDONLY );
-	ssize_t fileSize = FileSize( file );
-	vector< size_t > contents;
+vector<size_t> ISRWord::getSeekContents(string fileName) {
+    int file = open(fileName.c_str(), O_RDONLY);
+    ssize_t fileSize = FileSize(file);
+    vector<size_t> contents;
 
 
-	char *memMap = ( char * ) mmap( nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0 );
-	// char* memMap = util::getFileMap(fileName);
-	string word = "";
-	bool midWord = false;
-	bool midFind = false;
-	if ( memMap != MAP_FAILED )
-		{
-		for ( char *map = memMap; map < memMap + fileSize; map++ )
-			{
-			if ( midFind && isalpha( *map ) )
-				{
-				break;
-				}
-			switch ( *map )
-				{
-				case '\t':
-				case '\n':
-				case '\r':
-				case ' ':
-					if ( midFind && word != "" )
-						{
-						contents.push_back( stoll( word ) );
-						word = "";
-						}
-					else if ( midWord )
-						{
-						midWord = false;
-						if ( word == term )
-							{
-							midFind = true;
-							}
-						word = "";
-						}
-					break;
-				default:
-					word += *map;
-					midWord = true;
-				}
-			}
-		}
-	return contents;
-	}
+    char* memMap = (char*) mmap(nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0);
+   // char* memMap = util::getFileMap(fileName);
+    string word = "";
+    bool midWord = false;
+    bool midFind = false;
+    WordSeek wordDictionaryEntry;
+    if(memMap != MAP_FAILED) {
+        for(char* map = memMap; map < memMap + fileSize; map++) {
+            if(midFind && isalpha(*map)) {
+                break;
+            }
+            switch(*map) {
+                if(midFind) {
+                    case '<':
+                        wordDictionaryEntry = WordSeek();
+                        break;
+                    case '>':
+                        wordDictionaryEntry.seekOffset = stoll(word);
+                        wordSeekLookupTable.push_back(wordDictionaryEntry);
+                        break;
+                    case ',':
+                        wordDictionaryEntry.realLocation = stoll(word);
+                        break;
+                }
+                case '\n':
+                case '\r':
+                case '\t':
+                case ' ':
+                    if (midFind && word != "") {
+                        contents.push_back(stoll(word));
+                        word = "";
+                    } else if (midWord) {
+                        midWord = false;
+                        if(word == term) {
+                            midFind = true;
+                        }
+                        word = "";
+                    }
+                    break;
+                default:
+                    word += *map;
+                    midWord = true;
+            }
+        }
+    }
+    return contents;
+}
 
-void ISRWord::getChunks ( )
-	{
-	string path = util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index-master.txt";
-	listOfChunks = getSeekContents( path );
+void ISRWord::getChunks() {
+
+    listOfChunks = getSeekContents("index-test-files/twitter/index-master.txt");
 //    int chunkFile = open("index-test-files/twitter/index-master.txt", O_RDONLY);
 //    ssize_t chunkFileSize = FileSize(chunkFile);
 //    char* chunkMemMap = (char*) mmap(nullptr, chunkFileSize, PROT_READ, MAP_PRIVATE, chunkFile, 0);
@@ -172,9 +177,26 @@ Location ISRWord::next ( )
 //check seek lookup table to find if offset+absulte is bigger than target
 //if so, set location to that big chunk
 //go to next chunk
-
-Location ISRWord::seek ( Location target )
-	{
-
-	}
+Location ISRWord::seek( Location target ) {
+    if(!wordSeekLookupTable.empty()) {
+        auto best = wordSeekLookupTable.front();
+        for(auto entry : wordSeekLookupTable) {
+            if(entry.realLocation < target) {
+                best = entry;
+            } else {
+                string currentChunkFileLocation = "index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
+                int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
+                ssize_t currentChunkFileSize = FileSize(currentChunkFile);
+                currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
+                currentMemMap += best.seekOffset;
+                currentLocation = best.realLocation;
+                return best.realLocation;
+            }
+        }
+    } else {
+        while(next() <= target) {
+        }
+        return currentLocation;
+    }
+}
 
