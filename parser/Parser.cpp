@@ -32,68 +32,70 @@ const unordered_map< string, vector< unsigned long > > *Parser::execute ( Stream
 void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 	{
 	reader->request();
-	string html = reader->PageToString();
-	ParsedUrl currentUrl = reader->getUrl();
+	bool success = reader->checkStatus();
+	if(success) {
+		string html = reader->PageToString();
+		ParsedUrl currentUrl = reader->getUrl();
 
-	auto htmlIt = html.begin( );
-	unsigned long offsetTitle = 0;
-	unsigned long offsetURL = 0;
+		auto htmlIt = html.begin( );
+		unsigned long offsetTitle = 0;
+		unsigned long offsetURL = 0;
 
-	// tokenize url
-	string host = "";
-	host.assign( currentUrl.Host );
-	string path = "";
-	path.assign( currentUrl.Path );
-	string url = host + "/" + path;
+		// tokenize url
+		string host = "";
+		host.assign( currentUrl.Host );
+		string path = "";
+		path.assign( currentUrl.Path );
+		string url = host + "/" + path;
 
-	offsetURL = tokenizer->execute( url, offsetURL, Tokenizer::URL );
+		offsetURL = tokenizer->execute( url, offsetURL, Tokenizer::URL );
 
-	while ( htmlIt != html.end( ) )
-		{
-		// if open bracket
-		if ( *htmlIt == '<' )
+		while ( htmlIt != html.end( ) )
 			{
-			auto begCloseTag = findNext( "</", htmlIt );
-			auto endCloseTag = findNext( ">", begCloseTag );
-			string line( htmlIt, endCloseTag + 1 );
-			htmlIt = endCloseTag + 2;
-
-			// check if line is url
-			string url = extract_url( line );
-			if ( url != "" )
+			// if open bracket
+			if ( *htmlIt == '<' )
 				{
-				if ( isLocal( url ) )
-					{
-					string completeUrl = "";
-					completeUrl.assign( currentUrl.CompleteUrl );
-					url = completeUrl + url;
-					}
-				if ( isValid( url ) )
-					{
-					// TODO ParsedUrl with anchor text
+				auto begCloseTag = findNext( "</", htmlIt );
+				auto endCloseTag = findNext( ">", begCloseTag );
+				string line( htmlIt, endCloseTag + 1 );
+				htmlIt = endCloseTag + 2;
 
-					ParsedUrl pUrl = ParsedUrl( url );
-					urlFrontier->Push( pUrl );
-					cout << url << endl;
+				// check if line is url
+				string url = extract_url( line );
+				if ( url != "" )
+					{
+					if ( isLocal( url ) )
+						{
+						string completeUrl = "";
+						completeUrl.assign( currentUrl.CompleteUrl );
+						url = completeUrl + url;
+						}
+					if ( isValid( url ) )
+						{
+						// TODO ParsedUrl with anchor text
+
+						ParsedUrl pUrl = ParsedUrl( url );
+						urlFrontier->Push( pUrl );
+						cout << url << endl;
+						}
+					}
+					// check if line is title
+				else
+					{
+					string title = extract_title( line );
+					if ( title != "" )
+						{
+						offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
+						}
 					}
 				}
-				// check if line is title
 			else
 				{
-				string title = extract_title( line );
-				if ( title != "" )
-					{
-					offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
-					}
+				++htmlIt;
 				}
 			}
-		else
-			{
-			++htmlIt;
-			}
+
 		}
-
-
 	}
 
 /**

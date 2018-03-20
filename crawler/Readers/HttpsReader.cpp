@@ -73,6 +73,28 @@ string HttpsReader::PageToString()
 	return temp;
 	}
 
+bool HttpsReader::checkStatus()
+	{
+	string code = "";
+	char buff[12];
+	int bytes = 0;
+
+	bytes = SSL_read( ssl, buff, 12 );
+
+
+	 if( strncmp(buff, "HTTP/1.1 200",11  ) == 0)
+		return true;
+	 else if(strncmp(buff, "HTTP/1.1 302", 11 ) == 0)
+		 {
+		 cerr << "URL REDIRECTION" << endl;
+		 return false;
+		 }
+
+	return false;
+
+	}
+
+
 ParsedUrl HttpsReader::getUrl()
 	{
 	return url;

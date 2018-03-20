@@ -67,6 +67,24 @@ ParsedUrl HttpReader::getUrl()
 	}
 
 
+bool HttpReader::checkStatus()
+	{
+	string code = "";
+	char buff[12];
+	int bytes = 0;
+
+	 bytes = recv( sock, buff, 12, 0 ) ;
+
+	if( strncmp(buff, "HTTP/1.1 200",11  ) == 0)
+		return true;
+	else if(strncmp(buff, "HTTP/1.1 302", 11 ) == 0)
+		{
+		cerr << "URL REDIRECTION" << endl;
+		return false;
+		}
+	}
+
+
 void HttpReader::closeReader()
 	{
 	close( sock );

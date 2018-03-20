@@ -17,7 +17,7 @@ public:
 	string PageToString();
 	ParsedUrl getUrl();
 	void closeReader();
-
+	bool checkStatus();
 
 private:
 	ParsedUrl url;

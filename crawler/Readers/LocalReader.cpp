@@ -34,6 +34,10 @@ ParsedUrl LocalReader::getUrl()
 	}
 
 
+bool LocalReader::checkStatus()
+	{
+	return true;
+	}
 void LocalReader::closeReader()
 	{
 	//FIXME

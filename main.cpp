@@ -50,7 +50,7 @@ int main( int argc, char *argv[] )
 
 
 	string mode = "web";
-	int numberOfSpiders = 3;
+	int numberOfSpiders = 1;
 
 	opterr = true;
 	int choice;
@@ -128,7 +128,7 @@ crawler.SpawnSpiders(numberOfSpiders , docMapLookUp, duplicateUrlMap);
 
 crawler.WaitOnAllSpiders();
 
-auto f = urlFrontier->Pop();
+	auto f = urlFrontier->Pop();
 	int x = 0;
 	delete urlFrontier;
 }
