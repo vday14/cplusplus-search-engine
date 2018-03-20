@@ -20,11 +20,6 @@ using namespace std;
 #define MIL   ".mil"
 #define INT   ".int"
 
-
-
-
-
-
 class ParsedUrl
 	{
 public:
@@ -32,13 +27,19 @@ public:
 			*Service,
 			*Host,
 			*Domain,
-			*Path;
+			*Path,
+			*AnchorText;
 	double Score;
 
 	ParsedUrl( string input_url )
 		{
 		// Assumes url points to static text but
 		// does not check.
+
+		//intialize anchor text to "null"
+		char *null = new char[2];
+		strcpy(null, string("").c_str());
+		AnchorText = null;
 
 		char *url = new char[input_url.length() + 1];
 		strcpy(url, input_url.c_str());
@@ -85,10 +86,6 @@ public:
 					Domain = i;
 
 				}
-
-
-
-
 
 			// Whatever remains is the Path. // need to remove fragments
 
@@ -139,6 +136,47 @@ public:
 		else if ( strcmp ( Domain , MIL ) )
 			Score += .5;
 		}
+
+	std::string getCompleteUrl( )
+		{
+		std::string completeUrl = "";
+		completeUrl.assign( this->CompleteUrl );
+		return completeUrl;
+		}
+
+	std::string getHost( )
+		{
+		std::string host = "";
+		host.assign( this->Host );
+		return host;
+		}
+
+	std::string getPath( )
+		{
+		std::string path = "";
+		path.assign( this->Path );
+		return path;
+		}
+
+	std::string getAnchorText( )
+		{
+		std::string anchorText = "";
+		anchorText.assign( this->AnchorText );
+		return anchorText;
+		}
+
+	void setAnchorText( std::string anchorText )
+		{
+		char * anchorCharStar = new char[ anchorText.size( ) ];
+
+		for ( int i = 0; i < anchorText.size( ); ++i )
+			{
+			anchorCharStar += anchorText[ i ];
+			}
+		anchorCharStar += '\0';
+		this->AnchorText = anchorCharStar;
+		}
+
 
 	~ParsedUrl( )
 		{

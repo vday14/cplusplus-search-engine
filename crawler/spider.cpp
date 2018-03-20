@@ -1,10 +1,3 @@
-//
-// Created by Ben Bergkamp on 1/31/18.
-//
-
-
-
-
 #include "spider.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -16,7 +9,6 @@
 #include "Readers/HttpReader.h"
 #include "Readers/LocalReader.h"
 #include "../parser/Parser.h"
-
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
@@ -69,31 +61,28 @@ size_t Spider::hash(const char * s)
 		// http://www.cse.yorku.ca/~oz/hash.html
 		size_t h = 5381;
 		int c;
-		while ((c = *s++))
-			h = ((h << 5) + h) + c;
+		while ( ( c = *s++ ) )
+			h = ( ( h << 5 ) + h ) + c;
 		return h;
 	}
 
 
-ParsedUrl Spider::getUrl()
+ParsedUrl Spider::getUrl ( )
 	{
 	return urlFrontier->Pop( );
 	}
 
 void Spider::run()
 	{
-
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
 	while ( cond < 25 )
 		{
-
 		ParsedUrl currentUrl = getUrl();
 		size_t docID = hash(currentUrl.CompleteUrl);
 		if ( shouldURLbeCrawled( docID ))
 			{
-
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
 			bool success = reader->request();
 			if(success)
@@ -112,8 +101,6 @@ void Spider::run()
 
 
 			}
-
-
 		}
 	}
 
@@ -133,17 +120,20 @@ Takes a URL. Hashes it. Checks if the url is in the docMapLookup. If it is, chec
  * Takes in a parsed url,  creates a document object, writes information about the document to disk
  *  returns the begining position of the document on disk, stores that into the in memory lookup hash table
 */
-bool Spider::writeDocToDisk(ParsedUrl url)
+bool Spider::writeDocToDisk ( ParsedUrl url )
 	{
-	Document d(url);
-	int resultPosition = d.WriteToDocMap();
-	if(resultPosition == -1) {
+	Document d( url );
+	int resultPosition = d.WriteToDocMap( );
+	if ( resultPosition == -1 )
+		{
 		return false;
-	}
+		}
 
-	this->docMapLookup->insert( std::pair < string, int >( url.CompleteUrl, resultPosition ));
+	this->docMapLookup->insert( std::pair< string, int >( url.CompleteUrl, resultPosition ) );
 	for ( auto it = this->docMapLookup->begin( ); it != this->docMapLookup->end( ); ++it )
-		std::cout << it->first << " => " << it->second << '\n';
+		{
+			std::cout << it->first << " => " << it->second << '\n';
+		}
 
 	return true;
 	}
@@ -155,10 +145,8 @@ bool Spider::writeDocToDisk(ParsedUrl url)
  * and returns true
  */
 
-
 bool Spider::shouldURLbeCrawled( size_t docID )
 	{
-
 
 	if(this->duplicateUrlMap->find(docID) != this->duplicateUrlMap->end()){
 		return false;
@@ -168,42 +156,41 @@ bool Spider::shouldURLbeCrawled( size_t docID )
 		this->duplicateUrlMap->insert(std::make_pair(docID, 1));
 		return true;
 		}
-
 	}
 
 /*
 //check if path in url is in the robots txt
-bool Spider::checkRobots(ParsedUrl url)
+bool Spider::checkRobots ( ParsedUrl url )
 	{
-	string pathToRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host)) + ".txt";
-	int robotsFileD = util::getFileDescriptor(pathToRobots , "R");
+	string pathToRobots = util::GetCurrentWorkingDir( ) + "/robots/" + string( url.Host, strlen( url.Host ) ) + ".txt";
+	int robotsFileD = util::getFileDescriptor( pathToRobots, "R" );
 	//File does not exist yet
-	if(robotsFileD == -1)
+	if ( robotsFileD == -1 )
 		{
-		robotsFileD = getRobots(url);
+		robotsFileD = getRobots( url );
 		}
 
-	char* robotsTXT = util::getFileMap(robotsFileD);
+	char *robotsTXT = util::getFileMap( robotsFileD );
 	return 1;
 	}
 
 
-
 //Makes request to get a new robots txt file, returns the file pointer
-int Spider::getRobots(ParsedUrl url )
+int Spider::getRobots ( ParsedUrl url )
 	{
 
 
-	string pathToDiskRobots = util::GetCurrentWorkingDir() + "/robots/" +  string(url.Host, strlen(url.Host)) + ".txt";
-	string pathToWebRobots =  "https://" + string(url.Host, strlen(url.Host)) + "/robots.txt";
+	string pathToDiskRobots =
+			util::GetCurrentWorkingDir( ) + "/robots/" + string( url.Host, strlen( url.Host ) ) + ".txt";
+	string pathToWebRobots = "https://" + string( url.Host, strlen( url.Host ) ) + "/robots.txt";
 	//string(url.Service, strlen(url.Service))+
-	SocketReader *reader = new SocketReader(pathToWebRobots);
-	reader->fillBuffer();
+	SocketReader *reader = new SocketReader( pathToWebRobots );
+	reader->fillBuffer( );
 
-	if(reader->buffer != NULL)
+	if ( reader->buffer != NULL )
 		{
-		int fd = util::writeToNewFileToLocation( reader->buffer, pathToDiskRobots);
-		if( fd == -1)
+		int fd = util::writeToNewFileToLocation( reader->buffer, pathToDiskRobots );
+		if ( fd == -1 )
 			cerr << "Error getting Robots.txt file " << endl;
 
 		return fd;
@@ -211,8 +198,6 @@ int Spider::getRobots(ParsedUrl url )
 
 	cerr << "issue filling buffer from robots.txt" << endl;
 	return -1;
-
-
 
 	}
 */

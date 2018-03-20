@@ -33,7 +33,7 @@ int main ( )
 void testSimple ( )
 	{
 
-	ProducerConsumerQueue< string > urlFrontierTest;
+	ProducerConsumerQueue< ParsedUrl > urlFrontierTest;
 	ParsedUrl url = ParsedUrl( "http://www.testurl.com" );
 	char docString[10240];
 	strcpy( docString, "<title>This Cat Title Cat</title>" );
@@ -66,7 +66,7 @@ void testSimple ( )
 void testComplex ( )
 	{
 
-	ProducerConsumerQueue< string > urlFrontierTest;
+	ProducerConsumerQueue< ParsedUrl > urlFrontierTest;
 	ifstream file( "../tests/cats.html" );
 	string temp;
 	string docString = "<title>Joe the Cat</title>\n";
@@ -115,9 +115,9 @@ void testComplex ( )
 
 void testURL ( )
 	{
-	const char *line = "<li><span class=\"official-website\"><span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a></span></span></li>";
-
-	ProducerConsumerQueue< string > urlFrontierTest;
+//	const char *line = "<li><span class=\"official-website\"><span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a></span></span></li>";
+	const char * line = "<span class=\"url\"><a rel=\"nofollow\" class=\"external text\" href=\"http://www.bafta.org/\">Official website</a>";
+	ProducerConsumerQueue< ParsedUrl > urlFrontierTest;
 	ParsedUrl url = ParsedUrl( "http://testurl.com" );
 	char docString[10240];
 	strcpy( docString, line );
@@ -135,7 +135,9 @@ void testURL ( )
 		cout << std::endl;
 		}
 
-	assert ( urlFrontierTest.Pop( ) == "http://www.bafta.org/");
+	string completeUrl = "";
+	completeUrl.assign( urlFrontierTest.Pop( ).CompleteUrl );
+	assert ( completeUrl == "http://www.bafta.org/" );
 	assert ( dictionary->find( "$bafta" ) == dictionary->end( ) );
 	assert ( dictionary->find( "$testurl" ) != dictionary->end( ) );
 

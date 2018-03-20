@@ -48,16 +48,17 @@ private:
 	 * @param word
 	 * @return
 	 */
-	bool isVowelPresent ( string::iterator wordBeg, string::iterator wordEnd, string word );
+	bool isVowelPresent ( unsigned long wordBeg, unsigned long wordEnd, string word );
 
 	/**
 	 * Return true if the wordIt points to a consonant
 	 *
+	 *
 	 * @param wordIt
-	 * @param wordBegin
+	 * @param word
 	 * @return
 	 */
-	bool isConsonant ( string::iterator wordIt, string::iterator wordBegin );
+	bool isConsonant ( unsigned long wordIt, string word );
 
 	/**
 	 * Returns true if should add 'e' to end

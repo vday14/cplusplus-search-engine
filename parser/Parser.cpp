@@ -1,6 +1,5 @@
-
 #include "Parser.h"
-
+#include <string>
 
 /**
  * Parser Cstor
@@ -19,7 +18,6 @@ Parser::Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn )
 const unordered_map< string, vector< unsigned long > > *Parser::execute ( StreamReader* reader)
 	{
 	Tokenizer tokenizer;
-	//parse( document->DocToString( ), document->getUrl( ), &tokenizer );
 	parse(reader, &tokenizer);
 	return tokenizer.get( );
 	}
@@ -32,38 +30,45 @@ const unordered_map< string, vector< unsigned long > > *Parser::execute ( Stream
 void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 	{
 
+	unsigned long htmlIt = 0;
+	unsigned long offsetTitle = 0;
+	unsigned long offsetURL = 0;
+	unsigned long offsetAnchor = 0;
+	ParsedUrl currentUrl = reader->getUrl();
 
-		string html = reader->PageToString();
-		ParsedUrl currentUrl = reader->getUrl();
+	// tokenize url
+	offsetURL = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offsetURL, Tokenizer::URL );
 
-		auto htmlIt = html.begin( );
-		unsigned long offsetTitle = 0;
-		unsigned long offsetURL = 0;
+	// tokenize anchor
+	// TODO ParsedUrl with anchor text
+	string anchorText = currentUrl.getAnchorText( );
+	if ( anchorText != "" )
+		{
+		offsetAnchor = tokenizer->execute( anchorText, offsetAnchor, Tokenizer::ANCHOR );
+		}
 
-		// tokenize url
-		string host = "";
-		host.assign( currentUrl.Host );
-		string path = "";
-		path.assign( currentUrl.Path );
-		string url = host + "/" + path;
-
-		offsetURL = tokenizer->execute( url, offsetURL, Tokenizer::URL );
-
-		while ( htmlIt != html.end( )  )
+	reader->request();
+	bool success = reader->checkStatus();
+	if(success)
+		{
+		string html = reader->PageToString( );
+		while ( htmlIt < html.size( ) )
 			{
 			// if open bracket
-			if( *htmlIt == '\0')
-				break;
+			if ( html[ htmlIt ] == '<' )
+				// if open bracket
+				if ( htmlIt >= html.size( ) )
+					break;
 
-			if ( *htmlIt == '<' )
+			if ( html[ htmlIt ] == '<' )
 				{
-				auto begCloseTag = findNext( "</", htmlIt );
-				auto endCloseTag = findNext( ">", begCloseTag );
-				string line( htmlIt, endCloseTag + 1 );
+				unsigned long begCloseTag = findNext( "</", htmlIt, html );
+				unsigned long endCloseTag = findNext( ">", begCloseTag, html );
+				string line = subStr( html, htmlIt, endCloseTag + 1 - htmlIt );
 				htmlIt = endCloseTag + 2;
 
 				// check if line is url
-				string url = extract_url( line );
+				string url = extractUrl( line );
 				if ( url != "" )
 					{
 					if ( isLocal( url ) )
@@ -74,17 +79,15 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 						}
 					if ( isValid( url ) )
 						{
-						// TODO ParsedUrl with anchor text
-
 						ParsedUrl pUrl = ParsedUrl( url );
 						urlFrontier->Push( pUrl );
-						//cout << url << endl;
+						cout << url << endl;
 						}
 					}
 					// check if line is title
 				else
 					{
-					string title = extract_title( line );
+					string title = extractTitle( line );
 					if ( title != "" )
 						{
 						offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
@@ -96,8 +99,17 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
 				++htmlIt;
 				}
 			}
+		}
+	}
 
-
+/**
+ * Returns anchor text if found
+ * @param html
+ * @return
+ */
+string Parser::extractAnchorText( string html )
+	{
+	return "";
 	}
 
 /**
@@ -105,24 +117,41 @@ void Parser::parse ( StreamReader* reader, Tokenizer *tokenizer )
  * @param word
  * @return
  */
-string Parser::extract_url ( string & word )
+string Parser::extractUrl ( string html )
 	{
 	string url = "";
-	if ( *findStr( "<a", word ) != '\0' )
+	if ( findStr( "<a", html ) != html.size( ) )
 		{
-		auto foundHref = findStr( "href", word );
-		auto foundHttp = findNext( "http", foundHref );
-		if ( *foundHttp != '\0' )
+		unsigned long foundHref = findStr( "href", html );
+		unsigned long foundHttp = findNext( "http", foundHref, html );
+		if ( foundHttp < html.size( ) )
 			{
 			url = "";
-			auto closeTag = findNext( ">", foundHref );
-			if ( *closeTag != '\0' && *( closeTag - 1 ) == '\"' )
+			unsigned long closeTag = findNext( ">", foundHref, html );
+			unsigned long closeSpace = findNext( " ", foundHref, html );
+			unsigned long closeUrl = 0;
+			// end == ' >'
+			if ( closeSpace < html.size( ) && closeTag < html.size( ) && closeSpace < closeTag )
 				{
-				closeTag -= 1;
+				if ( html[ closeSpace - 1 ] == '\"' )
+					{
+					closeSpace -= 1;
+					}
+				closeUrl = closeSpace;
 				}
-			while ( *foundHttp != *closeTag )
+			// end == '>'
+			else if ( closeTag < html.size( ) )
 				{
-				url += *foundHttp;
+				if ( html[ closeTag - 1 ] == '\"' )
+					{
+					closeTag -= 1;
+					}
+				closeUrl = closeTag;
+				}
+
+			while ( foundHttp != closeUrl && html[ foundHttp ] != '\n')
+				{
+				url.push_back( html[ foundHttp ] );
 				++foundHttp;
 				}
 			}
@@ -136,17 +165,17 @@ string Parser::extract_url ( string & word )
  * @param word
  * @return
  */
-string Parser::extract_title ( string & word )
+string Parser::extractTitle ( string html )
 	{
 	string title = "";
 	char end = '<';
-	auto pos = findStr( "<title>", word );
-	if ( *pos != '\0' )
+	auto pos = findStr( "<title>", html );
+	if ( pos < html.size( ) )
 		{
 		pos += 7;
-		while ( *pos != end )
+		while ( html[ pos ] != end )
 			{
-			title += *pos;
+			title += html[ pos ];
 			++pos;
 			}
 		}
@@ -161,7 +190,7 @@ string Parser::extract_title ( string & word )
  */
 bool Parser::isLocal ( string url )
 	{
-	return ( *url.begin( ) == '/' );
+	return ( url[ 0 ] == '/' );
 	}
 
 /**
@@ -172,56 +201,54 @@ bool Parser::isLocal ( string url )
  */
 bool Parser::isValid ( string url )
 	{
-	auto begPtr = url.begin( );
-	auto endPtr = begPtr + url.size( ) - 1;
 	unsigned long size = url.size( );
 
-	auto html = findPrev( ".html", endPtr, begPtr + size - 6 );
+	string lastFive = lastN( url, 5 );
+	string lastFour = lastN( url, 4 );
 
-	if ( *html != '\0' )
+	// .html
+	if ( lastFive == ".html" )
 		{
 		return true;
 		}
 
-	// png
-	if ( *findPrev( ".png", endPtr, begPtr + size - 5 ) != '\0' )
-		{
-		return false;
-		}
-	//jpg
-	if ( *findPrev( ".jpg", endPtr, begPtr + size - 5 ) )
+	// png || jpg || css || gif || pdf || wav || mp3 || mp4 || ico
+	if ( lastFour == ".png" ||  lastFour == ".jpg" || lastFour == ".css" ||  lastFour == ".gif"
+	     || lastFour == ".pdf" ||  lastFour == ".wav" || lastFour == ".mp3" || lastFour == ".mp4" || lastFour == ".ico" )
 		{
 		return false;
 		}
 	//jpeg
-	if ( *findPrev( ".jpeg", endPtr, begPtr + size - 6 ) )
-		{
-		return false;
-		}
-	//css
-	if ( *findPrev( ".css", endPtr, begPtr + size - 5 ) )
-		{
-		return false;
-		}
-	//gif
-	if ( *findPrev( ".gif", endPtr, begPtr + size - 5 ) )
-		{
-		return false;
-		}
-	//pdf
-	if ( *findPrev( ".pdf", endPtr, begPtr + size - 5 ) )
-		{
-		return false;
-		}
-	//wav
-	if ( *findPrev( ".wav", endPtr, begPtr + size - 5 ) )
-		{
-		return false;
-		}
-	//mp3
-	if ( *findPrev( ".mp3", endPtr, begPtr + size - 5 ) )
+	if ( lastFive == ".jpeg" )
 		{
 		return false;
 		}
 	return true;
+	}
+
+/**
+ * Sends to Url Frontier
+ *
+ * @param url
+ * @param currentUrl
+ * @param anchorText --> will be "null" if empty
+ * @param debug --> will print urls to std::cout
+ */
+void Parser::pushToUrlQueue( string url, ParsedUrl currentUrl, string anchorText, bool debug )
+	{
+	if ( isLocal( url ) )
+		{
+		url = currentUrl.getCompleteUrl( ) + url;
+		}
+	if ( isValid( url ) && url != currentUrl.getCompleteUrl( ) )
+		{
+		ParsedUrl pUrl = ParsedUrl( url );
+		pUrl.setAnchorText( anchorText );
+		urlFrontier->Push( pUrl );
+		if ( debug )
+			{
+			cout << url << endl;
+			cout << anchorText << endl;
+			}
+		}
 	}

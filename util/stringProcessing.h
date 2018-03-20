@@ -28,30 +28,31 @@ static set< string > stopWords = { "a", "all", "an", "and", "any", "are", "as", 
  * Finds the needle in the haystack
  * returns position of first match
  *
- * @param haystack
  * @param needle
- * @return string::iterator
+ * @param haystack
+ * @return
  */
-string::iterator findStr ( string needle, string haystack );
+unsigned long findStr ( string needle, string haystack );
 
 /**
  * Finds the next position of the needle in the string
  *
  * @param needle
- * @param pointer
- * @return string::iterator
+ * @param haystackIt
+ * @param haystack
+ * @return
  */
-string::iterator findNext ( string needle, string::iterator haystackPointer );
+unsigned long findNext ( string needle, unsigned long haystackIt, string haystack );
 
 /**
  * Finds the previous position of the needle in the string
  *
+ *
  * @param needle
- * @param haystackPointer
- * @param haystackBeg
- * @return string::iterator
+ * @param haystackIt
+ * @return unsigned long
  */
-string::iterator findPrev ( string needle, string::iterator haystackPointer, string::iterator haystackBeg );
+unsigned long findPrev ( string needle, unsigned long haystackIt, string haystack );
 
 /**
  * Returns a vector of strings from @originalText, split by @delim
@@ -72,15 +73,7 @@ vector< string > splitStr ( string originalText, char delim, bool removeSyms );
  * @param removeSyms
  * @return
  */
-vector< string > splitStr ( string originalText, vector < char > delims, bool removeSyms );
-
-/**
- * Returns true if element is in array, false otherwise
- *
- * @param vec
- * @return
- */
-template <typename T> bool inArray ( T needle, vector < T > haystack );
+vector< string > splitStr ( string originalText, set< char > delims, bool removeSyms );
 
 /**
  * Returns true if @word is a stopword
@@ -107,23 +100,14 @@ string toLower ( string word );
 string stemWord ( string word );
 
 /**
- * Returns a substring [ post, len )
+ * Returns a substring [ pos, len )
  *
  * @param word
  * @param pos
  * @param len
- * @return string
+ * @return
  */
-string subStr ( string word, size_t pos, size_t len );
-
-/**
- * Returns a substring [ begin, end )
- *
- * @param pos
- * @param len
- * @return string
- */
-string subStr ( string::iterator begin, string::iterator end );
+string subStr ( string word, unsigned long pos, unsigned long len );
 
 /**
  * Removes the chars in vector from word
@@ -158,3 +142,11 @@ bool isAlpha ( char ch );
  * @return bool
  */
 bool isNum ( char ch );
+
+/**
+ * Returns last n characters in string
+ * @param input
+ * @param n
+ * @return
+ */
+string lastN ( string input, int n );

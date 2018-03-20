@@ -1,7 +1,9 @@
 
 #include "Tokenizer.h"
 #include <iostream>
-
+#include <set>
+#include <string>
+using namespace std;
 /**
  * Tokenizer Cstor
  */
@@ -33,7 +35,7 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 	// split by symbols
 	if ( decorator == Tokenizer::URL )
 		{
-		vector < char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
+		set < char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
 		                          '(', ')', '*', '+', ',', ';', '='};
 
 		return tokenize( splitStr( originalText, split, true ), offset, decorator );

@@ -84,7 +84,7 @@ void  Document::PrintDocMap ( string url, int location )
 			{
 			char *buffer = new char[bytes];
 			ssize_t bytesRead;
-			if ( bytesRead = read ( file, buffer, bytes ) )
+			if ( ( bytesRead = read ( file, buffer, bytes ) ) )
 				write ( 1, buffer, bytesRead );
 			else
 				{
