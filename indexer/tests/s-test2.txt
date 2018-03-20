@@ -1,0 +1,2 @@
+hello this is a quick test of indexing from 0 with locally generated dictionaries - what I mean by this is
+each document dictionary starts from an index of 0 and runs till the end.
