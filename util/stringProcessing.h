@@ -21,46 +21,59 @@ static set< string > stopWords = { "a", "all", "an", "and", "any", "are", "as", 
                                    "she",
                                    "some", "the", "their", "them", "there", "they", "that",
                                    "this", "to", "us", "was", "what", "when", "where", "which", "who", "why", "will",
-                                   "with",
+                                   "with", "www",
                                    "you", "your" };
 
 /**
  * Finds the needle in the haystack
  * returns position of first match
  *
- * @param haystack
  * @param needle
- * @return string::iterator
+ * @param haystack
+ * @return
  */
-string::iterator findStr ( string needle, string haystack );
+unsigned long findStr ( string needle, string haystack );
 
 /**
  * Finds the next position of the needle in the string
  *
  * @param needle
- * @param pointer
- * @return string::iterator
+ * @param haystackIt
+ * @param haystack
+ * @return
  */
-string::iterator findNext ( string needle, string::iterator haystackPointer );
+unsigned long findNext ( string needle, unsigned long haystackIt, string haystack );
 
 /**
  * Finds the previous position of the needle in the string
  *
+ *
  * @param needle
- * @param haystackPointer
- * @param haystackBeg
- * @return string::iterator
+ * @param haystackIt
+ * @return unsigned long
  */
-string::iterator findPrev ( string needle, string::iterator haystackPointer, string::iterator haystackBeg );
+unsigned long findPrev ( string needle, unsigned long haystackIt, string haystack );
 
 /**
  * Returns a vector of strings from @originalText, split by @delim
+ * Will remove symbols if bool is set
  *
  * @param originalText
  * @param delim
+ * @param removeSyms
  * @return vector< string >
  */
-vector< string > splitStr ( string & originalText, char delim );
+vector< string > splitStr ( string originalText, char delim, bool removeSyms );
+
+/**
+ * Splits string by multiple delimiters
+ *
+ * @param originalText
+ * @param delims
+ * @param removeSyms
+ * @return
+ */
+vector< string > splitStr ( string originalText, set< char > delims, bool removeSyms );
 
 /**
  * Returns true if @word is a stopword
@@ -68,7 +81,7 @@ vector< string > splitStr ( string & originalText, char delim );
  * @param word
  * @return bool
  */
-bool isStopWord ( string & word );
+bool isStopWord ( string word );
 
 /**
  * Returns lowercase @word
@@ -76,7 +89,7 @@ bool isStopWord ( string & word );
  * @param word
  * @return string
  */
-string toLower ( string & word );
+string toLower ( string word );
 
 /**
  * Returns stemmed @word
@@ -84,26 +97,17 @@ string toLower ( string & word );
  * @param word
  * @return string
  */
-string stemWord ( string & word );
+string stemWord ( string word );
 
 /**
- * Returns a substring [ post, len )
+ * Returns a substring [ pos, len )
  *
  * @param word
  * @param pos
  * @param len
- * @return string
+ * @return
  */
-string subStr ( string & word, size_t pos, size_t len );
-
-/**
- * Returns a substring [ begin, end )
- *
- * @param pos
- * @param len
- * @return string
- */
-string subStr ( string::iterator begin, string::iterator end );
+string subStr ( string word, unsigned long pos, unsigned long len );
 
 /**
  * Removes the chars in vector from word
@@ -112,7 +116,7 @@ string subStr ( string::iterator begin, string::iterator end );
  * @param chars
  * @return string
  */
-string stripStr ( string & word, vector< char > chars );
+string stripStr ( string word, vector< char > chars );
 
 /**
  * Removes all chars from word
@@ -121,7 +125,7 @@ string stripStr ( string & word, vector< char > chars );
  * @param word
  * @return string
  */
-string stripStr ( string & word );
+string stripStr ( string word );
 
 /**
  * Returns true is character is a letter
@@ -138,3 +142,11 @@ bool isAlpha ( char ch );
  * @return bool
  */
 bool isNum ( char ch );
+
+/**
+ * Returns last n characters in string
+ * @param input
+ * @param n
+ * @return
+ */
+string lastN ( string input, int n );

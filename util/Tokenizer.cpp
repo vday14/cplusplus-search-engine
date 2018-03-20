@@ -1,12 +1,15 @@
 
 #include "Tokenizer.h"
-
+#include <iostream>
+#include <set>
+#include <string>
+using namespace std;
 /**
  * Tokenizer Cstor
  */
 Tokenizer::Tokenizer ( )
 	{
-	docIndex = new unordered_map< string, vector< int>>;
+	docIndex = new unordered_map< string, vector< unsigned long > >;
 	}
 
 /**
@@ -14,7 +17,7 @@ Tokenizer::Tokenizer ( )
  *
  * @return pointer to unordered_map< string, vector< int>>
  */
-unordered_map< string, vector< int>> *Tokenizer::get ( ) const
+unordered_map< string, vector< unsigned long > > *Tokenizer::get ( ) const
 	{
 	return docIndex;
 	}
@@ -23,27 +26,55 @@ unordered_map< string, vector< int>> *Tokenizer::get ( ) const
  * Executes the Tokenizer
  * Sends tokens to dictionary
  *
- * token -> [offsets]
  * @param originalText
  * @param offset
+ * @param decorator
  */
-void Tokenizer::execute ( string & originalText, int offset )
+unsigned long Tokenizer::execute ( string originalText, unsigned long offset, char decorator )
 	{
-	vector< string > splitText = splitStr( originalText, ' ' );
+	// split by symbols
+	if ( decorator == Tokenizer::URL )
+		{
+		set < char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
+		                          '(', ')', '*', '+', ',', ';', '='};
+
+		return tokenize( splitStr( originalText, split, true ), offset, decorator );
+		}
+	// split by spaces
+	else
+		{
+		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
+		}
+	}
+
+/**
+ * Tokenizes text (titles, body text)
+ *
+ * @param originalText
+ * @param offset
+ * @param decorator
+ */
+unsigned long Tokenizer::tokenize ( vector< string > splitText , unsigned long offset, char decorator )
+	{
 	string processedString = "";
 	for ( int i = 0; i < splitText.size( ); ++i )
 		{
 		// case fold
 		processedString = toLower( splitText[ i ] );
 		//strip all characters
-		processedString = stripStr( processedString );
 
 		if ( !isStopWord( processedString ) )
 			{
 			// stem word
 			processedString = stem.execute( processedString );
-			( *docIndex )[ processedString ].push_back( offset );
-			++offset;
+			if ( decorator != '\0' )
+				{
+				processedString = decorator + processedString;
+				}
+				( *docIndex )[ processedString ].push_back( offset );
+				++offset;
 			}
 		}
+	return offset;
 	}
+

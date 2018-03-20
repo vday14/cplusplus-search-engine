@@ -59,6 +59,12 @@ int  Document::WriteToDocMap ( )
 	}
 
 
+ParsedUrl Document::getUrl ( )
+	{
+	return this->url;
+	}
+
+
 void  Document::PrintDocMap ( string url, int location )
 	{
 	pthread_mutex_lock ( &docMap_mutex );

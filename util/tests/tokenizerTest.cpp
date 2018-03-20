@@ -15,9 +15,9 @@ int main ( )
 
 	cout << "Beginning testing for TokenizerTest" << endl << endl;
 
-	string original = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. "
-			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',"
-			"making it look like readable English. ";
+	string original = "It    is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. "
+			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', "
+			"making it look like readable English.    ";
 
 	testExecute( original );
 
@@ -41,5 +41,9 @@ void testExecute ( string original )
 			}
 		cout << std::endl;
 		}
+
+	assert( dict->size() == 23 );
+	delete dict;
+	dict = nullptr;
 
 	}

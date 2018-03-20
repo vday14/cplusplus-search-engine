@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="eecs398_search"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="StemmerTest">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/StemmerTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 StemmerTest"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="StemmerTest/fast">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/StemmerTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 StemmerTest/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="crawler-parser-test">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/crawler-parser-test.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files/GNUstep/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 crawler-parser-test"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="crawler-parser-test/fast">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/crawler-parser-test.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files/GNUstep/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 crawler-parser-test/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="StringProcessingTest">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/StringProcessingTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 StringProcessingTest"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="StringProcessingTest/fast">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/StringProcessingTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 StringProcessingTest/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ParserTest">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/ParserTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 ParserTest"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ParserTest/fast">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/ParserTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 ParserTest/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TokenizerTest">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/TokenizerTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 TokenizerTest"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TokenizerTest/fast">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/TokenizerTest.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 TokenizerTest/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="URLTEST">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/URLTEST.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 URLTEST"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="URLTEST/fast">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/URLTEST.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 URLTEST/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="search-engine">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/search-engine.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 search-engine"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="search-engine/fast">
+				<Option output="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/search-engine.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 search-engine/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/anvia/Documents/EECS 398/eecs398-search/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/LocalReader.h">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/SocketReader.cpp">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/SocketReader.h">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/StreamReader.h">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/crawler.cpp">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/crawler.h">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/spider.cpp">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/crawler/spider.h">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/main.cpp">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/parser/Parser.cpp">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/parser/Parser.h">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/parser/tests/parserTest.cpp">
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/query/Query.cpp">
+			<Option target="search-engine"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/query/Query.h">
+			<Option target="search-engine"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/search.cpp">
+			<Option target="search-engine"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/shared/Document.cpp">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/shared/Document.h">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/shared/ProducerConsumerQueue.h">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/shared/ThreadClass.h">
+			<Option target="crawler-parser-test"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/shared/url.h">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+			<Option target="URLTEST"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/shared/urlTest.cpp">
+			<Option target="URLTEST"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/Stemmer.cpp">
+			<Option target="StemmerTest"/>
+			<Option target="crawler-parser-test"/>
+			<Option target="StringProcessingTest"/>
+			<Option target="ParserTest"/>
+			<Option target="TokenizerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/Stemmer.h">
+			<Option target="StemmerTest"/>
+			<Option target="crawler-parser-test"/>
+			<Option target="StringProcessingTest"/>
+			<Option target="ParserTest"/>
+			<Option target="TokenizerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/Tokenizer.cpp">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+			<Option target="TokenizerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/Tokenizer.h">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+			<Option target="TokenizerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/stringProcessing.cpp">
+			<Option target="StemmerTest"/>
+			<Option target="crawler-parser-test"/>
+			<Option target="StringProcessingTest"/>
+			<Option target="ParserTest"/>
+			<Option target="TokenizerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/stringProcessing.h">
+			<Option target="StemmerTest"/>
+			<Option target="crawler-parser-test"/>
+			<Option target="StringProcessingTest"/>
+			<Option target="ParserTest"/>
+			<Option target="TokenizerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/tests/stemmerTest.cpp">
+			<Option target="StemmerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/tests/stringProcessingTest.cpp">
+			<Option target="StringProcessingTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/tests/tokenizerTest.cpp">
+			<Option target="TokenizerTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/util.cpp">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/util/util.h">
+			<Option target="crawler-parser-test"/>
+			<Option target="ParserTest"/>
+		</Unit>
+		<Unit filename="C:/Users/anvia/Documents/EECS 398/eecs398-search/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

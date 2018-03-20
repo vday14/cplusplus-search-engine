@@ -89,7 +89,7 @@ int main( int argc, char *argv[] )
 	bool restoreFromLog;
 
 
-	ProducerConsumerQueue < string > urlFrontier;
+	ProducerConsumerQueue < ParsedUrl > urlFrontier;
 
 	cout << "Pushed File\n";
 	char *seeds;
@@ -103,7 +103,9 @@ int main( int argc, char *argv[] )
 		{
 		if ( *seeds == '\n')
 			{
-			urlFrontier.Push(testFile);
+			cout << "Pushing to Url Frontier..." << endl;
+			ParsedUrl url = ParsedUrl(testFile);
+			urlFrontier.Push(url);
 			testFile = "";
 			}
 
@@ -111,6 +113,7 @@ int main( int argc, char *argv[] )
 			testFile.push_back(*seeds);
 		++seeds;
 	}
+	cout << "Pushing to Url Frontier..." << endl;
 	urlFrontier.Push(testFile);
 //urlFrontier.Push("tests/store.html");
 

@@ -15,17 +15,46 @@ class ISROr : publicISR
 
 		ISR ** Terms;
 		unsigned NumberOfTerms;
-		Location GetStartLocation( );//{return nearestStartLocation;}
-		Location GetEndLocation( );// {return nearestEndLocation;}
-		Post*Seek( Location target);
-			// Seek all the ISRs to the first occurrence beginning at// the target location. Return null if there is no match.
-			// The document is the document containing the nearest term.
-		 Post*Next( );//{ Do a next on the nearest term, then return// the new nearest match.}
+		Location GetStartLocation( );
+		Location GetEndLocation( );
+		Location Seek( Location target);
+		ISR* GetCurrentEndDoc( );
+		Location Next( );
+		//{ Do a next on the nearest term, then return// the new nearest match.}
+		//next on nearest term, return nearest temr
 
-		Post*NextDocument( );
-		//{ Seek all the ISRs to the first occurrence just past the end of this document.returnSeek( DocumentEnd->GetEndLocation( ) + 1 );}
+
+		Location NextDocument( );
+		//
+		// 	{ Seek all the ISRs to the first occurrence just past the end of this document.returnSeek( DocumentEnd->GetEndLocation( ) + 1 );}
+
+
+		ISROr(ISR ** InputTerms) : Terms(InputTerms) {
+
+			ISR* currentTerm = *InputTerms;
+			While( *currentTerm )
+				{
+					currentTerm->First();
+					Location currentLocation = currentTerm->currentLocation;
+					if(currentLocation < nearestStartLocation  )
+						{
+						nearestTerm = currentTerm;
+						nearestStartLocation = currentLocation;
+
+						}
+					if(currentLocation > nearestEndLocation)
+						{
+						nearestEndLocation = currentLocation;
+						}
+					++NumberOfTerms;
+					*currentTerm++;
+
+				}
+
+			}
+
 	private:
-		unsigned nearestTerm;
+		ISR* nearestTerm;
 		// nearStartLocation and nearestEndLocation are// the start and end of the nearestTerm.
 		Location nearestStartLocation, nearestEndLocation;
 

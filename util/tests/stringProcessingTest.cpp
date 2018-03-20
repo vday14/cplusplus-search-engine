@@ -58,27 +58,27 @@ int main ( )
 void testFindStr ( string original )
 	{
 	cout << "Testing findStr..." << endl;
-	assert( *findStr( "established", original ) == 'e' );
-	assert( *findStr( "Lorem Ipsum", original ) == 'L' );
+	assert( findStr( "established", original ) == 13 );
+	assert( findStr( "Lorem Ipsum", original ) == 144 );
 
 	string title = "<title> This is a test </title>";
-	auto word = findStr( "<title>", title );
-	assert( *word == '<' );
-	auto titleIt = title.begin( );
-	while ( word != title.end( ) && titleIt != title.end( ) )
+	unsigned long i = findStr( "<title>", title );
+	assert( title[ i ] == '<' );
+	int j = 0;
+	while ( i < title.size( ) && j < title.size( ) )
 		{
-		assert( *word == *titleIt );
-		++word;
-		++titleIt;
+		assert( title[ i ] == title[ j ] );
+		++i;
+		++j;
 		}
 
-	auto word1 = findStr( "</title>", title );
-	assert( *word1 == '<' && *( word1 + 1 ) == '/' );
-	assert( *findStr( "</title>", original ) == '\0' );
-	assert( *findStr( "orange", original ) == '\0' );
-	assert( *findStr( "orange", "apple" ) == '\0' );
-	auto word2 = findStr( "bird", "bigbird" );
-	assert( *word2 == 'b' && *( word2 + 1 ) == 'i' && *( word2 + 2 ) == 'r' );
+	unsigned long word1 = findStr( "</title>", title );
+	assert( title[ word1 ] == '<' && title[ word1 + 1 ] == '/' );
+	assert( findStr( "</title>", original ) == original.size( ) );
+	assert( findStr( "orange", original ) == original.size( ) );
+	assert( findStr( "orange", "apple" ) == 5 );
+	unsigned long word2 = findStr( "bird", "bigbird" );
+	assert( word2 == 3 );
 
 	cout << "testFindStr passed" << endl << endl;
 
@@ -92,15 +92,15 @@ void testFindNext ( )
 	string hello = "hello";
 	string blank = "";
 
-	assert ( *findNext( "race", racecar.begin( ) ) == 'r' );
-	assert ( *findNext( "race", racecar.begin( ) + 4 ) == '\0' );
-	assert ( *findNext( "car", racecar.begin( ) + 4 ) == 'c' );
+	assert ( findNext( "race", 0, racecar ) == 0 );
+	assert ( findNext( "race", 4, racecar ) == racecar.size( ) );
+	assert ( findNext( "car", 4, racecar ) == 4 );
 
-	assert ( *findNext( "hello", hello.begin( ) ) == 'h' );
-	assert ( *findNext( "ello", hello.begin( ) ) == 'e' );
-	assert ( *findNext( "ello", hello.begin( ) + 2 ) == '\0' );
+	assert ( findNext( "hello", 0, hello ) == 0 );
+	assert ( findNext( "ello", 0, hello ) == 1 );
+	assert ( findNext( "ello", 2, hello ) == hello.size( ) );
 
-	assert ( *findNext( "", blank.begin( ) ) == '\0' );
+	assert ( findNext( "", 0, blank ) == blank.size( ) );
 
 	cout << "testFindNext passed" << endl << endl;
 
@@ -114,19 +114,19 @@ void testFindPrev ( )
 	string hello = "hello";
 	string blank = "";
 
-	assert ( *findPrev( "race", racecar.begin( ), racecar.begin( ) ) == '\0' );
-	assert ( *findPrev( "race", racecar.begin( ) + 4, racecar.begin( ) ) == 'r' );
-	assert ( *findPrev( "car", racecar.begin( ) + 4, racecar.begin( ) ) == '\0' );
-	assert ( *findPrev( "car", racecar.begin( ) + 7, racecar.begin( ) ) == 'c' );
+	assert ( findPrev( "race", 0, racecar ) == racecar.size( ) );
+	assert ( findPrev( "race", 4, racecar ) == 0 );
+	assert ( findPrev( "car", 4, racecar ) == racecar.size( ) );
+	assert ( findPrev( "car", 7, racecar ) == 4 );
 
-	assert ( *findPrev( "hello", hello.begin( ), hello.begin( ) ) == '\0' );
-	assert ( *findPrev( "ello", hello.begin( ) + 3, hello.begin( ) ) == '\0' );
-	assert ( *findPrev( "ello", hello.begin( ) + 5, hello.begin( ) ) == 'e' );
+	assert ( findPrev( "hello", 0, hello ) == hello.size( ) );
+	assert ( findPrev( "ello", 3, hello ) == hello.size( ) );
+	assert ( findPrev( "ello", 5, hello ) == 1 );
 
-	assert ( *findPrev( "", blank.begin( ), blank.begin( ) ) == '\0' );
+	assert ( findPrev( "", 0, blank ) == blank.size( ) );
 
 	string fall = "fall";
-	assert ( *findPrev( "bl", fall.begin( ) + 3, fall.begin( ) ) == '\0' );
+	assert ( findPrev( "bl", 3, fall ) == fall.size( ) );
 
 	cout << "testFindPrev passed" << endl << endl;
 
@@ -136,11 +136,11 @@ void testSplitStr ( string original )
 	{
 	cout << "Testing splitStr..." << endl;
 
-	vector< string > vec = splitStr( original, ' ' );
+	vector< string > vec = splitStr( original, ' ', true );
 	assert( vec.size( ) == 53 );
 
 	string word = "hello\ngoodbye";
-	vec = splitStr( word, '\n' );
+	vec = splitStr( word, '\n', true );
 	assert( vec.size( ) == 2 );
 	assert( vec[ 0 ] == "hello" && vec[ 1 ] == "goodbye" );
 
@@ -228,12 +228,6 @@ void testSubStr ( )
 	assert ( subStr( blank, 0, 1 ) == " " );
 	assert ( subStr( blank, 0, 0 ) == "" );
 	assert ( subStr( blank2, 0, 0 ) == "" );
-
-	assert ( subStr( hello.begin( ), hello.end( ) ) == "hello" );
-	assert ( subStr( hello.begin( ) + 4, hello.begin( ) + 5 ) == "o" );
-	assert ( subStr( hello.begin( ), hello.begin( ) + 1 ) == "h" );
-	assert ( subStr( goodbye.begin( ) + 1, goodbye.begin( ) + 3 ) == "oo" );
-
 
 	cout << "testSubStrpassed" << endl << endl;
 

@@ -1,5 +1,6 @@
 
 #pragma once
+
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -60,6 +61,11 @@ public:
 
 
 
+	// decorators
+	static const char TITLE = '#';
+	static const char ANCHOR = '@';
+	static const char URL = '$';
+
 	/**
  	* Tokenizer Cstor
  	*/
@@ -70,19 +76,41 @@ public:
 	 *
  	* @return pointer to unordered_map< string, vector< int>>
  	*/
+<<<<<<< HEAD
 	unordered_map< string, vector<wordData>> *get ( ) const;
+=======
+	unordered_map< string, vector< unsigned long > > *get ( ) const;
+>>>>>>> 02e3c89768ec57f7ea0c16a6fdf7e3d17c3d07bb
 
 	/**
 	 * Executes the Tokenizer
 	 * Sends tokens to dictionary
 	 *
-	 * token -> [offsets]
+	 *
 	 * @param originalText
 	 * @param offset
+	 * @param decorator
 	 */
-	void execute ( string &originalText, int offset );
+	unsigned long execute ( string originalText, unsigned long offset, char decorator = '\0' );
 
+private:
+
+	unordered_map< string, vector< unsigned long > > *docIndex;
+	Stemmer stem;
+
+	/**
+	 * Tokenizes text (titles, body text)
+	 *
+	 * @param originalText
+	 * @param offset
+	 * @param decorator
+	 */
+	unsigned long tokenize ( vector< string > splitText, unsigned long offset, char decorator );
+
+<<<<<<< HEAD
 	private:
         unordered_map< string, vector<wordData>> *docIndex;
 		Stemmer stem;
+=======
+>>>>>>> 02e3c89768ec57f7ea0c16a6fdf7e3d17c3d07bb
 	};
