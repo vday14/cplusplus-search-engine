@@ -60,6 +60,15 @@ void Spider::FuncToRun()
 
 				StreamReader *reader = request( currentUrl );
 				size_t docID = hash(currentUrl.CompleteUrl);
+				if(this->duplicateUrlMap->find(docID) != this->duplicateUrlMap->end()){
+					continue;
+					}
+				else
+					{
+					this->duplicateUrlMap->insert(std::make_pair(docID, 1));
+					}
+
+
 				string localPath = util::GetCurrentWorkingDir( );
 				// don't include debug in file path
 				auto debug = findPrev( "cmake-build-debug", localPath.begin( ) + localPath.size( ) - 1, localPath.begin( ) );
@@ -75,6 +84,8 @@ void Spider::FuncToRun()
 				auto dict = parser.execute ( &document );
 				
 				cout << "docID: " << docID << endl;
+
+
 				for ( auto it = dict->begin( ); it != dict->end( ); it++ )
 					{
 					cout << it->first << " : ";
@@ -141,6 +152,8 @@ bool Spider::writeDocToDisk(ParsedUrl url)
 bool Spider::shouldURLbeCrawled( ParsedUrl url )
 	{
 	//search for url in doc cache
+
+
 	auto locationOnDisk = this->docMapLookup->find( url.CompleteUrl );
 
 	//bool protectedByRobots = checkRobots( url );

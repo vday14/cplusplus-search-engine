@@ -90,6 +90,8 @@ int main( int argc, char *argv[] )
 
 
 	ProducerConsumerQueue < ParsedUrl > urlFrontier;
+	unordered_map < size_t, int > *duplicateUrlMap = new unordered_map < size_t, int >( );
+
 
 	cout << "Pushed File\n";
 	char *seeds;
@@ -123,7 +125,7 @@ unordered_map < string, int > *docMapLookUp = new unordered_map < string, int >(
 
 Crawler crawler( mode, &urlFrontier );
 
-crawler.SpawnSpiders(numberOfSpiders , docMapLookUp);
+crawler.SpawnSpiders(numberOfSpiders , docMapLookUp, duplicateUrlMap);
 
 crawler.
 
