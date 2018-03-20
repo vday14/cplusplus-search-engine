@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include "../ISRWord.h"
-#include "../ISRWord.cpp"
 
 
 using namespace std;

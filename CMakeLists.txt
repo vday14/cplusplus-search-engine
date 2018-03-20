@@ -54,7 +54,7 @@ add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
 add_executable(search-engine search.cpp query/Query.cpp)
 
-add_executable(ISRWord-tests util/util.cpp constraintSolver/ISRWord.cpp constraintSolver/tests/ISRWordTests.cpp )
+add_executable(ISRWord-tests constraintSolver/ISRWord.cpp constraintSolver/tests/ISRWordTests.cpp )
 
 find_package(OpenSSL REQUIRED)
 
