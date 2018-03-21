@@ -320,7 +320,7 @@ void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned lon
 
 	else if ( url != "" )
 		{
-			pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
+			pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), false );
 		}
 		// check if line is title
 		// check if line is title

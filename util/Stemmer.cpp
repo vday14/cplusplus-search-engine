@@ -18,14 +18,17 @@ Stemmer::Stemmer ( )
  */
 std::string Stemmer::execute ( std::string word )
 	{
-	word = step1a( word );
-	word = step1b( word );
-	word = step1c( word );
-	word = step2( word );
-	word = step3( word );
-	word = step4( word );
-	word = step5a( word );
-	word = step5b( word );
+	if(!word.empty())
+		{
+		word = step1a( word );
+		word = step1b( word );
+		word = step1c( word );
+		word = step2( word );
+		word = step3( word );
+		word = step4( word );
+		word = step5a( word );
+		word = step5b( word );
+		}
 	return word;
 	}
 
@@ -234,7 +237,7 @@ std::string Stemmer::step1a ( std::string word )
 	{
 
 	// check S at end
-	if ( word[ word.size( ) - 1 ] == 's' )
+	if ( word[ word.size( ) - 1 ] == 's' && word.size() != 1)
 		{
 		string wordStem = word;
 

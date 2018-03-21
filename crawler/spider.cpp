@@ -79,7 +79,7 @@ void Spider::run ( )
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while ( cond < true )
+	while ( cond < 50 )
 		{
 		ParsedUrl currentUrl = getUrl( );
 		size_t docID = hash( currentUrl.CompleteUrl );
@@ -89,10 +89,11 @@ void Spider::run ( )
 			bool success = reader->request( );
 			if ( success )
 				{
-				DocIndex *dict = parser.execute( reader );
+				cout << "Parsing " << currentUrl.CompleteUrl;
+ 				DocIndex *dict = parser.execute( reader );
 				IndexerQueue->Push( dict );
 
-				// printDocIndex(dict);
+				 printDocIndex(dict);
 				reader->closeReader( );
 				//delete dict;
 

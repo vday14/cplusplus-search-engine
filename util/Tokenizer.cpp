@@ -41,6 +41,7 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 		                      '(', ')', '*', '+', ',', ';', '=' };
 
 		return tokenize( splitStr( originalText, split, true ), offset, decorator );
+
 		}
 		// split by spaces
 	else
