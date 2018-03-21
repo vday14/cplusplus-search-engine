@@ -7,6 +7,8 @@ bool HttpReader::request ( )
 	{
 	try
 		{
+
+
 		sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 		assert( sock != -1 );
 
@@ -15,6 +17,10 @@ bool HttpReader::request ( )
 		struct hostent *host = gethostbyname( url.Host );
 		if ( host == nullptr )
 			throw HTTPConnectionError;
+
+		if( strcmp(url.Service, "http") != 0)
+			throw HTTPConnectionError;
+
 		assert( host );
 
 		struct sockaddr_in address;

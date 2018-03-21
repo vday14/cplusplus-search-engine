@@ -163,7 +163,7 @@ string Parser::extractUrl ( string html )
 				closeUrl = closeTag;
 				}
 
-			while ( foundHttp != closeUrl && html[ foundHttp ] != '\n' )
+			while ( foundHttp != closeUrl && foundHttp < html.size() && html[ foundHttp ] != '\n' )
 				{
 				url.push_back( html[ foundHttp ] );
 				++foundHttp;

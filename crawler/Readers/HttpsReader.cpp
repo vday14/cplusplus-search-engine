@@ -12,6 +12,9 @@ bool HttpsReader::request ( )
 		if ( host == nullptr )
 			throw HTTPSconnectionError;
 
+		if( strcmp(url.Service, "https") != 0)
+			throw HTTPSconnectionError;
+
 		assert( host );
 		struct sockaddr_in address;
 		memset( &address, 0, sizeof( address ) );
