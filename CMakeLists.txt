@@ -106,6 +106,7 @@ add_executable(ISRWord-tests
         util/util.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/tests/ISRWordTests.cpp
+        constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 

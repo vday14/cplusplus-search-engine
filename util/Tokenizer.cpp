@@ -39,7 +39,9 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 		{
 		set< char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
 		                      '(', ')', '*', '+', ',', ';', '=' };
-
+        string codedURL = "=";
+        codedURL += originalText;
+        (*docIndex)[codedURL].push_back(0);
 		return tokenize( splitStr( originalText, split, true ), offset, decorator );
 
 		}
