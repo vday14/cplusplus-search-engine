@@ -144,6 +144,12 @@ int main ( int argc, char *argv[] )
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );
 
+	string aa;
+	cin >> aa;
+	if(aa == "q") {
+		return 0;
+	}
+
 
 	auto f = urlFrontier->Pop( );
 	int x = 0;

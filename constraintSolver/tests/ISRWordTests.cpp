@@ -3,20 +3,36 @@
 //
 
 #include <iostream>
+#include <set>
+#include "../../indexer/DocumentEnding.h"
 #include "../ISRWord.h"
+#include "../ISREndDoc.h"
 
 
 using namespace std;
 
 int main ( )
-	{
-	char *w = new char[10];
-	strcpy( w, "hello" );
-	ISRWord word = ISRWord( w );
+{
+    char* query;
+    ISRWord queryWord("iphone");
+    ISREndDoc endDocs;
+    vector<size_t> locations;
+    vector<DocumentEnding> docEnds;
+    set<string> urls;
+    while(queryWord.getCurrentLocation() != 9999999999999) {
+        locations.push_back(queryWord.next());
+    }
+    while(endDocs.next().url != "aaa") {
+        for(auto locs : locations) {
+            if(locs < endDocs.getCurrentDoc().docEndPosition &&
+               locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
+                urls.insert(endDocs.getCurrentDoc().url);
+            }
+        }
 
-	while ( 1 )
-		{
-		cout << word.next( ) << endl;
-		}
-	return 0;
-	}
+    }
+    for(auto urrl : urls) {
+        cout << urrl << endl;
+    }
+    return 0;
+}

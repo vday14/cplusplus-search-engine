@@ -72,7 +72,7 @@ vector<size_t> ISRWord::getSeekContents(string fileName) {
 
 void ISRWord::getChunks() {
 
-    listOfChunks = getSeekContents("index-test-files/twitter/index-master.txt");
+    listOfChunks = getSeekContents(util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index-master.txt");
 //    int chunkFile = open("index-test-files/twitter/index-master.txt", O_RDONLY);
 //    ssize_t chunkFileSize = FileSize(chunkFile);
 //    char* chunkMemMap = (char*) mmap(nullptr, chunkFileSize, PROT_READ, MAP_PRIVATE, chunkFile, 0);
@@ -117,16 +117,12 @@ void ISRWord::getChunks() {
 
 Location ISRWord::first ( )
 	{
-	if ( listOfChunks.size( ) <= currentChunk )
-		{
-		exit( 0 );
-		}
 	string currentChunkSeekFileLocation =
-			util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
 			"-seek.txt";
 	vector< size_t > location = getSeekContents( currentChunkSeekFileLocation );
 	string currentChunkFileLocation =
-			util::GetCurrentWorkingDir( ) + "/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
 			".txt";
 	int currentChunkFile = open( currentChunkFileLocation.c_str( ), O_RDONLY );
 	ssize_t currentChunkFileSize = FileSize( currentChunkFile );
@@ -156,8 +152,14 @@ Location ISRWord::next ( )
 	if ( *currentMemMap == '\n' )
 		{
 		currentChunk++;
-		currentLocation = first( );
-		}
+        if(listOfChunks.size( ) <= currentChunk)
+            {
+            currentLocation = 9999999999999;
+            return currentLocation;
+            }
+
+            currentLocation = first( );
+        }
 	else
 		{
 		string delta = "";
@@ -172,6 +174,11 @@ Location ISRWord::next ( )
 	return currentLocation;
 	}
 
+Location ISRWord::getCurrentLocation()
+    {
+    return currentLocation;
+    }
+
 //look thru each chunk
 //check if absolute position at offset in chunk is less then chunk,
 //check seek lookup table to find if offset+absulte is bigger than target
@@ -184,7 +191,7 @@ Location ISRWord::seek( Location target ) {
             if(entry.realLocation < target) {
                 best = entry;
             } else {
-                string currentChunkFileLocation = "index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
+                string currentChunkFileLocation = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
                 int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
                 ssize_t currentChunkFileSize = FileSize(currentChunkFile);
                 currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
