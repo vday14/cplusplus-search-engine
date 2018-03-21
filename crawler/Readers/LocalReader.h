@@ -10,7 +10,7 @@ class LocalReader : public StreamReader
 	{
 public:
 
-	LocalReader ( string filename ) : fileName( filename), test_url(filename)
+	LocalReader ( string filename ) : fileName( filename)
 		{ }
 
 	bool request ( );

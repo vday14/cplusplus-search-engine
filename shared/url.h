@@ -29,6 +29,9 @@ private:
 	double Score;
 
 public:
+
+	ParsedUrl() {}
+
 	ParsedUrl ( string input_url )
 		{
 		// Assumes url points to static text but

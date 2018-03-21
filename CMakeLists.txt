@@ -7,6 +7,20 @@ add_executable(QueueTest
         shared/ProducerConsumerQueue.h
         shared/ProducerConsumerQueue_test.cpp)
 
+add_executable(Parser2Test
+        parser/Parser.cpp
+        shared/Document.cpp
+        shared/url.h
+        util/util.cpp
+        util/Tokenizer.cpp
+        shared/ProducerConsumerQueue.h
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        parser/tests/parserTest2.cpp
+        crawler/Readers/StreamReader.h
+        crawler/Readers/LocalReader.cpp
+        )
+
 add_executable(crawler-parser-test
         main.cpp
         shared/ProducerConsumerQueue.h
@@ -112,6 +126,9 @@ add_executable(ISRWord-tests
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
+
+target_link_libraries(Parser2Test OpenSSL::SSL)
+
 
 target_link_libraries(isolated-integration OpenSSL::SSL pthread)
 
