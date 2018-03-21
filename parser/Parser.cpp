@@ -43,7 +43,6 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 		{
 		offsetAnchor = tokenizer->execute( anchorText, offsetAnchor, Tokenizer::ANCHOR );
 		}
-
 	// tokenize url
 	offsetURL = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offsetURL, Tokenizer::URL );
 

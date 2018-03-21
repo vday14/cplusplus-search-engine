@@ -1,6 +1,3 @@
-//
-// Created by Ben Bergkamp on 3/13/18.
-//
 
 #include "HttpReader.h"
 
@@ -91,7 +88,9 @@ bool HttpReader::checkStatus ( )
 
 	if ( strncmp( buff, "HTTP/1.1 200", 11 ) == 0 )
 		return true;
-	else if ( strncmp( buff, "HTTP/1.1 302", 11 ) == 0 )
+	else if(strncmp(buff, "HTTP/1.1 400", 11 ) == 0)
+		return true;
+	else if(strncmp(buff, "HTTP/1.1 302", 11 ) == 0)
 		{
 		cerr << "URL REDIRECTION" << endl;
 		return false;

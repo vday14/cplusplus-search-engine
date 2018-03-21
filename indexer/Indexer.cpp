@@ -15,50 +15,45 @@ void Indexer::run ( )
 	{
 
 	bool cond = true;
-	while ( cond )
-		{
-		DocIndex *dictionary = pointerToDictionaries->Pop( );
-		cout << "INDEX GOT A NEW dnary" << endl;
-		DocumentEnding docEnd = DocumentEnding( );
-		size_t indexedCount = 0;
-		currentBlockNumberDocs++;
 
-		for ( auto word : *dictionary )
-			{
-			if ( word.first.at( 0 ) == '=' )
-				{
-				docEnd.url = word.first.substr( 1, word.first.length( ) );
-				continue;
-				}
+    while(cond) {
+        DocIndex * dictionary = pointerToDictionaries->Pop();
+		 cout << "INDEX GOT A NEW dnary" << endl;
+        DocumentEnding docEnd = DocumentEnding();
+        size_t indexedCount = 0;
+        currentBlockNumberDocs++;
 
-			indexedCount += word.second.size( );
-			currentBlockNumberWords += word.second.size( );
+        for(auto word : *dictionary) {
+            if(word.first.at(0) == '=') {
+                docEnd.url = word.first.substr(1, word.first.length());
+                continue;
+            }
 
-			for ( auto location : word.second )
-				{
-				masterDictionary[ word.first ].push_back( currentlyIndexed + location );
-				}
-			}
+            indexedCount += word.second.size();
+            currentBlockNumberWords += word.second.size();
 
-		currentlyIndexed += indexedCount;
-		docEnd.docEndPosition = currentlyIndexed;
-		docEnd.docNumWords = indexedCount;
-		docEndings.push_back( docEnd );
+            for(auto location : word.second) {
+                masterDictionary[word.first].push_back(currentlyIndexed + location);
+            }
+        }
 
-		if ( currentBlockNumberWords >= 30 )
-			{
-			save( );
-			reset( );
-			}
-		}
+        currentlyIndexed += indexedCount;
+        docEnd.docEndPosition = currentlyIndexed;
+        docEnd.docNumWords = indexedCount;
+        docEndings.push_back(docEnd);
 
-	save( );
-	reset( );
-	saveChunkDictionary( );
-	}
+        if(currentBlockNumberWords >= 100000) {
+            save();
+            reset();
+        }
+    }
 
-void Indexer::verbose_run ( )
-	{
+    save();
+    reset();
+    saveChunkDictionary();
+}
+
+void Indexer::verbose_run() {
 	/*
     while(pointerToDictionaries.Size() != 0) {
 		 	DocIndex *pointerToDictionaries.Pop();
