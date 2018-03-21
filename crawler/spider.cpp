@@ -77,7 +77,7 @@ void Spider::run()
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while ( cond < 25 )
+	while ( cond < 50 )
 		{
 		ParsedUrl currentUrl = getUrl();
 		size_t docID = hash(currentUrl.CompleteUrl);

@@ -3,7 +3,6 @@
 Indexer::Indexer(ProducerConsumerQueue < DocIndex* > *doc_index_queue_in) : pointerToDictionaries( doc_index_queue_in ){
     currentFile = 0;
     currentlyIndexed = 0;
-
     currentBlockNumberWords = 0;
     currentBlockNumberDocs = 0;
 
@@ -38,7 +37,7 @@ void Indexer::run() {
         docEnd.docNumWords = indexedCount;
         docEndings.push_back(docEnd);
 
-        if(currentBlockNumberWords >= 100000) {
+        if(currentBlockNumberWords >= 500) {
             save();
             reset();
         }
