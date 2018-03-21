@@ -34,17 +34,17 @@ private:
 
 public:
 
-	Document( ParsedUrl url_in ) : url((url_in)), docString( nullptr )
+	Document ( ParsedUrl url_in ) : url( ( url_in ) ), docString( nullptr )
 		{ }
 
-	Document( ParsedUrl url_in, char *docStringIn ) : url((url_in)), docString( docStringIn )
+	Document ( ParsedUrl url_in, char *docStringIn ) : url( ( url_in ) ), docString( docStringIn )
 		{ }
 
-	string DocToString();
+	string DocToString ( );
 
-	int WriteToDocMap();
+	int WriteToDocMap ( );
 
 	ParsedUrl getUrl ( );
 
-	static void PrintDocMap( string url, int location );
+	static void PrintDocMap ( string url, int location );
 	};

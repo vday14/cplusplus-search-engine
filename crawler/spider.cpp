@@ -10,26 +10,26 @@
 #include "Readers/LocalReader.h"
 #include "../parser/Parser.h"
 
-using DocIndex = const unordered_map < string, vector < unsigned long > >;
+using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 // FIND A BETTER PLACE TO PUT THIS FUNCTION
 
-StreamReader *SR_factory( ParsedUrl url, string mode )
+StreamReader *SR_factory ( ParsedUrl url, string mode )
 	{
 	string localFile;
 
 	StreamReader *newReader = nullptr;
 	if ( mode == "local" )
 		{
-		newReader = new LocalReader( url.CompleteUrl );
+		newReader = new LocalReader( string(url.CompleteUrl, strlen(url.CompleteUrl) ) );
 		}
 	else if ( mode == "web" )
 		{
-		if ( !strcmp( url.Service, "http" ))
+		if ( !strcmp( url.Service, "http" ) )
 			{
 			newReader = new HttpReader( url );
 			}
-		else if ( !strcmp( url.Service, "https" ))
+		else if ( !strcmp( url.Service, "https" ) )
 			{
 			newReader = new HttpsReader( url );
 			}
@@ -42,7 +42,7 @@ StreamReader *SR_factory( ParsedUrl url, string mode )
 	return newReader;
 	}
 
-void printDocIndex( DocIndex *dict )
+void printDocIndex ( DocIndex *dict )
 	{
 	for ( auto it = dict->begin( ); it != dict->end( ); it++ )
 		{
@@ -58,32 +58,32 @@ void printDocIndex( DocIndex *dict )
 	}
 
 
-size_t Spider::hash( const char *s )
+size_t Spider::hash ( const char *s )
 	{
 	// http://www.cse.yorku.ca/~oz/hash.html
 	size_t h = 5381;
 	int c;
-	while ((c = *s++))
-		h = ((h << 5) + h) + c;
+	while ( ( c = *s++ ) )
+		h = ( ( h << 5 ) + h ) + c;
 	return h;
 	}
 
 
-ParsedUrl Spider::getUrl()
+ParsedUrl Spider::getUrl ( )
 	{
 	return urlFrontier->Pop( );
 	}
 
-void Spider::run()
+void Spider::run ( )
 	{
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while ( cond < 50 )
+	while ( cond < 25 )
 		{
 		ParsedUrl currentUrl = getUrl( );
 		size_t docID = hash( currentUrl.CompleteUrl );
-		if ( shouldURLbeCrawled( docID ))
+		if ( shouldURLbeCrawled( docID ) )
 			{
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
 			bool success = reader->request( );
@@ -122,7 +122,7 @@ Takes a URL. Hashes it. Checks if the url is in the docMapLookup. If it is, chec
  * Takes in a parsed url,  creates a document object, writes information about the document to disk
  *  returns the begining position of the document on disk, stores that into the in memory lookup hash table
 */
-bool Spider::writeDocToDisk( ParsedUrl url )
+bool Spider::writeDocToDisk ( ParsedUrl url )
 	{
 	Document d( url );
 	int resultPosition = d.WriteToDocMap( );
@@ -131,7 +131,7 @@ bool Spider::writeDocToDisk( ParsedUrl url )
 		return false;
 		}
 
-	this->docMapLookup->insert( std::pair < string, int >( url.CompleteUrl, resultPosition ));
+	this->docMapLookup->insert( std::pair< string, int >( url.CompleteUrl, resultPosition ) );
 	for ( auto it = this->docMapLookup->begin( ); it != this->docMapLookup->end( ); ++it )
 		{
 		std::cout << it->first << " => " << it->second << '\n';
@@ -147,16 +147,16 @@ bool Spider::writeDocToDisk( ParsedUrl url )
  * and returns true
  */
 
-bool Spider::shouldURLbeCrawled( size_t docID )
+bool Spider::shouldURLbeCrawled ( size_t docID )
 	{
 
-	if ( this->duplicateUrlMap->find( docID ) != this->duplicateUrlMap->end( ))
+	if ( this->duplicateUrlMap->find( docID ) != this->duplicateUrlMap->end( ) )
 		{
 		return false;
 		}
 	else
 		{
-		this->duplicateUrlMap->insert( std::make_pair( docID, 1 ));
+		this->duplicateUrlMap->insert( std::make_pair( docID, 1 ) );
 		return true;
 		}
 	}

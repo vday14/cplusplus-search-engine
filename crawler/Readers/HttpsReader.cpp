@@ -1,12 +1,9 @@
-//
-// Created by Ben Bergkamp on 3/13/18.
-//
 
 #include "HttpsReader.h"
 
 std::runtime_error HTTPSconnectionError( "Error connecting HTTPS to url" );
 
-bool HttpsReader::request()
+bool HttpsReader::request ( )
 	{
 	try
 		{
@@ -17,7 +14,7 @@ bool HttpsReader::request()
 
 		assert( host );
 		struct sockaddr_in address;
-		memset( &address, 0, sizeof( address ));
+		memset( &address, 0, sizeof( address ) );
 		address.sin_family = AF_INET;
 		address.sin_port = htons( 443 );
 		memcpy( &address.sin_addr, host->h_addr, host->h_length );
@@ -29,14 +26,14 @@ bool HttpsReader::request()
 
 		// Connect the socket to the host address.
 
-		int connectResult = connect( sock, (struct sockaddr *) &address,
-											  sizeof( address ));
+		int connectResult = connect( sock, ( struct sockaddr * ) &address,
+		                             sizeof( address ) );
 		assert( connectResult == 0 );
 
 		// Build an SSL layer and set it to read/write
 		// to the socket we've connected.
 
-		ctx = SSL_CTX_new( SSLv23_method( ));
+		ctx = SSL_CTX_new( SSLv23_method( ) );
 
 		assert( ctx );
 		ssl = SSL_new( ctx );
@@ -60,38 +57,38 @@ bool HttpsReader::request()
 		getMessage += "\r\nConnection: close\r\n\r\n";
 
 		cout << getMessage << endl;
-		SSL_write( ssl, getMessage.c_str( ), getMessage.length( ));
+		SSL_write( ssl, getMessage.c_str( ), getMessage.length( ) );
 
 		bool isSuccess = checkStatus( );
 		return isSuccess;
 		}
-	catch (std::exception &e)
+	catch ( std::exception & e )
 		{
 		cerr << "Error trying to connect to Host" << endl;
 		return false;
 		}
 	}
 
-bool HttpsReader::fillBuffer( char *buf, size_t buf_size )
+bool HttpsReader::fillBuffer ( char *buf, size_t buf_size )
 	{
-	return (SSL_read( ssl, buf, buf_size ) == buf_size);
+	return ( SSL_read( ssl, buf, buf_size ) == buf_size );
 	}
 
-string HttpsReader::PageToString()
+string HttpsReader::PageToString ( )
 	{
 
 	string temp = "";
 	char buf[10240];
 	int bytes = 0;
 
-	while ((bytes = SSL_read( ssl, buf, 10240 )) > 0 )
+	while ( ( bytes = SSL_read( ssl, buf, 10240 ) ) > 0 )
 		{
 		temp += string( buf, bytes );
 		}
 	return temp;
 	}
 
-bool HttpsReader::checkStatus()
+bool HttpsReader::checkStatus ( )
 	{
 	string code = "";
 	char buff[12];
@@ -102,25 +99,25 @@ bool HttpsReader::checkStatus()
 
 	if ( strncmp( buff, "HTTP/1.1 200", 11 ) == 0 )
 		return true;
-	else if ( strncmp( buff, "HTTP/1.1 400", 11 ) == 0 )
-		return true;
-	else if ( strncmp( buff, "HTTP/1.1 302", 11 ) == 0 )
-		{
-		cerr << "URL REDIRECTION" << endl;
-		return false;
-		}
+	 else if(strncmp(buff, "HTTP/1.1 400", 11 ) == 0)
+		 return true;
+	 else if(strncmp(buff, "HTTP/1.1 302", 11 ) == 0)
+		 {
+		 cerr << "URL REDIRECTION" << endl;
+		 return false;
+		 }
 	cerr << "Bad Request of TYPE::  " << buff << endl;
 	return false;
 
 	}
 
 
-ParsedUrl HttpsReader::getUrl()
+ParsedUrl HttpsReader::getUrl ( )
 	{
 	return url;
 	}
 
-void HttpsReader::closeReader()
+void HttpsReader::closeReader ( )
 	{
 
 	SSL_shutdown( ssl );

@@ -11,7 +11,8 @@
 using namespace std;
 using json = nlohmann::json;
 
-int main() {
+int main ( )
+	{
 //    Indexer indexer = Indexer();
 //
 //    vector<ifstream*> files;
@@ -65,125 +66,162 @@ int main() {
 //        }
 //    }
 //    indexer.run();
-    string query;
-    cout << "What is your query?" << endl;
-    getline(cin, query);
-    istringstream ss(query);
-    vector<string> queryTokens;
-    while (ss >> query) {
-        queryTokens.push_back(query);
-    }
-    vector<vector<size_t> > seekLocations;
-    vector<size_t> docEndingLocations;
-    vector<vector<DocumentEnding> > docEndings(9);
-    // open up seek files
-    for(int i = 0; i < 9; i++) {
-        string seekFileName = "index" + to_string(i) + "-seek.txt";
-        vector<size_t> locs;
-        int seekFile = open(seekFileName.c_str(), O_RDONLY);
-        char character[1];
-        string word;
-        string seek;
-        bool midword = false;
-        bool midseek = false;
-        // one char buffer haha use a mem map
-        while(read(seekFile, character, 1)) {
-            if(isalpha(character[0])) {
-                midword = true;
-                word += character[0];
-            } else if(midword) {
-                midword = false;
-            }
-            if(isnumber(character[0])) {
-                midseek = true;
-                seek += character[0];
-            } else if(midseek) {
-                for(auto query : queryTokens) {
-                    if(query == word) {
-                        locs.push_back(stoll(seek));
-                    }
-                }
-                if(word == "docEnding") {
-                    docEndingLocations.push_back(stoll(seek));
-                }
-                midseek = false;
-                word = "";
-                seek = "";
-            }
-        }
-        seekLocations.push_back(locs);
-    }
-    cout << endl << "These are the locations in the indexes where we can find respective words." << endl;
-    for(auto fileLoc : seekLocations) {
-        bool hasLoc = false;
-        for (auto loc : fileLoc) {
-            cout << loc << " ";
-            hasLoc = true;
-        }
-        if(hasLoc) cout << endl;
-    }
-    // open up indexes and get locs and doc ends
-    vector<vector<size_t > > locations(queryTokens.size());
-    cout << endl << "These are some of the locations of those words" << endl;
-    for(int i = 0; i < 9; i++) {
-        string indexFileName = "index" + to_string(i) + ".txt";
-        int indexFile = open(indexFileName.c_str(), O_RDONLY);
-        char buffer[1024];
-        cout << "\tin file " << i << ": " << endl;
-        for(int j = 0; j < seekLocations[i].size(); j++) {
-            cout << "\t\tfor word " << queryTokens[j % seekLocations.size()] << ": ";
-            lseek(indexFile, seekLocations[i][j], SEEK_SET);
-            read(indexFile, buffer, 1024);
-            string loc = "";
-            bool midloc = false;
-            for(int k = 0; k < 1024; k++) {
-                if(buffer[k] == '\n') {
-                    break;
-                }
-                if(buffer[k] == ' ') {
-                    if(midloc) {
-                        locations[j % seekLocations.size()].push_back(stoll(loc));
-                        cout << loc << " ";
-                        loc = "";
-                    }
-                    midloc = false;
-                } else if(buffer[k]) {
-                    midloc = true;
-                    loc += buffer[k];
-                }
-            }
-            cout << endl;
-        }
-        char docEndBuffer[1];
-        lseek(indexFile, docEndingLocations[i], SEEK_SET);
-        DocumentEnding ending;
-        string input;
-        enum ENDING_PART {
-            URL, ENDING_LOC, SIZE
-        };
-        ENDING_PART part = URL;
-        while(read(indexFile, docEndBuffer, 1)) {
-            if(docEndBuffer[0] == '[') {
-                ending = DocumentEnding();
-            } else if(docEndBuffer[0] != ' ' && docEndBuffer[0] != ',' && docEndBuffer[0] != ']' && docEndBuffer[0] != 'n') {
-                input += docEndBuffer[0];
-            } else if(docEndBuffer[0] == ',') {
-                if(part == URL) {
-                    ending.url = input;
-                    part = ENDING_LOC;
-                } else if(part == ENDING_LOC) {
-                    ending.docEndPosition = stoll(input);
-                    part = SIZE;
-                } else {
-                    ending.docNumWords = stoll(input);
-                }
-                input = "";
-            } else if(docEndBuffer[0] == ']') {
-                docEndings[i].push_back(ending);
-                part = URL;
-            }
-        }
-    }
+	string query;
+	cout << "What is your query?" << endl;
+	getline( cin, query );
+	istringstream ss( query );
+	vector< string > queryTokens;
+	while ( ss >> query )
+		{
+		queryTokens.push_back( query );
+		}
+	vector< vector< size_t > > seekLocations;
+	vector< size_t > docEndingLocations;
+	vector< vector< DocumentEnding > > docEndings( 9 );
+	// open up seek files
+	for ( int i = 0; i < 9; i++ )
+		{
+		string seekFileName = "index" + to_string( i ) + "-seek.txt";
+		vector< size_t > locs;
+		int seekFile = open( seekFileName.c_str( ), O_RDONLY );
+		char character[1];
+		string word;
+		string seek;
+		bool midword = false;
+		bool midseek = false;
+		// one char buffer haha use a mem map
+		while ( read( seekFile, character, 1 ) )
+			{
+			if ( isalpha( character[ 0 ] ) )
+				{
+				midword = true;
+				word += character[ 0 ];
+				}
+			else if ( midword )
+				{
+				midword = false;
+				}
+			if ( isnumber( character[ 0 ] ) )
+				{
+				midseek = true;
+				seek += character[ 0 ];
+				}
+			else if ( midseek )
+				{
+				for ( auto query : queryTokens )
+					{
+					if ( query == word )
+						{
+						locs.push_back( stoll( seek ) );
+						}
+					}
+				if ( word == "docEnding" )
+					{
+					docEndingLocations.push_back( stoll( seek ) );
+					}
+				midseek = false;
+				word = "";
+				seek = "";
+				}
+			}
+		seekLocations.push_back( locs );
+		}
+	cout << endl << "These are the locations in the indexes where we can find respective words." << endl;
+	for ( auto fileLoc : seekLocations )
+		{
+		bool hasLoc = false;
+		for ( auto loc : fileLoc )
+			{
+			cout << loc << " ";
+			hasLoc = true;
+			}
+		if ( hasLoc ) cout << endl;
+		}
+	// open up indexes and get locs and doc ends
+	vector< vector< size_t > > locations( queryTokens.size( ) );
+	cout << endl << "These are some of the locations of those words" << endl;
+	for ( int i = 0; i < 9; i++ )
+		{
+		string indexFileName = "index" + to_string( i ) + ".txt";
+		int indexFile = open( indexFileName.c_str( ), O_RDONLY );
+		char buffer[1024];
+		cout << "\tin file " << i << ": " << endl;
+		for ( int j = 0; j < seekLocations[ i ].size( ); j++ )
+			{
+			cout << "\t\tfor word " << queryTokens[ j % seekLocations.size( ) ] << ": ";
+			lseek( indexFile, seekLocations[ i ][ j ], SEEK_SET );
+			read( indexFile, buffer, 1024 );
+			string loc = "";
+			bool midloc = false;
+			for ( int k = 0; k < 1024; k++ )
+				{
+				if ( buffer[ k ] == '\n' )
+					{
+					break;
+					}
+				if ( buffer[ k ] == ' ' )
+					{
+					if ( midloc )
+						{
+						locations[ j % seekLocations.size( ) ].push_back( stoll( loc ) );
+						cout << loc << " ";
+						loc = "";
+						}
+					midloc = false;
+					}
+				else if ( buffer[ k ] )
+					{
+					midloc = true;
+					loc += buffer[ k ];
+					}
+				}
+			cout << endl;
+			}
+		char docEndBuffer[1];
+		lseek( indexFile, docEndingLocations[ i ], SEEK_SET );
+		DocumentEnding ending;
+		string input;
+		enum ENDING_PART
+			{
+			URL, ENDING_LOC, SIZE
+			};
+		ENDING_PART part = URL;
+		while ( read( indexFile, docEndBuffer, 1 ) )
+			{
+			if ( docEndBuffer[ 0 ] == '[' )
+				{
+				ending = DocumentEnding( );
+				}
+			else if ( docEndBuffer[ 0 ] != ' ' && docEndBuffer[ 0 ] != ',' && docEndBuffer[ 0 ] != ']' &&
+			          docEndBuffer[ 0 ] != 'n' )
+				{
+				input += docEndBuffer[ 0 ];
+				}
+			else if ( docEndBuffer[ 0 ] == ',' )
+				{
+				if ( part == URL )
+					{
+					ending.url = input;
+					part = ENDING_LOC;
+					}
+				else if ( part == ENDING_LOC )
+					{
+					ending.docEndPosition = stoll( input );
+					part = SIZE;
+					}
+				else
+					{
+					ending.docNumWords = stoll( input );
+					}
+				input = "";
+				}
+			else if ( docEndBuffer[ 0 ] == ']' )
+				{
+				docEndings[ i ].push_back( ending );
+				part = URL;
+				}
+			}
+		}
 
 //    for(auto doc : docEndings) {
 //        for(auto loc : doc) {
@@ -191,9 +229,10 @@ int main() {
 //        }
 //    }
 
-    cout << endl << "These are the tweets that match the query." << endl;
-    for(int i = 0; i < 9; i++) {
+	cout << endl << "These are the tweets that match the query." << endl;
+	for ( int i = 0; i < 9; i++ )
+		{
 
-    }
+		}
 
-}
+	}

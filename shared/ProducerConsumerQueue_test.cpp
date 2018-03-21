@@ -10,60 +10,59 @@
 
 pthread_mutex_t cout_lock = PTHREAD_MUTEX_INITIALIZER;
 
-void* Producer(void* p)
-{
-    ProducerConsumerQueue<int> * queue = (ProducerConsumerQueue<int>*)p;
+void *Producer ( void *p )
+	{
+	ProducerConsumerQueue< int > *queue = ( ProducerConsumerQueue< int > * ) p;
 
-    for(int i = 0; i < 500; i++)
-    {
-        queue->Push(i);
+	for ( int i = 0; i < 500; i++ )
+		{
+		queue->Push( i );
 
-        pthread_mutex_lock(&cout_lock);
-        std::cout << "Pushed: " << i << "\n";
-        pthread_mutex_unlock(&cout_lock);
-    }
+		pthread_mutex_lock( &cout_lock );
+		std::cout << "Pushed: " << i << "\n";
+		pthread_mutex_unlock( &cout_lock );
+		}
 
-    return p;
-}
+	return p;
+	}
 
-void* Consumer(void* p)
-{
-    ProducerConsumerQueue<int> * queue = (ProducerConsumerQueue<int>*)p;
+void *Consumer ( void *p )
+	{
+	ProducerConsumerQueue< int > *queue = ( ProducerConsumerQueue< int > * ) p;
 
-    while(true)
-    {
-        int r = queue->Pop();
+	while ( true )
+		{
+		int r = queue->Pop( );
 
-        pthread_mutex_lock(&cout_lock);
-        std::cout << "Popped: " << r << "\n";
-        pthread_mutex_unlock(&cout_lock);
-    }
+		pthread_mutex_lock( &cout_lock );
+		std::cout << "Popped: " << r << "\n";
+		pthread_mutex_unlock( &cout_lock );
+		}
 
-    return p;
-}
+	return p;
+	}
 
 
+int main ( int argc, const char *argv[] )
+	{
+	ProducerConsumerQueue< int > *queue = new(ProducerConsumerQueue< int >);
 
-int main(int argc, const char * argv[])
-{
-    ProducerConsumerQueue<int>* queue = new(ProducerConsumerQueue<int>);
+	pthread_t producer, consumer;
 
-    pthread_t producer, consumer;
+	pthread_mutex_lock( &cout_lock );
+	std::cout << "Creating Consumer\n";
+	pthread_mutex_unlock( &cout_lock );
+	pthread_create( &consumer, NULL, Consumer, queue );
 
-    pthread_mutex_lock(&cout_lock);
-    std::cout << "Creating Consumer\n";
-    pthread_mutex_unlock(&cout_lock);
-    pthread_create(&consumer, NULL, Consumer, queue);
+	pthread_mutex_lock( &cout_lock );
+	std::cout << "Creating Producer\n";
+	pthread_mutex_unlock( &cout_lock );
+	pthread_create( &producer, NULL, Producer, queue );
 
-    pthread_mutex_lock(&cout_lock);
-    std::cout << "Creating Producer\n";
-    pthread_mutex_unlock(&cout_lock);
-    pthread_create(&producer, NULL, Producer, queue);
+	pthread_join( producer, NULL );
+	pthread_join( consumer, NULL );
 
-    pthread_join(producer, NULL);
-    pthread_join(consumer, NULL);
+	delete queue;
 
-    delete queue;
-
-    return 0;
-}
+	return 0;
+	}

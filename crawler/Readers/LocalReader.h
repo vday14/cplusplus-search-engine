@@ -10,23 +10,27 @@ class LocalReader : public StreamReader
 	{
 public:
 
-	LocalReader( string url_in ) : fileName( url_in )
+	LocalReader ( string filename ) : fileName( filename), test_url(filename)
 		{ }
 
-	bool request();
+	bool request ( );
 
-	bool fillBuffer( char *buf, size_t buf_size );
+	bool fillBuffer ( char *buf, size_t buf_size );
 
-	bool checkStatus();
+	ParsedUrl getUrl ( );
 
-	string PageToString();
+	bool checkStatus ( );
 
-	ParsedUrl getUrl();
+	string PageToString ( );
 
-	void closeReader();
+	void closeReader ( );
+
+	void setUrl(ParsedUrl url);
 
 private:
 	string fileName;
+	ParsedUrl test_url;
+	int fd;
 
 	};
 

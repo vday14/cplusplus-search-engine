@@ -3,7 +3,9 @@
 #include <iostream>
 #include <set>
 #include <string>
+
 using namespace std;
+
 /**
  * Tokenizer Cstor
  */
@@ -17,7 +19,7 @@ Tokenizer::Tokenizer ( )
  *
  * @return pointer to unordered_map< string, vector< int>>
  */
-unordered_map< string, vector< unsigned long > > *Tokenizer::get ( ) const
+const unordered_map< string, vector< unsigned long > > *Tokenizer::get ( ) const
 	{
 	return docIndex;
 	}
@@ -35,12 +37,12 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 	// split by symbols
 	if ( decorator == Tokenizer::URL )
 		{
-		set < char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
-		                          '(', ')', '*', '+', ',', ';', '='};
+		set< char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
+		                      '(', ')', '*', '+', ',', ';', '=' };
 
 		return tokenize( splitStr( originalText, split, true ), offset, decorator );
 		}
-	// split by spaces
+		// split by spaces
 	else
 		{
 		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
@@ -54,7 +56,7 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
  * @param offset
  * @param decorator
  */
-unsigned long Tokenizer::tokenize ( vector< string > splitText , unsigned long offset, char decorator )
+unsigned long Tokenizer::tokenize ( vector< string > splitText, unsigned long offset, char decorator )
 	{
 	string processedString = "";
 	for ( int i = 0; i < splitText.size( ); ++i )
@@ -71,8 +73,8 @@ unsigned long Tokenizer::tokenize ( vector< string > splitText , unsigned long o
 				{
 				processedString = decorator + processedString;
 				}
-				( *docIndex )[ processedString ].push_back( offset );
-				++offset;
+			( *docIndex )[ processedString ].push_back( offset );
+			++offset;
 			}
 		}
 	return offset;

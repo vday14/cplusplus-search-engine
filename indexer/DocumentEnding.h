@@ -4,16 +4,18 @@
 
 using namespace std;
 
-class DocumentEnding {
+class DocumentEnding
+	{
 public:
 
-    DocumentEnding() {
-        docEndPosition = 0;
-        docNumWords = 0;
-        url = "";
-    }
+	DocumentEnding ( )
+		{
+		docEndPosition = 0;
+		docNumWords = 0;
+		url = "";
+		}
 
-    size_t docEndPosition;
-    size_t docNumWords;
-    string url;
-};
+	size_t docEndPosition;
+	size_t docNumWords;
+	string url;
+	};

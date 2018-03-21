@@ -4,8 +4,8 @@
 
 #include "crawler.h"
 
-void Crawler::SpawnSpiders( size_t num_spiders, unordered_map < string, int > *docMapLookup,
-									 unordered_map < size_t, int > *duplicateUrlMap )
+void Crawler::SpawnSpiders ( size_t num_spiders, unordered_map< string, int > *docMapLookup,
+                             unordered_map< size_t, int > *duplicateUrlMap )
 	{
 	for ( size_t i = 0; i < num_spiders; i++ )
 		{
@@ -16,7 +16,7 @@ void Crawler::SpawnSpiders( size_t num_spiders, unordered_map < string, int > *d
 
 	}
 
-void Crawler::WaitOnAllSpiders()
+void Crawler::WaitOnAllSpiders ( )
 	{
 	cout << "Waiting for spiders to finish...\n";
 	for ( Spider *spider : spiders )
@@ -27,7 +27,7 @@ void Crawler::WaitOnAllSpiders()
 	}
 
 
-void Crawler::KillAllSpiders()
+void Crawler::KillAllSpiders ( )
 	{
 	cout << "Waiting for spiders to finish...\n";
 	for ( Spider *spider : spiders )

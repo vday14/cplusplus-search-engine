@@ -15,18 +15,18 @@
 
 using namespace std;
 
-using DocIndex = const unordered_map < string, vector < unsigned long > >;
+using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 class Spider : public ThreadClass
 	{
 
 public:
 
-	Spider( string mode_in,
-			  ProducerConsumerQueue < ParsedUrl > *url_q_in,
-			  unordered_map < string, int > *doc_map_lookup_in,
-			  unordered_map < size_t, int > *duplicate_url_map_in,
-			  ProducerConsumerQueue < DocIndex * > *doc_index_queue_in
+	Spider ( string mode_in,
+	         ProducerConsumerQueue< ParsedUrl > *url_q_in,
+	         unordered_map< string, int > *doc_map_lookup_in,
+	         unordered_map< size_t, int > *duplicate_url_map_in,
+	         ProducerConsumerQueue< DocIndex * > *doc_index_queue_in
 	)
 			: mode( mode_in ),
 			  urlFrontier( url_q_in ),
@@ -40,27 +40,27 @@ public:
 
 
 	//Takes a url off of the url frontier
-	ParsedUrl getUrl();
+	ParsedUrl getUrl ( );
 
-	virtual void run();
+	virtual void run ( );
 
-	bool writeDocToDisk( ParsedUrl url );
+	bool writeDocToDisk ( ParsedUrl url );
 
-	bool shouldURLbeCrawled( size_t docId );
+	bool shouldURLbeCrawled ( size_t docId );
 
-	size_t hash( const char *s );
+	size_t hash ( const char *s );
 
 	//int getRobots(ParsedUrl url );
-	bool checkRobots( ParsedUrl url );
+	bool checkRobots ( ParsedUrl url );
 
 private:
 
 	int locationOnDisk;
-	ProducerConsumerQueue < ParsedUrl > *urlFrontier;
-	ProducerConsumerQueue < DocIndex * > *IndexerQueue;
-	unordered_map < size_t, int > *duplicateUrlMap;
+	ProducerConsumerQueue< ParsedUrl > *urlFrontier;
+	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
+	unordered_map< size_t, int > *duplicateUrlMap;
 	string mode;
-	unordered_map < string, int > *docMapLookup;
+	unordered_map< string, int > *docMapLookup;
 	Parser parser;
 
 	};

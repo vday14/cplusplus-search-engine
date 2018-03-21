@@ -4,6 +4,7 @@
 
 #include "Query.h"
 #include <iostream>
+
 using namespace std;
 
 /*
@@ -12,20 +13,19 @@ using namespace std;
  *
  */
 
-void QueryParser::search()
+void QueryParser::search ( )
 	{
 
-	if( strcmp(CompleteQuery, "-quit") == 0 )
+	if ( strcmp( CompleteQuery, "-quit" ) == 0 )
 		{
 		cout << "Thank you for using C++lue search engine" << endl;
-		exit(0);
+		exit( 0 );
 		}
-	else if(strcmp(CompleteQuery, "-help") == 0)
+	else if ( strcmp( CompleteQuery, "-help" ) == 0 )
 		{
 		cout << "Manual" << endl;
 		return;
 		}
-
 
 
 	return;
@@ -39,7 +39,7 @@ void QueryParser::search()
  *
  */
 
-void QueryParser::printResults()
+void QueryParser::printResults ( )
 	{
 	cout << " Generated XXX results in about XXX seconds " << endl;
 

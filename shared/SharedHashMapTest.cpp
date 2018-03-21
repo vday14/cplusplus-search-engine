@@ -8,13 +8,14 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <cassert>
+
 using namespace std;
 
 pthread_mutex_t cout_lock = PTHREAD_MUTEX_INITIALIZER;
 
-int main(int argc, const char * argv[])
+int main ( int argc, const char *argv[] )
 	{
-	SharedHashMap < int, int > *sharedTable = new(SharedHashMap < int, int >);
+	SharedHashMap< int, int > *sharedTable = new(SharedHashMap< int, int >);
 
 	pthread_t t;
 

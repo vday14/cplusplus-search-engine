@@ -1,6 +1,3 @@
-//
-// Created by Jake Close on 2/8/18.
-//
 
 #pragma once
 
@@ -23,7 +20,7 @@ using namespace std;
 class ParsedUrl
 	{
 public:
-	char  *CompleteUrl,
+	char *CompleteUrl,
 			*Service,
 			*Host,
 			*Domain,
@@ -31,47 +28,44 @@ public:
 			*AnchorText;
 	double Score;
 
-	ParsedUrl( string input_url )
+	ParsedUrl ( string input_url )
 		{
 		// Assumes url points to static text but
 		// does not check.
 
 		//intialize anchor text to "null"
 		char *null = new char[2];
-		strcpy(null, string("").c_str());
+		strcpy( null, string( "" ).c_str( ) );
 		AnchorText = null;
 
-		char *url = new char[input_url.length() + 1];
-		strcpy(url, input_url.c_str());
+		char *url = new char[input_url.length( ) + 1];
+		strcpy( url, input_url.c_str( ) );
 
 		CompleteUrl = url;
 
-		pathBuffer = new char[ strlen( url ) + 1 ];
+		pathBuffer = new char[strlen( url ) + 1];
 		char *f, *t;
-		for ( t = pathBuffer, f = url;  ( *t++ = *f++ ); )
-			;
+		for ( t = pathBuffer, f = url; ( *t++ = *f++ ); );
 
 		Service = pathBuffer;
 
 		const char Colon = ':', Slash = '/', HashTag = '#', Period = '.';
 		char *p;
-		for ( p = pathBuffer;  *p && *p != Colon;  p++ )
-			;
+		for ( p = pathBuffer; *p && *p != Colon; p++ );
 
 		if ( *p )
 			{
 			// Mark the end of the Service.
 			*p++ = 0;
 
-			if (*p == Slash)
+			if ( *p == Slash )
 				p++;
-			if (*p == Slash)
+			if ( *p == Slash )
 				p++;
 
 			Host = p;
 
-			for ( ;  *p && *p != Slash;  p++ )
-				;
+			for ( ; *p && *p != Slash; p++ );
 
 			if ( *p )
 				// Mark the end of the Host.
@@ -80,9 +74,10 @@ public:
 			//char * domainBuffer = new char[ 20 ];
 			//get the domain:
 			char *i = Host;
-			for(; *i; i++){
+			for ( ; *i; i++ )
+				{
 
-				if(*i == Period)
+				if ( *i == Period )
 					Domain = i;
 
 				}
@@ -90,8 +85,7 @@ public:
 			// Whatever remains is the Path. // need to remove fragments
 
 			Path = p;
-			for ( ;  *p && *p != HashTag;  p++ )
-				;
+			for ( ; *p && *p != HashTag; p++ );
 
 			if ( *p )
 				// Mark the end of the Path, remove fragments.
@@ -102,10 +96,10 @@ public:
 		else
 			Host = Path = p;
 
-		setScore();
+		setScore( );
 		}
 
-	void printUrl()
+	void printUrl ( )
 		{
 		cout << "Complete URL: " << CompleteUrl << endl;
 		cout << "Service: " << Service << endl;
@@ -117,7 +111,8 @@ public:
 
 		}
 
-	void setScore(){
+	void setScore()
+		{
 		double lengthOfUrl = strlen(CompleteUrl);
 		Score += 4 * 1/ log( lengthOfUrl );
 		if(this->Domain != nullptr)
@@ -139,39 +134,39 @@ public:
 			else if ( strcmp ( Domain , MIL ) )
 				Score += .5;
 			}
-			}
+		}
 
-	std::string getCompleteUrl( )
+	std::string getCompleteUrl ( )
 		{
 		std::string completeUrl = "";
 		completeUrl.assign( this->CompleteUrl );
 		return completeUrl;
 		}
 
-	std::string getHost( )
+	std::string getHost ( )
 		{
 		std::string host = "";
 		host.assign( this->Host );
 		return host;
 		}
 
-	std::string getPath( )
+	std::string getPath ( )
 		{
 		std::string path = "";
 		path.assign( this->Path );
 		return path;
 		}
 
-	std::string getAnchorText( )
+	std::string getAnchorText ( )
 		{
 		std::string anchorText = "";
 		anchorText.assign( this->AnchorText );
 		return anchorText;
 		}
 
-	void setAnchorText( std::string anchorText )
+	void setAnchorText ( std::string anchorText )
 		{
-		char * anchorCharStar = new char[ anchorText.size( ) ];
+		char *anchorCharStar = new char[anchorText.size( )];
 
 		for ( int i = 0; i < anchorText.size( ); ++i )
 			{
@@ -182,10 +177,10 @@ public:
 		}
 
 
-	~ParsedUrl( )
+	~ParsedUrl ( )
 		{
 		pathBuffer = 0;
-		delete [ ] pathBuffer;
+		delete[] pathBuffer;
 		}
 
 private:

@@ -5,20 +5,19 @@
 #include "ISROr.h"
 
 
-Location ISROr::GetStartLocation( )
+Location ISROr::GetStartLocation ( )
 	{
 	return nearestStartLocation;
 	}
 
 
-
-Location ISROr::GetEndLocation( )
+Location ISROr::GetEndLocation ( )
 	{
 	return nearestEndLocation;
 	}
 
 
-Location ISROr::Seek( Location target )
+Location ISROr::Seek ( Location target )
 	{
 
 	// Seek all the ISRs to the first occurrence beginning at// the target location. Return null if there is no match.
@@ -34,36 +33,34 @@ Location ISROr::Seek( Location target )
 
 
 	}
+
 /*
 Returns the location of the next document that is a match
 */
-ISR*  ISROr::Next()
+ISR *ISROr::Next ( )
 	{
-	Location nearestEnd = this->nearestTerm->GetEndDocument();
+	Location nearestEnd = this->nearestTerm->GetEndDocument( );
 
-	while(*Terms)
+	while ( *Terms )
 		{
-		Location newSeekLocation = *Terms->Seek(nearestEnd + 1);
-		if(newSeekLocation < nearestStartLocation)
+		Location newSeekLocation = *Terms->Seek( nearestEnd + 1 );
+		if ( newSeekLocation < nearestStartLocation )
 			{
 			nearestStartLocation = newSeekLocation;
 			nearestTerm = *Term;
 			}
-			*Terms++;
+		*Terms++;
 		}
 
-	return this->nearestTerm->GetDocumentISR();
-
-
-
-
+	return this->nearestTerm->GetDocumentISR( );
 
 
 	}
 
-ISR* ISROR::GetCurrentEndDoc( ){
+ISR *ISROR::GetCurrentEndDoc ( )
+	{
 
-	return this->nearestTerm->GetDocumentISR();
+	return this->nearestTerm->GetDocumentISR( );
 
 	}
 
