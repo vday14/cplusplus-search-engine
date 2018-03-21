@@ -3,7 +3,8 @@
 //
 
 #include "HttpReader.h"
-std::runtime_error HTTPConnectionError("Error connecting HTTP to url");
+
+std::runtime_error HTTPConnectionError( "Error connecting HTTP to url" );
 
 bool HttpReader::request()
 	{
@@ -15,7 +16,7 @@ bool HttpReader::request()
 		// Get the host address.
 
 		struct hostent *host = gethostbyname( url.Host );
-		if( host == nullptr)
+		if ( host == nullptr )
 			throw HTTPConnectionError;
 		assert( host );
 
@@ -48,14 +49,14 @@ bool HttpReader::request()
 		return isSuccess;
 
 		}
-	catch (std::exception& e)
+	catch (std::exception &e)
 		{
 		cerr << "Error trying to connect to Host" << endl;
 		return false;
 		}
 	}
 
-bool HttpReader::fillBuffer(char * buf, size_t buf_size)
+bool HttpReader::fillBuffer( char *buf, size_t buf_size )
 	{
 	return (recv( sock, buf, buf_size, 0 ) == buf_size);
 	}
@@ -67,10 +68,10 @@ string HttpReader::PageToString()
 	char buf[10240];
 	int bytes = 0;
 
-	while ( ( bytes = recv( sock, buf, 10240, 0 ) ) > 0 )
-	{
-		temp += string(buf, bytes);
-	}
+	while ((bytes = recv( sock, buf, 10240, 0 )) > 0 )
+		{
+		temp += string( buf, bytes );
+		}
 	return temp;
 	}
 
@@ -86,13 +87,13 @@ bool HttpReader::checkStatus()
 	char buff[12];
 	int bytes = 0;
 
-	 bytes = recv( sock, buff, 12, 0 ) ;
+	bytes = recv( sock, buff, 12, 0 );
 
-	if( strncmp(buff, "HTTP/1.1 200",11  ) == 0)
+	if ( strncmp( buff, "HTTP/1.1 200", 11 ) == 0 )
 		return true;
-	else if(strncmp(buff, "HTTP/1.1 400", 11 ) == 0)
+	else if ( strncmp( buff, "HTTP/1.1 400", 11 ) == 0 )
 		return true;
-	else if(strncmp(buff, "HTTP/1.1 302", 11 ) == 0)
+	else if ( strncmp( buff, "HTTP/1.1 302", 11 ) == 0 )
 		{
 		cerr << "URL REDIRECTION" << endl;
 		return false;

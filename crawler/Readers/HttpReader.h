@@ -9,12 +9,20 @@ class HttpReader : public StreamReader
 	{
 public:
 
-	HttpReader( ParsedUrl url_in ) : url(  url_in  ) { }
+	HttpReader( ParsedUrl url_in ) : url( url_in )
+		{ }
+
+
 	bool request();
-	bool fillBuffer(char * buf, size_t buf_size);
+
+	bool fillBuffer( char *buf, size_t buf_size );
+
 	bool checkStatus();
+
 	string PageToString();
+
 	ParsedUrl getUrl();
+
 	void closeReader();
 
 

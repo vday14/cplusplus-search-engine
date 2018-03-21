@@ -12,10 +12,11 @@ bool LocalReader::request()
 	return true;
 	}
 
-bool LocalReader::fillBuffer(char * buf, size_t buf_size){
+bool LocalReader::fillBuffer( char *buf, size_t buf_size )
+	{
 
 	//FIXME
-	strcpy(buf, util::getFileMap( fileName )) ;
+	strcpy( buf, util::getFileMap( fileName ));
 	return true;
 
 	}
@@ -23,14 +24,14 @@ bool LocalReader::fillBuffer(char * buf, size_t buf_size){
 string LocalReader::PageToString()
 	{
 	//FIXME
-	string s("fix me");
+	string s( "fix me" );
 	return s;
 	}
 
 ParsedUrl LocalReader::getUrl()
 	{
 	//FIXME
-	ParsedUrl url("");
+	ParsedUrl url( "" );
 	return url;
 	}
 
@@ -39,6 +40,7 @@ bool LocalReader::checkStatus()
 	{
 	return true;
 	}
+
 void LocalReader::closeReader()
 	{
 	//FIXME

@@ -10,18 +10,24 @@ class HttpsReader : public StreamReader
 	{
 public:
 
-	HttpsReader( ParsedUrl url_in ) : url(  url_in  ) { }
+	HttpsReader( ParsedUrl url_in ) : url( url_in )
+		{ }
 
 	bool request();
-	bool fillBuffer(char * buf, size_t buf_size);
+
+	bool fillBuffer( char *buf, size_t buf_size );
+
 	string PageToString();
+
 	ParsedUrl getUrl();
+
 	void closeReader();
+
 	bool checkStatus();
 
 private:
 	ParsedUrl url;
 	int sock;
-	SSL * ssl;
-	SSL_CTX * ctx;
+	SSL *ssl;
+	SSL_CTX *ctx;
 	};
