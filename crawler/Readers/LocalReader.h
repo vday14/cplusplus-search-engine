@@ -10,7 +10,7 @@ class LocalReader : public StreamReader
 	{
 public:
 
-	LocalReader ( string url_in ) : fileName( url_in )
+	LocalReader ( string filename ) : fileName( filename), test_url(filename)
 		{ }
 
 	bool request ( );
@@ -25,8 +25,11 @@ public:
 
 	void closeReader ( );
 
+	void setUrl(ParsedUrl url);
+
 private:
 	string fileName;
+	ParsedUrl test_url;
 	int fd;
 
 	};

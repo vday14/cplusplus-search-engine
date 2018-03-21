@@ -44,3 +44,8 @@ void LocalReader::closeReader ( )
 	{
 	close(fd);
 	}
+
+void LocalReader::setUrl(ParsedUrl url_in)
+	{
+		test_url = url_in;
+	}
