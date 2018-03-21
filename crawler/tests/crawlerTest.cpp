@@ -34,8 +34,10 @@ int main ( int argc, char *argv[] )
 	ProducerConsumerQueue < ParsedUrl > *urlFrontier = new ProducerConsumerQueue < ParsedUrl >( );
 	ProducerConsumerQueue < DocIndex * > *IndexerQueue = new ProducerConsumerQueue < DocIndex * >( );
 	Indexer indexer( IndexerQueue );
-	seeds = util::getFileMap( "/testSeeds.txt" );
-	SSL_library_init( );
+	string path = util::GetCurrentWorkingDir() +"/crawler/tests/testSeeds.txt";
+	/*
+	seeds =  util::getFileMap( path );
+
 
 
 	string testFile;
@@ -53,11 +55,11 @@ int main ( int argc, char *argv[] )
 			testFile.push_back( *seeds );
 		++seeds;
 		}
+	*/
 
-	
-
-
-
+	SSL_library_init( );
+	ParsedUrl url = ParsedUrl("http://www.boston.com/cars/specials/herb_chambers_cjd/ram_millbury.htmlhttp://www.jimmyfund.org/ways-to-give/corporate-engagement/cause-marketing/participating-companies/herb-chambers-automotive-family/");
+	urlFrontier->Push(url);
 
 	indexer.StartThread( );
 

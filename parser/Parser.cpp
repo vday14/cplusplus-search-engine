@@ -92,7 +92,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 			// if html line is url, parses accordingly and pushes to frontier
 			else if ( url != "" )
 				{
-				pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
+				pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), false );
 				}
 			// check if line is header; classifies as body text
 			else if ( header != "")
