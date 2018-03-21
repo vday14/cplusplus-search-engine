@@ -26,6 +26,7 @@ add_executable(crawler-parser-test
         util/stringProcessing.cpp
         indexer/Indexer.cpp)
 
+
 add_executable(crawler-parser-indexer-test
         main.cpp
         shared/ProducerConsumerQueue.h
@@ -70,17 +71,26 @@ add_executable(ParserTest
         shared/ProducerConsumerQueue.h
         util/stringProcessing.cpp
         util/Stemmer.cpp
-        parser/tests/parserTest.cpp)
+        parser/tests/parserTest.cpp
+        crawler/Readers/StreamReader.h)
 
-add_executable(SharedTableTest shared/SharedHashMapTest.cpp)
+add_executable(SharedTableTest
+        shared/SharedHashMapTest.cpp )
 
 add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
 add_executable(search-engine search.cpp query/Query.cpp)
 
-add_executable(ISRWord-tests constraintSolver/ISRWord.cpp constraintSolver/tests/ISRWordTests.cpp )
+add_executable(ISRWord-tests
+        util/util.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/tests/ISRWordTests.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
 
 find_package(OpenSSL REQUIRED)
+
+target_link_libraries(ParserTest OpenSSL::SSL)
 
 target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-test OpenSSL::SSL pthread)

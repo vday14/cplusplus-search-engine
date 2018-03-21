@@ -1,5 +1,4 @@
 #include "Parser.h"
-#include "../crawler/Readers/StreamReader.h"
 #include <string>
 
 /**
@@ -34,6 +33,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 	unsigned long offsetTitle = 0;
 	unsigned long offsetURL = 0;
 	unsigned long offsetAnchor = 0;
+	unsigned long offsetBody = 0;
 	ParsedUrl currentUrl = reader->getUrl( );
 
 	// tokenize anchor
@@ -50,33 +50,64 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 	string html = reader->PageToString( );
 	while ( htmlIt < html.size( ) )
 		{
+		unsigned long begCloseTag = 0;
+		bool isParagraph = false;
+		unsigned long savePosition = htmlIt;
+
+		if ( htmlIt >= html.size( ) )
+			break;
 		// if open bracket
 		if ( html[ htmlIt ] == '<' )
-			// if open bracket
-			if ( htmlIt >= html.size( ) )
-				break;
-
-		if ( html[ htmlIt ] == '<' )
 			{
-			unsigned long begCloseTag = findNext( "</", htmlIt, html );
+
+			if (  html[ htmlIt + 1 ] == 'p' && ( ( html[htmlIt + 2]) == '>' || ( html[ htmlIt + 2 ] == ' ') ) )
+				{
+				begCloseTag = findNext( "</p>", htmlIt, html );
+				isParagraph = true;
+				}
+			else
+				{
+				begCloseTag = findNext( "</", htmlIt, html );
+				}
 			unsigned long endCloseTag = findNext( ">", begCloseTag, html );
 			string line = subStr( html, htmlIt, endCloseTag + 1 - htmlIt );
 			htmlIt = endCloseTag + 2;
 
+
 			// check if line is url
+			string title = extractTitle( line );
 			string url = extractUrl( line );
-			if ( url != "" )
+			string header = extractHeader( line );
+			// checking if html line is script
+			if ( isTag( line, "script" ) )
+				{
+				//DO NOTHING
+				}
+				//checking for p tag
+			else if ( isParagraph )
+				{
+				string body = extractBody( line, offsetTitle, offsetBody, isParagraph, tokenizer, currentUrl );
+				offsetBody = tokenizer->execute( body, offsetBody, Tokenizer::BODY );
+				}
+
+			// if html line is url, parses accordingly and pushes to frontier
+			else if ( url != "" )
 				{
 				pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
 				}
-				// check if line is title
+			// check if line is header; classifies as body text
+			else if ( header != "")
+				{
+				offsetBody = tokenizer->execute( header, offsetBody, Tokenizer::BODY );
+				}
+			// check if line is title
+			else if ( title != "" )
+				{
+				offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
+				}
 			else
 				{
-				string title = extractTitle( line );
-				if ( title != "" )
-					{
-					offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
-					}
+				//DO NOTHING
 				}
 			}
 		else
@@ -268,11 +299,10 @@ void Parser::removeTag ( string & html, unsigned long & htmlIt, unsigned long sa
  * @param isParagraph
  * @param tokenizer
  * @param currentUrl
- * @param urlCurrent
  */
 void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
                   Tokenizer *tokenizer,
-                  ParsedUrl & currentUrl, string & urlCurrent )
+                  ParsedUrl & currentUrl )
 	{
 	// check if line is url
 	string title = extractTitle( line );
@@ -285,22 +315,13 @@ void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned lon
 		//TODO delete this conditional if keeping whats in main right now
 	else if ( isParagraph )
 		{
-		string body = extractBody( line, offsetTitle, offsetBody, isParagraph, tokenizer, currentUrl, urlCurrent );
+		string body = extractBody( line, offsetTitle, offsetBody, isParagraph, tokenizer, currentUrl );
 		offsetBody = tokenizer->execute( body, offsetBody, Tokenizer::BODY );
 		}
 
 	else if ( url != "" )
 		{
-		if ( isLocal( url ) )
-			{
-			string completeUrl = "";
-			completeUrl.assign( currentUrl.CompleteUrl );
-			url = completeUrl + url;
-			}
-		if ( isValid( url ) && url != urlCurrent )
-			{
 			pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
-			}
 		}
 		// check if line is title
 		// check if line is title
@@ -341,12 +362,11 @@ bool Parser::isTag ( string html, string tag )
  * @param isParagraph
  * @param tokenizer
  * @param currentUrl
- * @param urlCurrent
  * @return
  */
 string Parser::extractBody ( string html, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
                      Tokenizer *tokenizer,
-                     ParsedUrl & currentUrl, string & urlCurrent )
+                     ParsedUrl & currentUrl )
 	{
 	string body = "";
 	unsigned long startParTag = findNext( "<p>", 0, html );
@@ -382,7 +402,7 @@ string Parser::extractBody ( string html, unsigned long & offsetTitle, unsigned 
 				}
 
 			string newHtml = subStr( html, newHtmlStart, nextCloseTag - newHtmlStart + newHtmlTagLength + 2 );
-			extract_all( newHtml, offsetTitle, offsetBody, false, tokenizer, currentUrl, urlCurrent );
+			extractAll( newHtml, offsetTitle, offsetBody, false, tokenizer, currentUrl );
 			startParTag = nextCloseTag + newHtmlTagLength + 2;
 			nextCloseTag = findNext( "</", startParTag, html );
 			}

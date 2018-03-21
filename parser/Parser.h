@@ -12,7 +12,6 @@
 #include "../shared/ProducerConsumerQueue.h"
 #include "../crawler/Readers/StreamReader.h"
 
-
 using namespace std;
 
 /**
@@ -113,12 +112,11 @@ private:
 	 * @param isParagraph
 	 * @param tokenizer
 	 * @param currentUrl
-	 * @param urlCurrent
 	 * @return
 	 */
 	string extractBody ( string html, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
 	                      Tokenizer *tokenizer,
-	                      ParsedUrl & currentUrl, string & urlCurrent );
+	                      ParsedUrl & currentUrl );
 
 
 	/**
@@ -130,11 +128,10 @@ private:
 	 * @param isParagraph
 	 * @param tokenizer
 	 * @param currentUrl
-	 * @param urlCurrent
 	 */
 	void extractAll ( string line, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
 	                   Tokenizer *tokenizer,
-	                   ParsedUrl & currentUrl, string & urlCurrent );
+	                   ParsedUrl & currentUrl );
 
 	//TODO delete?? may not need
 	/**
