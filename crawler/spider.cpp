@@ -21,7 +21,7 @@ StreamReader *SR_factory ( ParsedUrl url, string mode )
 	StreamReader *newReader = nullptr;
 	if ( mode == "local" )
 		{
-		newReader = new LocalReader( url.CompleteUrl );
+		newReader = new LocalReader( string(url.CompleteUrl, strlen(url.CompleteUrl) ) );
 		}
 	else if ( mode == "web" )
 		{
