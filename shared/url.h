@@ -74,13 +74,19 @@ public:
 			//char * domainBuffer = new char[ 20 ];
 			//get the domain:
 			char *i = Host;
-			for ( ; *i; i++ )
+			Domain = null;
+			if(i)
 				{
+				for ( ; *i; i++ )
+					{
 
-				if ( *i == Period )
-					Domain = i;
+					if ( *i == Period )
+						Domain = i;
+
+					}
 
 				}
+
 
 			// Whatever remains is the Path. // need to remove fragments
 
@@ -115,24 +121,29 @@ public:
 		{
 		double lengthOfUrl = strlen(CompleteUrl);
 		Score += 4 * 1/ log( lengthOfUrl );
-		if(this->Domain != nullptr)
+
+		if(lengthOfUrl > 4)
 			{
 
+			if(this->Domain )
 
-			if ( strcmp ( Domain , ORG ) )
-				Score += 5;
-			else if ( strcmp ( Domain , EDU ) )
-				Score += 4;
-			else if ( strcmp ( Domain , GOV ) )
-				Score += 3;
-			else if ( strcmp ( Domain , COM ) )
-				Score += 2;
-			else if ( strcmp ( Domain , NET ) )
-				Score += 1;
-			else if ( strcmp ( Domain , INT ) )
-				Score += 1;
-			else if ( strcmp ( Domain , MIL ) )
-				Score += .5;
+					{
+					if ( strcmp ( Domain , ORG ) )
+						Score += 5;
+					else if ( strcmp ( Domain , EDU ) )
+						Score += 4;
+					else if ( strcmp ( Domain , GOV ) )
+						Score += 3;
+					else if ( strcmp ( Domain , COM ) )
+						Score += 2;
+					else if ( strcmp ( Domain , NET ) )
+						Score += 1;
+					else if ( strcmp ( Domain , INT ) )
+						Score += 1;
+					else if ( strcmp ( Domain , MIL ) )
+						Score += .5;
+					}
+
 			}
 		}
 

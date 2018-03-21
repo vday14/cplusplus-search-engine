@@ -58,9 +58,10 @@ int main ( int argc, char *argv[] )
 	*/
 
 	SSL_library_init( );
-	ParsedUrl url = ParsedUrl("http://www.boston.com/cars/specials/herb_chambers_cjd/ram_millbury.htmlhttp://www.jimmyfund.org/ways-to-give/corporate-engagement/cause-marketing/participating-companies/herb-chambers-automotive-family/");
+	string url1 = "https://fivethirtyeight.com/features/fear-not-readers-we-have-rss-feeds/";
+	string url2 = "https:";
+	ParsedUrl url = ParsedUrl(url2);
 	urlFrontier->Push(url);
-
 	indexer.StartThread( );
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );

@@ -86,19 +86,23 @@ void Spider::run ( )
 		if ( shouldURLbeCrawled( docID ) )
 			{
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
-			bool success = reader->request( );
-			if ( success )
+			if(reader)
 				{
-				cout << "Parsing " << currentUrl.CompleteUrl;
- 				DocIndex *dict = parser.execute( reader );
-				IndexerQueue->Push( dict );
+				bool success = reader->request( );
+				if ( success )
+					{
+					cout << "Parsing " << currentUrl.CompleteUrl;
+					DocIndex *dict = parser.execute( reader );
+					IndexerQueue->Push( dict );
 
-				 printDocIndex(dict);
-				reader->closeReader( );
-				//delete dict;
+					printDocIndex(dict);
+					reader->closeReader( );
+					//delete dict;
 
-				cond++;
+					cond++;
+					}
 				}
+
 
 			delete reader;
 
