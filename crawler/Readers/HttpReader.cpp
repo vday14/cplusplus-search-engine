@@ -6,7 +6,7 @@ std::runtime_error HTTPConnectionError( "Error connecting HTTP to url" );
 bool HttpReader::request ( )
 	{
 	try
-		{
+	{
 
 
 		sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
@@ -14,11 +14,11 @@ bool HttpReader::request ( )
 
 		// Get the host address.
 
-		struct hostent *host = gethostbyname( url.Host );
+		struct hostent *host = gethostbyname( url.getHost().c_str() );
 		if ( host == nullptr )
 			throw HTTPConnectionError;
 
-		if( strcmp(url.Service, "http") != 0)
+		if(url.getService() != "http")
 			throw HTTPConnectionError;
 
 		assert( host );
@@ -32,7 +32,7 @@ bool HttpReader::request ( )
 		// Connect to the host.
 
 		int connectResult = connect( sock, ( struct sockaddr * ) &address,
-		                             sizeof( address ) );
+									 sizeof( address ) );
 		assert( connectResult == 0 );
 
 		// Send a GET message for the desired page.
@@ -40,9 +40,9 @@ bool HttpReader::request ( )
 		cout << "Socket Reader is pulling from the web" << endl;
 
 		string getMessage = "GET ";
-		getMessage += url.CompleteUrl;
+		getMessage += url.getCompleteUrl();
 		getMessage += " HTTP/1.1\r\nHost: ";
-		getMessage += url.Host;
+		getMessage += url.getHost();
 		getMessage += "\r\nConnection: close\r\n\r\n";
 
 		cout << getMessage << endl;
@@ -51,12 +51,12 @@ bool HttpReader::request ( )
 		bool isSuccess = checkStatus( );
 		return isSuccess;
 
-		}
+	}
 	catch ( std::exception & e )
-		{
+	{
 		cerr << "Error trying to connect to Host" << endl;
 		return false;
-		}
+	}
 	}
 
 bool HttpReader::fillBuffer ( char *buf, size_t buf_size )
@@ -72,9 +72,9 @@ string HttpReader::PageToString ( )
 	int bytes = 0;
 
 	while ( ( bytes = recv( sock, buf, 10240, 0 ) ) > 0 )
-		{
+	{
 		temp += string( buf, bytes );
-		}
+	}
 	return temp;
 	}
 
@@ -97,10 +97,10 @@ bool HttpReader::checkStatus ( )
 	else if(strncmp(buff, "HTTP/1.1 400", 11 ) == 0)
 		return true;
 	else if(strncmp(buff, "HTTP/1.1 302", 11 ) == 0)
-		{
+	{
 		cerr << "URL REDIRECTION" << endl;
 		return false;
-		}
+	}
 	cerr << "Bad Request of TYPE::  " << buff << endl;
 	return false;
 	}
