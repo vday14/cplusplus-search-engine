@@ -17,16 +17,17 @@ public:
 
 	bool fillBuffer ( char *buf, size_t buf_size );
 
+	ParsedUrl getUrl ( );
+
 	bool checkStatus ( );
 
 	string PageToString ( );
-
-	ParsedUrl getUrl ( );
 
 	void closeReader ( );
 
 private:
 	string fileName;
+	int fd;
 
 	};
 
