@@ -20,24 +20,25 @@ StreamReader *SR_factory ( ParsedUrl url, string mode )
 
 	StreamReader *newReader = nullptr;
 	if ( mode == "local" )
-		{
-		newReader = new LocalReader( string(url.CompleteUrl, strlen(url.CompleteUrl) ) );
-		}
+	{
+		newReader = new LocalReader( url.getCompleteUrl() );
+	}
 	else if ( mode == "web" )
+	{
+		if ( url.getService() == "http" )
 		{
-		if ( !strcmp( url.Service, "http" ) )
-			{
 			newReader = new HttpReader( url );
-			}
-		else if ( !strcmp( url.Service, "https" ) )
-			{
-			newReader = new HttpsReader( url );
-			}
-		else
-			{
-			cerr << "Error reading service type\n";
-			}
 		}
+		else if ( url.getService() == "https" )
+		{
+			newReader = new HttpsReader( url );
+		}
+		else
+		{
+			cerr << "Error reading service type\n";
+			cerr << "Service Type: " << url.getService() << "\n";
+		}
+	}
 
 	return newReader;
 	}
@@ -45,14 +46,14 @@ StreamReader *SR_factory ( ParsedUrl url, string mode )
 void printDocIndex ( DocIndex *dict )
 	{
 	for ( auto it = dict->begin( ); it != dict->end( ); it++ )
-		{
+	{
 		cout << it->first << " : ";
 		for ( int i = 0; i < it->second.size( ); ++i )
-			{
+		{
 			cout << it->second[ i ] << " ";
-			}
-		cout << std::endl;
 		}
+		cout << std::endl;
+	}
 	cout << std::endl;
 
 	}
@@ -80,18 +81,18 @@ void Spider::run ( )
 	int cond = 0;
 
 	while ( cond < 250 )
-		{
+	{
 		ParsedUrl currentUrl = getUrl( );
-		size_t docID = hash( currentUrl.CompleteUrl );
+		size_t docID = hash( currentUrl.getCompleteUrl().c_str() );
 		if ( shouldURLbeCrawled( docID ) )
-			{
+		{
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
 			if(reader)
-				{
+			{
 				bool success = reader->request( );
 				if ( success )
-					{
-					cout << "Parsing " << currentUrl.CompleteUrl;
+				{
+					cout << "Parsing " << currentUrl.getCompleteUrl();
 					DocIndex *dict = parser.execute( reader );
 					IndexerQueue->Push( dict );
 
@@ -100,15 +101,15 @@ void Spider::run ( )
 					//delete dict;
 
 					cond++;
-					}
 				}
+			}
 
 
 			delete reader;
 
 
-			}
 		}
+	}
 	}
 
 

@@ -19,42 +19,50 @@ using namespace std;
 
 class ParsedUrl
 	{
-public:
-	char *CompleteUrl,
-			*Service,
-			*Host,
-			*Domain,
-			*Path,
-			*AnchorText;
+private:
+	string CompleteUrl,
+			Service,
+			Host,
+			Domain,
+			Path,
+			AnchorText;
 	double Score;
 
+public:
 	ParsedUrl ( string input_url )
 		{
 		// Assumes url points to static text but
 		// does not check.
+		char *temp_CompleteUrl,
+				*temp_Service,
+				*temp_Host,
+				*temp_Domain,
+				*temp_Path,
+				*temp_AnchorText,
+				*temp_pathBuffer;
 
 		//intialize anchor text to "null"
 		char *null = new char[2];
 		strcpy( null, string( "" ).c_str( ) );
-		AnchorText = null;
+		temp_AnchorText = null;
 
 		char *url = new char[input_url.length( ) + 1];
 		strcpy( url, input_url.c_str( ) );
 
-		CompleteUrl = url;
+		temp_CompleteUrl = url;
 
-		pathBuffer = new char[strlen( url ) + 1];
+		temp_pathBuffer = new char[strlen( url ) + 1];
 		char *f, *t;
-		for ( t = pathBuffer, f = url; ( *t++ = *f++ ); );
+		for ( t = temp_pathBuffer, f = url; ( *t++ = *f++ ); );
 
-		Service = pathBuffer;
+		temp_Service = temp_pathBuffer;
 
 		const char Colon = ':', Slash = '/', HashTag = '#', Period = '.';
 		char *p;
-		for ( p = pathBuffer; *p && *p != Colon; p++ );
+		for ( p = temp_pathBuffer; *p && *p != Colon; p++ );
 
 		if ( *p )
-			{
+		{
 			// Mark the end of the Service.
 			*p++ = 0;
 
@@ -63,7 +71,7 @@ public:
 			if ( *p == Slash )
 				p++;
 
-			Host = p;
+			temp_Host = p;
 
 			for ( ; *p && *p != Slash; p++ );
 
@@ -73,24 +81,24 @@ public:
 
 			//char * domainBuffer = new char[ 20 ];
 			//get the domain:
-			char *i = Host;
-			Domain = null;
+			char *i = temp_Host;
+			temp_Domain = null;
 			if(i)
-				{
+			{
 				for ( ; *i; i++ )
-					{
+				{
 
 					if ( *i == Period )
-						Domain = i;
-
-					}
+						temp_Domain = i;
 
 				}
+
+			}
 
 
 			// Whatever remains is the Path. // need to remove fragments
 
-			Path = p;
+			temp_Path = p;
 			for ( ; *p && *p != HashTag; p++ );
 
 			if ( *p )
@@ -98,9 +106,18 @@ public:
 				*p++ = 0;
 
 
-			}
+		}
 		else
-			Host = Path = p;
+			temp_Host = temp_Path = p;
+
+
+		CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
+		Service = string(temp_Service, strlen(temp_Service));
+		Host = string(temp_Host, strlen(temp_Host));
+		Domain = string(temp_Domain, strlen(temp_Domain));
+		Path = string(temp_Path, strlen(temp_Path));
+		AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
+		pathBuffer = temp_pathBuffer;
 
 		setScore( );
 		}
@@ -119,72 +136,67 @@ public:
 
 	void setScore()
 		{
-		double lengthOfUrl = strlen(CompleteUrl);
+		double lengthOfUrl = CompleteUrl.length();
 		Score += 4 * 1/ log( lengthOfUrl );
 
 		if(lengthOfUrl > 4)
+		{
+
+			if(this->Domain.length() )
+
 			{
-
-			if(this->Domain )
-
-					{
-					if ( strcmp ( Domain , ORG ) )
-						Score += 5;
-					else if ( strcmp ( Domain , EDU ) )
-						Score += 4;
-					else if ( strcmp ( Domain , GOV ) )
-						Score += 3;
-					else if ( strcmp ( Domain , COM ) )
-						Score += 2;
-					else if ( strcmp ( Domain , NET ) )
-						Score += 1;
-					else if ( strcmp ( Domain , INT ) )
-						Score += 1;
-					else if ( strcmp ( Domain , MIL ) )
-						Score += .5;
-					}
-
+				if ( strcmp ( Domain.c_str() , ORG ) )
+					Score += 5;
+				else if ( strcmp ( Domain.c_str() , EDU ) )
+					Score += 4;
+				else if ( strcmp ( Domain.c_str() , GOV ) )
+					Score += 3;
+				else if ( strcmp ( Domain.c_str() , COM ) )
+					Score += 2;
+				else if ( strcmp ( Domain.c_str() , NET ) )
+					Score += 1;
+				else if ( strcmp ( Domain.c_str() , INT ) )
+					Score += 1;
+				else if ( strcmp ( Domain.c_str() , MIL ) )
+					Score += .5;
 			}
+
+		}
+		}
+
+	std::string getDomain ( )
+		{
+		return Domain;
+		}
+
+	std::string getService ( )
+		{
+		return Service;
 		}
 
 	std::string getCompleteUrl ( )
 		{
-		std::string completeUrl = "";
-		completeUrl.assign( this->CompleteUrl );
-		return completeUrl;
+		return CompleteUrl;
 		}
 
 	std::string getHost ( )
 		{
-		std::string host = "";
-		host.assign( this->Host );
-		return host;
+		return Host;
 		}
 
 	std::string getPath ( )
 		{
-		std::string path = "";
-		path.assign( this->Path );
-		return path;
+		return Path;
 		}
 
 	std::string getAnchorText ( )
 		{
-		std::string anchorText = "";
-		anchorText.assign( this->AnchorText );
-		return anchorText;
+		return AnchorText;
 		}
 
 	void setAnchorText ( std::string anchorText )
 		{
-		char *anchorCharStar = new char[anchorText.size( )];
-
-		for ( int i = 0; i < anchorText.size( ); ++i )
-			{
-			anchorCharStar += anchorText[ i ];
-			}
-		anchorCharStar += '\0';
-		this->AnchorText = anchorCharStar;
+		AnchorText = anchorText;
 		}
 
 
