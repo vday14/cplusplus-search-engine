@@ -79,7 +79,7 @@ void Spider::run ( )
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while ( cond < 25 )
+	while ( cond < true )
 		{
 		ParsedUrl currentUrl = getUrl( );
 		size_t docID = hash( currentUrl.CompleteUrl );
@@ -122,8 +122,11 @@ Takes a URL. Hashes it. Checks if the url is in the docMapLookup. If it is, chec
  * Takes in a parsed url,  creates a document object, writes information about the document to disk
  *  returns the begining position of the document on disk, stores that into the in memory lookup hash table
 */
+
+
 bool Spider::writeDocToDisk ( ParsedUrl url )
 	{
+	/*
 	Document d( url );
 	int resultPosition = d.WriteToDocMap( );
 	if ( resultPosition == -1 )
@@ -136,7 +139,7 @@ bool Spider::writeDocToDisk ( ParsedUrl url )
 		{
 		std::cout << it->first << " => " << it->second << '\n';
 		}
-
+	*/
 	return true;
 	}
 

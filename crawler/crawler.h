@@ -17,13 +17,16 @@ class Crawler
 	{
 
 public:
-	Crawler ( string mode_in, ProducerConsumerQueue< ParsedUrl > *url_q_in,
-	          ProducerConsumerQueue< DocIndex * > *doc_index_queue_in )
-			: IndexerQueue( doc_index_queue_in ), mode( mode_in ), urlFrontier( url_q_in )
+	Crawler ( string mode_in,
+				 ProducerConsumerQueue< ParsedUrl > *url_q_in,
+				 ProducerConsumerQueue< DocIndex * > *doc_index_queue_in )
+			: IndexerQueue( doc_index_queue_in ),
+			  mode( mode_in ),
+			  urlFrontier( url_q_in )
 		{ };
 
 	//spawns a number of works
-	void SpawnSpiders ( size_t num_spiders, unordered_map< string, int > *docMapLookup,
+	void SpawnSpiders ( size_t num_spiders,
 	                    unordered_map< size_t, int > *duplicateUrlMap );
 
 	//Creates a housekeeping thread

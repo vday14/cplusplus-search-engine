@@ -132,7 +132,6 @@ int main ( int argc, char *argv[] )
 		ParsedUrl url = ParsedUrl( testFile );
 		urlFrontier->Push( url );
 		}
-	unordered_map< string, int > *docMapLookUp = new unordered_map< string, int >( );
 
 
 	Indexer indexer( IndexerQueue );
@@ -140,7 +139,7 @@ int main ( int argc, char *argv[] )
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );
 
-	crawler.SpawnSpiders( numberOfSpiders, docMapLookUp, duplicateUrlMap );
+	crawler.SpawnSpiders( numberOfSpiders, duplicateUrlMap );
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );
