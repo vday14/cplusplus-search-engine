@@ -110,6 +110,8 @@ int main ( )
 	assert ( stem.execute( "are" ) == "ar" );
 	assert ( stem.execute( "terrible" ) == "terribl" );
 
+	assert ( stem.execute( "" ) == "" );
+	assert ( stem.execute( "s" ) == "s" );
 
 	cout << "\nTests passed for Stemmer :D" << endl;
 

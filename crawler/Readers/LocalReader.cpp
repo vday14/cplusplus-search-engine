@@ -31,7 +31,7 @@ string LocalReader::PageToString ( )
 
 ParsedUrl LocalReader::getUrl ( )
 	{
-	ParsedUrl url(fileName); //Fixme
+	ParsedUrl url(test_url);
 	return url;
 	}
 

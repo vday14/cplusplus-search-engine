@@ -49,6 +49,12 @@ int Stemmer::measure ( std::string word )
 	int m = 0;
 	unsigned long wordIt = 0;
 	unsigned long wordEnd = word.size( ) - 1;
+
+	if ( word.empty( ) )
+		{
+		return 0;
+		}
+
 	// Looking for CVC pattern
 	while ( wordIt <= wordEnd )
 		{
@@ -108,6 +114,12 @@ int Stemmer::measure ( std::string word )
  */
 bool Stemmer::isVowelPresent ( unsigned long wordBeg, unsigned long wordEnd, string word )
 	{
+
+	if ( word.empty( ) )
+		{
+		return false;
+		}
+
 	while ( wordBeg != wordEnd && wordBeg < word.size( ) )
 		{
 		if ( !isConsonant( wordBeg, word ) )
@@ -159,6 +171,11 @@ bool Stemmer::isConsonant ( unsigned long wordIt, string word )
  */
 bool Stemmer::addE ( string word )
 	{
+	if ( word.empty( ) )
+		{
+		return false;
+		}
+
 	// AT -> ATE
 	// BL -> BLE
 	// IZ -> IZE
@@ -182,6 +199,11 @@ bool Stemmer::addE ( string word )
  */
 bool Stemmer::doubleCon ( string word )
 	{
+	if ( word.empty( ) )
+		{
+		return false;
+		}
+
 	unsigned long endWord = word.size( ) - 1;
 
 	if ( word.size( ) > 2 && word[ endWord ] == word[ endWord - 1 ] )
@@ -209,6 +231,12 @@ bool Stemmer::doubleCon ( string word )
  */
 bool Stemmer::endCVC ( std::string word )
 	{
+
+	if ( word.empty( ) )
+		{
+		return false;
+		}
+
 	unsigned long endWord = word.size( ) - 1;
 
 	if ( word.size( ) > 2 )
@@ -235,6 +263,11 @@ bool Stemmer::endCVC ( std::string word )
  */
 std::string Stemmer::step1a ( std::string word )
 	{
+
+	if ( word.empty( ) )
+		{
+		return word;
+		}
 
 	// check S at end
 	if ( word[ word.size( ) - 1 ] == 's' && word.size() != 1)
@@ -286,6 +319,12 @@ std::string Stemmer::step1a ( std::string word )
  */
 std::string Stemmer::step1b ( std::string word )
 	{
+
+	if ( word.empty( ) )
+		{
+		return word;
+		}
+
 	unsigned long end = word.size( ) - 1;
 	auto begPtr = word.begin( );
 	auto endPtr = begPtr + end;
@@ -349,6 +388,10 @@ std::string Stemmer::step1b ( std::string word )
 string Stemmer::step1c ( string word )
 	{
 
+	if ( word.empty( ) )
+		{
+		return word;
+		}
 	// Y -> I
 	// happy -> happi
 	// sky -> sky
@@ -371,7 +414,7 @@ string Stemmer::step1c ( string word )
  */
 string Stemmer::step2 ( std::string word )
 	{
-	if ( measure( word ) == 0 )
+	if ( measure( word ) == 0 || word.empty( ) )
 		{
 		return word;
 		}
@@ -528,7 +571,7 @@ string Stemmer::step2 ( std::string word )
 std::string Stemmer::step3 ( std::string word )
 	{
 
-	if ( measure( word ) == 0 )
+	if ( measure( word ) == 0 || word.empty( ) )
 		{
 		return word;
 		}
@@ -592,7 +635,7 @@ std::string Stemmer::step3 ( std::string word )
  */
 std::string Stemmer::step4 ( std::string word )
 	{
-	if ( measure( word ) <= 2 )
+	if ( measure( word ) <= 2 || word.empty( ) )
 		{
 		return word;
 		}
@@ -730,6 +773,11 @@ std::string Stemmer::step4 ( std::string word )
  */
 std::string Stemmer::step5a ( std::string word )
 	{
+	if ( word.empty( ) )
+		{
+		return word;
+		}
+
 	auto m = measure( word );
 	// E ->
 	// probabte -> probat
@@ -757,6 +805,11 @@ std::string Stemmer::step5a ( std::string word )
  */
 std::string Stemmer::step5b ( std::string word )
 	{
+	if ( word.empty( ) )
+		{
+		return word;
+		}
+
 	if ( word.size( ) > 2 && measure( word ) > 1 && word[ word.size( ) - 1 ] == 'l' && word[ word.size( ) - 2 ] == 'l' )
 		{
 		word = subStr( word, 0, word.size( ) - 1 );
