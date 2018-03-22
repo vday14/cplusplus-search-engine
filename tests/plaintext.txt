@@ -1,12 +1,12 @@
 <html>
 <title>
-Apple Ardvark Anteater Alligator
+Apple Aardvark Anteater Alligator
 </title>
 <p class="text-muted">
-Basement Battle Bridge Bottle
+Basement Battle Bridge Bottle Bottle
 </p>
 <p class="text-muted">
-Hello Goodbye <a href="http://veronicaday.com/" class="btn btn-yes">
+Hello Goodbye Hello <a href="http://veronicaday.com/" class="btn btn-yes"</a>
 Cat Cradle
 </p>
 </html>

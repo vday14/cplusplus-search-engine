@@ -30,10 +30,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 	{
 
 	unsigned long htmlIt = 0;
-	unsigned long offsetTitle = 0;
-	unsigned long offsetURL = 0;
-	unsigned long offsetAnchor = 0;
-	unsigned long offsetBody = 0;
+	unsigned long offset = 0;
 	ParsedUrl currentUrl = reader->getUrl( );
 
 	// tokenize anchor
@@ -41,10 +38,10 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 	string anchorText = currentUrl.getAnchorText( );
 	if ( anchorText != "" )
 		{
-		offsetAnchor = tokenizer->execute( anchorText, offsetAnchor, Tokenizer::ANCHOR );
+		offset = tokenizer->execute( anchorText, offset, Tokenizer::ANCHOR );
 		}
 	// tokenize url
-	offsetURL = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offsetURL, Tokenizer::URL );
+	offset = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offset, Tokenizer::URL );
 
 	string html = reader->PageToString( );
 	while ( htmlIt < html.size( ) )
@@ -72,7 +69,6 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 			string line = subStr( html, htmlIt, endCloseTag + 1 - htmlIt );
 			htmlIt = endCloseTag + 2;
 
-
 			// check if line is url
 			string title = extractTitle( line );
 			string url = extractUrl( line );
@@ -85,8 +81,8 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 				//checking for p tag
 			else if ( isParagraph )
 				{
-				string body = extractBody( line, offsetTitle, offsetBody, isParagraph, tokenizer, currentUrl );
-				offsetBody = tokenizer->execute( body, offsetBody, Tokenizer::BODY );
+				string body = extractBody( line, offset, offset, isParagraph, tokenizer, currentUrl );
+				offset = tokenizer->execute( body, offset, Tokenizer::BODY );
 				}
 
 			// if html line is url, parses accordingly and pushes to frontier
@@ -97,12 +93,12 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 			// check if line is header; classifies as body text
 			else if ( header != "")
 				{
-				offsetBody = tokenizer->execute( header, offsetBody, Tokenizer::BODY );
+				offset = tokenizer->execute( header, offset, Tokenizer::BODY );
 				}
 			// check if line is title
 			else if ( title != "" )
 				{
-				offsetTitle = tokenizer->execute( title, offsetTitle, Tokenizer::TITLE );
+				offset = tokenizer->execute( title, offset, Tokenizer::TITLE );
 				}
 			else
 				{
@@ -184,7 +180,7 @@ string Parser::extractTitle ( string html )
 	{
 	string title = "";
 	char end = '<';
-	auto pos = findStr( "<title>", html );
+	auto pos = findStr( "<title", html );
 	if ( pos < html.size( ) )
 		{
 		pos += 7;
@@ -368,7 +364,8 @@ string Parser::extractBody ( string html, unsigned long & offsetTitle, unsigned 
                      ParsedUrl & currentUrl )
 	{
 	string body = "";
-	unsigned long startParTag = findNext( "<p>", 0, html );
+	unsigned long startParTag = findNext( "<p", 0, html );
+	startParTag = findNext( ">", startParTag, html) - 1;
 	unsigned long closeParTag = findNext( "</p>", startParTag, html );
 	unsigned long nextCloseTag = findNext( "</", startParTag, html );
 	startParTag += 3;

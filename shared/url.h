@@ -44,7 +44,7 @@ public:
 				*temp_AnchorText,
 				*temp_pathBuffer;
 
-		//intialize anchor text to "null"
+		//intialize anchor text to ""
 		char *null = new char[2];
 		strcpy( null, string( "" ).c_str( ) );
 		temp_AnchorText = null;
@@ -90,14 +90,10 @@ public:
 			{
 				for ( ; *i; i++ )
 				{
-
 					if ( *i == Period )
 						temp_Domain = i;
-
 				}
-
 			}
-
 
 			// Whatever remains is the Path. // need to remove fragments
 
@@ -107,8 +103,6 @@ public:
 			if ( *p )
 				// Mark the end of the Path, remove fragments.
 				*p++ = 0;
-
-
 		}
 		else
 			temp_Host = temp_Path = p;

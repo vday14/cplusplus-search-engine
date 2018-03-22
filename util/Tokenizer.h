@@ -18,6 +18,7 @@ public:
 	static const char ANCHOR = '@';
 	static const char URL = '$';
 	static const char BODY = '%';
+	static const char HOST = '=';
 
 	/**
  	* Tokenizer Cstor
