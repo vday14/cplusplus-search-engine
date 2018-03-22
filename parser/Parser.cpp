@@ -195,7 +195,7 @@ string Parser::extractTitle ( string html )
 	if ( pos < html.size( ) )
 		{
 		pos += 7;
-		while ( html[ pos ] != end )
+		while ( html[ pos ] != end && pos < html.size( ) )
 			{
 			title += html[ pos ];
 			++pos;
