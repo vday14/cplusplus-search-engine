@@ -138,7 +138,7 @@ string Parser::extractUrl ( string html )
 			{
 			url = "";
 			unsigned long closeTag = findNext( ">", foundHref, html );
-			unsigned long closeQuote = findNext( "\"", foundHref, html );
+//			unsigned long closeQuote = findNext( "\"", foundHref, html );
 			unsigned long closeSpace = findNext( " ", foundHref, html );
 			unsigned long closeUrl = 0;
 
