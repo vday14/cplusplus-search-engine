@@ -138,8 +138,15 @@ string Parser::extractUrl ( string html )
 			{
 			url = "";
 			unsigned long closeTag = findNext( ">", foundHref, html );
+			unsigned long closeQuote = findNext( "\"", foundHref, html );
 			unsigned long closeSpace = findNext( " ", foundHref, html );
 			unsigned long closeUrl = 0;
+
+			// ends in "
+//			if ( closeQuote < html.size( ) && closeTag < html.size( ) && closeQuote < closeTag && closeQuote < closeSpace )
+//				{
+//				closeUrl = closeQuote;
+//				}
 			// end == ' >'
 			if ( closeSpace < html.size( ) && closeTag < html.size( ) && closeSpace < closeTag )
 				{
@@ -167,6 +174,10 @@ string Parser::extractUrl ( string html )
 			}
 		}
 
+	while ( !url.empty( ) && ( url.back( ) == '\"' || url.back( ) == ';' ) )
+		{
+		url.pop_back( );
+		}
 	return url;
 	}
 

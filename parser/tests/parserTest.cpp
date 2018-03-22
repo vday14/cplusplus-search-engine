@@ -16,7 +16,7 @@
 using namespace std;
 
 void testSimple( );
-void testComplex( );
+void testHttp( );
 void testURL( );
 void testBody ( );
 void testExtractBody ( );
@@ -28,7 +28,7 @@ int main ( )
 	{
 	cout << "Testing Parser ... " << endl << endl;
 	testSimple( );
-//	testComplex( );
+	testHttp( );
 	testURL( );
 	testBody ( );
 	testExtractBody ( );
@@ -90,14 +90,14 @@ void testSimple ( )
 	cout << "Simple Test Passed!" << endl << endl;
 	}
 
-void testComplex( )
+void testHttp( )
 	{
 	cout << "Testing Complex: " << endl;
 	ProducerConsumerQueue< ParsedUrl > urlFrontierTest;
 	Parser parser( &urlFrontierTest );
-	ParsedUrl httpURL = ParsedUrl( "www.veronicacday.com" );
-	HttpReader reader( httpURL );
+	ParsedUrl httpURL = ParsedUrl( "http://veronicacday.com/" );
 
+	HttpReader reader( httpURL );
 	auto success = reader.request( );
 	if ( !success )
 		{
@@ -107,10 +107,29 @@ void testComplex( )
 
 	auto dictionary = parser.execute( &reader );
 	printDictionary( *dictionary );
+
+	urlFrontierTest.Pop( );
+	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://trove.com/" );
+	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "http://arcinnovations.xyz/" );
+	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://gwydion.co/" );
+	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://madeatmichigan.umich.edu/ventures/venture/gwydion/" );
+
+	assert ( dictionary != nullptr );
+	assert ( dictionary->size( ) == 67 );
+
+	assert ( dictionary->at( "=veronicacday.com/" ).size( ) == 1 && dictionary->at( "=veronicacday.com/" )[ 0 ] == 0 );
+	assert ( dictionary->at( "%serena" ).size( ) == 2 && dictionary->at( "%serena" )[ 1 ] == 24 );
+	assert ( dictionary->at( "#veronica" ).size( ) == 1 && dictionary->at( "#veronica" )[ 0 ] == 2 );
+	assert ( dictionary->at( "#dai" ).size( ) == 1 && dictionary->at( "#dai" )[ 0 ] == 3 );
+	assert ( dictionary->at( "%educ" ).size( ) == 1 && dictionary->at( "%educ" )[ 0 ] == 13 );
+	assert ( dictionary->at( "%surgeri" ).size( ) == 1 && dictionary->at( "%surgeri" )[ 0 ] == 72 );
+
+
+
 	delete dictionary;
 	dictionary = nullptr;
 
-	cout << "Complex Test Passed! " << endl;
+	cout << "Complex Test Passed! " << endl << endl;
 	}
 
 
