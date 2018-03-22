@@ -368,7 +368,7 @@ string Parser::extractBody ( string html, unsigned long & offsetTitle, unsigned 
 	startParTag = findNext( ">", startParTag, html) - 1;
 	unsigned long closeParTag = findNext( "</p>", startParTag, html );
 	unsigned long nextCloseTag = findNext( "</", startParTag, html );
-	startParTag += 3;
+	startParTag += 2;
 	while ( nextCloseTag != startParTag )
 		{
 		if ( closeParTag == nextCloseTag )
