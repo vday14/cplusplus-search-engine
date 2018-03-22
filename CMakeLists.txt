@@ -20,8 +20,7 @@ add_executable(Parser2Test
         crawler/Readers/StreamReader.h
         crawler/Readers/LocalReader.cpp
         crawler/Readers/HttpReader.cpp
-        crawler/Readers/HttpsReader.cpp
-        )
+        crawler/Readers/HttpsReader.cpp)
 
 add_executable(crawler-parser-test
         main.cpp
