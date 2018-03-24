@@ -108,21 +108,22 @@ void testHttp( )
 	auto dictionary = parser.execute( &reader );
 	printDictionary( *dictionary );
 
-	urlFrontierTest.Pop( );
+	assert( urlFrontierTest.Size( ) == 12 );
 	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://trove.com/" );
 	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "http://arcinnovations.xyz/" );
 	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://gwydion.co/" );
 	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://madeatmichigan.umich.edu/ventures/venture/gwydion/" );
 
 	assert ( dictionary != nullptr );
-	assert ( dictionary->size( ) == 67 );
+	assert ( dictionary->size( ) == 372 );
 
 	assert ( dictionary->at( "=veronicacday.com/" ).size( ) == 1 && dictionary->at( "=veronicacday.com/" )[ 0 ] == 0 );
-	assert ( dictionary->at( "%serena" ).size( ) == 2 && dictionary->at( "%serena" )[ 1 ] == 24 );
+	assert ( dictionary->at( "%serena" ).size( ) == 2 && dictionary->at( "%serena" )[ 1 ] == 80 );
 	assert ( dictionary->at( "#veronica" ).size( ) == 1 && dictionary->at( "#veronica" )[ 0 ] == 2 );
 	assert ( dictionary->at( "#dai" ).size( ) == 1 && dictionary->at( "#dai" )[ 0 ] == 3 );
-	assert ( dictionary->at( "%educ" ).size( ) == 1 && dictionary->at( "%educ" )[ 0 ] == 13 );
-	assert ( dictionary->at( "%surgeri" ).size( ) == 1 && dictionary->at( "%surgeri" )[ 0 ] == 72 );
+	assert ( dictionary->at( "%educ" ).size( ) == 1 && dictionary->at( "%educ" )[ 0 ] == 40 );
+	assert ( dictionary->at( "%surgeri" ).size( ) == 2 && dictionary->at( "%surgeri" )[ 0 ] == 511 );
+	assert ( dictionary->at( "%busi" ).size( ) == 6 );
 
 
 

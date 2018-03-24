@@ -55,8 +55,13 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 		// if open bracket
 		if ( html[ htmlIt ] == '<' )
 			{
-
-			if (  html[ htmlIt + 1 ] == 'p' && ( ( html[htmlIt + 2]) == '>' || ( html[ htmlIt + 2 ] == ' ') ) )
+			if ( isInvalidTag(  html, htmlIt ) )
+				{
+				begCloseTag = findNext( ">", htmlIt, html );
+				htmlIt = begCloseTag;
+				continue;
+				}
+			else if (  html[ htmlIt + 1 ] == 'p' && ( ( html[htmlIt + 2]) == '>' || ( html[ htmlIt + 2 ] == ' ') ) )
 				{
 				begCloseTag = findNext( "</p>", htmlIt, html );
 				isParagraph = true;
@@ -86,7 +91,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 				}
 
 			// if html line is url, parses accordingly and pushes to frontier
-			else if ( url != "" )
+			else if ( url != "" && url != "#" )
 				{
 				pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), false );
 				}
@@ -123,6 +128,79 @@ string Parser::extractAnchorText ( string html )
 	}
 
 /**
+ * Return true if the tag does not close
+ * @param html
+ * @param htmlIt
+ * @return
+ */
+bool Parser::isInvalidTag( string html, unsigned long htmlIt )
+	{
+	// check size first so stay within string
+	if ( htmlIt + 1 < html.size( ) && html[ htmlIt + 1 ] == '!' && html[ htmlIt + 1 ] == '%' )
+		{
+		// comment or <!DocType> or <%
+		return true;
+		}
+
+	if (htmlIt + 3 < html.size( ) )
+		{
+		// break
+		if ( html[ htmlIt + 1 ] == 'b' && html[ htmlIt + 2 ] == 'r' && html[ htmlIt + 3 ] == '>' )
+			return true;
+		// br
+		else if ( html[ htmlIt + 1 ] == 'c' && html[ htmlIt + 2 ] == 'o' && html[ htmlIt + 3 ] == 'l' )
+			return true;
+			// img
+		else if ( html[ htmlIt + 1 ] == 'i' && html[ htmlIt + 2 ] == 'm' && html[ htmlIt + 3 ] == 'g' )
+			return true;
+			// input
+		else if ( html[ htmlIt + 1 ] == 'i' && html[ htmlIt + 2 ] == 'n' && html[ htmlIt + 3 ] == 'p' )
+			return true;
+			// keygen
+		else if ( html[ htmlIt + 1 ] == 'k' && html[ htmlIt + 2 ] == 'e' && html[ htmlIt + 3 ] == 'y' )
+			return true;
+			// link
+		else if ( html[ htmlIt + 1 ] == 'l' && html[ htmlIt + 2 ] == 'i' && html[ htmlIt + 3 ] == 'n' )
+			return true;
+			// source
+		else if ( html[ htmlIt + 1 ] == 's' && html[ htmlIt + 2 ] == 'o' && html[ htmlIt + 3 ] == 'u' )
+			return true;
+			// wbr
+		else if ( html[ htmlIt + 1 ] == 'w' && html[ htmlIt + 2 ] == 'b' && html[ htmlIt + 3 ] == 'r' )
+			return true;
+		}
+
+	if ( htmlIt + 4 < html.size( ) )
+		{
+		// meta
+		if ( html[ htmlIt + 1 ] == 'm' && html[ htmlIt + 2 ] == 'e' && html[ htmlIt + 3 ] == 't' && html[ htmlIt + 4 ] == 'a' )
+			return true;
+			// area
+		else if ( html[ htmlIt + 1 ] == 'a' && html[ htmlIt + 2 ] == 'r' && html[ htmlIt + 3 ] == 'e' && html[ htmlIt + 4 ] == 'a' )
+			return true;
+			// base
+		else if ( html[ htmlIt + 1 ] == 'b' && html[ htmlIt + 2 ] == 'a' && html[ htmlIt + 3 ] == 's' && html[ htmlIt + 4 ] == 'e' )
+			return true;
+			// command
+		else if ( html[ htmlIt + 1 ] == 'c' && html[ htmlIt + 2 ] == 'o' && html[ htmlIt + 3 ] == 'm' && html[ htmlIt + 4 ] == 'm' )
+			return true;
+			// track
+		else if ( html[ htmlIt + 1 ] == 't' && html[ htmlIt + 2 ] == 'r' && html[ htmlIt + 3 ] == 'a' && html[ htmlIt + 4 ] == 'c' )
+			return true;
+		}
+
+	if ( htmlIt + 5 < html.size( ) )
+		{
+		// param
+		if ( html[ htmlIt + 1 ] == 'p' && html[ htmlIt + 2 ] == 'a' && html[ htmlIt + 3 ] == 'r'
+		     && html[ htmlIt + 4 ] == 'a' && html[ htmlIt + 5 ] == 'm' )
+			return true;
+		}
+	return false;
+	}
+
+
+/**
  * Returns a url, or "" if none
  * @param word
  * @return
@@ -130,53 +208,22 @@ string Parser::extractAnchorText ( string html )
 string Parser::extractUrl ( string html )
 	{
 	string url = "";
-	if ( findStr( "<a", html ) != html.size( ) )
+	unsigned long aTag = findStr( "<a", html );
+	if ( aTag != html.size( ) )
 		{
-		unsigned long foundHref = findStr( "href", html );
-		unsigned long foundHttp = findNext( "http", foundHref, html );
-		if ( foundHttp < html.size( ) )
+		unsigned long foundHref = findStr( "href=", html );
+		unsigned long begQuote = findNext( "\"", foundHref, html );
+
+		if ( begQuote < html.size( ) )
 			{
-			url = "";
-			unsigned long closeTag = findNext( ">", foundHref, html );
-//			unsigned long closeQuote = findNext( "\"", foundHref, html );
-			unsigned long closeSpace = findNext( " ", foundHref, html );
-			unsigned long closeUrl = 0;
-
-			// ends in "
-//			if ( closeQuote < html.size( ) && closeTag < html.size( ) && closeQuote < closeTag && closeQuote < closeSpace )
-//				{
-//				closeUrl = closeQuote;
-//				}
-			// end == ' >'
-			if ( closeSpace < html.size( ) && closeTag < html.size( ) && closeSpace < closeTag )
+			++begQuote;
+			unsigned long endQuote = findNext( "\"", begQuote + 1, html );
+			while ( begQuote != endQuote && endQuote < html.size( ) && begQuote < html.size( ) )
 				{
-				if ( html[ closeSpace - 1 ] == '\"' )
-					{
-					closeSpace -= 1;
-					}
-				closeUrl = closeSpace;
-				}
-				// end == '>'
-			else if ( closeTag < html.size( ) )
-				{
-				if ( html[ closeTag - 1 ] == '\"' )
-					{
-					closeTag -= 1;
-					}
-				closeUrl = closeTag;
-				}
-
-			while ( foundHttp != closeUrl && foundHttp < html.size() && html[ foundHttp ] != '\n' )
-				{
-				url.push_back( html[ foundHttp ] );
-				++foundHttp;
+				url += html[ begQuote ];
+				++begQuote;
 				}
 			}
-		}
-
-	while ( !url.empty( ) && ( url.back( ) == '\"' || url.back( ) == ';' ) )
-		{
-		url.pop_back( );
 		}
 	return url;
 	}
@@ -205,14 +252,29 @@ string Parser::extractTitle ( string html )
 	}
 
 /**
- * Will return true if local url
+ * Will return new url if local
  *
  * @param url
+ * @param currentUrl
  * @return
  */
-bool Parser::isLocal ( string url )
+string Parser::isLocal ( string url, ParsedUrl currentUrl )
 	{
-	return ( url[ 0 ] == '/' );
+	if ( url[ 0 ] != '/' )
+		{
+		return url;
+		}
+	if ( currentUrl.getCompleteUrl( ).back( ) == '/' )
+		{
+		string temp = currentUrl.getCompleteUrl( );
+		temp.pop_back();
+		url = temp + url;
+		}
+	else
+		{
+		url = currentUrl.getCompleteUrl( ) + url;
+		}
+	return url;
 	}
 
 /**
@@ -245,6 +307,11 @@ bool Parser::isValid ( string url )
 		{
 		return false;
 		}
+	// #
+	if ( url[ 0 ] == '#' )
+		{
+		return false;
+		}
 	return true;
 	}
 
@@ -258,10 +325,7 @@ bool Parser::isValid ( string url )
  */
 void Parser::pushToUrlQueue ( string url, ParsedUrl currentUrl, string anchorText, bool debug )
 	{
-	if ( isLocal( url ) )
-		{
-		url = currentUrl.getCompleteUrl( ) + url;
-		}
+	url = isLocal( url, currentUrl );
 	if ( isValid( url ) && url != currentUrl.getCompleteUrl( ) )
 		{
 		ParsedUrl pUrl = ParsedUrl( url );
@@ -327,7 +391,7 @@ void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned lon
 
 	else if ( url != "" )
 		{
-			pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), false );
+			pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
 		}
 		// check if line is title
 		// check if line is title
