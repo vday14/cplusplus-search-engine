@@ -147,7 +147,7 @@ void Indexer::save() {
 }
 
 void Indexer::saveChunkDictionary() {
-    string fileName = "master-index.txt";
+    string fileName = "index-master.txt";
     int file = open(fileName.c_str(), O_CREAT | O_WRONLY, S_IRWXU);
     for(auto word : chunkDictionary) {
         string wordDictionary = word.first + " ";
