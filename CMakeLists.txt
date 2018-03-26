@@ -113,6 +113,18 @@ add_executable(ISRWord-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
+add_executable(DataStructures-Vector-tests
+        DataStructures/Vector/Vector.h
+        DataStructures/Vector/VectorTests.cpp)
+
+add_executable(DataStructures-HashTable-tests
+        DataStructures/HashTable/LPHashTable.h
+        DataStructures/HashTable/HashTableTests.cpp)
+
+add_executable(DataStructures-DiskHashTable-tests
+        DataStructures/DiskHashTable/DiskHashTable.h
+        DataStructures/DiskHashTable/DiskHashTableTests.cpp)
+
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
