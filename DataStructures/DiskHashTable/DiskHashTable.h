@@ -15,12 +15,6 @@
 
 using namespace std;
 
-ssize_t FileSize(int file) {
-    struct stat st;
-    fstat(file, &st);
-    return st.st_size;
-}
-
 /*
  *
  * A very simple implementation of a hash table: stored on disk though! :)
@@ -50,19 +44,19 @@ public:
     DiskHashTable(string path, size_t maxKeySize_in, size_t maxValueSize_in) {
         file = open(path.c_str(), O_CREAT | O_RDWR, S_IRWXU);
         fileName = path;
-        fileSize = FileSize(file);
+        fileSize = FileSize1(file);
         maxKeySize = maxKeySize_in;
         maxValueSize = maxValueSize_in;
         nodeSize = maxKeySize + maxValueSize + 2;
-        if(nodeSize % 10 != 0) {
-            cerr << "The sum of key size + value size + 2 must be divisible by 10!";
+        if(1000 % nodeSize != 0) {
+            cerr << "The sum of key size + value size + 2 must divide a multiple of 1000!";
             exit(1);
         }
         if(fileSize <= 0) {             // no file, or empty file
             lseek(file, 1009, SEEK_SET);
             write(file, "", 1);
             lseek(file, 0, SEEK_SET);
-            fileSize = FileSize(file) - 10;
+            fileSize = FileSize1(file) - 10;
             capacity = floor(fileSize / nodeSize);
             size = 0;
         } else {                        // pre-existing diskhashtable
@@ -74,6 +68,10 @@ public:
         }
     }
 
+    ~DiskHashTable() {
+        close(file);
+    }
+
     /**
      * Inserts a key-value pair into the disk hash table.
      * @param key
@@ -81,6 +79,14 @@ public:
      * @return
      */
     bool insert(string key, string value) {
+        if(key.size() > maxKeySize) {
+            cerr << "A key you tried to insert into a disk hash table was larger than the set max key size!";
+            exit(1);
+        }
+        if(value.size() > maxValueSize) {
+            cerr << "A value you tried to insert into a disk hash table was larger than the set max value size!";
+            exit(1);
+        }
         if((double) size / capacity >= 0.75) {
             rehash();
         }
@@ -184,7 +190,7 @@ private:
         ssize_t doubledFileSize = fileSize * 2 + 9;
         lseek(rehashFile, doubledFileSize, SEEK_SET);
         write(rehashFile, "", 1);
-        fileSize = FileSize(rehashFile) - 10;
+        fileSize = FileSize1(rehashFile) - 10;
         size_t newCapacity = floor(doubledFileSize / nodeSize);
         lseek(rehashFile, 0, SEEK_SET);
         string sizeString = to_string(size) + '\n';
@@ -216,6 +222,12 @@ private:
         remove(fileName.c_str());
         rename(tempRehashedFileName.c_str(), fileName.c_str());
         file = rehashFile;
+    }
+
+    ssize_t FileSize1(int file) {
+        struct stat st;
+        fstat(file, &st);
+        return st.st_size;
     }
 
 };
