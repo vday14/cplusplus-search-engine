@@ -70,7 +70,7 @@ void Indexer::verbose_run() {
 void Indexer::save ( )
 	{
 	map< string, vector< size_t > > maps( masterDictionary.begin( ), masterDictionary.end( ) );
-	DiskHashTable seeker(util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + "-seek.txt", 20, 8 );
+	DiskHashTable seeker(util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + "-seek.txt", 30, 8 );
 	string fileName = util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + ".txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 

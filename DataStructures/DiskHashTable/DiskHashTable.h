@@ -48,8 +48,8 @@ public:
         maxKeySize = maxKeySize_in;
         maxValueSize = maxValueSize_in;
         nodeSize = maxKeySize + maxValueSize + 2;
-        if(nodeSize % 10 != 0) {
-            cerr << "The sum of key size + value size + 2 must be divisible by 10!";
+        if(1000 % nodeSize != 0) {
+            cerr << "The sum of key size + value size + 2 must divide a multiple of 1000!";
             exit(1);
         }
         if(fileSize <= 0) {             // no file, or empty file
@@ -79,6 +79,14 @@ public:
      * @return
      */
     bool insert(string key, string value) {
+        if(key.size() > maxKeySize) {
+            cerr << "A key you tried to insert into a disk hash table was larger than the set max key size!";
+            exit(1);
+        }
+        if(value.size() > maxValueSize) {
+            cerr << "A value you tried to insert into a disk hash table was larger than the set max value size!";
+            exit(1);
+        }
         if((double) size / capacity >= 0.75) {
             rehash();
         }
