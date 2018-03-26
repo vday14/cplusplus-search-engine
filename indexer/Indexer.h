@@ -5,6 +5,7 @@
 #include "../shared/ThreadClass.h"
 #include "DocumentEnding.h"
 #include "PostingsSeekTableEntry.h"
+#include "../DataStructures/DiskHashTable/DiskHashTable.h"
 #include "../util/util.h"
 #include <unordered_map>
 #include <map>

@@ -70,7 +70,7 @@ void Indexer::verbose_run() {
 void Indexer::save ( )
 	{
 	map< string, vector< size_t > > maps( masterDictionary.begin( ), masterDictionary.end( ) );
-	map< string, size_t > seeker;
+	DiskHashTable seeker(util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + "-seek.txt", 20, 8 );
 	string fileName = util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + ".txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
@@ -87,7 +87,7 @@ void Indexer::save ( )
 
 	for ( auto word : maps )
 		{
-		seeker[ word.first ] = seekOffset;
+		seeker.insert(word.first, to_string(seekOffset));
 		chunkDictionary[ word.first ].push_back( currentFile );
 //        string wordBreak = word.first + "\n";
 //        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
@@ -129,7 +129,7 @@ void Indexer::save ( )
 	string docEndingHeader = "===Document Endings===\n";
 	write( file, docEndingHeader.c_str( ), strlen( docEndingHeader.c_str( ) ) );
 	seekOffset += strlen( docEndingHeader.c_str( ) );
-	seeker[ "=docEnding" ] = seekOffset;
+	seeker.insert("=docEnding", to_string(seekOffset));
 
 	for ( auto ending : docEndings )
 		{
@@ -140,29 +140,6 @@ void Indexer::save ( )
 		write( file, docEndString.c_str( ), strlen( docEndString.c_str( ) ) );
 		}
 
-	// TODO: seek dictionary
-	string seekFileName = util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + "-seek.txt";
-	int seekFile = open( seekFileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
-	for ( auto word : seeker )
-		{
-		string line = word.first + " " + to_string( word.second ) + "\n";
-		write( seekFile, line.c_str( ), strlen( line.c_str( ) ) );
-		if ( postingsSeekTable.find( word.first ) != postingsSeekTable.end( ) )
-			{
-			string offsetLine = "\t";
-			for ( int i = 0; i < postingsSeekTable[ word.first ].size( ); i++ )
-				{
-				offsetLine += "<" +
-				              to_string( postingsSeekTable[ word.first ][ i ].realLocation ) +
-				              ", " +
-				              to_string( postingsSeekTable[ word.first ][ i ].offset ) +
-				              "> ";
-				}
-			offsetLine += "\n";
-			write( seekFile, offsetLine.c_str( ), strlen( offsetLine.c_str( ) ) );
-			}
-		}
-
 	close( file );
 	currentFile++;
 	}
@@ -170,6 +147,7 @@ void Indexer::save ( )
 void Indexer::saveChunkDictionary ( )
 	{
 	string fileName = util::GetCurrentWorkingDir( ) + "/indexer/output/master-index.txt";
+
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 	for ( auto word : chunkDictionary )
 		{

@@ -15,12 +15,6 @@
 
 using namespace std;
 
-ssize_t FileSize(int file) {
-    struct stat st;
-    fstat(file, &st);
-    return st.st_size;
-}
-
 /*
  *
  * A very simple implementation of a hash table: stored on disk though! :)
@@ -50,7 +44,7 @@ public:
     DiskHashTable(string path, size_t maxKeySize_in, size_t maxValueSize_in) {
         file = open(path.c_str(), O_CREAT | O_RDWR, S_IRWXU);
         fileName = path;
-        fileSize = FileSize(file);
+        fileSize = FileSize1(file);
         maxKeySize = maxKeySize_in;
         maxValueSize = maxValueSize_in;
         nodeSize = maxKeySize + maxValueSize + 2;
@@ -62,7 +56,7 @@ public:
             lseek(file, 1009, SEEK_SET);
             write(file, "", 1);
             lseek(file, 0, SEEK_SET);
-            fileSize = FileSize(file) - 10;
+            fileSize = FileSize1(file) - 10;
             capacity = floor(fileSize / nodeSize);
             size = 0;
         } else {                        // pre-existing diskhashtable
@@ -72,6 +66,10 @@ public:
             size = stoll(numKeys);
             capacity = floor(fileSize / nodeSize);
         }
+    }
+
+    ~DiskHashTable() {
+        close(file);
     }
 
     /**
@@ -184,7 +182,7 @@ private:
         ssize_t doubledFileSize = fileSize * 2 + 9;
         lseek(rehashFile, doubledFileSize, SEEK_SET);
         write(rehashFile, "", 1);
-        fileSize = FileSize(rehashFile) - 10;
+        fileSize = FileSize1(rehashFile) - 10;
         size_t newCapacity = floor(doubledFileSize / nodeSize);
         lseek(rehashFile, 0, SEEK_SET);
         string sizeString = to_string(size) + '\n';
@@ -216,6 +214,12 @@ private:
         remove(fileName.c_str());
         rename(tempRehashedFileName.c_str(), fileName.c_str());
         file = rehashFile;
+    }
+
+    ssize_t FileSize1(int file) {
+        struct stat st;
+        fstat(file, &st);
+        return st.st_size;
     }
 
 };

@@ -118,12 +118,18 @@ add_executable(DataStructures-Vector-tests
         DataStructures/Vector/VectorTests.cpp)
 
 add_executable(DataStructures-HashTable-tests
-        DataStructures/HashTable/LPHashTable.h
+        DataStructures/HashTable/HashTable.h
         DataStructures/HashTable/HashTableTests.cpp)
 
 add_executable(DataStructures-DiskHashTable-tests
         DataStructures/DiskHashTable/DiskHashTable.h
         DataStructures/DiskHashTable/DiskHashTableTests.cpp)
+
+add_executable(Indexer-tests
+        DataStructures/DiskHashTable/DiskHashTable.h
+        Indexer/Indexer.cpp
+        indexer/json.hpp
+        Indexer/IndexerTwitterTests.cpp)
 
 find_package(OpenSSL REQUIRED)
 
