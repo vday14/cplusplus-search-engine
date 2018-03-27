@@ -123,6 +123,7 @@ add_executable(DataStructures-HashTable-tests
 
 add_executable(DataStructures-DiskHashTable-tests
         DataStructures/DiskHashTable/DiskHashTable.h
+        DataStructures/DiskHashTable/MMDiskHashTable.h
         DataStructures/DiskHashTable/DiskHashTableTests.cpp)
 
 find_package(OpenSSL REQUIRED)

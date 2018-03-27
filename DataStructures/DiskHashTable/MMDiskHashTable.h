@@ -28,7 +28,7 @@ using namespace std;
  *
  */
 
-class DiskHashTable {
+class MMDiskHashTable {
 
 public:
 
@@ -41,7 +41,7 @@ public:
      * @param maxKeySize_in
      * @param maxValueSize_in
      */
-    DiskHashTable(string path, size_t maxKeySize_in, size_t maxValueSize_in) {
+    MMDiskHashTable(string path, size_t maxKeySize_in, size_t maxValueSize_in) {
         file = open(path.c_str(), O_CREAT | O_RDWR, S_IRWXU);
         fileName = path;
         fileSize = FileSize1(file);
@@ -55,7 +55,6 @@ public:
         if(fileSize <= 0) {             // no file, or empty file
             lseek(file, 1009, SEEK_SET);
             write(file, "", 1);
-            lseek(file, 0, SEEK_SET);
             fileSize = FileSize1(file) - 10;
             capacity = floor(fileSize / nodeSize);
             size = 0;
@@ -66,10 +65,7 @@ public:
             size = stoll(numKeys);
             capacity = floor(fileSize / nodeSize);
         }
-    }
-
-    ~DiskHashTable() {
-        close(file);
+        map = (char*) mmap(nullptr, FileSize1(file), PROT_READ | PROT_WRITE, MAP_SHARED, file, 0);
     }
 
     /**
@@ -90,39 +86,28 @@ public:
         if((double) size / capacity >= 0.75) {
             rehash();
         }
+
         size_t loc = 10 + (hasher(key) % capacity) * nodeSize;
         string node = key + '\t' + value;
         node.resize(nodeSize);
-        lseek(file, loc, SEEK_SET);
-        char buffer[nodeSize];
-        bool rewindToStart = true;
-        while(read(file, buffer, nodeSize)) {
-            lseek(file, -nodeSize, SEEK_CUR);
-            if(buffer[0] == '\0') {
-                write(file, node.c_str(), strlen(node.c_str()));
-                rewindToStart = false;
-                break;
-            } else {
-                lseek(file, nodeSize, SEEK_CUR);
+
+        while(map[loc] != '\0') {
+            loc += nodeSize;
+            if(loc >= FileSize1(file)) {
+                loc = 10;
             }
         }
-        lseek(file, 10, SEEK_SET);
-        while(rewindToStart && read(file, buffer, nodeSize)) {
-            lseek(file, -nodeSize, SEEK_CUR);
-            if(buffer[0] == '\0') {
-                write(file, node.c_str(), strlen(node.c_str()));
-                rewindToStart = false;
-                break;
-            } else {
-                lseek(file, nodeSize, SEEK_CUR);
-            }
+
+        for(size_t i = 0; i < nodeSize; i++) {
+            map[loc++] = node[i];
         }
+
         size++;
-        lseek(file, 0, SEEK_SET);
         string sizeString = to_string(size);
         sizeString.resize(10);
-        write(file, sizeString.c_str(), 10);
-        return true;
+        for(size_t i = 0; i < 10; i++) {
+            map[i] = sizeString[i];
+        }
     }
 
     /**
@@ -132,31 +117,25 @@ public:
      */
     string find(string query) {
         size_t loc = 10 + (hasher(query) % capacity) * nodeSize;
-        lseek(file, loc, SEEK_SET);
-        char buffer[nodeSize];
-        pair<string, string> result;
+        string key = "";
         size_t searched = 0;
-        do {
-            searched++;
-            buffer[0] = '\0';
-            size_t bytes = read(file, buffer, nodeSize);
-            if(bytes == 0) {
-                lseek(file, 10, SEEK_SET);
-                read(file, buffer, nodeSize);
+        for(char* search = map + loc; search < map + FileSize1(file); search += nodeSize) {
+            auto ff = extractKeyValueFromBuffer(search);
+            if(ff.first == query) {
+                return ff.second;
             }
-            result = extractKeyValueFromBuffer(buffer);
-            if(searched == size) {
+            searched++;
+            if(searched >= size) {
                 return "";
             }
-        } while(strcmp(result.first.c_str(), query.c_str()) != 0);
-//        std::cout << searched << std::endl;
-        return result.second;
+        }
     }
 
 private:
 
     int file;
     string fileName;
+    char* map;
 
     size_t size;
     size_t capacity;
@@ -182,7 +161,7 @@ private:
             }
         }
         return {key, value};
-    };
+    }
 
     void rehash() {
         string tempRehashedFileName = fileName + "_rehashed.txt";
@@ -191,42 +170,30 @@ private:
         lseek(rehashFile, doubledFileSize, SEEK_SET);
         write(rehashFile, "", 1);
         fileSize = FileSize1(rehashFile) - 10;
+        char* newMap = (char*) mmap(nullptr, FileSize1(rehashFile), PROT_READ | PROT_WRITE, MAP_SHARED, rehashFile, 0);
         size_t newCapacity = floor(doubledFileSize / nodeSize);
-        lseek(rehashFile, 0, SEEK_SET);
-        string sizeString = to_string(size) + '\n';
+        string sizeString = to_string(size);
         sizeString.resize(10);
-        write(rehashFile, sizeString.c_str(), 10);
+        for(size_t i = 0; i < 10; i++) {
+            newMap[i] = sizeString[i];
+        }
         for(int i = 0; i < capacity; i++) {
             size_t oldLocation = 10 + i * nodeSize;
-            lseek(file, oldLocation, SEEK_SET);
-            char entry[nodeSize];
-            read(file, entry, nodeSize);
-            pair<string, string> result = extractKeyValueFromBuffer(entry);
-            if(result.first != "") {
+            pair<string, string> result = extractKeyValueFromBuffer(map + oldLocation);
+            if (result.first != "") {
                 size_t newLocation = 10 + (hasher(result.first) % newCapacity) * nodeSize;
-                lseek(rehashFile, newLocation, SEEK_SET);
-                char buffer[nodeSize];
-                bool rewindToStart = true;
-                while(read(rehashFile, buffer, nodeSize)) {
-                    lseek(rehashFile, -nodeSize, SEEK_CUR);
-                    if(buffer[0] == '\0') {
-                        write(rehashFile, entry, strlen(entry));
-                        rewindToStart = false;
-                        break;
-                    } else {
-                        lseek(rehashFile, nodeSize, SEEK_CUR);
+
+                while (newMap[newLocation] != '\0') {
+                    newLocation += nodeSize;
+                    if (newLocation >= FileSize1(rehashFile)) {
+                        newLocation = 10;
                     }
                 }
-                lseek(rehashFile, 10, SEEK_SET);
-                while(rewindToStart && read(rehashFile, buffer, nodeSize)) {
-                    lseek(rehashFile, -nodeSize, SEEK_CUR);
-                    if(buffer[0] == '\0') {
-                        write(rehashFile, entry, strlen(entry));
-                        rewindToStart = false;
-                        break;
-                    } else {
-                        lseek(rehashFile, nodeSize, SEEK_CUR);
-                    }
+
+                string node = result.first + '\t' + result.second;
+                node.resize(nodeSize);
+                for (int i = 0; i < nodeSize; i++) {
+                    newMap[newLocation++] = node[i];
                 }
             }
         }
@@ -235,6 +202,7 @@ private:
         remove(fileName.c_str());
         rename(tempRehashedFileName.c_str(), fileName.c_str());
         file = rehashFile;
+        map = newMap;
     }
 
     ssize_t FileSize1(int file) {
