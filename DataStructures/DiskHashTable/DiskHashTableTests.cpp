@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include <cassert>
+#include <unordered_map>
 #include "DiskHashTable.h"
 
 using namespace std;
@@ -56,17 +58,47 @@ int main() {
 //    data.push_back({"lana del", "rey"});
 //    data.push_back({"system of", "a down"});
 
-    for(int i = 0; i < 5000; i++) {
-        data.push_back({randomString(rand() % 8 + 3), randomString(rand() % 6 + 3)});
+    auto startInsertionTime = clock();
+    double totalInsertionTime = 0.0;
+    for(size_t i = 0; i < 1000000; i++) {
+        auto start = clock();
+        dht.insert(to_string(i), to_string(i));
+        auto end = clock();
+        totalInsertionTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
+    auto endInsertionTime = clock();
+    cout << "Total time to insert 1000000 key-value pairs into DHT: " << (endInsertionTime - startInsertionTime) /
+            (double) CLOCKS_PER_SEC << endl;
+    cout << "Average insertion time for DHT: " << totalInsertionTime / 1000000.0 << endl;
 
-    for(auto entry : data) {
-        dht.insert(entry.first, entry.second);
+    double totalLookupTime = 0.0;
+    for(size_t i = 0; i < 1000000; i++) {
+        auto start = clock();
+        assert(dht.find(to_string(i)) == to_string(i));
+        auto end = clock();
+        totalLookupTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
+    cout << "Average lookup time for DHT: " << totalLookupTime / 1000000.0 << endl;
 
-    for(auto entry : data) {
-        assert(dht.find(entry.first) == entry.second);
+    unordered_map<string, string> stlTest;
+
+    totalInsertionTime = 0.0;
+    for (size_t i = 0; i < 1000000; i++) {
+        auto start = clock();
+        stlTest[to_string(i)] = to_string(i);
+        auto end = clock();
+        totalInsertionTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
+    cout << "Average insertion time for STL unordered_map: " << totalInsertionTime / 1000000.0 << endl;
+
+    totalLookupTime = 0.0;
+    for (size_t i = 0; i < 1000000; i++) {
+        auto start = clock();
+        assert(stlTest[to_string(i)] == to_string(i));
+        auto end = clock();
+        totalLookupTime += (end - start) / (double) CLOCKS_PER_SEC;
+    }
+    cout << "Average lookup time for STL unordered_map: " << totalLookupTime / 1000000.0 << endl;
 
     assert(dht.find("macos") == "");
 }

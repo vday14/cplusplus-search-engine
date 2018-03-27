@@ -118,7 +118,7 @@ add_executable(DataStructures-Vector-tests
         DataStructures/Vector/VectorTests.cpp)
 
 add_executable(DataStructures-HashTable-tests
-        DataStructures/HashTable/LPHashTable.h
+        DataStructures/HashTable/HashTable.h
         DataStructures/HashTable/HashTableTests.cpp)
 
 add_executable(DataStructures-DiskHashTable-tests

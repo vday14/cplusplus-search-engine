@@ -149,7 +149,7 @@ public:
                 return "";
             }
         } while(strcmp(result.first.c_str(), query.c_str()) != 0);
-        std::cout << searched << std::endl;
+//        std::cout << searched << std::endl;
         return result.second;
     }
 
