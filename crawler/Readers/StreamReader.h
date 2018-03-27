@@ -30,7 +30,7 @@ public:
 
 	virtual string PageToString ( ) = 0;
 
-	virtual ParsedUrl getUrl ( ) =0;
+	virtual ParsedUrl * getUrl ( ) =0;
 
 	virtual void closeReader ( ) = 0;
 	};

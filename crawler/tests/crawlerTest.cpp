@@ -58,10 +58,17 @@ int main ( int argc, char *argv[] )
 	*/
 
 	SSL_library_init( );
-	string url1 = "https://fivethirtyeight.com/features/fear-not-readers-we-have-rss-feeds/";
-	string url2 = "https:";
-	ParsedUrl url = ParsedUrl(url2);
-	urlFrontier->Push(url);
+	//string url1 = "https://fivethirtyeight.com";
+	//string url2 = "https:";
+
+	string bad_url = "http-equiv=X-UA-Compatiblecontent=IE=edge,chrome=1";
+	string bad_url2 ="http-equiv=Content-Type";
+	//ParsedUrl url = ParsedUrl(bad_url);
+	ParsedUrl url1 = ParsedUrl(bad_url);
+	ParsedUrl url2 = ParsedUrl(bad_url2);
+	urlFrontier->Push(url1);
+
+	urlFrontier->Push(url2);
 	indexer.StartThread( );
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );

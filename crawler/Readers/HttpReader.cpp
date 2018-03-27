@@ -14,11 +14,11 @@ bool HttpReader::request ( )
 
 		// Get the host address.
 
-		struct hostent *host = gethostbyname( url.getHost().c_str() );
+		struct hostent *host = gethostbyname( url->getHost().c_str() );
 		if ( host == nullptr )
 			throw HTTPConnectionError;
 
-		if(url.getService() != "http")
+		if(url->getService() != "http")
 			throw HTTPConnectionError;
 
 		assert( host );
@@ -40,9 +40,9 @@ bool HttpReader::request ( )
 		cout << "Socket Reader is pulling from the web" << endl;
 
 		string getMessage = "GET ";
-		getMessage += url.getCompleteUrl();
+		getMessage += url->getCompleteUrl();
 		getMessage += " HTTP/1.1\r\nHost: ";
-		getMessage += url.getHost();
+		getMessage += url->getHost();
 		getMessage += "\r\nConnection: close\r\n\r\n";
 
 		cout << getMessage << endl;
@@ -78,7 +78,7 @@ string HttpReader::PageToString ( )
 	return temp;
 	}
 
-ParsedUrl HttpReader::getUrl ( )
+ParsedUrl * HttpReader::getUrl ( )
 	{
 	return url;
 	}

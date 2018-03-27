@@ -67,6 +67,29 @@ add_executable(isolated-integration
         util/stringProcessing.cpp
         indexer/Indexer.cpp)
 
+
+
+
+add_executable(url-frontier-test
+        crawler/tests/urlFrontierTest.cpp
+        shared/ProducerConsumerQueue.h
+        shared/ThreadClass.h
+        shared/url.h
+        crawler/crawler.cpp
+        crawler/UrlFrontier.cpp
+        crawler/Readers/StreamReader.h
+        crawler/Readers/HttpReader.cpp
+        crawler/Readers/HttpsReader.cpp
+        crawler/Readers/LocalReader.cpp
+        crawler/spider.cpp
+        util/util.cpp
+        shared/Document.cpp
+        parser/Parser.cpp
+        util/Stemmer.cpp
+        util/Tokenizer.cpp
+        util/stringProcessing.cpp
+        indexer/Indexer.cpp)
+
 add_executable(StringProcessingTest
         util/stringProcessing.cpp
         util/Stemmer.cpp
@@ -118,6 +141,7 @@ find_package(OpenSSL REQUIRED)
 target_link_libraries(ParserTest OpenSSL::SSL)
 
 target_link_libraries(isolated-integration OpenSSL::SSL pthread)
+target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
 
 target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-test OpenSSL::SSL pthread)

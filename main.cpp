@@ -97,7 +97,7 @@ int main ( int argc, char *argv[] )
 
 	unordered_map< size_t, int > *duplicateUrlMap = new unordered_map< size_t, int >( );
 
-	ProducerConsumerQueue< ParsedUrl > *urlFrontier = new ProducerConsumerQueue< ParsedUrl >( );
+	ProducerConsumerQueue< ParsedUrl * > *urlFrontier = new ProducerConsumerQueue< ParsedUrl * >( );
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue = new ProducerConsumerQueue< DocIndex * >( );
 
 
@@ -117,7 +117,7 @@ int main ( int argc, char *argv[] )
 		if ( *seeds == '\n' )
 			{
 
-			ParsedUrl url = ParsedUrl( testFile );
+			ParsedUrl * url = new ParsedUrl( testFile );
 			cout << "Pushing: " << testFile << " to queue\n";
 			urlFrontier->Push( url );
 			testFile = "";
@@ -129,7 +129,7 @@ int main ( int argc, char *argv[] )
 	if ( testFile != "" )
 		{
 		cout << "Pushing: " << testFile << " to queue\n";
-		ParsedUrl url = ParsedUrl( testFile );
+		ParsedUrl * url = new ParsedUrl( testFile );
 		urlFrontier->Push( url );
 		}
 

@@ -7,12 +7,12 @@ bool HttpsReader::request ( )
 	{
 	try
 	{
-		struct hostent *host = gethostbyname( url.getHost().c_str() );
+		struct hostent *host = gethostbyname( url->getHost().c_str() );
 
 		if ( host == nullptr )
 			throw HTTPSconnectionError;
 
-		if( url.getService() != "https")
+		if( url->getService() != "https")
 			throw HTTPSconnectionError;
 
 		assert( host );
@@ -54,9 +54,9 @@ bool HttpsReader::request ( )
 		// Send a GET message for the desired page through the SSL.
 
 		string getMessage = "GET ";
-		getMessage += url.getCompleteUrl();
+		getMessage += url->getCompleteUrl();
 		getMessage += " HTTP/1.1\r\nHost: ";
-		getMessage += url.getHost();
+		getMessage += url->getHost();
 		getMessage += "\r\nConnection: close\r\n\r\n";
 
 		cout << getMessage << endl;
@@ -115,7 +115,7 @@ bool HttpsReader::checkStatus ( )
 	}
 
 
-ParsedUrl HttpsReader::getUrl ( )
+ParsedUrl * HttpsReader::getUrl ( )
 	{
 	return url;
 	}

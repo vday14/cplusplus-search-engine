@@ -16,8 +16,7 @@
 #include "../../util/util.h"
 #include <getopt.h>
 #include "../../indexer/Indexer.h"
-#include "../urlFrontierTest.h"
-
+#include "../UrlFrontier.h"
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
@@ -44,8 +43,8 @@ int main ( int argc, char *argv[] )
 	//string url2 = "https:";
 
 	//string bad_url = "http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />";
-	ParsedUrl url = ParsedUrl(url1);
-	urlFrontier->Add(url);
+	ParsedUrl * url  = new ParsedUrl(url1);
+	urlFrontier->Push(url);
 	indexer.StartThread( );
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );

@@ -23,7 +23,7 @@ class Spider : public ThreadClass
 public:
 
 	Spider ( string mode_in,
-	         ProducerConsumerQueue< ParsedUrl > *url_q_in,
+	         ProducerConsumerQueue< ParsedUrl* > *url_q_in,
 	         unordered_map< size_t, int > *duplicate_url_map_in,
 	         ProducerConsumerQueue< DocIndex * > *doc_index_queue_in
 	)
@@ -38,7 +38,7 @@ public:
 
 
 	//Takes a url off of the url frontier
-	ParsedUrl getUrl ( );
+	ParsedUrl * getUrl ( );
 
 	virtual void run ( );
 
@@ -54,7 +54,7 @@ public:
 private:
 
 	int locationOnDisk;
-	ProducerConsumerQueue< ParsedUrl > *urlFrontier;
+	ProducerConsumerQueue< ParsedUrl * > *urlFrontier;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	unordered_map< size_t, int > *duplicateUrlMap;
 	string mode;

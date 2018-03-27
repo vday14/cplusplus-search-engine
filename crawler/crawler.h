@@ -18,7 +18,7 @@ class Crawler
 
 public:
 	Crawler ( string mode_in,
-				 ProducerConsumerQueue< ParsedUrl > *url_q_in,
+				 ProducerConsumerQueue< ParsedUrl * > *url_q_in,
 				 ProducerConsumerQueue< DocIndex * > *doc_index_queue_in )
 			: IndexerQueue( doc_index_queue_in ),
 			  mode( mode_in ),
@@ -38,7 +38,7 @@ public:
 
 private:
 	vector< Spider * > spiders;
-	ProducerConsumerQueue< ParsedUrl > *urlFrontier;
+	ProducerConsumerQueue< ParsedUrl * > *urlFrontier;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	//CrawlerStatistics housekeeper;
 	string mode;

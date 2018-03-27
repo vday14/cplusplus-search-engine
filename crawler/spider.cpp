@@ -14,29 +14,29 @@ using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 // FIND A BETTER PLACE TO PUT THIS FUNCTION
 
-StreamReader *SR_factory ( ParsedUrl url, string mode )
+StreamReader *SR_factory ( ParsedUrl * url, string mode )
 	{
 	string localFile;
 
 	StreamReader *newReader = nullptr;
 	if ( mode == "local" )
 	{
-		newReader = new LocalReader( url.getCompleteUrl() );
+		newReader = new LocalReader( url->getCompleteUrl() );
 	}
 	else if ( mode == "web" )
 	{
-		if ( url.getService() == "http" )
+		if ( url->getService() == "http" )
 		{
 			newReader = new HttpReader( url );
 		}
-		else if ( url.getService() == "https" )
+		else if ( url->getService() == "https" )
 		{
 			newReader = new HttpsReader( url );
 		}
 		else
 		{
 			cerr << "Error reading service type\n";
-			cerr << "Service Type: " << url.getService() << "\n";
+			cerr << "Service Type: " << url->getService() << "\n";
 		}
 	}
 
@@ -70,7 +70,7 @@ size_t Spider::hash ( const char *s )
 	}
 
 
-ParsedUrl Spider::getUrl ( )
+ParsedUrl * Spider::getUrl ( )
 	{
 	return urlFrontier->Pop( );
 	}
@@ -82,8 +82,8 @@ void Spider::run ( )
 
 	while ( cond < 250 )
 	{
-		ParsedUrl currentUrl = getUrl( );
-		size_t docID = hash( currentUrl.getCompleteUrl().c_str() );
+		ParsedUrl * currentUrl = getUrl( );
+		size_t docID = hash( currentUrl->getCompleteUrl().c_str() );
 		if ( shouldURLbeCrawled( docID ) )
 		{
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
@@ -92,11 +92,11 @@ void Spider::run ( )
 				bool success = reader->request( );
 				if ( success )
 				{
-					cout << "Parsing " << currentUrl.getCompleteUrl();
+					cout << "Parsing " << currentUrl->getCompleteUrl();
 					DocIndex *dict = parser.execute( reader );
 					IndexerQueue->Push( dict );
 
-					printDocIndex(dict);
+					//printDocIndex(dict);
 					reader->closeReader( );
 					//delete dict;
 

@@ -17,7 +17,7 @@ public:
 
 	bool fillBuffer ( char *buf, size_t buf_size );
 
-	ParsedUrl getUrl ( );
+	ParsedUrl * getUrl ( );
 
 	bool checkStatus ( );
 

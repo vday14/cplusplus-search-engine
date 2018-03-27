@@ -11,27 +11,34 @@ using namespace std;
 
 
 class ComparisonClass {
-	bool operator() (ParsedUrl lhs , ParsedUrl rhs) {
+public:
+	bool operator() (ParsedUrl *lhs , ParsedUrl *rhs) {
 		//comparison code here
-		return lhs.getScore() < rhs.getScore();
+		return lhs->getScore() < rhs->getScore();
 		}
 	};
 
 
 
-class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
+class UrlFrontier
 	{
 
 public:
-	void Add ( ParsedUrl url );
+	void Push ( ParsedUrl * url );
+	void checkUrl(ParsedUrl *  url);
 
-	ParsedUrl	Get ( );
+	ParsedUrl *	Pop ( );
+	size_t Size();
+	pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+	pthread_cond_t consumer_cv = PTHREAD_COND_INITIALIZER;
+	std::priority_queue<ParsedUrl *, std::vector<ParsedUrl*>, ComparisonClass> queue;
+
+
 
 
 private:
 	unordered_map< string , bool > *duplicateUrlMap = new unordered_map< string, bool >( );
 	unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
-	std::priority_queue<ParsedUrl, std::vector<ParsedUrl>, ComparisonClass> pq;
 
 	};
 

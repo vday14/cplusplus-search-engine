@@ -42,7 +42,7 @@ void Indexer::run ( )
         docEnd.docNumWords = indexedCount;
         docEndings.push_back(docEnd);
 
-        if(currentBlockNumberWords >= 10000) {
+        if(currentBlockNumberWords >= 100000) {
             save();
             reset();
         }
