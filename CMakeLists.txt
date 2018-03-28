@@ -13,6 +13,7 @@ add_executable(crawler-parser-test
         shared/ThreadClass.h
         shared/url.h
         crawler/crawler.cpp
+        crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp
@@ -53,6 +54,7 @@ add_executable(isolated-integration
         crawler/tests/crawlerTest.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
+        crawler/UrlFrontier.cpp
         shared/url.h
         crawler/crawler.cpp
         crawler/Readers/StreamReader.h

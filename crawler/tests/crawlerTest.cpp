@@ -31,7 +31,7 @@ int main ( int argc, char *argv[] )
 	char *seeds;
 	int numberOfSpiders = 1;
 	unordered_map < size_t, int > *duplicateUrlMap = new unordered_map < size_t, int >( );
-	ProducerConsumerQueue < ParsedUrl > *urlFrontier = new ProducerConsumerQueue < ParsedUrl >( );
+	UrlFrontier *urlFrontier = new UrlFrontier( );
 	ProducerConsumerQueue < DocIndex * > *IndexerQueue = new ProducerConsumerQueue < DocIndex * >( );
 	Indexer indexer( IndexerQueue );
 	string path = util::GetCurrentWorkingDir() +"/crawler/tests/testSeeds.txt";
@@ -66,9 +66,9 @@ int main ( int argc, char *argv[] )
 	//ParsedUrl url = ParsedUrl(bad_url);
 	ParsedUrl url1 = ParsedUrl(bad_url);
 	ParsedUrl url2 = ParsedUrl(bad_url2);
-	urlFrontier->Push(url1);
+	urlFrontier->Push(&url1);
 
-	urlFrontier->Push(url2);
+	urlFrontier->Push(&url2);
 	indexer.StartThread( );
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );
