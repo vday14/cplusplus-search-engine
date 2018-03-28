@@ -118,6 +118,7 @@ add_executable(ParserTest
         shared/ProducerConsumerQueue.h
         util/stringProcessing.cpp
         util/Stemmer.cpp
+        crawler/UrlFrontier.cpp
         parser/tests/parserTest.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/LocalReader.cpp
