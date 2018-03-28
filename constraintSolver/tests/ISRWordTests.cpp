@@ -20,17 +20,19 @@ int main ( )
     vector<DocumentEnding> docEnds;
     set<string> urls;
     while(queryWord.getCurrentLocation() != 9999999999999) {
-        locations.push_back(queryWord.next());
+        locations.push_back(queryWord.Next());
     }
-    while(endDocs.next().url != "aaa") {
-        for(auto locs : locations) {
+    while(endDocs.next().url != "aaa")
+        {
+        for(auto locs : locations)
+            {
             if(locs < endDocs.getCurrentDoc().docEndPosition &&
                locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
                 urls.insert(endDocs.getCurrentDoc().url);
             }
         }
 
-    }
+        }
     for(auto urrl : urls) {
         cout << urrl << endl;
     }

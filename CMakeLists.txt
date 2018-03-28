@@ -33,6 +33,7 @@ add_executable(crawler-parser-indexer-test
         shared/ThreadClass.h
         shared/url.h
         crawler/crawler.cpp
+        crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp
@@ -135,6 +136,20 @@ add_executable(ISRWord-tests
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
+
+
+
+add_executable(ISROR-tests
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISROr.cpp
+        constraintSolver/tests/ISROrTests.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
+
+
 
 find_package(OpenSSL REQUIRED)
 

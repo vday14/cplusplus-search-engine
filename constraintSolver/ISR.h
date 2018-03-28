@@ -5,8 +5,15 @@
 #pragma once
 
 //#include "Post.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-typedef size_t Location;      // Location 0 is the null location.
+typedef size_t Location;  // Location 0 is the null location.
 
 class ISR
 	{
@@ -29,7 +36,6 @@ public:
 	//Returns first instance of word after target location
 	virtual Location Seek ( Location target );
 
-	virtual ISR *GetDocumentISR ( );
 
 	//Returns the location of the end of the document
 	virtual Location GetEndDocument ( );

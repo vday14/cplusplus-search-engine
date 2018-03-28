@@ -11,7 +11,7 @@
 #include "../shared/Document.h"
 #include "../shared/ProducerConsumerQueue.h"
 #include "../crawler/Readers/StreamReader.h"
-
+#include "../crawler/UrlFrontier.h"
 using namespace std;
 
 /**
@@ -27,7 +27,7 @@ public:
 	 * Parser Cstor
 	 * @param urlFrontierIn
 	 */
-	Parser ( ProducerConsumerQueue< ParsedUrl* > *urlFrontierIn );
+	Parser ( UrlFrontier  *urlFrontierIn );
 
 	/**
 	 * Executes the Parser
@@ -37,7 +37,7 @@ public:
 
 
 private:
-	ProducerConsumerQueue< ParsedUrl* > *urlFrontier;
+	UrlFrontier *urlFrontier;
 
 	/**
 	 * Parses file

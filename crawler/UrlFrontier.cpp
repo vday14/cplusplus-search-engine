@@ -5,10 +5,20 @@
 #include "urlFrontier.h"
 
 
+//checks the current url to see if should be crawled
+//first, checks if the exact url has already seen
+//if so , doesnt add to the frontier
+//then checks if the host has been seen
+//if it has, it checks how long ago it was
+// gets that difference and then updates the time score so it
+// goes back in the queue
+// then adds both to the url map and the host map
+
 
 void UrlFrontier::checkUrl(ParsedUrl* url)
 	{
 
+	//Looks to see if the complete url already exists, if so return
 	if ( this->duplicateUrlMap->find( url->getCompleteUrl() ) != this->duplicateUrlMap->end( ) )
 		return ;
 
@@ -22,14 +32,19 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 			{
 			//get the last time it was seen and find the time difference
 			time_t lastSeen = this->domainMap->at( url->getHost( ));
-			difference = difftime( lastSeen, now );
+			difference =  difftime( now ,lastSeen);
+			if(difference == 0)
+				difference = 5;
+			else
+				difference = 1/difference;
+			url->updateScore( difference );
+
 			}
 		else
 			this->domainMap->insert( std::make_pair( url->getHost( ), now ));   //otherwise add to the map the current time
 
 
 		//add url to the duplicate url map
-		url->updateScore( difference );
 		this->duplicateUrlMap->insert( std::make_pair( url->getCompleteUrl( ), 1 ));
 		return;
 		}

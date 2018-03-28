@@ -17,12 +17,8 @@
 #include "util/util.h"
 #include <getopt.h>
 #include "indexer/Indexer.h"
+#include "crawler/UrlFrontier.h"
 
-#define PATH_TO_BLACKLIST = '/bin/blacklist.txt'
-#define PATH_TO_VISITED_URL = 'bin/urls.txt'
-#define PATH_TO_HTML_DIR = 'bin/html/'
-#define PATH_TO_INDEX = 'bin/index/wordIDX'
-#define PATH_TO_DOC_INDEX = 'bin/index/docIDX'
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
@@ -52,17 +48,19 @@ int main ( int argc, char *argv[] )
 
 	string mode = "web";
 	int numberOfSpiders = 1;
+	bool restart = false;
 
 	opterr = true;
 	int choice;
 	int option_index = 0;
 	option long_options[] = {
 			{ "mode",         optional_argument, nullptr, 'm' },
-			{ "num_crawlers", optional_argument, nullptr, 'c' }
+			{ "num_crawlers", optional_argument, nullptr, 'c' },
+			{ "from_restart", optional_argument, nullptr, 'r' }
 
 	};
 
-	while ( ( choice = getopt_long( argc, argv, "m:c:", long_options, &option_index ) ) != -1 )
+	while ( ( choice = getopt_long( argc, argv, "m:c:r:", long_options, &option_index ) ) != -1 )
 		{
 		switch ( choice )
 			{
@@ -85,6 +83,10 @@ int main ( int argc, char *argv[] )
 					exit( 1 );
 					}
 				break;
+			case 'r':
+
+				restart = true;
+				break;
 
 			default:
 				cerr << "Unknown input option";
@@ -97,7 +99,7 @@ int main ( int argc, char *argv[] )
 
 	unordered_map< size_t, int > *duplicateUrlMap = new unordered_map< size_t, int >( );
 
-	ProducerConsumerQueue< ParsedUrl * > *urlFrontier = new ProducerConsumerQueue< ParsedUrl * >( );
+	UrlFrontier *urlFrontier = new UrlFrontier();
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue = new ProducerConsumerQueue< DocIndex * >( );
 
 
@@ -111,27 +113,38 @@ int main ( int argc, char *argv[] )
 
 		}
 
-	string testFile;
-	while ( *seeds )
+	if(restart == false)
 		{
-		if ( *seeds == '\n' )
+		string testFile;
+		while ( *seeds )
 			{
+			if ( *seeds == '\n' )
+				{
 
-			ParsedUrl * url = new ParsedUrl( testFile );
-			cout << "Pushing: " << testFile << " to queue\n";
-			urlFrontier->Push( url );
-			testFile = "";
+				ParsedUrl * url = new ParsedUrl( testFile );
+				cout << "Pushing: " << testFile << " to queue\n";
+				urlFrontier->Push( url );
+				testFile = "";
+				}
+			else
+				testFile.push_back( *seeds );
+			++seeds;
 			}
-		else
-			testFile.push_back( *seeds );
-		++seeds;
+		if ( testFile != "" )
+			{
+			cout << "Pushing: " << testFile << " to queue\n";
+			ParsedUrl * url = new ParsedUrl( testFile );
+			urlFrontier->Push( url );
+			}
 		}
-	if ( testFile != "" )
-		{
-		cout << "Pushing: " << testFile << " to queue\n";
-		ParsedUrl * url = new ParsedUrl( testFile );
-		urlFrontier->Push( url );
-		}
+	//else
+		//urlFrontier->ReadDataFromDisk();
+
+
+
+
+
+
 
 
 	Indexer indexer( IndexerQueue );
@@ -139,7 +152,7 @@ int main ( int argc, char *argv[] )
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );
 
-	crawler.SpawnSpiders( numberOfSpiders, duplicateUrlMap );
+	crawler.SpawnSpiders( numberOfSpiders );
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );

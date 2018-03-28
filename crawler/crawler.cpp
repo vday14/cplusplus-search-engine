@@ -12,13 +12,11 @@
  */
 
 
-void Crawler::SpawnSpiders ( size_t num_spiders,
-                             unordered_map< size_t, int > *duplicateUrlMap
-									)
+void Crawler::SpawnSpiders ( size_t num_spiders )
 	{
 	for ( size_t i = 0; i < num_spiders; i++ )
 		{
-		Spider *temp = new Spider( this->mode, this->urlFrontier , duplicateUrlMap, this->IndexerQueue );
+		Spider *temp = new Spider( this->mode, this->urlFrontier, this->IndexerQueue );
 		temp->StartThread( );
 		this->spiders.push_back( temp );
 		}

@@ -72,7 +72,7 @@ int main ( int argc, char *argv[] )
 	indexer.StartThread( );
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );
-	crawler.SpawnSpiders( numberOfSpiders , duplicateUrlMap );
+	crawler.SpawnSpiders( numberOfSpiders );
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );

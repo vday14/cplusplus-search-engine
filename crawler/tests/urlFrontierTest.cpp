@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <queue>
-#include "../../crawler/crawler.h"
+#include "../crawler.h"
 #include <openssl/ssl.h>
 #include <string>
 #include <unordered_map>
@@ -39,16 +39,21 @@ int main ( int argc, char *argv[] )
 
 
 	SSL_library_init( );
-	string url1 = "https://fivethirtyeight.com/";
+	string url1 = "http://www.bostonglobe.com";
+	string url2 = "https://www.wired.com/";
 	//string url2 = "https:";
 
 	//string bad_url = "http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />";
 	ParsedUrl * url  = new ParsedUrl(url1);
+	ParsedUrl * url_1  = new ParsedUrl(url2);
+
 	urlFrontier->Push(url);
+	urlFrontier->Push(url_1);
+
 	indexer.StartThread( );
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );
-	crawler.SpawnSpiders( numberOfSpiders , duplicateUrlMap );
+	crawler.SpawnSpiders( numberOfSpiders  );
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );

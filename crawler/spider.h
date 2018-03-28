@@ -12,7 +12,6 @@
 #include "../util/util.h"
 #include "../parser/Parser.h"
 
-
 using namespace std;
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
@@ -23,14 +22,12 @@ class Spider : public ThreadClass
 public:
 
 	Spider ( string mode_in,
-	         ProducerConsumerQueue< ParsedUrl* > *url_q_in,
-	         unordered_map< size_t, int > *duplicate_url_map_in,
+				UrlFrontier  *url_q_in,
 	         ProducerConsumerQueue< DocIndex * > *doc_index_queue_in
 	)
 			: mode( mode_in ),
 			  urlFrontier( url_q_in ),
 			  parser( url_q_in ),
-			  duplicateUrlMap( duplicate_url_map_in ),
 			  IndexerQueue( doc_index_queue_in )
 		{
 
@@ -54,9 +51,8 @@ public:
 private:
 
 	int locationOnDisk;
-	ProducerConsumerQueue< ParsedUrl * > *urlFrontier;
+	UrlFrontier *urlFrontier;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
-	unordered_map< size_t, int > *duplicateUrlMap;
 	string mode;
 	Parser parser;
 

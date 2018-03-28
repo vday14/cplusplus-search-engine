@@ -9,6 +9,8 @@
 #include "Readers/HttpReader.h"
 #include "Readers/LocalReader.h"
 #include "../parser/Parser.h"
+#include "UrlFrontier.h"
+
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
@@ -159,6 +161,7 @@ bool Spider::writeDocToDisk ( ParsedUrl url )
 bool Spider::shouldURLbeCrawled ( size_t docID )
 	{
 
+	/*
 	if ( this->duplicateUrlMap->find( docID ) != this->duplicateUrlMap->end( ) )
 		{
 		return false;
@@ -168,6 +171,8 @@ bool Spider::shouldURLbeCrawled ( size_t docID )
 		this->duplicateUrlMap->insert( std::make_pair( docID, 1 ) );
 		return true;
 		}
+	 */
+	return true;
 	}
 
 /*

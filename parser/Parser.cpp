@@ -5,7 +5,7 @@
  * Parser Cstor
  * @param urlFrontierIn
  */
-Parser::Parser ( ProducerConsumerQueue< ParsedUrl* > *urlFrontierIn )
+Parser::Parser ( UrlFrontier *urlFrontierIn )
 	{
 	urlFrontier = urlFrontierIn;
 	}
@@ -279,7 +279,6 @@ void Parser::pushToUrlQueue ( string url, ParsedUrl * currentUrl, string anchorT
 			{
 			cerr << "HTML url parsed from web page had issue creating object" << endl;
 			}
-
 		}
 	}
 

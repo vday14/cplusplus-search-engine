@@ -127,7 +127,7 @@ public:
 		catch (exception e)
 			{
 			cerr << "Error constructing a ParsedUrl from string url "<< endl;
-			throw std::runtime_error("Unable to construct ParsedUrl Object");
+
 
 			}
 
@@ -148,7 +148,7 @@ public:
 	void setScore()
 		{
 		double lengthOfUrl = CompleteUrl.length();
-		Score += 4 * 1/ log( lengthOfUrl );
+		Score +=  1/ ( lengthOfUrl );
 
 		if(lengthOfUrl > 4)
 		{
@@ -157,19 +157,19 @@ public:
 
 			{
 				if ( strcmp ( Domain.c_str() , ORG ) )
-					Score += 5;
+					Score += .5;
 				else if ( strcmp ( Domain.c_str() , EDU ) )
-					Score += 4;
+					Score += 1;
 				else if ( strcmp ( Domain.c_str() , GOV ) )
-					Score += 3;
+					Score += 1;
 				else if ( strcmp ( Domain.c_str() , COM ) )
 					Score += 2;
 				else if ( strcmp ( Domain.c_str() , NET ) )
-					Score += 1;
+					Score += 3;
 				else if ( strcmp ( Domain.c_str() , INT ) )
-					Score += 1;
+					Score += 4;
 				else if ( strcmp ( Domain.c_str() , MIL ) )
-					Score += .5;
+					Score += 5;
 			}
 
 		}
@@ -209,7 +209,7 @@ public:
 	void updateScore( double time )
 		{
 
-		Score += 3 * time;
+		Score +=  time;
 		}
 
 	std::string getAnchorText ( )
