@@ -69,8 +69,7 @@ void Indexer::verbose_run() {
 
 void Indexer::save ( )
 	{
-	map< string, vector< size_t > > maps( masterDictionary.begin( ), masterDictionary.end( ) );
-	DiskHashTable seeker(util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + "-seek.txt", 30, 8);
+	MMDiskHashTable seeker(util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + "-seek.txt", 30, 8 );
 	string fileName = util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + ".txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
@@ -85,15 +84,16 @@ void Indexer::save ( )
 	// REALLY GROSS HACK
 	size_t seekOffset = strlen( statsHeader.c_str( ) );
 
-	for ( auto word : maps )
+	for ( auto word : masterDictionary )
 		{
-        if(word.first.size() > 30) {
-            string resized = word.first;
-            resized.resize(30);
-            seeker.insert(resized, to_string(seekOffset));
-        } else {
-            seeker.insert(word.first, to_string(seekOffset));
-        }
+			if(word.first.size() > 30) {
+				string resized = word.first;
+				resized.resize(30);
+				seeker.insert(resized, to_string(seekOffset));
+			} else {
+				seeker.insert(word.first, to_string(seekOffset));
+			}
+
 		chunkDictionary[ word.first ].push_back( currentFile );
 //        string wordBreak = word.first + "\n";
 //        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
@@ -129,21 +129,8 @@ void Indexer::save ( )
 			lastOne = location;
 			}
 		write( file, "\n", 1 );
-        seekOffset += 1;
-//        if(postingsSeekTable.find(word.first) != postingsSeekTable.end()) {
-//            string offsetLine = "\t";
-//            for (int i = 0; i < postingsSeekTable[word.first].size(); i++) {
-//                offsetLine += "<" +
-//                              to_string( postingsSeekTable[word.first][i].realLocation) +
-//                              ", " +
-//                              to_string( postingsSeekTable[word.first][i].offset) +
-//                              "> ";
-//            }
-//            offsetLine += "\n";
-//            write( file, offsetLine.c_str( ), strlen( offsetLine.c_str( ) ) );
-//            seekOffset += strlen(offsetLine.c_str());
-//        }
-//        }
+		seekOffset += 1;
+		}
 
 	string docEndingHeader = "===Document Endings===\n";
 	write( file, docEndingHeader.c_str( ), strlen( docEndingHeader.c_str( ) ) );
@@ -165,32 +152,20 @@ void Indexer::save ( )
 
 void Indexer::saveChunkDictionary ( )
 	{
-    DiskHashTable dhtChunk = DiskHashTable(util::GetCurrentWorkingDir() + "/indexer/output/index-master.txt", 30, 168);
-    for(auto word : chunkDictionary) {
-        string key = word.first;
-        if(key.size() > 30) {
-            key.resize(30);
-        }
-		string value = "";
-		for (auto chunk : word.second) {
-			value += to_string(chunk) + " ";
+		MMDiskHashTable dhtChunk = MMDiskHashTable(util::GetCurrentWorkingDir() + "/indexer/output/index-master.txt", 30, 168);
+		for ( auto word : chunkDictionary )
+		{
+			string key = word.first;
+			if(key.size() > 30) {
+				key.resize(30);
+			}
+			string value = "";
+		for ( auto chunk : word.second )
+			{
+			value += to_string( chunk ) + " ";
+			}
+			dhtChunk.insert(key, value);
 		}
-		dhtChunk.insert(word.first, value);
-	}
-//	string fileName = util::GetCurrentWorkingDir( ) + "/indexer/output/master-index.txt";
-//
-//	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
-//	for ( auto word : chunkDictionary )
-//		{
-//		string wordDictionary = word.first + " ";
-//		for ( auto chunk : word.second )
-//			{
-//			wordDictionary += to_string( chunk ) + " ";
-//			}
-//		wordDictionary += "\n";
-//		write( file, wordDictionary.c_str( ), strlen( wordDictionary.c_str( ) ) );
-//		}
-//	close( file );
 	}
 
 void Indexer::verbose_save ( )
