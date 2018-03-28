@@ -140,8 +140,6 @@ add_executable(ISRWord-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
-
-
 add_executable(ISROR-tests
         util/util.cpp
         constraintSolver/ISR.cpp

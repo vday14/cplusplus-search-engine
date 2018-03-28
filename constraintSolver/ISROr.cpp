@@ -21,6 +21,40 @@ Location ISROr::GetEndLocation ( )
 	}
 
 
+Location ISROr::First()
+	{
+	//Fixme
+	Location x;
+	return x;
+	}
+
+/*
+Returns the location of the next document that is a match
+*/
+Location ISROr::Next ( )
+	{
+	Location nearestEnd = this->nearestTerm->GetEndDocument( );
+
+	for(auto Term : Terms)
+	{
+		Location newSeekLocation = Term->Seek( nearestEnd + 1 );
+		if ( newSeekLocation < nearestStartLocation )
+		{
+			nearestStartLocation = newSeekLocation;
+			nearestTerm = Term;
+		}
+	}
+
+	return this->nearestTerm->currentLocation;
+
+	}
+
+Location ISROr::NextDocument()
+	{
+	//Fixme
+	Location x;
+	return x;
+	}
 
 
 Location ISROr::Seek ( Location target )
@@ -40,28 +74,13 @@ Location ISROr::Seek ( Location target )
 
 	}
 
-/*
-Returns the location of the next document that is a match
-*/
-Location ISROr::Next ( )
+
+Location ISROr::GetEndDocument()
 	{
-	Location nearestEnd = this->nearestTerm->GetEndDocument( );
-
-	for(auto Term : Terms)
-		{
-		Location newSeekLocation = Term->Seek( nearestEnd + 1 );
-		if ( newSeekLocation < nearestStartLocation )
-			{
-			nearestStartLocation = newSeekLocation;
-			nearestTerm = Term;
-			}
-		}
-
-	return this->nearestTerm->currentLocation;
-
-
+	//Fixme
+	Location x;
+	return x;
 	}
-
 
 /*
 ISR *ISROr::GetCurrentEndDoc ( )

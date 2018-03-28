@@ -8,8 +8,12 @@ size_t FileSize(int f) {
     return fileInfo.st_size;
 }
 
-ISRWord::ISRWord ( char *word ) : term( word )
+ISRWord::ISRWord ( char *word )
 	{
+
+	term = new char[strlen(word)];
+	strcpy(term, word);
+
 	getChunks( );
 	currentChunk = 0;
 	currentLocation = First( );
@@ -18,8 +22,15 @@ ISRWord::ISRWord ( char *word ) : term( word )
 // put into util file
 vector<size_t> ISRWord::getSeekContents(string fileName) {
     int file = open(fileName.c_str(), O_RDONLY);
-    ssize_t fileSize = FileSize(file);
-    vector<size_t> contents;
+	vector<size_t> contents;
+
+	if(file == -1)
+	{
+		cerr << "Was not able to open master index file";
+		exit(1);
+	}
+	ssize_t fileSize = FileSize(file);
+
 
 
     char* memMap = (char*) mmap(nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0);
@@ -206,4 +217,19 @@ Location ISRWord::Seek( Location target ) {
         return currentLocation;
     }
 }
+
+
+Location ISRWord::NextDocument()
+	{
+	//FixMe
+	Location x;
+	return x;
+	}
+
+Location ISRWord::GetEndDocument()
+	{
+	//Fixme
+	Location x;
+	return x;
+	}
 

@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "ISR.h"
+#include "ISR.h"
 #include <iostream>
 #include <vector>
 #include <fcntl.h>
@@ -12,7 +12,7 @@
 #include <sys/types.h>
 #include "WordSeek.h"
 #include "../util/util.h"
-#include "ISR.h"
+
 using namespace std;
 
 
@@ -24,26 +24,21 @@ class ISRWord : public ISR
 	public:
 		ISRWord ( char *word );
 
+		Location First ( ) override;
+		Location Next ( ) override;
+		Location NextDocument ( ) override;
+		Location Seek ( Location target ) override;
+		Location GetEndDocument ( ) override;
+
 		vector< size_t > getSeekContents ( string fileName );
 
 		unsigned GetDocumentCount ( );
 
 		unsigned GetNumberOfOccurrences ( );
 
-		// ISR* DocumentEnd;
-		Location First ( );
-
-		Location Next ( );
-
-		Location nextDocument ( );
-
-		Location Seek ( Location target );
-
 
 		// ISR *GetDocumentISR( );
 
-		Location GetEndDocument ( );
-		Location currentLocation;
 		char *term;
 		char *masterIndex;
 		vector< size_t > listOfChunks;
