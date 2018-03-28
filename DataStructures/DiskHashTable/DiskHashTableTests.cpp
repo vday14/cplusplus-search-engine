@@ -18,6 +18,7 @@ string randomString(int length) {
 }
 
 int main() {
+    const size_t NUMBER_OF_ELEMENTS = 10000;
     DiskHashTable dht = DiskHashTable("DataStructures/DiskHashTable/test1.txt", 10, 8);
 
     vector<pair<string, string>> data;
@@ -59,73 +60,65 @@ int main() {
 //    data.push_back({"lana del", "rey"});
 //    data.push_back({"system of", "a down"});
 
-    auto startInsertionTime = clock();
     double totalInsertionTime = 0.0;
-    for(size_t i = 0; i < 1000000; i++) {
+    for(size_t i = 0; i < NUMBER_OF_ELEMENTS; i++) {
         auto start = clock();
         dht.insert(to_string(i), to_string(i));
         auto end = clock();
         totalInsertionTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
-    auto endInsertionTime = clock();
-    cout << "Total time to insert 1000000 key-value pairs into DHT: " << (endInsertionTime - startInsertionTime) /
-            (double) CLOCKS_PER_SEC << endl;
-    cout << "Average insertion time for DHT: " << totalInsertionTime / 1000000.0 << endl;
+    cout << "Total time to insert " << NUMBER_OF_ELEMENTS << " key-value pairs into DHT: " << totalInsertionTime << endl;
+    cout << "Average insertion time for DHT: " << totalInsertionTime / NUMBER_OF_ELEMENTS << endl;
 
     double totalLookupTime = 0.0;
-    for(size_t i = 0; i < 1000000; i++) {
+    for(size_t i = 0; i < NUMBER_OF_ELEMENTS; i++) {
         auto start = clock();
         assert(dht.find(to_string(i)) == to_string(i));
         auto end = clock();
         totalLookupTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
-    cout << "Average lookup time for DHT: " << totalLookupTime / 1000000.0 << endl;
+    cout << "Average lookup time for DHT: " << totalLookupTime / NUMBER_OF_ELEMENTS << endl << endl;
 
     MMDiskHashTable mmdht = MMDiskHashTable("DataStructures/DiskHashTable/test.txt", 10, 8);
-    startInsertionTime = clock();
     totalInsertionTime = 0.0;
-    for(size_t i = 0; i < 1000000; i++) {
+    for(size_t i = 0; i < NUMBER_OF_ELEMENTS; i++) {
         auto start = clock();
         mmdht.insert(to_string(i), to_string(i));
         auto end = clock();
         totalInsertionTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
-    endInsertionTime = clock();
-    cout << "Total time to insert 1000000 key-value pairs into MMDHT: " << (endInsertionTime - startInsertionTime) /
-                                                                         (double) CLOCKS_PER_SEC << endl;
-    cout << "Average insertion time for MMDHT: " << totalInsertionTime / 1000000.0 << endl;
+    cout << "Total time to insert " << NUMBER_OF_ELEMENTS << " key-value pairs into MMDHT: " << totalInsertionTime << endl;
+    cout << "Average insertion time for MMDHT: " << totalInsertionTime / NUMBER_OF_ELEMENTS << endl;
 
     totalLookupTime = 0.0;
-    for(size_t i = 0; i < 1000000; i++) {
+    for(size_t i = 0; i < NUMBER_OF_ELEMENTS; i++) {
         auto start = clock();
         assert(mmdht.find(to_string(i)) == to_string(i));
         auto end = clock();
         totalLookupTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
-    cout << "Average lookup time for MMDHT: " << totalLookupTime / 1000000.0 << endl;
+    cout << "Average lookup time for MMDHT: " << totalLookupTime / NUMBER_OF_ELEMENTS << endl << endl;
 
     unordered_map<string, string> stlTest;
-    startInsertionTime = clock();
     totalInsertionTime = 0.0;
-    for (size_t i = 0; i < 1000000; i++) {
+    for (size_t i = 0; i < NUMBER_OF_ELEMENTS; i++) {
         auto start = clock();
         stlTest[to_string(i)] = to_string(i);
         auto end = clock();
         totalInsertionTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
-    endInsertionTime = clock();
-    cout << "Total time to insert 1000000 key-value pairs into unordered_map: " << (endInsertionTime - startInsertionTime) /
-                                                                           (double) CLOCKS_PER_SEC << endl;
-    cout << "Average insertion time for STL unordered_map: " << totalInsertionTime / 1000000.0 << endl;
+    cout << "Total time to insert " << NUMBER_OF_ELEMENTS << " key-value pairs into unordered_map: " << totalInsertionTime << endl;
+    cout << "Average insertion time for STL unordered_map: " << totalInsertionTime / NUMBER_OF_ELEMENTS << endl;
 
     totalLookupTime = 0.0;
-    for (size_t i = 0; i < 1000000; i++) {
+    for (size_t i = 0; i < NUMBER_OF_ELEMENTS; i++) {
         auto start = clock();
         assert(stlTest[to_string(i)] == to_string(i));
         auto end = clock();
         totalLookupTime += (end - start) / (double) CLOCKS_PER_SEC;
     }
-    cout << "Average lookup time for STL unordered_map: " << totalLookupTime / 1000000.0 << endl;
+    cout << "Average lookup time for STL unordered_map: " << totalLookupTime / NUMBER_OF_ELEMENTS << endl;
 
     assert(dht.find("macos") == "");
+    assert(mmdht.find("macos") == "");
 }

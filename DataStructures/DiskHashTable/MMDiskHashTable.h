@@ -63,6 +63,7 @@ public:
             lseek(file, 0, SEEK_SET);
             read(file, numKeys, 10);
             size = stoll(numKeys);
+            fileSize = FileSize1(file) - 10;
             capacity = floor(fileSize / nodeSize);
         }
         map = (char*) mmap(nullptr, FileSize1(file), PROT_READ | PROT_WRITE, MAP_SHARED, file, 0);
@@ -118,17 +119,18 @@ public:
     string find(string query) {
         size_t loc = 10 + (hasher(query) % capacity) * nodeSize;
         string key = "";
-        size_t searched = 0;
-        for(char* search = map + loc; search < map + FileSize1(file); search += nodeSize) {
-            auto ff = extractKeyValueFromBuffer(search);
-            if(ff.first == query) {
-                return ff.second;
+        char* searchMap = map + loc;
+        while(*searchMap != '\0') {
+            auto q = extractKeyValueFromBuffer(searchMap);
+            if(q.first == query) {
+                return q.second;
             }
-            searched++;
-            if(searched >= size) {
-                return "";
+            searchMap += nodeSize;
+            if(searchMap >= map + FileSize1(file)) {
+                searchMap = map + 10;
             }
         }
+        return "";
     }
 
 private:

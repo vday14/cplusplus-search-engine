@@ -64,6 +64,7 @@ public:
             lseek(file, 0, SEEK_SET);
             read(file, numKeys, 10);
             size = stoll(numKeys);
+            fileSize = FileSize1(file) - 10;
             capacity = floor(fileSize / nodeSize);
         }
     }
@@ -135,9 +136,7 @@ public:
         lseek(file, loc, SEEK_SET);
         char buffer[nodeSize];
         pair<string, string> result;
-        size_t searched = 0;
         do {
-            searched++;
             buffer[0] = '\0';
             size_t bytes = read(file, buffer, nodeSize);
             if(bytes == 0) {
@@ -145,11 +144,10 @@ public:
                 read(file, buffer, nodeSize);
             }
             result = extractKeyValueFromBuffer(buffer);
-            if(searched == size) {
+            if(buffer[0] == '\0') {
                 return "";
             }
         } while(strcmp(result.first.c_str(), query.c_str()) != 0);
-//        std::cout << searched << std::endl;
         return result.second;
     }
 
