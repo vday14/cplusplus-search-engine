@@ -34,7 +34,6 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 	ParsedUrl currentUrl = reader->getUrl( );
 
 	// tokenize anchor
-	// TODO ParsedUrl with anchor text
 	string anchorText = currentUrl.getAnchorText( );
 	if ( anchorText != "" )
 		{
@@ -93,7 +92,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 			// if html line is url, parses accordingly and pushes to frontier
 			else if ( url != "" && url != "#" )
 				{
-				pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), false );
+				pushToUrlQueue( url, currentUrl, extractAnchorText( line ), false );
 				}
 			// check if line is header; classifies as body text
 			else if ( header != "")
@@ -124,7 +123,29 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
  */
 string Parser::extractAnchorText ( string html )
 	{
-	return "";
+	string anchor = "";
+	unsigned long aTag = findStr( "<a", html );
+	if ( aTag != html.size( ) )
+		{
+		unsigned long begAnchor = findNext( ">", aTag, html );
+		unsigned long endAnchor = findNext( "</a>", aTag, html );
+
+		if ( begAnchor > endAnchor)
+			{
+			return anchor;
+			}
+
+		if ( begAnchor < html.size( ) && endAnchor < html.size())
+			{
+			++begAnchor;
+			while ( begAnchor != endAnchor && begAnchor < html.size( ) )
+				{
+				anchor += html[ begAnchor ];
+				++begAnchor;
+				}
+			}
+		}
+	return anchor;
 	}
 
 /**
@@ -391,7 +412,7 @@ void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned lon
 
 	else if ( url != "" )
 		{
-			pushToUrlQueue( url, currentUrl, extractAnchorText( "" ), true );
+			pushToUrlQueue( url, currentUrl, extractAnchorText( line ), true );
 		}
 		// check if line is title
 		// check if line is title

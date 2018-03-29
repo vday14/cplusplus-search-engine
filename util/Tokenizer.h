@@ -58,4 +58,9 @@ private:
      */
     unsigned long tokenize ( vector< string > splitText, unsigned long offset, char decorator );
 
+	/**
+	 * Anchor text that should not be included in index
+	 */
+	set< string > anchorsToRemove = {"click", "here", "here!"};
+
 };
