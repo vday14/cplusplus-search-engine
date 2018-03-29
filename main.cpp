@@ -172,8 +172,9 @@ int main ( int argc, char *argv[] )
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue );
+	atomic_bool *alive = new atomic_bool(true); // At the beginning of the program
 
-	crawler->SpawnSpiders( numberOfSpiders );
+	crawler->SpawnSpiders( numberOfSpiders , alive);
 
 	HouseKeeper logger( crawler );
 	//logger.StartThread( );
@@ -206,6 +207,9 @@ int main ( int argc, char *argv[] )
 		}
 
 
+	//main threads is just reading command
+	//if it wants work, has to spawn thread to do it
+	//thread we spawn, periodically pulls should
 
 
 

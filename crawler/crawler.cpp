@@ -12,11 +12,11 @@
  */
 
 
-void Crawler::SpawnSpiders ( size_t num_spiders )
+void Crawler::SpawnSpiders ( size_t num_spiders , atomic_bool * alive)
 	{
 	for ( size_t i = 0; i < num_spiders; i++ )
 		{
-		Spider *temp = new Spider( this->mode, this->urlFrontier, this->IndexerQueue );
+		Spider *temp = new Spider( this->mode, this->urlFrontier, this->IndexerQueue , alive);
 		temp->StartThread( );
 		this->spiders.push_back( temp );
 		}
