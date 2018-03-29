@@ -18,7 +18,6 @@ void Indexer::run ( )
 
     while(cond) {
         DocIndex * dictionary = pointerToDictionaries->Pop();
-		 cout << "INDEX GOT A NEW Dictionary" << endl;
         DocumentEnding docEnd = DocumentEnding();
         size_t indexedCount = 0;
         currentBlockNumberDocs++;
@@ -42,7 +41,7 @@ void Indexer::run ( )
         docEnd.docNumWords = indexedCount;
         docEndings.push_back(docEnd);
 
-        if(currentBlockNumberWords >= 10000) {
+        if(currentBlockNumberWords >= 20000) {
             save();
             reset();
         }

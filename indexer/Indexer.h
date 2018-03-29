@@ -53,7 +53,7 @@ private:
 
 	ProducerConsumerQueue< DocIndex * > *pointerToDictionaries;
 	unordered_map< string, vector< size_t > > masterDictionary;
-	map< string, vector< size_t > > chunkDictionary;
+	unordered_map< string, vector< size_t > > chunkDictionary;
 	unordered_map< string, vector< PostingsSeekTableEntry > > postingsSeekTable;
 
 	vector< DocumentEnding > docEndings;

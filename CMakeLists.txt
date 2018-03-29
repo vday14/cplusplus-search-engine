@@ -125,11 +125,14 @@ add_executable(DataStructures-DiskHashTable-tests
         DataStructures/DiskHashTable/DiskHashTable.h
         DataStructures/DiskHashTable/DiskHashTableTests.cpp)
 
-add_executable(Indexer-tests
-        DataStructures/DiskHashTable/DiskHashTable.h
-        Indexer/Indexer.cpp
+add_executable(Indexer-twitter-tests
+        DataStructures/DiskHashTable/MMDiskHashTable.h
+        indexer/Indexer.cpp
         indexer/json.hpp
-        Indexer/IndexerTwitterTests.cpp)
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        indexer/IndexerTwitterTests.cpp)
 
 find_package(OpenSSL REQUIRED)
 
