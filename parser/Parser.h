@@ -27,7 +27,7 @@ public:
 	 * Parser Cstor
 	 * @param urlFrontierIn
 	 */
-	Parser ( UrlFrontier  *urlFrontierIn );
+	Parser ( UrlFrontier* urlFrontierIn );
 
 	/**
 	 * Executes the Parser
@@ -83,7 +83,7 @@ private:
 	 * @param currentUrl
 	 * @return
 	 */
-	string isLocal ( string url, ParsedUrl currentUrl );
+	string isLocal ( string url, ParsedUrl* currentUrl );
 
 	/**
 	 * Returns true is url is valid

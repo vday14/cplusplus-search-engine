@@ -5,7 +5,7 @@
  * Parser Cstor
  * @param urlFrontierIn
  */
-Parser::Parser ( UrlFrontier *urlFrontierIn )
+Parser::Parser ( UrlFrontier* urlFrontierIn )
 	{
 	urlFrontier = urlFrontierIn;
 	}
@@ -34,7 +34,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 	ParsedUrl * currentUrl = reader->getUrl( );
 
 	// tokenize anchor
-	string anchorText = currentUrl.getAnchorText( );
+	string anchorText = currentUrl->getAnchorText( );
 	if ( anchorText != "" )
 		{
 		offset = tokenizer->execute( anchorText, offset, Tokenizer::ANCHOR );
@@ -279,21 +279,21 @@ string Parser::extractTitle ( string html )
  * @param currentUrl
  * @return
  */
-string Parser::isLocal ( string url, ParsedUrl currentUrl )
+string Parser::isLocal ( string url, ParsedUrl* currentUrl )
 	{
 	if ( url[ 0 ] != '/' )
 		{
 		return url;
 		}
-	if ( currentUrl.getCompleteUrl( ).back( ) == '/' )
+	if ( currentUrl->getCompleteUrl( ).back( ) == '/' )
 		{
-		string temp = currentUrl.getCompleteUrl( );
+		string temp = currentUrl->getCompleteUrl( );
 		temp.pop_back();
 		url = temp + url;
 		}
 	else
 		{
-		url = currentUrl.getCompleteUrl( ) + url;
+		url = currentUrl->getCompleteUrl( ) + url;
 		}
 	return url;
 	}
@@ -347,7 +347,7 @@ bool Parser::isValid ( string url )
 void Parser::pushToUrlQueue ( string url, ParsedUrl * currentUrl, string anchorText, bool debug )
 	{
 	url = isLocal( url, currentUrl );
-	if ( isValid( url ) && url != currentUrl.getCompleteUrl( ) )
+	if ( isValid( url ) && url != currentUrl->getCompleteUrl( ) )
 		{
 		try
 			{

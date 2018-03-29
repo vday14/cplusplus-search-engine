@@ -267,7 +267,7 @@ void testExtractBody ( )
 void testAnchorText ( )
 	{
 	cout << "Testing Anchor Text: " << endl;
-	ProducerConsumerQueue< ParsedUrl > urlFrontierTest;
+	UrlFrontier urlFrontierTest;
 	Parser parser( &urlFrontierTest );
 	ParsedUrl fake_url = ParsedUrl( "http://www.testingBody.edu" );
 	fake_url.setAnchorText( "anchor text example Click Here!");
