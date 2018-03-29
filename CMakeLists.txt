@@ -13,6 +13,7 @@ add_executable(crawler-parser-Test
         shared/ThreadClass.h
         shared/url.h
         crawler/crawler.cpp
+        crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp
@@ -33,6 +34,8 @@ add_executable(crawler-parser-indexer-Test
         shared/ThreadClass.h
         shared/url.h
         crawler/crawler.cpp
+        crawler/UrlFrontier.cpp
+        crawler/HouseKeeper.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp
@@ -52,8 +55,32 @@ add_executable(isolated-integration
         crawler/tests/crawlerTest.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
+        crawler/UrlFrontier.cpp
         shared/url.h
         crawler/crawler.cpp
+        crawler/Readers/StreamReader.h
+        crawler/Readers/HttpReader.cpp
+        crawler/Readers/HttpsReader.cpp
+        crawler/Readers/LocalReader.cpp
+        crawler/spider.cpp
+        util/util.cpp
+        shared/Document.cpp
+        parser/Parser.cpp
+        util/Stemmer.cpp
+        util/Tokenizer.cpp
+        util/stringProcessing.cpp
+        indexer/Indexer.cpp)
+
+
+
+
+add_executable(url-frontier-test
+        crawler/tests/urlFrontierTest.cpp
+        shared/ProducerConsumerQueue.h
+        shared/ThreadClass.h
+        shared/url.h
+        crawler/crawler.cpp
+        crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp
@@ -92,6 +119,7 @@ add_executable(ParserTest
         shared/ProducerConsumerQueue.h
         util/stringProcessing.cpp
         util/Stemmer.cpp
+        crawler/UrlFrontier.cpp
         parser/tests/parserTest.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/LocalReader.cpp
@@ -113,11 +141,26 @@ add_executable(ISRWord-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
+
+
+add_executable(ISROR-tests
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISROr.cpp
+        constraintSolver/tests/ISROrTests.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
+
+
+
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 
 target_link_libraries(isolated-integration OpenSSL::SSL pthread)
+target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
 
 target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)

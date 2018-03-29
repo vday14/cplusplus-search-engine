@@ -9,7 +9,7 @@ class HttpReader : public StreamReader
 	{
 public:
 
-	HttpReader ( ParsedUrl url_in ) : url( url_in )
+	HttpReader ( ParsedUrl * url_in ) : url( url_in )
 		{ }
 
 	bool request ( );
@@ -20,14 +20,14 @@ public:
 
 	string PageToString ( );
 
-	ParsedUrl getUrl ( );
+	ParsedUrl * getUrl ( );
 
 	void closeReader ( );
 
 
 private:
 
-	ParsedUrl url;
+	ParsedUrl * url;
 	int sock;
 
 	};

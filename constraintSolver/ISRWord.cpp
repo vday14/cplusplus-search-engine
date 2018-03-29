@@ -12,7 +12,7 @@ ISRWord::ISRWord ( char *word ) : term( word )
 	{
 	getChunks( );
 	currentChunk = 0;
-	currentLocation = first( );
+	currentLocation = First( );
 	}
 
 // put into util file
@@ -115,7 +115,7 @@ void ISRWord::getChunks() {
 //set current memory map
 //returns offset into corpus
 
-Location ISRWord::first ( )
+Location ISRWord::First ( )
 	{
 	string currentChunkSeekFileLocation =
 			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
@@ -147,7 +147,7 @@ Location ISRWord::first ( )
 //find way to increment to next delta
 //return new location
 
-Location ISRWord::next ( )
+Location ISRWord::Next ( )
 	{
 	if ( *currentMemMap == '\n' )
 		{
@@ -158,7 +158,7 @@ Location ISRWord::next ( )
             return currentLocation;
             }
 
-            currentLocation = first( );
+            currentLocation = First( );
         }
 	else
 		{
@@ -184,7 +184,7 @@ Location ISRWord::getCurrentLocation()
 //check seek lookup table to find if offset+absulte is bigger than target
 //if so, set location to that big chunk
 //go to next chunk
-Location ISRWord::seek( Location target ) {
+Location ISRWord::Seek( Location target ) {
     if(!wordSeekLookupTable.empty()) {
         auto best = wordSeekLookupTable.front();
         for(auto entry : wordSeekLookupTable) {
@@ -201,7 +201,7 @@ Location ISRWord::seek( Location target ) {
             }
         }
     } else {
-        while(next() <= target) {
+        while(Next() <= target) {
         }
         return currentLocation;
     }

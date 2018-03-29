@@ -5,6 +5,7 @@
 #include <iostream>
 #include "../util/util.h"
 #include <math.h>
+#include <time.h>
 //#include "../crawler/SocketReader.h"
 using namespace std;
 
@@ -28,6 +29,7 @@ private:
 			AnchorText;
 	double Score;
 
+
 public:
 
 	ParsedUrl() {}
@@ -36,87 +38,101 @@ public:
 		{
 		// Assumes url points to static text but
 		// does not check.
-		char *temp_CompleteUrl,
-				*temp_Service,
-				*temp_Host,
-				*temp_Domain,
-				*temp_Path,
-				*temp_AnchorText,
-				*temp_pathBuffer;
+		try
+			{
 
-		//intialize anchor text to ""
-		char *null = new char[2];
-		strcpy( null, string( "" ).c_str( ) );
-		temp_AnchorText = null;
+			char *temp_CompleteUrl,
+					*temp_Service,
+					*temp_Host,
+					*temp_Domain,
+					*temp_Path,
+					*temp_AnchorText,
+					*temp_pathBuffer;
 
-		char *url = new char[input_url.length( ) + 1];
-		strcpy( url, input_url.c_str( ) );
+			//intialize anchor text to ""
+			char *null = new char[2];
+			strcpy( null, string( "" ).c_str( ) );
+			temp_AnchorText = null;
 
-		temp_CompleteUrl = url;
+			char *url = new char[input_url.length( ) + 1];
+			strcpy( url, input_url.c_str( ) );
 
-		temp_pathBuffer = new char[strlen( url ) + 1];
-		char *f, *t;
-		for ( t = temp_pathBuffer, f = url; ( *t++ = *f++ ); );
+			temp_CompleteUrl = url;
 
-		temp_Service = temp_pathBuffer;
+			temp_pathBuffer = new char[strlen( url ) + 1];
+			char *f, *t;
+			for ( t = temp_pathBuffer, f = url; ( *t++ = *f++ ); );
 
-		const char Colon = ':', Slash = '/', HashTag = '#', Period = '.';
-		char *p;
-		for ( p = temp_pathBuffer; *p && *p != Colon; p++ );
+			temp_Service = temp_pathBuffer;
 
-		if ( *p )
-		{
-			// Mark the end of the Service.
-			*p++ = 0;
-
-			if ( *p == Slash )
-				p++;
-			if ( *p == Slash )
-				p++;
-
-			temp_Host = p;
-
-			for ( ; *p && *p != Slash; p++ );
+			const char Colon = ':', Slash = '/', HashTag = '#', Period = '.';
+			char *p;
+			for ( p = temp_pathBuffer; *p && *p != Colon; p++ );
 
 			if ( *p )
-				// Mark the end of the Host.
+			{
+				// Mark the end of the Service.
 				*p++ = 0;
 
-			//char * domainBuffer = new char[ 20 ];
-			//get the domain:
-			char *i = temp_Host;
-			temp_Domain = null;
-			if(i)
-			{
-				for ( ; *i; i++ )
+				if ( *p == Slash )
+					p++;
+				if ( *p == Slash )
+					p++;
+
+				temp_Host = p;
+
+				for ( ; *p && *p != Slash; p++ );
+
+				if ( *p )
+					// Mark the end of the Host.
+					*p++ = 0;
+
+				//char * domainBuffer = new char[ 20 ];
+				//get the domain:
+				char *i = temp_Host;
+				temp_Domain = nullptr;
+				if(i)
 				{
-					if ( *i == Period )
-						temp_Domain = i;
+					for ( ; *i; i++ )
+					{
+						if ( *i == Period )
+							temp_Domain = i;
+					}
 				}
+
+				// Whatever remains is the Path. // need to remove fragments
+
+				temp_Path = p;
+				for ( ; *p && *p != HashTag; p++ );
+
+				if ( *p )
+					// Mark the end of the Path, remove fragments.
+					*p++ = 0;
+			}
+			else
+				temp_Host = temp_Path = p;
+
+
+			CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
+			Service = string(temp_Service, strlen(temp_Service));
+			Host = string(temp_Host, strlen(temp_Host));
+			if(  temp_Domain != nullptr )
+				Domain = string(temp_Domain, strlen(temp_Domain));
+
+			Path = string(temp_Path, strlen(temp_Path));
+			AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
+			pathBuffer = temp_pathBuffer;
+
+			setScore( );
+
+			}
+		catch (exception e)
+			{
+			cerr << "Error constructing a ParsedUrl from string url "<< endl;
+
+
 			}
 
-			// Whatever remains is the Path. // need to remove fragments
-
-			temp_Path = p;
-			for ( ; *p && *p != HashTag; p++ );
-
-			if ( *p )
-				// Mark the end of the Path, remove fragments.
-				*p++ = 0;
-		}
-		else
-			temp_Host = temp_Path = p;
-
-
-		CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
-		Service = string(temp_Service, strlen(temp_Service));
-		Host = string(temp_Host, strlen(temp_Host));
-		Domain = string(temp_Domain, strlen(temp_Domain));
-		Path = string(temp_Path, strlen(temp_Path));
-		AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
-		pathBuffer = temp_pathBuffer;
-
-		setScore( );
 		}
 
 	void printUrl ( )
@@ -134,7 +150,7 @@ public:
 	void setScore()
 		{
 		double lengthOfUrl = CompleteUrl.length();
-		Score += 4 * 1/ log( lengthOfUrl );
+		Score +=  1/ ( lengthOfUrl );
 
 		if(lengthOfUrl > 4)
 		{
@@ -143,19 +159,19 @@ public:
 
 			{
 				if ( strcmp ( Domain.c_str() , ORG ) )
-					Score += 5;
+					Score += .5;
 				else if ( strcmp ( Domain.c_str() , EDU ) )
-					Score += 4;
+					Score += 1;
 				else if ( strcmp ( Domain.c_str() , GOV ) )
-					Score += 3;
+					Score += 1;
 				else if ( strcmp ( Domain.c_str() , COM ) )
 					Score += 2;
 				else if ( strcmp ( Domain.c_str() , NET ) )
-					Score += 1;
+					Score += 3;
 				else if ( strcmp ( Domain.c_str() , INT ) )
-					Score += 1;
+					Score += 4;
 				else if ( strcmp ( Domain.c_str() , MIL ) )
-					Score += .5;
+					Score += 5;
 			}
 
 		}
@@ -184,6 +200,18 @@ public:
 	std::string getPath ( )
 		{
 		return Path;
+		}
+
+
+	double getScore ( )
+		{
+		return Score;
+		}
+
+	void updateScore( double time )
+		{
+
+		Score +=  3 * time;
 		}
 
 	std::string getAnchorText ( )

@@ -10,11 +10,17 @@ Location ISROr::GetStartLocation ( )
 	return nearestStartLocation;
 	}
 
+Location ISROr::GetCurrentLocation(){
+	return nearestStartLocation;
+	}
+
 
 Location ISROr::GetEndLocation ( )
 	{
 	return nearestEndLocation;
 	}
+
+
 
 
 Location ISROr::Seek ( Location target )
@@ -30,38 +36,39 @@ Location ISROr::Seek ( Location target )
 
 
 
-
+	return 1;
 
 	}
 
 /*
 Returns the location of the next document that is a match
 */
-ISR *ISROr::Next ( )
+Location ISROr::Next ( )
 	{
 	Location nearestEnd = this->nearestTerm->GetEndDocument( );
 
-	while ( *Terms )
+	for(auto Term : Terms)
 		{
-		Location newSeekLocation = *Terms->Seek( nearestEnd + 1 );
+		Location newSeekLocation = Term->Seek( nearestEnd + 1 );
 		if ( newSeekLocation < nearestStartLocation )
 			{
 			nearestStartLocation = newSeekLocation;
-			nearestTerm = *Term;
+			nearestTerm = Term;
 			}
-		*Terms++;
 		}
 
-	return this->nearestTerm->GetDocumentISR( );
+	return this->nearestTerm->currentLocation;
 
 
 	}
 
-ISR *ISROR::GetCurrentEndDoc ( )
+
+/*
+ISR *ISROr::GetCurrentEndDoc ( )
 	{
 
 	return this->nearestTerm->GetDocumentISR( );
 
 	}
-
+*/
 

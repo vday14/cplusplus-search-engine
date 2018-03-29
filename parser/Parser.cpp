@@ -5,7 +5,7 @@
  * Parser Cstor
  * @param urlFrontierIn
  */
-Parser::Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn )
+Parser::Parser ( UrlFrontier *urlFrontierIn )
 	{
 	urlFrontier = urlFrontierIn;
 	}
@@ -31,7 +31,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 
 	unsigned long htmlIt = 0;
 	unsigned long offset = 0;
-	ParsedUrl currentUrl = reader->getUrl( );
+	ParsedUrl * currentUrl = reader->getUrl( );
 
 	// tokenize anchor
 	string anchorText = currentUrl.getAnchorText( );
@@ -40,7 +40,7 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 		offset = tokenizer->execute( anchorText, offset, Tokenizer::ANCHOR );
 		}
 	// tokenize url
-	offset = tokenizer->execute( currentUrl.getHost( ) + "/" + currentUrl.getPath( ), offset, Tokenizer::URL );
+	offset = tokenizer->execute( currentUrl->getHost( ) + "/" + currentUrl->getPath( ), offset, Tokenizer::URL );
 
 	string html = reader->PageToString( );
 	while ( htmlIt < html.size( ) )
@@ -344,18 +344,25 @@ bool Parser::isValid ( string url )
  * @param anchorText --> will be "null" if empty
  * @param debug --> will print urls to std::cout
  */
-void Parser::pushToUrlQueue ( string url, ParsedUrl currentUrl, string anchorText, bool debug )
+void Parser::pushToUrlQueue ( string url, ParsedUrl * currentUrl, string anchorText, bool debug )
 	{
 	url = isLocal( url, currentUrl );
 	if ( isValid( url ) && url != currentUrl.getCompleteUrl( ) )
 		{
-		ParsedUrl pUrl = ParsedUrl( url );
-		pUrl.setAnchorText( anchorText );
-		urlFrontier->Push( pUrl );
-		if ( debug )
+		try
 			{
-			cout << url << endl;
-			cout << anchorText << endl;
+			ParsedUrl *pUrl =  new ParsedUrl( url );
+			pUrl->setAnchorText( anchorText );
+			urlFrontier->Push( pUrl );
+			if ( debug )
+				{
+				cout << url << endl;
+				cout << anchorText << endl;
+				}
+			}
+		catch (exception e)
+			{
+			cerr << "HTML url parsed from web page had issue creating object" << endl;
 			}
 		}
 	}
@@ -393,7 +400,7 @@ void Parser::removeTag ( string & html, unsigned long & htmlIt, unsigned long sa
  */
 void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
                   Tokenizer *tokenizer,
-                  ParsedUrl & currentUrl )
+                  ParsedUrl * currentUrl )
 	{
 	// check if line is url
 	string title = extractTitle( line );
@@ -457,7 +464,7 @@ bool Parser::isTag ( string html, string tag )
  */
 string Parser::extractBody ( string html, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
                      Tokenizer *tokenizer,
-                     ParsedUrl & currentUrl )
+                     ParsedUrl * currentUrl )
 	{
 	string body = "";
 	unsigned long startParTag = findNext( "<p", 0, html );

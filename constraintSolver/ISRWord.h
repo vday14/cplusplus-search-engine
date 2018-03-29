@@ -12,51 +12,50 @@
 #include <sys/types.h>
 #include "WordSeek.h"
 #include "../util/util.h"
-
+#include "ISR.h"
 using namespace std;
 
 
 //Find occurrences of individual words
 
-typedef size_t Location;
 
-class ISRWord
+class ISRWord : public ISR
 	{
-public:
-	ISRWord ( char *word );
+	public:
+		ISRWord ( char *word );
 
-	vector< size_t > getSeekContents ( string fileName );
+		vector< size_t > getSeekContents ( string fileName );
 
-	unsigned GetDocumentCount ( );
+		unsigned GetDocumentCount ( );
 
-	unsigned GetNumberOfOccurrences ( );
+		unsigned GetNumberOfOccurrences ( );
 
-	// ISR* DocumentEnd;
-	Location first ( );
+		// ISR* DocumentEnd;
+		Location First ( );
 
-	Location next ( );
+		Location Next ( );
 
-	Location nextDocument ( );
+		Location nextDocument ( );
 
-	Location seek ( Location target );
+		Location Seek ( Location target );
 
 
-	// ISR *GetDocumentISR( );
+		// ISR *GetDocumentISR( );
 
-	Location GetEndDocument ( );
-	Location currentLocation;
-	char *term;
-	char *masterIndex;
-	vector< size_t > listOfChunks;
-	vector< WordSeek > wordSeekLookupTable;
-	size_t currentChunk;
-	char *currentMemMap;
+		Location GetEndDocument ( );
+		Location currentLocation;
+		char *term;
+		char *masterIndex;
+		vector< size_t > listOfChunks;
+		vector< WordSeek > wordSeekLookupTable;
+		size_t currentChunk;
+		char *currentMemMap;
 
-	//set member variables to all of the chunks that occur, update current chunk
-	void getChunks ( );
-	Location getCurrentLocation();
+		//set member variables to all of the chunks that occur, update current chunk
+		void getChunks ( );
+		Location getCurrentLocation();
 
-private:
+	private:
 };
 
 

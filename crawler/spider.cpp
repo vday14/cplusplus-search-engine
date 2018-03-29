@@ -9,34 +9,36 @@
 #include "Readers/HttpReader.h"
 #include "Readers/LocalReader.h"
 #include "../parser/Parser.h"
+#include "UrlFrontier.h"
+
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 // FIND A BETTER PLACE TO PUT THIS FUNCTION
 
-StreamReader *SR_factory ( ParsedUrl url, string mode )
+StreamReader *SR_factory ( ParsedUrl * url, string mode )
 	{
 	string localFile;
 
 	StreamReader *newReader = nullptr;
 	if ( mode == "local" )
 	{
-		newReader = new LocalReader( url.getCompleteUrl() );
+		newReader = new LocalReader( url->getCompleteUrl() );
 	}
 	else if ( mode == "web" )
 	{
-		if ( url.getService() == "http" )
+		if ( url->getService() == "http" )
 		{
 			newReader = new HttpReader( url );
 		}
-		else if ( url.getService() == "https" )
+		else if ( url->getService() == "https" )
 		{
 			newReader = new HttpsReader( url );
 		}
 		else
 		{
 			cerr << "Error reading service type\n";
-			cerr << "Service Type: " << url.getService() << "\n";
+			cerr << "Service Type: " << url->getService() << "\n";
 		}
 	}
 
@@ -70,7 +72,7 @@ size_t Spider::hash ( const char *s )
 	}
 
 
-ParsedUrl Spider::getUrl ( )
+ParsedUrl * Spider::getUrl ( )
 	{
 	return urlFrontier->Pop( );
 	}
@@ -80,10 +82,10 @@ void Spider::run ( )
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while ( cond < 250 )
+	while (*alive)
 	{
-		ParsedUrl currentUrl = getUrl( );
-		size_t docID = hash( currentUrl.getCompleteUrl().c_str() );
+		ParsedUrl * currentUrl = getUrl( );
+		size_t docID = hash( currentUrl->getCompleteUrl().c_str() );
 		if ( shouldURLbeCrawled( docID ) )
 		{
 			StreamReader *reader = SR_factory( currentUrl, this->mode );
@@ -92,11 +94,11 @@ void Spider::run ( )
 				bool success = reader->request( );
 				if ( success )
 				{
-					cout << "Parsing " << currentUrl.getCompleteUrl();
+					cout << "Parsing " << currentUrl->getCompleteUrl();
 					DocIndex *dict = parser.execute( reader );
 					IndexerQueue->Push( dict );
 
-					printDocIndex(dict);
+					//printDocIndex(dict);
 					reader->closeReader( );
 					//delete dict;
 
@@ -110,8 +112,14 @@ void Spider::run ( )
 
 		}
 	}
+	cout << "Spider has finished running " << endl;
+	return;
 	}
 
+void Spider::kill()
+	{
+	*(this->alive) = false;
+	}
 
 
 /*
@@ -159,6 +167,7 @@ bool Spider::writeDocToDisk ( ParsedUrl url )
 bool Spider::shouldURLbeCrawled ( size_t docID )
 	{
 
+	/*
 	if ( this->duplicateUrlMap->find( docID ) != this->duplicateUrlMap->end( ) )
 		{
 		return false;
@@ -168,6 +177,8 @@ bool Spider::shouldURLbeCrawled ( size_t docID )
 		this->duplicateUrlMap->insert( std::make_pair( docID, 1 ) );
 		return true;
 		}
+	 */
+	return true;
 	}
 
 /*

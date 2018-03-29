@@ -5,6 +5,7 @@
 #include<string>
 #include "../shared/ProducerConsumerQueue.h"
 #include <unordered_map>
+#include "UrlFrontier.h"
 
 //#include "CrawlerStatistics.h"
 /*
@@ -18,7 +19,7 @@ class Crawler
 
 public:
 	Crawler ( string mode_in,
-				 ProducerConsumerQueue< ParsedUrl > *url_q_in,
+				 UrlFrontier  *url_q_in,
 				 ProducerConsumerQueue< DocIndex * > *doc_index_queue_in )
 			: IndexerQueue( doc_index_queue_in ),
 			  mode( mode_in ),
@@ -26,8 +27,7 @@ public:
 		{ };
 
 	//spawns a number of works
-	void SpawnSpiders ( size_t num_spiders,
-	                    unordered_map< size_t, int > *duplicateUrlMap );
+	void SpawnSpiders ( size_t num_spiders, atomic_bool* alive );
 
 	//Creates a housekeeping thread
 	void houseKeeper ( );
@@ -35,10 +35,12 @@ public:
 	void KillAllSpiders ( );
 
 	void WaitOnAllSpiders ( );
+	UrlFrontier  *urlFrontier;
+
 
 private:
 	vector< Spider * > spiders;
-	ProducerConsumerQueue< ParsedUrl > *urlFrontier;
+	//UrlFrontier  *urlFrontier;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	//CrawlerStatistics housekeeper;
 	string mode;

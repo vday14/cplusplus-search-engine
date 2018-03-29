@@ -9,15 +9,14 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <queue>
-#include "../../crawler/crawler.h"
+#include "../crawler.h"
 #include <openssl/ssl.h>
 #include <string>
 #include <unordered_map>
 #include "../../util/util.h"
 #include <getopt.h>
 #include "../../indexer/Indexer.h"
-
-
+#include "../UrlFrontier.h"
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
@@ -32,48 +31,29 @@ int main ( int argc, char *argv[] )
 	int numberOfSpiders = 1;
 	unordered_map < size_t, int > *duplicateUrlMap = new unordered_map < size_t, int >( );
 	UrlFrontier *urlFrontier = new UrlFrontier( );
+
+
 	ProducerConsumerQueue < DocIndex * > *IndexerQueue = new ProducerConsumerQueue < DocIndex * >( );
 	Indexer indexer( IndexerQueue );
 	string path = util::GetCurrentWorkingDir() +"/crawler/tests/testSeeds.txt";
-	/*
-	seeds =  util::getFileMap( path );
 
-
-
-	string testFile;
-	while ( *seeds )
-		{
-		if ( *seeds == '\n' )
-			{
-
-			ParsedUrl url = ParsedUrl( testFile );
-			cout << "Pushing: " << testFile << " to queue\n";
-			urlFrontier->Push( url );
-			testFile = "";
-			}
-		else
-			testFile.push_back( *seeds );
-		++seeds;
-		}
-	*/
 
 	SSL_library_init( );
-	//string url1 = "https://fivethirtyeight.com";
+	string url1 = "http://www.bostonglobe.com";
+	string url2 = "https://www.wired.com/";
 	//string url2 = "https:";
 
-	string bad_url = "http-equiv=X-UA-Compatiblecontent=IE=edge,chrome=1";
-	string bad_url2 ="http-equiv=Content-Type";
-	string bad_url3 = "http-equiv=refresh content=1;url=/2.73.0/static/unsupp.html /><![endif]--><!--[if gt IE 9><!--><!--<![endif]--><title>White House says Trump continues to deny Stormy Daniels affair - CNNPolitics</title>";
-	//ParsedUrl url = ParsedUrl(bad_url);
-	ParsedUrl * url1 = new ParsedUrl(bad_url3);
-	ParsedUrl * url2 = new ParsedUrl(bad_url2);
-	urlFrontier->Push(url1);
+	//string bad_url = "http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />";
+	ParsedUrl * url  = new ParsedUrl(url1);
+	ParsedUrl * url_1  = new ParsedUrl(url2);
 
-	urlFrontier->Push(url2);
+	urlFrontier->Push(url);
+	urlFrontier->Push(url_1);
+
 	indexer.StartThread( );
 
 	Crawler crawler( mode, urlFrontier, IndexerQueue );
-	crawler.SpawnSpiders( numberOfSpiders );
+	crawler.SpawnSpiders( numberOfSpiders  );
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );

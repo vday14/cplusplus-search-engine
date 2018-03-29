@@ -5,16 +5,17 @@
 #pragma once
 
 #include "ISR.h"
-
+#include <vector>
 // Find occurrences of any child ISR.
-
-
-class ISROr : publicISR
+using namespace std;
+class ISROr : public ISR
 	{
 public:
 
-	ISR **Terms;
+	vector<ISR*>Terms;
 	unsigned NumberOfTerms;
+
+	Location GetCurrentLocation();
 
 	Location GetStartLocation ( );
 
@@ -22,7 +23,10 @@ public:
 
 	Location Seek ( Location target );
 
-	ISR *GetCurrentEndDoc ( );
+	//ISR *GetCurrentEndDoc ( );
+
+
+	Location First ( ) ;
 
 	Location Next ( );
 	//{ Do a next on the nearest term, then return// the new nearest match.}
@@ -34,12 +38,11 @@ public:
 	// 	{ Seek all the ISRs to the first occurrence just past the end of this document.returnSeek( DocumentEnd->GetEndLocation( ) + 1 );}
 
 
-	ISROr ( ISR **InputTerms ) : Terms( InputTerms )
+	ISROr ( vector<ISR * > InputTerms ) : Terms( InputTerms )
 		{
 
-		ISR *currentTerm = *InputTerms;
-		While( *currentTerm )
-		{
+		for(auto currentTerm : InputTerms)
+			{
 			currentTerm->First( );
 			Location currentLocation = currentTerm->currentLocation;
 			if ( currentLocation < nearestStartLocation )
@@ -53,7 +56,7 @@ public:
 				nearestEndLocation = currentLocation;
 				}
 			++NumberOfTerms;
-			*currentTerm++;
+			currentTerm++;
 
 		}
 

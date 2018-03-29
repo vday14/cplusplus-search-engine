@@ -11,7 +11,7 @@
 #include "../shared/Document.h"
 #include "../shared/ProducerConsumerQueue.h"
 #include "../crawler/Readers/StreamReader.h"
-
+#include "../crawler/UrlFrontier.h"
 using namespace std;
 
 /**
@@ -27,7 +27,7 @@ public:
 	 * Parser Cstor
 	 * @param urlFrontierIn
 	 */
-	Parser ( ProducerConsumerQueue< ParsedUrl > *urlFrontierIn );
+	Parser ( UrlFrontier  *urlFrontierIn );
 
 	/**
 	 * Executes the Parser
@@ -37,7 +37,7 @@ public:
 
 
 private:
-	ProducerConsumerQueue< ParsedUrl > *urlFrontier;
+	UrlFrontier *urlFrontier;
 
 	/**
 	 * Parses file
@@ -101,7 +101,7 @@ private:
 	 * @param anchorText 
 	 * @param debug --> will print urls to std::cout
 	 */
-	void pushToUrlQueue ( string url, ParsedUrl currentUrl, string anchorText, bool debug );
+	void pushToUrlQueue ( string url, ParsedUrl * currentUrl, string anchorText, bool debug );
 
 	/**
 	 * Returns true if given tag
@@ -125,7 +125,7 @@ private:
 	 */
 	string extractBody ( string html, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
 	                      Tokenizer *tokenizer,
-	                      ParsedUrl & currentUrl );
+	                      ParsedUrl * currentUrl );
 
 
 	/**
@@ -140,7 +140,7 @@ private:
 	 */
 	void extractAll ( string line, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
 	                   Tokenizer *tokenizer,
-	                   ParsedUrl & currentUrl );
+	                   ParsedUrl * currentUrl );
 
 	//TODO delete?? may not need
 	/**

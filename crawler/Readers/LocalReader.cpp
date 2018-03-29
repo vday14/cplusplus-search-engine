@@ -29,10 +29,10 @@ string LocalReader::PageToString ( )
 	return temp;
 	}
 
-ParsedUrl LocalReader::getUrl ( )
+ParsedUrl * LocalReader::getUrl ( )
 	{
 	ParsedUrl url(test_url);
-	return url;
+	return &url;
 	}
 
 bool LocalReader::checkStatus ( )
