@@ -125,7 +125,7 @@ void UrlFrontier::writeDataToDisk( )
 
 	cout << "Writing queue to disk" << endl;
 
-	string fileName = util::GetCurrentWorkingDir( )  + "/crawler/savedQueue.txt";
+	string fileName = util::GetCurrentWorkingDir( )  + "/build/savedQueue.txt";
 
 	if( remove( fileName.c_str() ) != 0 )
 		perror( "Error deleting file" );

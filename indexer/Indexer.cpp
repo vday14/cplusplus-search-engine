@@ -16,7 +16,7 @@ void Indexer::run ( )
 
 	bool cond = true;
 
-    while(alive && pointerToDictionaries->Size() != 0 ) {
+    while(alive || pointerToDictionaries->Size() > 0 ) {
 
         DocIndex * dictionary = pointerToDictionaries->Pop();
 		 cout << "INDEX GOT A NEW Dictionary" << endl;
@@ -47,6 +47,7 @@ void Indexer::run ( )
             save();
             reset();
         }
+		 delete dictionary;
     }
 
     save();
@@ -74,7 +75,7 @@ void Indexer::save ( )
 	{
 	map< string, vector< size_t > > maps( masterDictionary.begin( ), masterDictionary.end( ) );
 	map< string, size_t > seeker;
-	string fileName = util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + ".txt";
+	string fileName = util::GetCurrentWorkingDir( ) + "/build/" + to_string( currentFile ) + ".txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
 	// TODO: these should really be c strings
@@ -144,7 +145,7 @@ void Indexer::save ( )
 		}
 
 	// TODO: seek dictionary
-	string seekFileName = util::GetCurrentWorkingDir( ) + "/indexer/output/" + to_string( currentFile ) + "-seek.txt";
+	string seekFileName = util::GetCurrentWorkingDir( ) + "/build/" + to_string( currentFile ) + "-seek.txt";
 	int seekFile = open( seekFileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 	for ( auto word : seeker )
 		{
@@ -172,7 +173,7 @@ void Indexer::save ( )
 
 void Indexer::saveChunkDictionary ( )
 	{
-	string fileName = util::GetCurrentWorkingDir( ) + "/indexer/output/master-index.txt";
+	string fileName = util::GetCurrentWorkingDir( ) + "/build/master-index.txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 	for ( auto word : chunkDictionary )
 		{
