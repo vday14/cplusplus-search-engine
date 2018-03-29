@@ -38,6 +38,8 @@ public:
 
 	void run ( );
 
+	void Kill ( );
+
 	void verbose_run ( );
 
 	void verbose_save ( );
@@ -62,6 +64,8 @@ private:
 
 	size_t currentBlockNumberWords;
 	size_t currentBlockNumberDocs;
+
+	bool alive = true;
 	};
 
 #endif /*indexer_h*/

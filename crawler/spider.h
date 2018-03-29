@@ -45,6 +45,9 @@ public:
 
 	size_t hash ( const char *s );
 
+
+	void kill ( );
+
 	//int getRobots(ParsedUrl url );
 	bool checkRobots ( ParsedUrl url );
 
@@ -55,5 +58,6 @@ private:
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	string mode;
 	Parser parser;
+	bool alive = true;
 
 	};

@@ -82,7 +82,7 @@ void Spider::run ( )
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while ( cond < 250 )
+	while (alive)
 	{
 		ParsedUrl * currentUrl = getUrl( );
 		size_t docID = hash( currentUrl->getCompleteUrl().c_str() );
@@ -112,8 +112,14 @@ void Spider::run ( )
 
 		}
 	}
+	cout << "Spider has finished running " << endl;
+	return;
 	}
 
+void Spider::kill()
+	{
+	this->alive = false;
+	}
 
 
 /*

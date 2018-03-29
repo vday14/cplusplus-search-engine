@@ -75,6 +75,8 @@ void UrlFrontier::Push( ParsedUrl * url )
 
 
 
+
+
 ParsedUrl * UrlFrontier::Pop()
 	{
 
@@ -101,4 +103,26 @@ size_t UrlFrontier::Size ( )
 	size_t size = queue.size( );
 	pthread_mutex_unlock( &m );
 	return size;
+	}
+
+
+void UrlFrontier::writeDataToDisk( )
+	{
+
+
+	cout << "Writing queue to disk" << endl;
+
+	string fileName = util::GetCurrentWorkingDir( )  + "/crawler/savedQueue.txt";
+	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
+	while(! queue.empty() )
+		{
+		ParsedUrl * url = queue.top( );
+		queue.pop( );
+		write( file, url->getCompleteUrl().c_str( ), strlen( url->getCompleteUrl().c_str( ) ) );
+		url = 0;
+		delete url;
+		}
+	close( file );
+
+	return;
 	}

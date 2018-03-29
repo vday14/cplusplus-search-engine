@@ -34,7 +34,7 @@ class UrlFrontier
 		std::priority_queue<ParsedUrl *, std::vector<ParsedUrl*>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk
-		void writeDataToDisk();
+		void writeDataToDisk( );
 		//Constructs the priority queue and duplicate map from stored data
 		void readDataFromDisk();
 

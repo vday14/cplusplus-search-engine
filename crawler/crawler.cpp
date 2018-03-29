@@ -31,20 +31,36 @@ void Crawler::SpawnSpiders ( size_t num_spiders )
 void Crawler::WaitOnAllSpiders ( )
 	{
 	cout << "Waiting for spiders to finish...\n";
+	/*
 	for ( Spider *spider : spiders )
 		{
 		spider->WaitForFinish( );
+
 		delete spider; //FIXME do this in destructor?
 		}
 	}
+	 */
+
+		while( ! spiders.empty( ) )
+			{
+			Spider *spider = spiders.back();
+			spiders.pop_back();
+
+
+			spider->WaitForFinish();
+			spider = 0;
+			delete spider;
+			}
+
+		}
 
 
 void Crawler::KillAllSpiders ( )
 	{
-	cout << "Waiting for spiders to finish...\n";
+	//cout << "Waiting for spiders to finish...\n";
 	for ( Spider *spider : spiders )
 		{
-		spider->Die( );
-		delete spider; //FIXME do this in destructor?
+		spider->kill( );
+		//delete spider; //FIXME do this in destructor?
 		}
 	}

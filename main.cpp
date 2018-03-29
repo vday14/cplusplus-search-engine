@@ -18,11 +18,33 @@
 #include <getopt.h>
 #include "indexer/Indexer.h"
 #include "crawler/UrlFrontier.h"
-
+#include <csignal>
+#include <iostream>
+#include <chrono>
+#include <future>
+#include <ctime>
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 using namespace std;
+
+string wait_for_user_input()
+	{
+	std::string answer;
+	std::cin >> answer;
+	return answer; ;
+	}
+
+
+
+void signalHandler( int signum ) {
+	cout << "Interrupt signal (" << signum << ") received.\n";
+	cout << "Ending the Index build" << endl;
+	// cleanup and close up stuff here
+	// terminate program
+
+	exit(signum);
+	}
 
 
 int main ( int argc, char *argv[] )
@@ -44,6 +66,7 @@ int main ( int argc, char *argv[] )
 	 */
 
 	//
+
 
 
 	string mode = "web";
@@ -97,7 +120,6 @@ int main ( int argc, char *argv[] )
 	bool restoreFromLog;
 
 
-	unordered_map< size_t, int > *duplicateUrlMap = new unordered_map< size_t, int >( );
 
 	UrlFrontier *urlFrontier = new UrlFrontier();
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue = new ProducerConsumerQueue< DocIndex * >( );
@@ -110,7 +132,6 @@ int main ( int argc, char *argv[] )
 		{
 		seeds = util::getFileMap( "/tests/webSeed.txt" );
 		SSL_library_init( );
-
 		}
 
 	if(restart == false)
@@ -154,17 +175,41 @@ int main ( int argc, char *argv[] )
 
 	crawler.SpawnSpiders( numberOfSpiders );
 
-	crawler.WaitOnAllSpiders( );
-	indexer.WaitForFinish( );
 
-	string aa;
-	cin >> aa;
-	if(aa == "q") {
-		return 0;
-	}
+	string input;
+	while(true)
+		{
+		cout << "press enter to quit\n" << std::endl ;
+		//getline (cin, input);
+		cin >> input;
+		if(input == "q")
+			{
+
+			cout << "Shutting down the indexer  " << endl ;
+			crawler.KillAllSpiders();
+			crawler.WaitOnAllSpiders( );
+			indexer.Kill();
+			indexer.WaitForFinish( );
+
+			urlFrontier->writeDataToDisk();
+
+			delete urlFrontier;
+			delete IndexerQueue;
+
+			cout << "Indexer has finished running " << endl;
+			return 0;
+
+			}
+
+		}
 
 
-	auto f = urlFrontier->Pop( );
-	int x = 0;
-	delete urlFrontier;
+
+
+
+
+
+
+
+
 	}

@@ -16,7 +16,8 @@ void Indexer::run ( )
 
 	bool cond = true;
 
-    while(cond) {
+    while(alive) {
+
         DocIndex * dictionary = pointerToDictionaries->Pop();
 		 cout << "INDEX GOT A NEW Dictionary" << endl;
         DocumentEnding docEnd = DocumentEnding();
@@ -42,7 +43,7 @@ void Indexer::run ( )
         docEnd.docNumWords = indexedCount;
         docEndings.push_back(docEnd);
 
-        if(currentBlockNumberWords >= 100000) {
+        if(currentBlockNumberWords >= 100000 || alive == false) {
             save();
             reset();
         }
@@ -51,6 +52,8 @@ void Indexer::run ( )
     save();
     reset();
     saveChunkDictionary();
+	cout << "Indexer has finished running" << endl;
+	return ;
 }
 
 void Indexer::verbose_run() {
@@ -207,4 +210,10 @@ void Indexer::reset ( )
 
 	currentBlockNumberWords = 0;
 	currentBlockNumberDocs = 0;
+	}
+
+
+void Indexer::Kill()
+	{
+	this->alive = false;
 	}
