@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include "WordSeek.h"
 #include "../util/util.h"
+#include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 
 using namespace std;
 
@@ -29,8 +30,6 @@ class ISRWord : public ISR
 		Location NextDocument ( ) override;
 		Location Seek ( Location target ) override;
 		Location GetEndDocument ( ) override;
-
-		vector< size_t > getSeekContents ( string fileName );
 
 		unsigned GetDocumentCount ( );
 

@@ -13,6 +13,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include "ISR.h"
 #include "WordSeek.h"
 #include "../util/util.h"
 #include "../indexer/DocumentEnding.h"

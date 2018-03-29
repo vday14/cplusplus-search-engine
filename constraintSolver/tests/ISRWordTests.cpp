@@ -13,28 +13,32 @@ using namespace std;
 
 int main ( )
 {
-    char* query;
-    ISRWord queryWord("iphone");
+    char* query = "iphone";
+    ISRWord queryWord(query);
     ISREndDoc endDocs;
     vector<size_t> locations;
     vector<DocumentEnding> docEnds;
     set<string> urls;
+    locations.push_back(queryWord.getCurrentLocation());
     while(queryWord.getCurrentLocation() != 9999999999999) {
         locations.push_back(queryWord.Next());
     }
-    while(endDocs.next().url != "aaa")
-        {
-        for(auto locs : locations)
-            {
-            if(locs < endDocs.getCurrentDoc().docEndPosition &&
-               locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
-                urls.insert(endDocs.getCurrentDoc().url);
-            }
-        }
-
-        }
-    for(auto urrl : urls) {
-        cout << urrl << endl;
+    for(auto loc : locations) {
+        cout << loc << endl;
     }
+//    while(endDocs.next().url != "aaa")
+//        {
+//        for(auto locs : locations)
+//            {
+//            if(locs < endDocs.getCurrentDoc().docEndPosition &&
+//               locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
+//                urls.insert(endDocs.getCurrentDoc().url);
+//            }
+//        }
+//
+//        }
+//    for(auto urrl : urls) {
+//        cout << urrl << endl;
+//    }
     return 0;
 }
