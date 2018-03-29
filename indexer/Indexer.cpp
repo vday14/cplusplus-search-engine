@@ -43,11 +43,13 @@ void Indexer::run ( )
 
         if(currentBlockNumberWords >= 20000) {
             save();
+			saveWordSeek();
             reset();
         }
     }
 
     save();
+	saveWordSeek();
     reset();
     saveChunkDictionary();
 }
@@ -146,12 +148,11 @@ void Indexer::save ( )
 		}
 
 	close( file );
-	currentFile++;
 	}
 
 void Indexer::saveChunkDictionary ( )
 	{
-		MMDiskHashTable dhtChunk = MMDiskHashTable(util::GetCurrentWorkingDir() + "/indexer/output/index-master.txt", 30, 168);
+		MMDiskHashTable dhtChunk = MMDiskHashTable(util::GetCurrentWorkingDir() + "/indexer/output/master.txt", 30, 168);
 		for ( auto word : chunkDictionary )
 		{
 			string key = word.first;
@@ -166,6 +167,22 @@ void Indexer::saveChunkDictionary ( )
 			dhtChunk.insert(key, value);
 		}
 	}
+
+void Indexer::saveWordSeek() {
+	MMDiskHashTable wordSeek = MMDiskHashTable(
+			util::GetCurrentWorkingDir() + "/indexer/output/" + to_string(currentFile) + "-wordseek.txt", 30, 168);
+	for (auto word : postingsSeekTable) {
+		string key = word.first;
+		if (key.size() > 30) {
+			key.resize(30);
+		}
+		string value = "";
+		for (auto entry : word.second) {
+			value += ("<" + to_string(entry.offset) + ", " + to_string(entry.realLocation) + "> ");
+		}
+		wordSeek.insert(key, value);
+	}
+}
 
 void Indexer::verbose_save ( )
 	{
@@ -190,4 +207,5 @@ void Indexer::reset ( )
 
 	currentBlockNumberWords = 0;
 	currentBlockNumberDocs = 0;
-	}
+    currentFile++;
+    }

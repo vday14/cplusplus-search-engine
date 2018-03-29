@@ -46,8 +46,8 @@ public:
 
 private:
 	void save ( );
-
-	void saveChunkDictionary ( );
+    void saveWordSeek();
+    void saveChunkDictionary ( );
 
 	void reset ( );
 
@@ -63,6 +63,7 @@ private:
 
 	size_t currentBlockNumberWords;
 	size_t currentBlockNumberDocs;
-	};
+
+};
 
 #endif /*indexer_h*/
