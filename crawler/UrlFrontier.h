@@ -7,6 +7,7 @@
 #include "../shared/url.h"
 #include <time.h>
 #include <unordered_map>
+#include <set>
 using namespace std;
 
 
@@ -40,7 +41,7 @@ class UrlFrontier
 
 
 	private:
-		unordered_map< string , bool > *duplicateUrlMap = new unordered_map< string, bool >( );
+		set< string > *duplicateUrlMap = new set< string>( );
 		unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
 
 	};

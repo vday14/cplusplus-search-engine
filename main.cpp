@@ -176,7 +176,7 @@ int main ( int argc, char *argv[] )
 	crawler->SpawnSpiders( numberOfSpiders );
 
 	HouseKeeper logger( crawler );
-	logger.StartThread( );
+	//logger.StartThread( );
 
 	string input;
 	while(true)

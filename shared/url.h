@@ -90,7 +90,7 @@ public:
 				//char * domainBuffer = new char[ 20 ];
 				//get the domain:
 				char *i = temp_Host;
-				//temp_Domain = null;
+				temp_Domain = nullptr;
 				if(i)
 				{
 					for ( ; *i; i++ )
@@ -116,7 +116,7 @@ public:
 			CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
 			Service = string(temp_Service, strlen(temp_Service));
 			Host = string(temp_Host, strlen(temp_Host));
-			if( sizeof( temp_Domain) > 0 )
+			if(  temp_Domain != nullptr )
 				Domain = string(temp_Domain, strlen(temp_Domain));
 
 			Path = string(temp_Path, strlen(temp_Path));
@@ -211,7 +211,7 @@ public:
 	void updateScore( double time )
 		{
 
-		Score +=  time;
+		Score +=  3 * time;
 		}
 
 	std::string getAnchorText ( )

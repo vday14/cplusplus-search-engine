@@ -32,11 +32,11 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 			{
 			//get the last time it was seen and find the time difference
 			time_t lastSeen = this->domainMap->at( url->getHost( ));
-			difference =  difftime( now ,lastSeen);
+			difference =  difftime( now , lastSeen);
 			if(difference == 0)
-				difference = 5;
+				difference = 5 ;
 			else
-				difference = 1/difference;
+				difference =  difference/10;
 			url->updateScore( difference );
 
 			}
@@ -45,7 +45,7 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 
 
 		//add url to the duplicate url map
-		this->duplicateUrlMap->insert( std::make_pair( url->getCompleteUrl( ), 1 ));
+		this->duplicateUrlMap->insert( url->getCompleteUrl( ) );
 		return;
 		}
 	}
