@@ -14,7 +14,8 @@ using namespace std;
 int main ( )
 {
     char* query = "iphone";
-    ISRWord queryWord("nike");
+    clock_t start = clock();
+    ISRWord queryWord("a");
     ISREndDoc endDocs;
     vector<size_t> locations;
     vector<DocumentEnding> docEnds;
@@ -23,6 +24,7 @@ int main ( )
     while(queryWord.getCurrentLocation() != MAX_Location) {
         locations.push_back(queryWord.Next());
     }
+    clock_t end = clock();
     while(endDocs.next().url != "aaa")
         {
         for(auto locs : locations)
@@ -37,5 +39,6 @@ int main ( )
     for(auto urrl : urls) {
         cout << urrl << endl;
     }
+    cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
     return 0;
 }
