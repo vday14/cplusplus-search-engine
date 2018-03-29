@@ -141,26 +141,26 @@ void ISRWord::getWordSeek() {
 //if so, set location to that big chunk
 //go to next chunk
 Location ISRWord::Seek( Location target ) {
-//    if(!wordSeekLookupTable.empty()) {
-//        auto best = wordSeekLookupTable.front();
-//        for(auto entry : wordSeekLookupTable) {
-//            if(entry.realLocation < target) {
-//                best = entry;
-//            } else {
-//                string currentChunkFileLocation = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
-//                int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
-//                ssize_t currentChunkFileSize = FileSize(currentChunkFile);
-//                currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
-//                currentMemMap += best.seekOffset;
-//                currentLocation = best.realLocation;
-//                return best.realLocation;
-//            }
-//        }
-//    } else {
-//        while(Next() <= target) {
-//        }
-//        return currentLocation;
-//    }
+    if(!wordSeekLookupTable.empty()) {
+        auto best = wordSeekLookupTable.front();
+        for(auto entry : wordSeekLookupTable) {
+            if(entry.realLocation < target) {
+                best = entry;
+            } else {
+                string currentChunkFileLocation = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/" + to_string(listOfChunks[currentChunk]) + ".txt";
+                int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
+                ssize_t currentChunkFileSize = FileSize(currentChunkFile);
+                currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
+                currentMemMap += best.seekOffset;
+                currentLocation = best.realLocation;
+                return best.realLocation;
+            }
+        }
+    } else {
+        while(Next() <= target) {
+        }
+        return currentLocation;
+    }
 }
 
 

@@ -17,6 +17,7 @@
 #include "WordSeek.h"
 #include "../util/util.h"
 #include "../indexer/DocumentEnding.h"
+#include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 
 // Find occurrences of document ends.
 

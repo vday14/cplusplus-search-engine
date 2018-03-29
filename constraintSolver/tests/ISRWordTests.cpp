@@ -14,7 +14,7 @@ using namespace std;
 int main ( )
 {
     char* query = "iphone";
-    ISRWord queryWord("fsfasfas");
+    ISRWord queryWord("nike");
     ISREndDoc endDocs;
     vector<size_t> locations;
     vector<DocumentEnding> docEnds;
@@ -23,22 +23,19 @@ int main ( )
     while(queryWord.getCurrentLocation() != MAX_Location) {
         locations.push_back(queryWord.Next());
     }
-    for(auto loc : locations) {
-        cout << loc << endl;
+    while(endDocs.next().url != "aaa")
+        {
+        for(auto locs : locations)
+            {
+            if(locs < endDocs.getCurrentDoc().docEndPosition &&
+               locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
+                urls.insert(endDocs.getCurrentDoc().url);
+            }
+        }
+
+        }
+    for(auto urrl : urls) {
+        cout << urrl << endl;
     }
-//    while(endDocs.next().url != "aaa")
-//        {
-//        for(auto locs : locations)
-//            {
-//            if(locs < endDocs.getCurrentDoc().docEndPosition &&
-//               locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
-//                urls.insert(endDocs.getCurrentDoc().url);
-//            }
-//        }
-//
-//        }
-//    for(auto urrl : urls) {
-//        cout << urrl << endl;
-//    }
     return 0;
 }
