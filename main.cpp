@@ -23,7 +23,7 @@
 #include <chrono>
 #include <future>
 #include <ctime>
-
+#include "crawler/HouseKeeper.h"
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 using namespace std;
@@ -171,10 +171,12 @@ int main ( int argc, char *argv[] )
 	Indexer indexer( IndexerQueue );
 	indexer.StartThread( );
 
-	Crawler crawler( mode, urlFrontier, IndexerQueue );
+	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue );
 
-	crawler.SpawnSpiders( numberOfSpiders );
+	crawler->SpawnSpiders( numberOfSpiders );
 
+	HouseKeeper logger( crawler );
+	logger.StartThread( );
 
 	string input;
 	while(true)
@@ -186,8 +188,8 @@ int main ( int argc, char *argv[] )
 			{
 
 			cout << "Shutting down the indexer  " << endl ;
-			crawler.KillAllSpiders();
-			crawler.WaitOnAllSpiders( );
+			crawler->KillAllSpiders();
+			crawler->WaitOnAllSpiders( );
 			indexer.Kill();
 			indexer.WaitForFinish( );
 

@@ -105,6 +105,19 @@ size_t UrlFrontier::Size ( )
 	return size;
 	}
 
+// Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+const std::string currentDateTime() {
+	time_t     now = time(0);
+	struct tm  tstruct;
+	char       buf[80];
+	tstruct = *localtime(&now);
+	// Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+	// for more information about date/time format
+	strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+	return buf;
+	}
+
 
 void UrlFrontier::writeDataToDisk( )
 	{
@@ -113,7 +126,17 @@ void UrlFrontier::writeDataToDisk( )
 	cout << "Writing queue to disk" << endl;
 
 	string fileName = util::GetCurrentWorkingDir( )  + "/crawler/savedQueue.txt";
-	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
+
+	if( remove( fileName.c_str() ) != 0 )
+		perror( "Error deleting file" );
+	else
+		puts( "File successfully deleted" );
+		int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
+
+	pthread_mutex_lock( &m );
+	string currentTime = currentDateTime();
+	write( file, currentTime.c_str( ), strlen( currentTime.c_str( ) ) );
+
 	while(! queue.empty() )
 		{
 		ParsedUrl * url = queue.top( );
@@ -122,6 +145,8 @@ void UrlFrontier::writeDataToDisk( )
 		url = 0;
 		delete url;
 		}
+	pthread_mutex_unlock( &m );
+
 	close( file );
 
 	return;

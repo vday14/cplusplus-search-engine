@@ -35,10 +35,12 @@ public:
 	void KillAllSpiders ( );
 
 	void WaitOnAllSpiders ( );
+	UrlFrontier  *urlFrontier;
+
 
 private:
 	vector< Spider * > spiders;
-	UrlFrontier  *urlFrontier;
+	//UrlFrontier  *urlFrontier;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	//CrawlerStatistics housekeeper;
 	string mode;

@@ -35,6 +35,7 @@ add_executable(crawler-parser-indexer-test
         shared/url.h
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
+        crawler/HouseKeeper.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp

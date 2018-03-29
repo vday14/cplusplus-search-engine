@@ -21,6 +21,7 @@ void Crawler::SpawnSpiders ( size_t num_spiders )
 		this->spiders.push_back( temp );
 		}
 
+
 	}
 
 /*
