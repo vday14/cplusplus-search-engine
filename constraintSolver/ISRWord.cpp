@@ -18,7 +18,7 @@ ISRWord::ISRWord ( char *word ) {
 }
 
 void ISRWord::getChunks() {
-    MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index-master.txt", 30, 168);
+    MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/master.txt", 30, 168);
     string value = diskHashTable.find(term);
     string chunkInput = "";
     for(char val : value) {
@@ -40,6 +40,11 @@ void ISRWord::getChunks() {
 
 Location ISRWord::First ( )
 	{
+	if(listOfChunks.empty()) {
+		currentLocation = MAX_Location;
+		return MAX_Location;
+
+	}
 	string currentChunkSeekFileLocation =
 			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/" + to_string( listOfChunks[ currentChunk ] ) +
 			"-seek.txt";
@@ -58,6 +63,7 @@ Location ISRWord::First ( )
 		currentMemMap++;
     }
 	currentMemMap++;
+	getWordSeek();
 	return stoll( firstLoc );
 	}
 
@@ -77,7 +83,7 @@ Location ISRWord::Next ( )
 		currentChunk++;
         if(listOfChunks.size( ) <= currentChunk)
             {
-            currentLocation = 9999999999999;
+            currentLocation = MAX_Location;
             return currentLocation;
             }
 
@@ -99,6 +105,34 @@ Location ISRWord::Next ( )
 
 Location ISRWord::getCurrentLocation() {
     return currentLocation;
+}
+
+void ISRWord::getWordSeek() {
+	string currentChunkWordSeekFileLocation =
+			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/" + to_string( listOfChunks[ currentChunk ] ) +
+			"-wordseek.txt";
+	MMDiskHashTable wordSeek = MMDiskHashTable(currentChunkWordSeekFileLocation, 30, 168);
+	string result = wordSeek.find(term);
+	WordSeek wordDictionaryEntry;
+	string token = "";
+	for(char comp : result) {
+		switch(comp) {
+			case '<':
+				wordDictionaryEntry = WordSeek();
+				break;
+			case '>':
+				wordDictionaryEntry.seekOffset = stoll(token);
+				wordSeekLookupTable.push_back(wordDictionaryEntry);
+				token = "";
+				break;
+			case ',':
+				wordDictionaryEntry.realLocation = stoll(token);
+				token = "";
+				break;
+			default:
+				token += comp;
+		}
+	}
 }
 
 //look thru each chunk

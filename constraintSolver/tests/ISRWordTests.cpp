@@ -14,12 +14,12 @@ using namespace std;
 int main ( )
 {
     char* query = "iphone";
-    char* query;
-    ISRWord queryWord("aare");
+    ISRWord queryWord("fsfasfas");
     ISREndDoc endDocs;
     vector<size_t> locations;
     vector<DocumentEnding> docEnds;
     set<string> urls;
+    locations.push_back(queryWord.getCurrentLocation());
     while(queryWord.getCurrentLocation() != MAX_Location) {
         locations.push_back(queryWord.Next());
     }

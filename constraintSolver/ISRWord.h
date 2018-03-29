@@ -50,6 +50,7 @@ class ISRWord : public ISR
 		Location getCurrentLocation();
 
 	private:
+	void getWordSeek();
 };
 
 
