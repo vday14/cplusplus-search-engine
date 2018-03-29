@@ -12,8 +12,10 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <limits>
 
 typedef size_t Location;  // Location 0 is the null location.
+const Location MAX_Location = std::numeric_limits<unsigned>::max();
 
 class ISR
 	{

@@ -150,6 +150,16 @@ add_executable(ISROR-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
+add_executable(ISRAnd-tests
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/tests/ISROrTests.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
+
 
 
 find_package(OpenSSL REQUIRED)
