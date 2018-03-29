@@ -6,6 +6,7 @@
 #define EECS398_SEARCH_QUERYPARSER_H
 
 #include "../../util/DataStructureLib/tuple.cpp"
+#include<deque>
 // Outline of query language from Prof. Nicole Hamilton, University of Michigan 03/15/2018
 // 41 lines
 
@@ -34,20 +35,36 @@
 
 class QueryParser
 	{
-public:
-	Token *FindNextToken();
-	Tuple *FindConstraint();
-	bool FindROOp();
-	Tuple *FindBaseConstraint();
-	bool FindAndOp( );
-	Tuple *FindSimpleConstraint( );
-	Tuple *FindPhrase( );
-	Tuple *FindNestedConstraint( );
-	Tuple *FindSearchWord( );
 
+public:
+	QueryParser( )
+			:queryTree( nullptr ), query( "" ){
+		queryTree = new Tuple( TupleType::AndTupleType );
+		}
+	//QueryParser( string query );
+
+	void parse( string input );
+
+	Token FindNextToken( int &index );
+	Tuple * Constraint( string input );
+	vector<Tuple * > breakOnOR( string input );
 	void printCompiledQuery( );
 
-	QueryParser( char *query );
+	~QueryParser ( );
+
+
+	Tuple* queryTree;
+	string query;
+private:
+	void traverse(deque< Tuple*> queue, deque< int> levels);
+	void delete_children( Tuple* node );
+	bool MatchOR( string input );
+	bool MatchAND( string input );
+	bool isAndType( string input );
+	bool isOrType( string input );
+
+
+
 	};
 
 #endif //EECS398_SEARCH_QUERYPARSER_H

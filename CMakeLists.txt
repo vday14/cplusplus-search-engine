@@ -3,6 +3,16 @@ project(eecs398_search)
 
 set(CMAKE_CXX_STANDARD 11)
 
+add_executable(queryLanguageTests
+        query/queryLanguage/tests/testQueryParser.cpp
+        query/queryLanguage/QueryParser.cpp
+        query/queryLanguage/QueryParser.h
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.h
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+)
+
 add_executable(crawler-parser-test
         main.cpp
         shared/ProducerConsumerQueue.h
@@ -52,7 +62,3 @@ add_executable(ParserTest
 add_executable(URLTEST shared/url.h shared/urlTest.cpp)
 
 add_executable(search-engine search.cpp query/Query.cpp)
-
-find_package(OpenSSL REQUIRED)
-
-target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)

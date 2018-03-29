@@ -4,6 +4,32 @@
 
 // Outline of query language from Prof. Nicole Hamilton, University of Michigan 03/15/2018
 //31 lines
+#include<string>
+#include<vector>
+#include "../../parser/Parser.h"
+//#include "../../constraintSolver/ISRAnd.h"
+using namespace std;
+
+
+class Token
+	{
+public:
+	Token()
+			:text(""), end( true ), OR( false ), AND( false ){}
+	Token( string input )
+			:text( input ), end( false ), OR( false ), AND( false )
+		{
+		if(input ==  "-OR-" )
+			OR = true;
+		else if(input == "-AND-")
+			AND=true;
+		}
+	//TODO: This is for scaling to add more ISR types
+	string text;
+	bool OR;
+	bool AND;
+	bool end;
+	};
 
 enum TupleType
 	{
@@ -17,77 +43,36 @@ enum TupleType
 class Tuple
 	{
 public:
-	Tuple *Next;
+
+	Token object;
+	vector<Tuple *> Next;
 	TupleType Type;
-	virtual ISR *Compile( );
-	Tuple ( ) : Next( nullptr )
+	//ISR *Compile( );
+	Tuple( )
+			: object( Token() ), Type( AndTupleType ) {}
+	Tuple( Token input )
+			: object( input ), Type( AndTupleType )
 		{
+		if(input.AND)
+			Type = AndTupleType;
+		else if (input.OR)
+			Type = OrTupleType;
+		else
+			Type = PhraseTupleType;
 		}
-	TupleList
-	virtual ~Tuple( );
+	Tuple( TupleType type)
+			: object( Token( ) ), Type( type )
+		{
+		switch( type )
+			{
+			case( AndTupleType ):
+				object = Token("-AND-");
+				break;
+			case( OrTupleType ):
+				object = Token("-OR-");
+			default:
+				break;
+			}
+		}
+
 	};
-
-class TupleList
-	{
-public:
-	Tuple *Top,
-			*Bottom;
-	size_t Count;
-	Tuple &Push( Tuple *t );
-	Tuple &Push( TupleList *t );
-
-	//modified
-	Tuple &Top( );
-	void Pop( );
-	};
-
-
-Tuple &TupleList::Push ( Tuple *t )
-	{
-	Bottom->Next = t;
-	Bottom = t;
-	++count;
-
-	if( Top == nullptr )
-		Top = Bottom;
-
-	return &t;
-	}
-
-Tuple & TupleList::Push ( TupleList *t )
-	{
-	if( Top == nullptr )
-		{
-		Top = t->Top;
-		Bottom = t->Bottom;
-		count = t->count;
-		return &Bottom;
-		}
-	else
-		{
-		Bottom->Next = t->Top;
-		Bottom = t->Bottom;
-		count += t->count;
-		return &Bottom;
-		}
-	}
-
-Tuple &TupleList::Top( )
-	{
-	return *Top;
-	}
-
-void TupleList::Pop ( )
-	{
-	if( Top == nullptr)
-		return;
-
-	if( Top == Bottom )
-		Bottom = nullptr;
-
-	Tuple *ptr = Top;
-	Top = Top->Next;
-	delete ptr;
-	ptr = nullptr;
-	--count;
-	}

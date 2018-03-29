@@ -3,12 +3,19 @@
 //
 //TODO Remove STL
 #include "../QueryParser.h"
+#include<iostream>
 #include <fstream>
-#include "../../../util/DataStructureLib/tuple.cpp"
 
 int main()
 	{
-	char* query = ' "apollo moon landing" | ( apple banana ) \0';
-	QueryParser parser = QueryParser( query );
-	TupleList ParseTree;
+	string query = "apollo moon OR landing";
+	QueryParser parser;
+	parser.parse( query );
+	parser.printCompiledQuery();
+
+	string query1 = " \"apollo moon\" landing";
+	QueryParser parser1;
+	parser1.parse( query1 );
+	parser1.printCompiledQuery ();
+
 	}
