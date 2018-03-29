@@ -5,6 +5,28 @@
 #include "ISROr.h"
 
 
+ISROr::ISROr ( vector<ISR * > InputTerms ) : Terms( InputTerms )
+	{
+
+	for (auto currentTerm : InputTerms)
+		{
+		currentTerm->First();
+		Location currentLocation = currentTerm->currentLocation;
+		if (currentLocation < nearestStartLocation) {
+			nearestTerm = currentTerm;
+			nearestStartLocation = currentLocation;
+
+		}
+		if (currentLocation > nearestEndLocation) {
+			nearestEndLocation = currentLocation;
+		}
+		++NumberOfTerms;
+		currentTerm++;
+
+		}
+	}
+
+
 Location ISROr::GetStartLocation ( )
 	{
 	return nearestStartLocation;

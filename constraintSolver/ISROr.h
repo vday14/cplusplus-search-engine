@@ -15,6 +15,8 @@ public:
 	vector<ISR*>Terms;
 	unsigned NumberOfTerms;
 
+	ISROr ( vector<ISR * > InputTerms );
+
 	Location First ( ) override;
 	Location Next ( ) override;
 	Location NextDocument ( ) override;
@@ -26,30 +28,6 @@ public:
 	Location GetStartLocation ( );
 	Location GetEndLocation ( );
 
-
-	ISROr ( vector<ISR * > InputTerms ) : Terms( InputTerms )
-		{
-
-		for(auto currentTerm : InputTerms)
-			{
-			currentTerm->First( );
-			Location currentLocation = currentTerm->currentLocation;
-			if ( currentLocation < nearestStartLocation )
-				{
-				nearestTerm = currentTerm;
-				nearestStartLocation = currentLocation;
-
-				}
-			if ( currentLocation > nearestEndLocation )
-				{
-				nearestEndLocation = currentLocation;
-				}
-			++NumberOfTerms;
-			currentTerm++;
-
-		}
-
-		}
 
 private:
 	ISR *nearestTerm;

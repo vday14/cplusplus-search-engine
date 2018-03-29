@@ -24,7 +24,7 @@ int main ( )
 	vector<size_t> locations;
 	vector<DocumentEnding> docEnds;
 	set<string> urls;
-	while(queryOr->GetCurrentLocation() != 9999999999999) {
+	while(queryOr->GetCurrentLocation() != MAX_Location) {
 		locations.push_back(queryOr->Next());
 		}
 	while(endDocs.next().url != "aaa")
