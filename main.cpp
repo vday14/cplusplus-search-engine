@@ -164,16 +164,11 @@ int main ( int argc, char *argv[] )
 
 
 
-
-
-
-
 	Indexer indexer( IndexerQueue );
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue );
-	atomic_bool *alive = new atomic_bool(true); // At the beginning of the program
-
+	atomic_bool *alive = new atomic_bool(true);
 	crawler->SpawnSpiders( numberOfSpiders , alive);
 
 	HouseKeeper logger( crawler );
@@ -191,6 +186,7 @@ int main ( int argc, char *argv[] )
 			cout << "Shutting down the indexer  " << endl ;
 			crawler->KillAllSpiders();
 			crawler->WaitOnAllSpiders( );
+
 			indexer.Kill();
 			indexer.WaitForFinish( );
 
@@ -205,17 +201,5 @@ int main ( int argc, char *argv[] )
 			}
 
 		}
-
-
-	//main threads is just reading command
-	//if it wants work, has to spawn thread to do it
-	//thread we spawn, periodically pulls should
-
-
-
-
-
-
-
 
 	}

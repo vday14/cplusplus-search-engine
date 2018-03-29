@@ -40,6 +40,7 @@ class ISRWord : public ISR
 		Location Seek ( Location target );
 
 
+
 		// ISR *GetDocumentISR( );
 
 		Location GetEndDocument ( );

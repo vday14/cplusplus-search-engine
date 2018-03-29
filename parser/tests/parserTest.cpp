@@ -57,7 +57,7 @@ void testSimple ( )
 	cout << "Testing Simple: " << endl;
 	UrlFrontier urlFrontierTest;
 	Parser parser( &urlFrontierTest );
-	ParsedUrl fake_url = ParsedUrl( "http://www.cats.com" );
+	ParsedUrl * fake_url = new ParsedUrl( "http://www.cats.com" );
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/plaintext.txt";
 
 	LocalReader reader( filepath );
@@ -144,7 +144,7 @@ void testURL ( )
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/urlTest.html";
 
 	LocalReader reader( filepath );
-	reader.setUrl( fake_url );
+	reader.setUrl( &fake_url );
 	auto success = reader.request( );
 	if ( !success )
 		{
@@ -178,7 +178,7 @@ void testBody ( )
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testParserBody.html";
 
 	LocalReader reader( filepath );
-	reader.setUrl( fake_url );
+	reader.setUrl( &fake_url );
 	auto success = reader.request( );
 	if ( !success )
 		{
@@ -224,7 +224,7 @@ void testExtractBody ( )
 	cout << "Testing ExtractBody: " << endl;
 	UrlFrontier urlFrontierTest;
 	Parser parser( &urlFrontierTest );
-	ParsedUrl fake_url = ParsedUrl( "https://developer.mozilla.org/en-US/docs/Learn" );
+	ParsedUrl *fake_url = new ParsedUrl( "https://developer.mozilla.org/en-US/docs/Learn" );
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testExtractBodyTest.html";
 
 	LocalReader reader( filepath );
@@ -275,7 +275,7 @@ void testAnchorText ( )
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testParserBody.html";
 
 	LocalReader reader( filepath );
-	reader.setUrl( fake_url );
+	reader.setUrl( &fake_url );
 	auto success = reader.request( );
 	if ( !success )
 		{
