@@ -41,6 +41,7 @@ class ISRWord : public ISR
 		char *term;
 		char *masterIndex;
 		vector< size_t > listOfChunks;
+		size_t frequency;
 		vector< WordSeek > wordSeekLookupTable;
 		size_t currentChunk;
 		char *currentMemMap;

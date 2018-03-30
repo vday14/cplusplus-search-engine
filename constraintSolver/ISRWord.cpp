@@ -19,16 +19,17 @@ ISRWord::ISRWord ( char *word ) {
 
 void ISRWord::getChunks() {
     MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/master.txt", 30, 168);
-    string value = diskHashTable.find(term);
+	string value = diskHashTable.find(term);
     string chunkInput = "";
     for(char val : value) {
         if(isnumber(val)) {
             chunkInput += val;
-        } else {
+        } else if(val != '\t') {
             listOfChunks.push_back(stoll(chunkInput));
             chunkInput = "";
         }
     }
+	frequency = stoll(chunkInput);
 }
 
 //Go to current chunk
