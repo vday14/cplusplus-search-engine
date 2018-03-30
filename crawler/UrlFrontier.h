@@ -11,6 +11,9 @@
 using namespace std;
 
 
+typedef  unordered_map<string, int> anchorToCountMap ;
+typedef   unordered_map<string , anchorToCountMap>  urlMap;
+
 class ComparisonClass {
 public:
 	bool operator() (ParsedUrl *lhs , ParsedUrl *rhs) {
@@ -41,7 +44,7 @@ class UrlFrontier
 
 
 	private:
-		set< string > *duplicateUrlMap = new set< string>( );
+		urlMap *duplicateUrlMap =  new urlMap;
 		unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
 
 	};

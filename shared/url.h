@@ -32,6 +32,7 @@ private:
 
 public:
 
+
 	ParsedUrl() {}
 
 	ParsedUrl ( string input_url )
@@ -129,6 +130,9 @@ public:
 
 					setScore( );
 				}
+			else
+				isValid = false;
+
 
 
 			}
@@ -237,6 +241,7 @@ public:
 		delete[] pathBuffer;
 		}
 
+	bool isValid = true;
 private:
 	char *pathBuffer;
 	};
