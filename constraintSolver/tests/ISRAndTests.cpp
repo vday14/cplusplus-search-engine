@@ -1,5 +1,5 @@
 //
-// Created by nick on 3/16/18.
+// Created by Jake Close on 3/16/18.
 //
 
 #include <iostream>
@@ -7,24 +7,28 @@
 #include "../../indexer/DocumentEnding.h"
 #include "../ISRWord.h"
 #include "../ISREndDoc.h"
-
-
+#include "../ISRAnd.h"
+#include <vector>
 using namespace std;
 
 int main ( )
 	{
-	char* query = "iphone";
-	clock_t start = clock();
-	ISRWord queryWord("clock");
+	char* query;
+	ISRWord *q1 = new ISRWord("iphone");
+	ISRWord *q2 = new ISRWord("apple");
+	vector< ISR* > input;
+	input.push_back(q1);
+	input.push_back(q2);
+	ISRAnd *queryAnd = new ISRAnd(input);
 	ISREndDoc endDocs;
 	vector<size_t> locations;
 	vector<DocumentEnding> docEnds;
 	set<string> urls;
-	locations.push_back(queryWord.getCurrentLocation());
-	while(queryWord.getCurrentLocation() != MAX_Location) {
-		locations.push_back(queryWord.Next());
+	while(queryAnd->GetCurrentLocation() != MAX_Location) {
+		locations.push_back(queryAnd->Next());
 		}
-	clock_t end = clock();
+
+
 	while(endDocs.next().url != "aaa")
 		{
 		for(auto locs : locations)
@@ -36,9 +40,11 @@ int main ( )
 			}
 
 		}
+
+
+
 	for(auto urrl : urls) {
 		cout << urrl << endl;
 		}
-	cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
 	return 0;
 	}

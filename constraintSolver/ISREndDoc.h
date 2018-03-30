@@ -13,20 +13,21 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "ISR.h"
 #include "WordSeek.h"
 #include "../util/util.h"
 #include "../indexer/DocumentEnding.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 
 // Find occurrences of document ends.
-
+typedef size_t Location;
 class ISREndDoc
 	{
 public:
 	ISREndDoc();
 	DocumentEnding next();
 	DocumentEnding getCurrentDoc();
+	Location GetStartingPositionOfDoc( );
+
 	unsigned GetDocumentLength ( );
 	unsigned GetTitleLength ( );
 	string getURL ( );

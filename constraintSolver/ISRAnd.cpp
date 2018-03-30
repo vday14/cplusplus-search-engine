@@ -86,11 +86,10 @@ Location ISRAnd::Seek ( Location target )
 		}
 
 		//Get Document of the furthest ISR
-		DocumentEnd->Seek(target);
+		//DocumentEnd->Seek( furthest  );
 
 		//set next target to be starting location of document
-		//Location lastDocStart = DocumentEnd->GetStart()?;
-		Location lastDocStart = 0;
+		Location lastDocStart = DocumentEnd->GetStartingPositionOfDoc();
 
 		if(nearest >= lastDocStart)
 		{
@@ -110,8 +109,13 @@ Location ISRAnd::Seek ( Location target )
 Location ISRAnd::GetEndDocument()
 	{
 	//What does currentLocation hold?  When is it updated?
-	return DocumentEnd->Seek(currentLocation);
+	//return DocumentEnd->Seek(currentLocation);
 	}
 
+Location ISRAnd::GetCurrentLocation(){
+	//What does currentLocation hold?  When is it updated?
+	//return DocumentEnd->Seek(currentLocation);
+	return currentLocation;
+	}
 
 

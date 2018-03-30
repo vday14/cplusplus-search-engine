@@ -31,13 +31,16 @@ class ISRWord : public ISR
 		Location Seek ( Location target ) override;
 		Location GetEndDocument ( ) override;
 
+
 		unsigned GetDocumentCount ( );
 
 		unsigned GetNumberOfOccurrences ( );
 
+		string GetTerm( );
+		ISR * GetISRToBeginningOfDocument ( ) ;
 
 
-		// ISR *GetDocumentISR( );
+	// ISR *GetDocumentISR( );
 
 		char *term;
 		char *masterIndex;

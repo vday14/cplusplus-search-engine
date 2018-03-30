@@ -61,6 +61,13 @@ DocumentEnding ISREndDoc::next() {
     return currentDoc;
 }
 
+
+
 DocumentEnding ISREndDoc::getCurrentDoc() {
     return currentDoc;
 }
+
+Location ISREndDoc::GetStartingPositionOfDoc( )
+    {
+    return currentDoc.docEndPosition - currentDoc.docNumWords;
+    }
