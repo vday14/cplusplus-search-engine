@@ -53,14 +53,13 @@ private:
 
 	ProducerConsumerQueue< DocIndex * > *pointerToDictionaries;
 	unordered_map< string, vector< size_t > > masterDictionary;
-	unordered_map< string, vector< size_t > > chunkDictionary;
+	unordered_map< string, pair<vector< size_t >, size_t> > chunkDictionary;		// <chunks>, occurances
 	unordered_map< string, vector< PostingsSeekTableEntry > > postingsSeekTable;
 
 	vector< DocumentEnding > docEndings;
-
+	size_t totalWordsIndexed;
 	size_t currentFile;
 	size_t currentlyIndexed;
-
 	size_t currentBlockNumberWords;
 	size_t currentBlockNumberDocs;
 

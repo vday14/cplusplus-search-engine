@@ -3,9 +3,9 @@
 Indexer::Indexer ( ProducerConsumerQueue< DocIndex * > *doc_index_queue_in ) : pointerToDictionaries(
 		doc_index_queue_in )
 	{
-	currentFile = 0;
+    totalWordsIndexed = 0;
+    currentFile = 0;
 	currentlyIndexed = 0;
-
 	currentBlockNumberWords = 0;
 	currentBlockNumberDocs = 0;
 
@@ -30,6 +30,7 @@ void Indexer::run ( )
 
             indexedCount += word.second.size();
             currentBlockNumberWords += word.second.size();
+            totalWordsIndexed += word.second.size();
 
             for(auto location : word.second) {
                 masterDictionary[word.first].push_back(currentlyIndexed + location);
@@ -95,7 +96,7 @@ void Indexer::save ( )
 				seeker.insert(word.first, to_string(seekOffset));
 			}
 
-		chunkDictionary[ word.first ].push_back( currentFile );
+		chunkDictionary[ word.first ].first.push_back( currentFile );
 //        string wordBreak = word.first + "\n";
 //        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
 //        seekOffset += strlen(wordBreak.c_str());
@@ -104,6 +105,7 @@ void Indexer::save ( )
 		int numIndexed = 0;
 		for ( auto location : word.second )
 			{
+                chunkDictionary[word.first].second++;
 			numIndexed++;
 			if ( numIndexed >= 100 )
 				{
@@ -160,13 +162,15 @@ void Indexer::saveChunkDictionary ( )
 				key.resize(30);
 			}
 			string value = "";
-		for ( auto chunk : word.second )
+		for ( auto chunk : word.second.first )
 			{
 			value += to_string( chunk ) + " ";
 			}
+            value += "\t" + to_string(word.second.second);
 			dhtChunk.insert(key, value);
 		}
-	}
+        dhtChunk.insert("=totalNumberIndexed", to_string(totalWordsIndexed));
+    }
 
 void Indexer::saveWordSeek() {
 	MMDiskHashTable wordSeek = MMDiskHashTable(
