@@ -52,6 +52,8 @@ class ISRWord : public ISR
 
 	private:
 	void getWordSeek();
+
+	size_t getFrequency();
 };
 
 

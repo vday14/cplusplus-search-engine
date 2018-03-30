@@ -29,7 +29,9 @@ void ISRWord::getChunks() {
             chunkInput = "";
         }
     }
-	frequency = stoll(chunkInput);
+    if(chunkInput != "") {
+        frequency = stoll(chunkInput);
+    }
 }
 
 //Go to current chunk
@@ -106,6 +108,10 @@ Location ISRWord::Next ( )
 
 Location ISRWord::getCurrentLocation() {
     return currentLocation;
+}
+
+size_t ISRWord::getFrequency() {
+	return frequency;
 }
 
 void ISRWord::getWordSeek() {
