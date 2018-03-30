@@ -7,7 +7,7 @@ add_executable(QueueTest
         shared/ProducerConsumerQueue.h
         shared/ProducerConsumerQueue_test.cpp)
 
-add_executable(crawler-parser-test
+add_executable(crawler-parser-Test
         main.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
@@ -28,13 +28,14 @@ add_executable(crawler-parser-test
         indexer/Indexer.cpp)
 
 
-add_executable(crawler-parser-indexer-test
+add_executable(crawler-parser-indexer-Test
         main.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
         shared/url.h
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
+        crawler/HouseKeeper.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp
@@ -169,7 +170,7 @@ target_link_libraries(ParserTest OpenSSL::SSL)
 target_link_libraries(isolated-integration OpenSSL::SSL pthread)
 target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
 
-target_link_libraries(crawler-parser-test OpenSSL::SSL pthread)
-target_link_libraries(crawler-parser-indexer-test OpenSSL::SSL pthread)
+target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
+target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)

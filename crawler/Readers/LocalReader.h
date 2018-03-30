@@ -25,11 +25,11 @@ public:
 
 	void closeReader ( );
 
-	void setUrl(ParsedUrl url);
+	void setUrl(ParsedUrl * url);
 
 private:
 	string fileName;
-	ParsedUrl test_url;
+	ParsedUrl * test_url;
 	int fd;
 
 	};

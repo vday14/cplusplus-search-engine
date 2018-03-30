@@ -27,7 +27,7 @@ public:
 		{ };
 
 	//spawns a number of works
-	void SpawnSpiders ( size_t num_spiders );
+	void SpawnSpiders ( size_t num_spiders, atomic_bool* alive );
 
 	//Creates a housekeeping thread
 	void houseKeeper ( );
@@ -35,10 +35,12 @@ public:
 	void KillAllSpiders ( );
 
 	void WaitOnAllSpiders ( );
+	UrlFrontier  *urlFrontier;
+
 
 private:
 	vector< Spider * > spiders;
-	UrlFrontier  *urlFrontier;
+	//UrlFrontier  *urlFrontier;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	//CrawlerStatistics housekeeper;
 	string mode;

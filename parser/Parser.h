@@ -27,7 +27,7 @@ public:
 	 * Parser Cstor
 	 * @param urlFrontierIn
 	 */
-	Parser ( UrlFrontier  *urlFrontierIn );
+	Parser ( UrlFrontier* urlFrontierIn );
 
 	/**
 	 * Executes the Parser
@@ -54,6 +54,14 @@ private:
 	string extractAnchorText ( string html );
 
 	/**
+	 * Returns true if no closing tag & should ignore
+	 * @param html
+	 * @param htmlIt
+	 * @return
+	 */
+	bool isInvalidTag( string html, unsigned long htmlIt );
+
+	/**
 	 * Returns a url, or "" if none
 	 * @param html
 	 * @return
@@ -72,9 +80,10 @@ private:
 	 * Will return true if local url
 	 *
 	 * @param url
+	 * @param currentUrl
 	 * @return
 	 */
-	bool isLocal ( string url );
+	string isLocal ( string url, ParsedUrl* currentUrl );
 
 	/**
 	 * Returns true is url is valid

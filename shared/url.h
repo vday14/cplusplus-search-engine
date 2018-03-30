@@ -32,6 +32,7 @@ private:
 
 public:
 
+
 	ParsedUrl() {}
 
 	ParsedUrl ( string input_url )
@@ -65,63 +66,74 @@ public:
 
 			temp_Service = temp_pathBuffer;
 
-			const char Colon = ':', Slash = '/', HashTag = '#', Period = '.';
-			char *p;
-			for ( p = temp_pathBuffer; *p && *p != Colon; p++ );
 
-			if ( *p )
-			{
-				// Mark the end of the Service.
-				*p++ = 0;
+					const char Colon = ':', Slash = '/', HashTag = '#', Period = '.';
+					char *p;
+					for ( p = temp_pathBuffer; *p && *p != Colon; p++ );
 
-				if ( *p == Slash )
-					p++;
-				if ( *p == Slash )
-					p++;
-
-				temp_Host = p;
-
-				for ( ; *p && *p != Slash; p++ );
-
-				if ( *p )
-					// Mark the end of the Host.
-					*p++ = 0;
-
-				//char * domainBuffer = new char[ 20 ];
-				//get the domain:
-				char *i = temp_Host;
-				temp_Domain = null;
-				if(i)
-				{
-					for ( ; *i; i++ )
+					if ( *p )
 					{
-						if ( *i == Period )
-							temp_Domain = i;
+						// Mark the end of the Service.
+						*p++ = 0;
+
+						if ( *p == Slash )
+							p++;
+						if ( *p == Slash )
+							p++;
+
+						temp_Host = p;
+
+						for ( ; *p && *p != Slash; p++ );
+
+						if ( *p )
+							// Mark the end of the Host.
+							*p++ = 0;
+
+						//char * domainBuffer = new char[ 20 ];
+						//get the domain:
+						char *i = temp_Host;
+						temp_Domain = nullptr;
+						if(i)
+						{
+							for ( ; *i; i++ )
+							{
+								if ( *i == Period )
+									temp_Domain = i;
+							}
+						}
+
+						// Whatever remains is the Path. // need to remove fragments
+
+						temp_Path = p;
+						for ( ; *p && *p != HashTag; p++ );
+
+						if ( *p )
+							// Mark the end of the Path, remove fragments.
+							*p++ = 0;
 					}
+					else
+						temp_Host = temp_Path = p;
+
+
+					CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
+					Service = string(temp_Service, strlen(temp_Service));
+					Host = string(temp_Host, strlen(temp_Host));
+
+			if(Service == "http" || Service == "https")
+				{
+					if(  temp_Domain != nullptr )
+						Domain = string(temp_Domain, strlen(temp_Domain));
+
+					Path = string(temp_Path, strlen(temp_Path));
+					AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
+					pathBuffer = temp_pathBuffer;
+
+					setScore( );
 				}
-
-				// Whatever remains is the Path. // need to remove fragments
-
-				temp_Path = p;
-				for ( ; *p && *p != HashTag; p++ );
-
-				if ( *p )
-					// Mark the end of the Path, remove fragments.
-					*p++ = 0;
-			}
 			else
-				temp_Host = temp_Path = p;
+				isValid = false;
 
 
-			CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
-			Service = string(temp_Service, strlen(temp_Service));
-			Host = string(temp_Host, strlen(temp_Host));
-			Domain = string(temp_Domain, strlen(temp_Domain));
-			Path = string(temp_Path, strlen(temp_Path));
-			AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
-			pathBuffer = temp_pathBuffer;
-
-			setScore( );
 
 			}
 		catch (exception e)
@@ -209,7 +221,7 @@ public:
 	void updateScore( double time )
 		{
 
-		Score +=  time;
+		Score +=  3 * time;
 		}
 
 	std::string getAnchorText ( )
@@ -229,6 +241,7 @@ public:
 		delete[] pathBuffer;
 		}
 
+	bool isValid = true;
 private:
 	char *pathBuffer;
 	};

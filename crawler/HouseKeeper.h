@@ -8,20 +8,20 @@
 #include<string>
 #include <pthread.h>
 #include <iostream>
-
+#include "crawler.h"
 class HouseKeeper : public ThreadClass
 	{
 
 public:
-	HouseKeeper ( )
+	HouseKeeper ( Crawler * crawler_in ) : crawler(crawler_in)
 		{ };
 
-	virtual void FuncToRun ( );
+	 void run( );
 
 private:
 	//members
+	Crawler* crawler;
 
 	};
 
 
-#endif //EECS398_SEARCH_CRAWLERSTATISTICS_H

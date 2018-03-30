@@ -41,7 +41,7 @@ unsigned long findStr ( string needle, string haystack )
 				++temp;
 				++needleIt;
 				//if it hits the end of the needleing, it signifies an exact match
-				if ( needleIt == needle.size( ) - 1 )
+				if ( needleIt == needle.size( ) )
 					{
 					//this is pointing at the beginning of the match
 					return haystackIt;

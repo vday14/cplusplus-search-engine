@@ -31,8 +31,7 @@ string LocalReader::PageToString ( )
 
 ParsedUrl * LocalReader::getUrl ( )
 	{
-	ParsedUrl url(test_url);
-	return &url;
+	return test_url;
 	}
 
 bool LocalReader::checkStatus ( )
@@ -45,7 +44,7 @@ void LocalReader::closeReader ( )
 	close(fd);
 	}
 
-void LocalReader::setUrl(ParsedUrl url_in)
+void LocalReader::setUrl(ParsedUrl* url_in)
 	{
 		test_url = url_in;
 	}

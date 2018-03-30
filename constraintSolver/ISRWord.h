@@ -36,6 +36,7 @@ class ISRWord : public ISR
 		unsigned GetNumberOfOccurrences ( );
 
 
+
 		// ISR *GetDocumentISR( );
 
 		char *term;

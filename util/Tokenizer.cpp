@@ -44,7 +44,7 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 		return tokenize( splitStr( originalText, split, true ), offset, decorator );
 
 		}
-		// split by spaces
+	// split by spaces
 	else
 		{
 		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
@@ -65,7 +65,10 @@ unsigned long Tokenizer::tokenize ( vector< string > splitText, unsigned long of
 		{
 		// case fold
 		processedString = toLower( splitText[ i ] );
-		//strip all characters
+
+		// remove "click here" etc
+		if ( decorator == Tokenizer::ANCHOR && anchorsToRemove.find( processedString ) != anchorsToRemove.end( ) )
+			continue;
 
 		if ( !isStopWord( processedString ) )
 			{

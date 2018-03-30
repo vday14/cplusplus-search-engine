@@ -7,8 +7,12 @@
 #include "../shared/url.h"
 #include <time.h>
 #include <unordered_map>
+#include <set>
 using namespace std;
 
+
+typedef  unordered_map<string, int> anchorToCountMap ;
+typedef   unordered_map<string , anchorToCountMap>  urlMap;
 
 class ComparisonClass {
 public:
@@ -34,13 +38,13 @@ class UrlFrontier
 		std::priority_queue<ParsedUrl *, std::vector<ParsedUrl*>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk
-		void writeDataToDisk();
+		void writeDataToDisk( );
 		//Constructs the priority queue and duplicate map from stored data
 		void readDataFromDisk();
 
 
 	private:
-		unordered_map< string , bool > *duplicateUrlMap = new unordered_map< string, bool >( );
+		urlMap *duplicateUrlMap =  new urlMap;
 		unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
 
 	};

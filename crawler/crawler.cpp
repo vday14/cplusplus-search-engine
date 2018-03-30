@@ -12,14 +12,15 @@
  */
 
 
-void Crawler::SpawnSpiders ( size_t num_spiders )
+void Crawler::SpawnSpiders ( size_t num_spiders , atomic_bool * alive)
 	{
 	for ( size_t i = 0; i < num_spiders; i++ )
 		{
-		Spider *temp = new Spider( this->mode, this->urlFrontier, this->IndexerQueue );
+		Spider *temp = new Spider( this->mode, this->urlFrontier, this->IndexerQueue , alive);
 		temp->StartThread( );
 		this->spiders.push_back( temp );
 		}
+
 
 	}
 
@@ -31,20 +32,36 @@ void Crawler::SpawnSpiders ( size_t num_spiders )
 void Crawler::WaitOnAllSpiders ( )
 	{
 	cout << "Waiting for spiders to finish...\n";
+	/*
 	for ( Spider *spider : spiders )
 		{
 		spider->WaitForFinish( );
+
 		delete spider; //FIXME do this in destructor?
 		}
 	}
+	 */
+
+		while( ! spiders.empty( ) )
+			{
+			Spider *spider = spiders.back();
+			spiders.pop_back();
+
+
+			spider->WaitForFinish();
+			spider = 0;
+			delete spider;
+			}
+
+		}
 
 
 void Crawler::KillAllSpiders ( )
 	{
-	cout << "Waiting for spiders to finish...\n";
+	//cout << "Waiting for spiders to finish...\n";
 	for ( Spider *spider : spiders )
 		{
-		spider->Die( );
-		delete spider; //FIXME do this in destructor?
+		spider->kill( );
+		//delete spider; //FIXME do this in destructor?
 		}
 	}

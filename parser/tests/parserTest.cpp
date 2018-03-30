@@ -20,6 +20,8 @@ void testHttp( );
 void testURL( );
 void testBody ( );
 void testExtractBody ( );
+void testAnchorText ( );
+
 
 
 void printDictionary ( unordered_map< string, vector< unsigned long > > dictionary );
@@ -32,6 +34,7 @@ int main ( )
 	testURL( );
 	testBody ( );
 	testExtractBody ( );
+	testAnchorText ( );
 	cout << "Parser Tests Passed! :D" << endl;
 	}
 
@@ -54,7 +57,7 @@ void testSimple ( )
 	cout << "Testing Simple: " << endl;
 	UrlFrontier urlFrontierTest;
 	Parser parser( &urlFrontierTest );
-	ParsedUrl fake_url = ParsedUrl( "http://www.cats.com" );
+	ParsedUrl * fake_url = new ParsedUrl( "http://www.cats.com" );
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/plaintext.txt";
 
 	LocalReader reader( filepath );
@@ -108,23 +111,22 @@ void testHttp( )
 	auto dictionary = parser.execute( &reader );
 	printDictionary( *dictionary );
 
-	urlFrontierTest.Pop( );
-	assert( urlFrontierTest.Pop( )->getCompleteUrl( ) == "https://trove.com/" );
-	assert( urlFrontierTest.Pop( )->getCompleteUrl( ) == "http://arcinnovations.xyz/" );
-	assert( urlFrontierTest.Pop( )->getCompleteUrl( ) == "https://gwydion.co/" );
-	assert( urlFrontierTest.Pop( )->getCompleteUrl( ) == "https://madeatmichigan.umich.edu/ventures/venture/gwydion/" );
+	assert( urlFrontierTest.Size( ) == 12 );
+//	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://trove.com/" );
+//	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "http://arcinnovations.xyz/" );
+//	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://gwydion.co/" );
+//	assert( urlFrontierTest.Pop( ).getCompleteUrl( ) == "https://madeatmichigan.umich.edu/ventures/venture/gwydion/" );
 
 	assert ( dictionary != nullptr );
-	assert ( dictionary->size( ) == 67 );
+	assert ( dictionary->size( ) == 372 );
 
 	assert ( dictionary->at( "=veronicacday.com/" ).size( ) == 1 && dictionary->at( "=veronicacday.com/" )[ 0 ] == 0 );
-	assert ( dictionary->at( "%serena" ).size( ) == 2 && dictionary->at( "%serena" )[ 1 ] == 24 );
+	assert ( dictionary->at( "%serena" ).size( ) == 2 && dictionary->at( "%serena" )[ 1 ] == 80 );
 	assert ( dictionary->at( "#veronica" ).size( ) == 1 && dictionary->at( "#veronica" )[ 0 ] == 2 );
 	assert ( dictionary->at( "#dai" ).size( ) == 1 && dictionary->at( "#dai" )[ 0 ] == 3 );
-	assert ( dictionary->at( "%educ" ).size( ) == 1 && dictionary->at( "%educ" )[ 0 ] == 13 );
-	assert ( dictionary->at( "%surgeri" ).size( ) == 1 && dictionary->at( "%surgeri" )[ 0 ] == 72 );
-
-
+	assert ( dictionary->at( "%educ" ).size( ) == 1 && dictionary->at( "%educ" )[ 0 ] == 40 );
+	assert ( dictionary->at( "%surgeri" ).size( ) == 2 && dictionary->at( "%surgeri" )[ 0 ] == 511 );
+	assert ( dictionary->at( "%busi" ).size( ) == 6 );
 
 	delete dictionary;
 	dictionary = nullptr;
@@ -142,7 +144,7 @@ void testURL ( )
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/urlTest.html";
 
 	LocalReader reader( filepath );
-	reader.setUrl( fake_url );
+	reader.setUrl( &fake_url );
 	auto success = reader.request( );
 	if ( !success )
 		{
@@ -176,7 +178,7 @@ void testBody ( )
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testParserBody.html";
 
 	LocalReader reader( filepath );
-	reader.setUrl( fake_url );
+	reader.setUrl( &fake_url );
 	auto success = reader.request( );
 	if ( !success )
 		{
@@ -222,7 +224,7 @@ void testExtractBody ( )
 	cout << "Testing ExtractBody: " << endl;
 	UrlFrontier urlFrontierTest;
 	Parser parser( &urlFrontierTest );
-	ParsedUrl fake_url = ParsedUrl( "https://developer.mozilla.org/en-US/docs/Learn" );
+	ParsedUrl *fake_url = new ParsedUrl( "https://developer.mozilla.org/en-US/docs/Learn" );
 	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testExtractBodyTest.html";
 
 	LocalReader reader( filepath );
@@ -260,4 +262,41 @@ void testExtractBody ( )
 	dictionary = nullptr;
 
 	cout << "Extract Body Test Passed!" << endl;
+	}
+
+void testAnchorText ( )
+	{
+	cout << "Testing Anchor Text: " << endl;
+	UrlFrontier urlFrontierTest;
+	Parser parser( &urlFrontierTest );
+	ParsedUrl fake_url = ParsedUrl( "http://www.testingBody.edu" );
+	fake_url.setAnchorText( "anchor text example Click Here!");
+
+	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testParserBody.html";
+
+	LocalReader reader( filepath );
+	reader.setUrl( &fake_url );
+	auto success = reader.request( );
+	if ( !success )
+		{
+		cerr << "Couldn't open file\n";
+		exit( 1 );
+		}
+
+	auto dictionary = parser.execute( &reader );
+	printDictionary( *dictionary );
+
+	assert ( dictionary != nullptr );
+	assert ( dictionary->at( "@anchor" )[ 0 ] == 0 );
+	assert ( dictionary->at( "@text" )[ 0 ] == 1 );
+	assert ( dictionary->at( "@exampl" )[ 0 ] == 2 );
+	assert ( dictionary->find( "@click" ) == dictionary->end( ) );
+	assert ( dictionary->find( "@here" ) == dictionary->end( ) );
+	assert ( dictionary->find( "click" ) == dictionary->end( ) );
+	assert ( dictionary->find( "here" ) == dictionary->end( ) );
+
+	delete dictionary;
+	dictionary = nullptr;
+
+	cout << "Extract Anchor Test Passed!" << endl;
 	}

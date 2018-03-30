@@ -23,12 +23,14 @@ public:
 
 	Spider ( string mode_in,
 				UrlFrontier  *url_q_in,
-	         ProducerConsumerQueue< DocIndex * > *doc_index_queue_in
+	         ProducerConsumerQueue< DocIndex * > *doc_index_queue_in,
+				atomic_bool * bool_in
 	)
 			: mode( mode_in ),
 			  urlFrontier( url_q_in ),
 			  parser( url_q_in ),
-			  IndexerQueue( doc_index_queue_in )
+			  IndexerQueue( doc_index_queue_in ),
+			  alive( bool_in )
 		{
 
 		};
@@ -45,6 +47,9 @@ public:
 
 	size_t hash ( const char *s );
 
+
+	void kill ( );
+
 	//int getRobots(ParsedUrl url );
 	bool checkRobots ( ParsedUrl url );
 
@@ -55,5 +60,6 @@ private:
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
 	string mode;
 	Parser parser;
+	atomic_bool* alive;
 
 	};
