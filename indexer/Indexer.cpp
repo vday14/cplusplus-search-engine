@@ -107,7 +107,7 @@ void Indexer::save ( )
 			{
                 chunkDictionary[word.first].second++;
 			numIndexed++;
-			if ( numIndexed >= 100 )
+			if ( numIndexed == 100 )
 				{
 				PostingsSeekTableEntry entry = PostingsSeekTableEntry( );
 				entry.offset = seekOffset;
@@ -139,7 +139,7 @@ void Indexer::save ( )
 	write( file, docEndingHeader.c_str( ), strlen( docEndingHeader.c_str( ) ) );
 	seekOffset += strlen( docEndingHeader.c_str( ) );
 	seeker.insert("=docEnding", to_string(seekOffset));
-
+    int docEndSeekCounter = 0; // save seek every 100 doc ends in the chunk
 	for ( auto ending : docEndings )
 		{
 		string docEndString = "[" +
@@ -147,6 +147,13 @@ void Indexer::save ( )
 		                      to_string( ending.docEndPosition ) + ", " +
 		                      to_string( ending.docNumWords ) + "]\n";
 		write( file, docEndString.c_str( ), strlen( docEndString.c_str( ) ) );
+        docEndSeekCounter++;
+        if(docEndSeekCounter == 100)
+            {
+            docEndSeekCounter = 0;
+            docEndingsSeek.push_back({ ending.docEndPosition, seekOffset });
+            }
+        seekOffset += strlen(docEndString.c_str());
 		}
 
 	close( file );
@@ -186,6 +193,21 @@ void Indexer::saveWordSeek() {
 		}
 		wordSeek.insert(key, value);
 	}
+    string key = "=docEnding";
+    string value = "";
+    int currentEndingPartition = 0;
+    for(size_t i = 0; i < docEndingsSeek.size(); i++) {
+        string prospectiveDocEnding = "<" +
+                to_string(docEndingsSeek[i].first) +
+                ", " + to_string(docEndingsSeek[i].second) + "> ";
+        if(value.size() + prospectiveDocEnding.size() <= 168) {
+            value += prospectiveDocEnding;
+        } else {
+            wordSeek.insert(key + to_string(currentEndingPartition), value);
+            currentEndingPartition++;
+            value = prospectiveDocEnding;
+        }
+    }
 }
 
 void Indexer::verbose_save ( )
@@ -208,7 +230,7 @@ void Indexer::reset ( )
 	masterDictionary.clear( );
 	docEndings.clear( );
 	postingsSeekTable.clear( );
-
+    docEndingsSeek.clear();
 	currentBlockNumberWords = 0;
 	currentBlockNumberDocs = 0;
     currentFile++;

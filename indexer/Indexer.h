@@ -57,6 +57,7 @@ private:
 	unordered_map< string, vector< PostingsSeekTableEntry > > postingsSeekTable;
 
 	vector< DocumentEnding > docEndings;
+	vector< pair<size_t, size_t> > docEndingsSeek;		// <realLocation, offset (to the correspond docEnding)>
 	size_t totalWordsIndexed;
 	size_t currentFile;
 	size_t currentlyIndexed;
