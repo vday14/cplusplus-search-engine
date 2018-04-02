@@ -5,6 +5,7 @@
 #include "../shared/ThreadClass.h"
 #include "DocumentEnding.h"
 #include "PostingsSeekTableEntry.h"
+#include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 #include "../util/util.h"
 #include <unordered_map>
 #include <map>
@@ -47,25 +48,26 @@ public:
 
 private:
 	void save ( );
-
-	void saveChunkDictionary ( );
+    void saveWordSeek();
+    void saveChunkDictionary ( );
 
 	void reset ( );
 
 	ProducerConsumerQueue< DocIndex * > *pointerToDictionaries;
 	unordered_map< string, vector< size_t > > masterDictionary;
-	map< string, vector< size_t > > chunkDictionary;
+	unordered_map< string, pair<vector< size_t >, size_t> > chunkDictionary;		// <chunks>, occurances
 	unordered_map< string, vector< PostingsSeekTableEntry > > postingsSeekTable;
 
 	vector< DocumentEnding > docEndings;
-
+	vector< pair<size_t, size_t> > docEndingsSeek;		// <realLocation, offset (to the correspond docEnding)>
+	size_t totalWordsIndexed;
 	size_t currentFile;
 	size_t currentlyIndexed;
-
 	size_t currentBlockNumberWords;
 	size_t currentBlockNumberDocs;
 
 	bool alive = true;
-	};
+
+};
 
 #endif /*indexer_h*/
