@@ -160,6 +160,10 @@ public:
 	void setScore()
 		{
 		double lengthOfUrl = CompleteUrl.length();
+		if(lengthOfUrl > 250)
+			isValid = false;
+
+
 		Score +=  1/ ( lengthOfUrl );
 
 		if(lengthOfUrl > 4)
@@ -168,20 +172,22 @@ public:
 			if(this->Domain.length() )
 
 			{
-				if ( strcmp ( Domain.c_str() , ORG ) )
+				if ( Domain == ORG )
 					Score += .5;
-				else if ( strcmp ( Domain.c_str() , EDU ) )
+				else if ( Domain == EDU  )
+					Score += .5;
+				else if ( Domain ==  GOV )
 					Score += 1;
-				else if ( strcmp ( Domain.c_str() , GOV ) )
-					Score += 1;
-				else if ( strcmp ( Domain.c_str() , COM ) )
-					Score += 2;
-				else if ( strcmp ( Domain.c_str() , NET ) )
+				else if ( Domain ==  COM )
+					Score += .5;
+				else if ( Domain ==  NET )
 					Score += 3;
-				else if ( strcmp ( Domain.c_str() , INT ) )
+				else if ( Domain ==  INT )
 					Score += 4;
-				else if ( strcmp ( Domain.c_str() , MIL ) )
+				else if ( Domain ==  MIL )
 					Score += 5;
+				else
+					Score += 10;
 			}
 
 		}

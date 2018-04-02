@@ -25,6 +25,9 @@ bool HttpsReader::request ( )
 		// Create a TCP/IP socket.
 
 		sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
+		if(sock == -1)
+			throw HTTPSconnectionError;
+
 		assert( sock != -1 );
 
 		// Connect the socket to the host address.

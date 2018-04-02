@@ -45,7 +45,7 @@ bool UrlFrontier::checkUrl(ParsedUrl* url)
 				difference = .5 ;
 			else
 				difference =  difference/100;
-			url->updateScore( difference );
+			//url->updateScore( difference );
 
 			pthread_mutex_lock( &m );
 			(*domainMap)[url->getHost()] = now;
