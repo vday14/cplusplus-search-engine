@@ -70,6 +70,7 @@ void ISREndDoc::seek(Location target) {
     int currentValueChunk = 0;
     bool found = false;
     pair<size_t, size_t> docEndingWordSeek;         // location, offset
+    size_t tempLocation;
     string input = "";
     while(!found) {
         string fileName = util::GetCurrentWorkingDir() +
@@ -84,18 +85,18 @@ void ISREndDoc::seek(Location target) {
         for(auto comp : value) {
             switch(comp) {
                 case '<':
-                    docEndingWordSeek = pair<size_t, size_t>();
                     break;
                 case '>':
+                    if(target < tempLocation && target > docEndingWordSeek.first) {
+                        found = true;
+                        break;
+                    }
+                    docEndingWordSeek.first = tempLocation;
                     docEndingWordSeek.second = stoll(input);
                     input = "";
                     break;
                 case ',':
-                    if(target < stoll(input) && target > docEndingWordSeek.first) {
-                        found = true;
-                        break;
-                    }
-                    docEndingWordSeek.first = stoll(input);
+                    tempLocation = stoll(input);
                     input = "";
                     break;
                 default:
