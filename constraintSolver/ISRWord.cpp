@@ -171,17 +171,33 @@ Location ISRWord::Seek( Location target ) {
 }
 
 
-Location ISRWord::NextDocument()
+Location  ISRWord::NextDocument()
 	{
 	//FixMe
-	Location x;
-	return x;
+	//return DocumentEnd->getCurrentDoc().Seek( currentLocation );
+
+
+
 	}
 
-Location ISRWord::GetEndDocument()
+ISREndDoc * ISRWord::GetEndDocument()
 	{
 	//Fixme
-	Location x;
-	return x;
+	return DocumentEnd;
+	}
+
+ISR * ISRWord::GetISRToBeginningOfDocument ( ) {
+
+	Location beginningOfDoc = DocumentEnd->getCurrentDoc().docEndPosition - DocumentEnd->getCurrentDoc().docNumWords;
+	ISR* BeginngISR = new ISRWord(this->term);
+	BeginngISR->Seek(beginningOfDoc);
+
+
+	}
+
+string ISRWord::GetTerm()
+	{
+
+	return string(this->term);
 	}
 

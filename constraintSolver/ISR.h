@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <limits>
+#include "ISREndDoc.h"
 
 typedef size_t Location;  // Location 0 is the null location.
 const Location MAX_Location = std::numeric_limits<unsigned>::max();
@@ -37,11 +38,15 @@ public:
 
 
 	//Returns the location of the end of the document
-	virtual Location GetEndDocument ( ) = 0;
+	virtual ISREndDoc * GetEndDocument ( ) = 0;
+
+
+
 
 
 	Location currentLocation;
-	ISR *DocumentEnd;
+	ISREndDoc *DocumentEnd = new ISREndDoc ( );
+
 
 
 	};

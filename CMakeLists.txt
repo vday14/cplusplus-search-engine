@@ -159,15 +159,23 @@ add_executable(ISROR-tests
         util/Stemmer.cpp )
 
 add_executable(ISRAnd-tests
+        constraintSolver/tests/ISRAndTests.cpp
         util/util.cpp
         constraintSolver/ISR.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
-        constraintSolver/tests/ISROrTests.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
-
+add_executable(ISRWord-Multi-Test
+        constraintSolver/tests/ISRWordMultiTest.cpp
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
 
 
 find_package(OpenSSL REQUIRED)

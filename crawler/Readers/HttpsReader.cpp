@@ -31,6 +31,10 @@ bool HttpsReader::request ( )
 
 		int connectResult = connect( sock, ( struct sockaddr * ) &address,
 									 sizeof( address ) );
+
+		if(connectResult == -1)
+			throw HTTPSconnectionError;
+
 		assert( connectResult == 0 );
 
 		// Build an SSL layer and set it to read/write

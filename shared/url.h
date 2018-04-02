@@ -27,7 +27,7 @@ private:
 			Domain,
 			Path,
 			AnchorText;
-	double Score;
+	double Score = 0;
 
 
 public:
@@ -221,7 +221,7 @@ public:
 	void updateScore( double time )
 		{
 
-		Score +=  3 * time;
+		Score +=   time;
 		}
 
 	std::string getAnchorText ( )

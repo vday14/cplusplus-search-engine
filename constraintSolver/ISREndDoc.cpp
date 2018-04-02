@@ -118,3 +118,8 @@ void ISREndDoc::seek(Location target) {
 DocumentEnding ISREndDoc::getCurrentDoc() {
     return currentDoc;
 }
+
+Location ISREndDoc::GetStartingPositionOfDoc( )
+    {
+    return currentDoc.docEndPosition - currentDoc.docNumWords;
+    }
