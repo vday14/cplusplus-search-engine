@@ -19,10 +19,7 @@ void Indexer::run ( )
 
 	bool cond = true;
 
-    while(alive ) {
-			while( pointerToDictionaries->Size() > 0)
-				{
-
+    while(alive || pointerToDictionaries->Size() > 0) {
 			  DocIndex * dictionary = pointerToDictionaries->Pop();
 			  DocumentEnding docEnd = DocumentEnding();
 			  size_t indexedCount = 0;
@@ -49,13 +46,15 @@ void Indexer::run ( )
 			  docEndings.push_back(docEnd);
 
 
-			  if(currentBlockNumberWords >= 20000) {
-					save();
-					saveWordSeek();
-					reset();
-			  }
+				  if(currentBlockNumberWords >= 20000) {
+					   cout << " --- Saving current chunk --- "<< endl;
+						save();
+						saveWordSeek();
+						reset();
+				  }
 			 delete dictionary;
-				}
+
+
     }
 
     save();
@@ -254,6 +253,7 @@ void Indexer::reset ( )
 void Indexer::Kill()
 	{
 	this->alive = false;
+	currentFile++;
 	}
 
 
