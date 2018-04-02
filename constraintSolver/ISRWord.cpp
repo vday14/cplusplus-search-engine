@@ -2,6 +2,8 @@
 #include <string>
 #include "ISRWord.h"
 
+
+#define pathToIndex = "build"
 size_t FileSize(int f) {
     struct stat fileInfo;
     fstat( f, &fileInfo);
