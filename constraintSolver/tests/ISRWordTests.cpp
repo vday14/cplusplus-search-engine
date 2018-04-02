@@ -13,9 +13,9 @@ using namespace std;
 
 int main ( )
 	{
-	char* query = "iphone";
+	//char* query = "iphone";
 	clock_t start = clock();
-	ISRWord queryWord("clock");
+	ISRWord queryWord("world");
 	ISREndDoc endDocs;
 	vector<size_t> locations;
 	vector<DocumentEnding> docEnds;

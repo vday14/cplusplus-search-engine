@@ -3,7 +3,6 @@
 #include "ISRWord.h"
 
 
-#define pathToIndex = "build"
 size_t FileSize(int f) {
     struct stat fileInfo;
     fstat( f, &fileInfo);
@@ -20,7 +19,7 @@ ISRWord::ISRWord ( char *word ) {
 }
 
 void ISRWord::getChunks() {
-    MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/master.txt", 30, 168);
+    MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + pathToIndex + "master.txt" , 30, 168);
 	string value = diskHashTable.find(term);
     string chunkInput = "";
     for(char val : value) {
@@ -51,12 +50,12 @@ Location ISRWord::First ( )
 
 	}
 	string currentChunkSeekFileLocation =
-			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/" + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
 			"-seek.txt";
     MMDiskHashTable currentChunkSeekFileHashTable = MMDiskHashTable(currentChunkSeekFileLocation, 30, 8);
     string loc = currentChunkSeekFileHashTable.find(term);
 	string currentChunkFileLocation =
-			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/" + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
 			".txt";
 	int currentChunkFile = open( currentChunkFileLocation.c_str( ), O_RDONLY );
 	ssize_t currentChunkFileSize = FileSize( currentChunkFile );
@@ -118,7 +117,7 @@ size_t ISRWord::getFrequency() {
 
 void ISRWord::getWordSeek() {
 	string currentChunkWordSeekFileLocation =
-			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/" + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
 			"-wordseek.txt";
 	MMDiskHashTable wordSeek = MMDiskHashTable(currentChunkWordSeekFileLocation, 30, 168);
 	string result = wordSeek.find(term);
@@ -156,7 +155,7 @@ Location ISRWord::Seek( Location target ) {
             if(entry.realLocation < target) {
                 best = entry;
             } else {
-                string currentChunkFileLocation = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/" + to_string(listOfChunks[currentChunk]) + ".txt";
+                string currentChunkFileLocation = util::GetCurrentWorkingDir() + pathToIndex + to_string(listOfChunks[currentChunk]) + ".txt";
                 int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
                 ssize_t currentChunkFileSize = FileSize(currentChunkFile);
                 currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
