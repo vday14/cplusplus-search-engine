@@ -33,6 +33,10 @@ bool HttpReader::request ( )
 
 		int connectResult = connect( sock, ( struct sockaddr * ) &address,
 									 sizeof( address ) );
+
+		if(connectResult == -1)
+			throw HTTPConnectionError;
+
 		assert( connectResult == 0 );
 
 		// Send a GET message for the desired page.

@@ -15,7 +15,7 @@
 // then adds both to the url map and the host map
 
 
-void UrlFrontier::checkUrl(ParsedUrl* url)
+bool UrlFrontier::checkUrl(ParsedUrl* url)
 	{
 
 	//Looks to see if the complete url already exists, if so return
@@ -26,7 +26,7 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 		(*duplicateUrlMap)[url->getCompleteUrl()][url->getAnchorText()]++;
 		pthread_mutex_unlock( &m );
 		//add the new
-		return ;
+		return false;
 		}
 
 
@@ -42,10 +42,14 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 			time_t lastSeen = this->domainMap->at( url->getHost( ));
 			difference =  difftime( now , lastSeen);
 			if(difference == 0)
-				difference = 5 ;
+				difference = .5 ;
 			else
-				difference =  difference/10;
+				difference =  difference/100;
 			url->updateScore( difference );
+
+			pthread_mutex_lock( &m );
+			(*domainMap)[url->getHost()] = now;
+			pthread_mutex_unlock( &m );
 
 			}
 		else
@@ -64,7 +68,7 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 		(*duplicateUrlMap)[url->getCompleteUrl()][url->getAnchorText()] = 1;
 		pthread_mutex_unlock( &m );
 
-		return;
+		return true;
 		}
 	}
 
@@ -72,25 +76,24 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 void UrlFrontier::Push( ParsedUrl * url )
 	{
 	//if the url has been seen? if so, dont add it
-		if(url->isValid)
+		if( url->isValid )
 			{
 
-			checkUrl(url);
-
-
-			//set the value of the last time the domain was seen to score
-			//url.setTime(difference);
-			//url.setScore();
-			pthread_mutex_lock( &m );
-
-			queue.push( url );
-
-			if ( queue.size( ) == 1 )
+			if( checkUrl( url ) )
 				{
-				pthread_cond_broadcast( &consumer_cv );
-				}
 
-			pthread_mutex_unlock( &m );
+
+				pthread_mutex_lock( &m );
+
+				queue.push( url );
+
+				if ( queue.size( ) == 1 )
+					{
+					pthread_cond_broadcast( &consumer_cv );
+					}
+
+				pthread_mutex_unlock( &m );
+				}
 			}
 	}
 

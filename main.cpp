@@ -72,18 +72,19 @@ int main ( int argc, char *argv[] )
 	string mode = "web";
 	int numberOfSpiders = 1;
 	bool restart = false;
-
+	double DocsToCrawl = 0;
 	opterr = true;
 	int choice;
 	int option_index = 0;
 	option long_options[] = {
 			{ "mode",         optional_argument, nullptr, 'm' },
 			{ "num_crawlers", optional_argument, nullptr, 'c' },
+			{ "docsToCrawl", optional_argument, nullptr, 'd' },
 			{ "from_restart", optional_argument, nullptr, 'r' }
 
 	};
 
-	while ( ( choice = getopt_long( argc, argv, "m:c:r:", long_options, &option_index ) ) != -1 )
+	while ( ( choice = getopt_long( argc, argv, "m:c:d:r:", long_options, &option_index ) ) != -1 )
 		{
 		switch ( choice )
 			{
@@ -109,6 +110,11 @@ int main ( int argc, char *argv[] )
 			case 'r':
 
 				restart = true;
+				break;
+
+			case 'd':
+
+				DocsToCrawl = atoi(optarg);
 				break;
 
 			default:
@@ -175,6 +181,27 @@ int main ( int argc, char *argv[] )
 	//logger.StartThread( );
 
 	string input;
+	clock_t start = clock();
+
+	if(DocsToCrawl >0 )
+		{
+		cout << "Crawling 100,000 documents for each spider" << endl;
+		crawler->WaitOnAllSpiders( );
+		indexer.Kill();
+		indexer.WaitForFinish( );
+		urlFrontier->writeDataToDisk();
+		delete urlFrontier;
+		delete IndexerQueue;
+
+		cout << "Indexer has finished running " << endl;
+		clock_t end = clock();
+		cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
+		return 0;
+
+		}
+
+
 	while(true)
 		{
 		cout << "press enter to quit\n" << std::endl ;
@@ -196,6 +223,9 @@ int main ( int argc, char *argv[] )
 			delete IndexerQueue;
 
 			cout << "Indexer has finished running " << endl;
+			clock_t end = clock();
+			cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
 			return 0;
 
 			}

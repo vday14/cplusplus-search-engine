@@ -38,7 +38,7 @@ public:
 
 
 	//Returns the location of the end of the document
-	virtual Location GetEndDocument ( ) = 0;
+	virtual ISREndDoc * GetEndDocument ( ) = 0;
 
 
 

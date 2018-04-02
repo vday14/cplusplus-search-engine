@@ -55,7 +55,7 @@ Location ISRAnd::Next ( )
 
 Location ISRAnd::NextDocument()
 	{
-	return Seek(GetEndDocument());
+	return Seek( GetEndDocument()->getCurrentDoc().docEndPosition  + 1);
 	}
 
 Location ISRAnd::Seek ( Location target )
@@ -106,7 +106,7 @@ Location ISRAnd::Seek ( Location target )
 
 	}
 
-Location ISRAnd::GetEndDocument()
+ISREndDoc * ISRAnd::GetEndDocument()
 	{
 	//What does currentLocation hold?  When is it updated?
 	//return DocumentEnd->Seek(currentLocation);

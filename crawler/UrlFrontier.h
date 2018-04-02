@@ -29,7 +29,7 @@ class UrlFrontier
 
 	public:
 		void Push ( ParsedUrl * url );
-		void checkUrl(ParsedUrl *  url);
+		bool checkUrl(ParsedUrl *  url);
 
 		ParsedUrl *	Pop ( );
 		size_t Size();

@@ -22,7 +22,7 @@ public:
 	Location Next ( ) override;
 	Location NextDocument ( ) override;
 	Location Seek ( Location target ) override;
-	Location GetEndDocument ( ) override;
+	ISREndDoc * GetEndDocument ( ) override;
 	Location GetCurrentLocation();
 
 
