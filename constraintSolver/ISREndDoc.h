@@ -24,18 +24,21 @@
 class ISREndDoc
 	{
 public:
+
 	ISREndDoc();
 	DocumentEnding next();
+	void seek(Location target);
 	DocumentEnding getCurrentDoc();
 	unsigned GetDocumentLength ( );
 	unsigned GetTitleLength ( );
 	string getURL ( );
+
 private:
+
 	DocumentEnding currentDoc;
 	char* memMap;
 	int currentChunk;
     int currentFile;
-    vector<size_t> getSeekContents();
 
 };
 
