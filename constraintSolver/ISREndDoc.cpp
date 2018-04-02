@@ -3,7 +3,7 @@
 //
 
 #include "ISREndDoc.h"
-
+#define pathToIndex "/build/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
@@ -11,9 +11,9 @@ ISREndDoc::ISREndDoc() {
 
 DocumentEnding ISREndDoc::next() {
     if(memMap == nullptr) {
-        string fileName = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/" + to_string(currentChunk) + ".txt";
+        string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
         currentFile = open(fileName.c_str(), O_RDONLY);
-        MMDiskHashTable de(util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/" + to_string(currentChunk) + "-seek.txt", 30, 8);
+        MMDiskHashTable de(util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + "-seek.txt", 30, 8);
         memMap = (char*) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile, 0);
         memMap += stoll(de.find("=docEnding"));
     }
@@ -74,7 +74,7 @@ void ISREndDoc::seek(Location target) {
     string input = "";
     while(!found) {
         string fileName = util::GetCurrentWorkingDir() +
-                          "/constraintSolver/index-test-files/twitter/" +
+                          pathToIndex +
                           to_string(currentChunk) + "-wordseek.txt";
         if(0 != access(fileName.c_str(), 0)) {
             return;
@@ -104,7 +104,7 @@ void ISREndDoc::seek(Location target) {
                     break;
             }
             if(found) {
-                string fileName = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/" + to_string(currentChunk) + ".txt";
+                string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
                 currentFile = open(fileName.c_str(), O_RDONLY);
                 memMap = (char*) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile, 0);
                 memMap += docEndingWordSeek.second;

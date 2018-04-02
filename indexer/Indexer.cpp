@@ -19,44 +19,47 @@ void Indexer::run ( )
 
 	bool cond = true;
 
-    while(alive || pointerToDictionaries->Size() > 0 ) {
+    while(alive ) {
+			while( pointerToDictionaries->Size() > 0)
+				{
 
-        DocIndex * dictionary = pointerToDictionaries->Pop();
-        DocumentEnding docEnd = DocumentEnding();
-        size_t indexedCount = 0;
-        currentBlockNumberDocs++;
+			  DocIndex * dictionary = pointerToDictionaries->Pop();
+			  DocumentEnding docEnd = DocumentEnding();
+			  size_t indexedCount = 0;
+			  currentBlockNumberDocs++;
 
-        for(auto word : *dictionary) {
-            if(word.first.at(0) == '=') {
-                docEnd.url = word.first.substr(1, word.first.length());
-                continue;
-            }
+			  for(auto word : *dictionary) {
+					if(word.first.at(0) == '=') {
+						 docEnd.url = word.first.substr(1, word.first.length());
+						 continue;
+					}
 
-            indexedCount += word.second.size();
-            currentBlockNumberWords += word.second.size();
-            totalWordsIndexed += word.second.size();
+					indexedCount += word.second.size();
+					currentBlockNumberWords += word.second.size();
+					totalWordsIndexed += word.second.size();
 
-            for(auto location : word.second) {
-                masterDictionary[word.first].push_back(currentlyIndexed + location);
-            }
-        }
+					for(auto location : word.second) {
+						 masterDictionary[word.first].push_back(currentlyIndexed + location);
+					}
+			  }
 
-        currentlyIndexed += indexedCount;
-        docEnd.docEndPosition = currentlyIndexed;
-        docEnd.docNumWords = indexedCount;
-        docEndings.push_back(docEnd);
+			  currentlyIndexed += indexedCount;
+			  docEnd.docEndPosition = currentlyIndexed;
+			  docEnd.docNumWords = indexedCount;
+			  docEndings.push_back(docEnd);
 
 
-        if(currentBlockNumberWords >= 20000) {
-            save();
-				saveWordSeek();
-            reset();
-        }
-		 delete dictionary;
+			  if(currentBlockNumberWords >= 20000) {
+					save();
+					saveWordSeek();
+					reset();
+			  }
+			 delete dictionary;
+				}
     }
 
     save();
-	saveWordSeek();
+	 saveWordSeek();
     reset();
     saveChunkDictionary();
 	cout << "Indexer has finished running" << endl;
