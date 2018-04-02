@@ -13,7 +13,13 @@ DocumentEnding ISREndDoc::next() {
     if(memMap == nullptr) {
         string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
         currentFile = open(fileName.c_str(), O_RDONLY);
-        MMDiskHashTable de(util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + "-seek.txt", 30, 8);
+        string seekFileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + "-seek.txt";
+        if(0 != access(seekFileName.c_str(), 0)) {
+            DocumentEnding a = DocumentEnding();
+            a.url = "aaa";
+            return a;
+        }
+        MMDiskHashTable de(seekFileName, 30, 8);
         memMap = (char*) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile, 0);
         memMap += stoll(de.find("=docEnding"));
     }
@@ -23,11 +29,6 @@ DocumentEnding ISREndDoc::next() {
             currentChunk++;
             memMap = nullptr;
             return DocumentEnding();
-        }
-        if(currentChunk == 5) {
-            DocumentEnding a = DocumentEnding();
-            a.url = "aaa";
-            return a;
         }
         if(*map == '\n') {
             memMap = map;
