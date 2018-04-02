@@ -67,6 +67,11 @@ public:
             capacity = floor(fileSize / nodeSize);
         }
         map = (char*) mmap(nullptr, FileSize1(file), PROT_READ | PROT_WRITE, MAP_SHARED, file, 0);
+        string sizeString = to_string(size);
+        sizeString.resize(10);
+        for(size_t i = 0; i < 10; i++) {
+            map[i] = sizeString[i];
+        }
     }
 
     /**
@@ -212,6 +217,5 @@ private:
         fstat(file, &st);
         return st.st_size;
     }
-
 
 };
