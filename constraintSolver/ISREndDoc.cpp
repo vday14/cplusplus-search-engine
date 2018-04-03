@@ -3,8 +3,8 @@
 //
 
 #include "ISREndDoc.h"
-#define pathToIndex "/constraintSolver/index-test-files/twitter/"
-#define pathToIndex1 "/build/"
+//#define pathToIndex "/constraintSolver/index-test-files/twitter/"
+#define pathToIndex "/build/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
