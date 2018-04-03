@@ -15,6 +15,7 @@
 #include <limits>
 #include "ISREndDoc.h"
 
+#define pathToIndex "/constraintSolver/index-test-files/twitter/"
 
 #define pathToIndex "/constraintSolver/index-test-files/twitter/"
 //#define pathToIndex "/build/"

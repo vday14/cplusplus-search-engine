@@ -14,8 +14,8 @@ using namespace std;
 int main ( )
 	{
 	char* query;
-	ISRWord *q1 = new ISRWord("iphone");
-	ISRWord *q2 = new ISRWord("apple");
+	ISRWord *q1 = new ISRWord("%trump");
+	ISRWord *q2 = new ISRWord("%washington");
 	vector< ISR* > input;
 	input.push_back(q1);
 	input.push_back(q2);
@@ -25,7 +25,7 @@ int main ( )
 	vector<DocumentEnding> docEnds;
 	set<string> urls;
 	while(queryAnd->GetCurrentLocation() != MAX_Location) {
-		locations.push_back(queryAnd->Next());
+		locations.push_back(queryAnd->NextDocument());
 		}
 
 

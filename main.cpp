@@ -185,7 +185,7 @@ int main ( int argc, char *argv[] )
 	string input;
 	clock_t start = clock();
 
-	if(DocsToCrawl >0 )
+	if(DocsToCrawl > 0 )
 		{
 		cout << "Crawling 100,000 documents for each spider" << endl;
 		crawler->WaitOnAllSpiders( );

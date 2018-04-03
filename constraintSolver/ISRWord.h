@@ -50,6 +50,7 @@ class ISRWord : public ISR
 		size_t currentChunk;
 		char *currentMemMap;
 
+
 		//set member variables to all of the chunks that occur, update current chunk
 		void getChunks ( );
 		Location getCurrentLocation();

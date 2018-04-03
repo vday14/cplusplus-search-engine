@@ -10,27 +10,27 @@ ISRAnd::ISRAnd ( vector<ISR * > InputTerms ) : Terms( InputTerms )
 
 	assert(InputTerms.size() > 1);
 
-	for (auto currentTerm : InputTerms)
-	{
-		currentTerm->First();
-		Location currentLocation = currentTerm->currentLocation;
-		if (currentLocation < nearestStartLocation) {
-			nearestTerm = currentTerm;
-			nearestStartLocation = currentLocation;
+	Location first = MAX_Location;
 
+	for(auto isr : Terms)
+		{
+		Location temp = isr->Seek( 0 );
+		if (temp < first)
+			{
+			first = temp;
+			}
 		}
-		if (currentLocation > nearestEndLocation) {
-			nearestEndLocation = currentLocation;
-		}
-		++NumberOfTerms;
-		currentTerm++;
 
-	}
+
+	//fixme should this return the nearest location of one subterm or the nearest location all the terms match?
+	currentLocation = Seek( first );
+	return;
 	}
 
 Location ISRAnd::First()
 	{
 	//Fixme?
+	/*
 	Location first = MAX_Location;
 
 	for(auto isr : Terms)
@@ -45,6 +45,7 @@ Location ISRAnd::First()
 	//fixme should this return the nearest location of one subterm or the nearest location all the terms match?
 	currentLocation = Seek(first);
 	return currentLocation;
+	*/
 	}
 
 
@@ -55,7 +56,8 @@ Location ISRAnd::Next ( )
 
 Location ISRAnd::NextDocument()
 	{
-	return Seek( GetEndDocument()->getCurrentDoc().docEndPosition  + 1);
+	currentLocation =  Seek( GetEndDocument()->getCurrentDoc().docEndPosition  + 1);
+	return currentLocation;
 	}
 
 Location ISRAnd::Seek ( Location target )
@@ -79,9 +81,13 @@ Location ISRAnd::Seek ( Location target )
 
 		//find nearest & furthest ISR
 		for (auto isr : Terms) {
-			Location temp = isr->Seek(target);
+			Location temp = isr->Seek( target );
 			if (temp == MAX_Location) return MAX_Location;
-			if (temp > furthest) furthest = temp;
+			if (temp > furthest)
+				{
+				furthest = temp;
+				furthestTerm = isr;
+				}
 			if (temp < nearest) nearest = temp;
 		}
 
@@ -89,7 +95,7 @@ Location ISRAnd::Seek ( Location target )
 		//DocumentEnd->Seek( furthest  );
 
 		//set next target to be starting location of document
-		Location lastDocStart = DocumentEnd->GetStartingPositionOfDoc();
+		Location lastDocStart = GetEndDocument()->GetStartingPositionOfDoc();
 
 		if(nearest >= lastDocStart)
 		{
@@ -109,7 +115,7 @@ Location ISRAnd::Seek ( Location target )
 ISREndDoc * ISRAnd::GetEndDocument()
 	{
 	//What does currentLocation hold?  When is it updated?
-	//return DocumentEnd->Seek(currentLocation);
+	return furthestTerm->DocumentEnd;
 	}
 
 Location ISRAnd::GetCurrentLocation(){
