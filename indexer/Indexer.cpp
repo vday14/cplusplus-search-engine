@@ -61,7 +61,8 @@ void Indexer::run ( )
 	 saveWordSeek();
     reset();
     saveChunkDictionary();
-	cout << "Indexer has finished running" << endl;
+		SaveAnchorText():
+	cout << " Indexer has finished running" << endl;
 	return ;
 }
 
@@ -252,9 +253,29 @@ void Indexer::reset ( )
 
 void Indexer::Kill()
 	{
-	this->alive = false;
+	this->alive = 'true';
 	currentFile++;
 	}
 
+
+void Indexer::SaveAnchorText( )
+	{
+
+	//TODO create pointer to anchor
+
+
+	//pointerToAnchor->Pop();
+	//pass a dictionary of
+	//map <url string> - >  vector<anchor word>
+	//for each url in map
+	//look up url string in  url -> docEnding map
+	//for each anchor text in url map
+	// create a  anchor text - > list of doc endings
+	//write to disk
+
+
+
+
+	}
 
 

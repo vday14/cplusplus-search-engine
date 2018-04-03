@@ -175,7 +175,11 @@ Location ISRWord::Seek( Location target ) {
 Location  ISRWord::NextDocument()
 	{
 	//FixMe
-	//return DocumentEnd->getCurrentDoc().Seek( currentLocation );
+	//seek the isr to the first location after the doc end
+	 currentLocation = Seek( DocumentEnd->getCurrentDoc().docEndPosition + 1);
+	//update the doc end to the next doc end after the new seek position
+	DocumentEnd->seek( currentLocation );
+	return DocumentEnd->getCurrentDoc().docEndPosition;
 
 
 

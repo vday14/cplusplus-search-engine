@@ -47,6 +47,8 @@ void signalHandler( int signum ) {
 	}
 
 
+
+
 int main ( int argc, char *argv[] )
 	{
 	/*
@@ -187,6 +189,7 @@ int main ( int argc, char *argv[] )
 		{
 		cout << "Crawling 100,000 documents for each spider" << endl;
 		crawler->WaitOnAllSpiders( );
+		//crawler->passAnchorTextToIndex( );
 		indexer.Kill();
 		indexer.WaitForFinish( );
 		urlFrontier->writeDataToDisk();
@@ -213,10 +216,8 @@ int main ( int argc, char *argv[] )
 			cout << "Shutting down the indexer  " << endl ;
 			crawler->KillAllSpiders();
 			crawler->WaitOnAllSpiders( );
-
 			indexer.Kill();
 			indexer.WaitForFinish( );
-
 			urlFrontier->writeDataToDisk();
 
 			delete urlFrontier;

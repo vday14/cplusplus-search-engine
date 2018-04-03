@@ -65,3 +65,40 @@ void Crawler::KillAllSpiders ( )
 		//delete spider; //FIXME do this in destructor?
 		}
 	}
+
+
+void Crawler::passAnchorTextToIndex( )
+	{
+
+
+	Tokenizer tokenizer;
+	unsigned long offset = 0;
+
+	for ( auto const &ent1 : *urlFrontier->duplicateUrlMap )
+		{
+		auto const &outer_key = ent1.first;
+		auto const &inner_map = ent1.second;
+		for ( auto const &ent2 : inner_map )
+			{
+
+			auto const &inner_key = ent2.first;
+			auto const &inner_value = ent2.second;
+			if ( !inner_key.empty( ))
+				{
+				cout << "url: " << outer_key << endl;
+				cout << "anchor text : " << inner_key << endl;
+				cout << "count " << inner_value << endl;
+				offset = tokenizer.execute( inner_key, offset, Tokenizer::ANCHOR );
+
+				}
+			else
+				cout << "url: " << outer_key << " has no anchor text " << endl;
+
+			}
+
+		}
+	//auto *dict = tokenizer.get( );
+	//IndexerQueue->Push( dict );
+
+	return;
+	}
