@@ -32,10 +32,13 @@ public:
 	//Creates a housekeeping thread
 	void houseKeeper ( );
 
+	void passAnchorTextToIndex( );
+
 	void KillAllSpiders ( );
 
 	void WaitOnAllSpiders ( );
 	UrlFrontier  *urlFrontier;
+
 
 
 private:

@@ -50,7 +50,7 @@ private:
 	void save ( );
     void saveWordSeek();
     void saveChunkDictionary ( );
-
+	void SaveAnchorText( );
 	void reset ( );
 
 	ProducerConsumerQueue< DocIndex * > *pointerToDictionaries;

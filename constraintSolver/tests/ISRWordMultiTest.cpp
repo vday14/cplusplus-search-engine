@@ -19,8 +19,8 @@ int main ( )
 	vector< vector< size_t > > locations;
 
 
-	ISRWord q1 = ISRWord("apple");
-	ISRWord q2 = ISRWord("orange");
+	ISRWord q1 = ISRWord("%trump");
+	ISRWord q2 = ISRWord("%world");
 	queries.push_back(q2);
 	queries.push_back(q1);
 
@@ -43,12 +43,11 @@ int main ( )
 
 	for(int i = 0; i <queries.size() ; i++ )
 		{
-		//cout << "Searching for : " << queries[i].GetTerm() << endl;
-		locations[i].push_back(queries[i].getCurrentLocation());
-		while(queries[i].getCurrentLocation() != MAX_Location) {
-			queries[i].NextDocument();
+		while(queries[i].getCurrentLocation() != MAX_Location)  {
 			auto url = queries[i].DocumentEnd->getCurrentDoc().url;
 			urls[i].insert( url  );
+			queries[i].NextDocument();
+
 			}
 		}
 	clock_t end = clock();
