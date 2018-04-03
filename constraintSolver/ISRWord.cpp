@@ -16,6 +16,10 @@ ISRWord::ISRWord ( char *word ) {
 	getChunks( );
 	currentChunk = 0;
 	currentLocation = First( );
+	DocumentEnd->seek( currentLocation );
+
+
+
 }
 
 void ISRWord::getChunks() {
@@ -104,6 +108,7 @@ Location ISRWord::Next ( )
 		currentLocation += stoll( delta );
 		currentMemMap++;
 		}
+	DocumentEnd->seek( currentLocation );
 	return currentLocation;
 	}
 
@@ -149,6 +154,9 @@ void ISRWord::getWordSeek() {
 //if so, set location to that big chunk
 //go to next chunk
 Location ISRWord::Seek( Location target ) {
+	 if(target < currentLocation)
+		 return currentLocation;
+
     if(!wordSeekLookupTable.empty()) {
         auto best = wordSeekLookupTable.front();
         for(auto entry : wordSeekLookupTable) {
@@ -167,7 +175,9 @@ Location ISRWord::Seek( Location target ) {
     } else {
         while(Next() <= target) {
         }
-        return currentLocation;
+
+		 DocumentEnd->seek( currentLocation );
+		 return currentLocation;
     }
 }
 
@@ -178,7 +188,6 @@ Location  ISRWord::NextDocument()
 	//seek the isr to the first location after the doc end
 	 currentLocation = Seek( DocumentEnd->getCurrentDoc().docEndPosition + 1);
 	//update the doc end to the next doc end after the new seek position
-	DocumentEnd->seek( currentLocation );
 	return DocumentEnd->getCurrentDoc().docEndPosition;
 
 

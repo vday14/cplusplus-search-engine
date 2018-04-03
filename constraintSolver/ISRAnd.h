@@ -28,7 +28,7 @@ public:
 
 
 private:
-	ISR *nearestTerm;
+	ISR *furthestTerm;
 	// nearStartLocation and nearestEndLocation are// the start and end of the nearestTerm.
 	Location nearestStartLocation, nearestEndLocation;
 
