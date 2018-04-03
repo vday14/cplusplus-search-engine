@@ -15,7 +15,7 @@ int main ( )
 	{
 	//char* query = "iphone";
 	clock_t start = clock();
-	ISRWord queryWord("%trump");
+	ISRWord queryWord("%16million");
 	ISREndDoc endDocs;
 	vector<size_t> locations;
 	vector<DocumentEnding> docEnds;

@@ -3,7 +3,8 @@
 //
 
 #include "ISREndDoc.h"
-#define pathToIndex "/build/"
+#define pathToIndex "/constraintSolver/index-test-files/twitter/"
+#define pathToIndex1 "/build/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
@@ -68,7 +69,6 @@ DocumentEnding ISREndDoc::next() {
 void ISREndDoc::seek(Location target) {
     string key = "=docEnding";
     string value = "";
-    int currentValueChunk = 0;
     bool found = false;
     pair<size_t, size_t> docEndingWordSeek;         // location, offset
     size_t tempLocation;
@@ -81,39 +81,46 @@ void ISREndDoc::seek(Location target) {
             return;
         }
         MMDiskHashTable currentWordSeek = MMDiskHashTable(fileName, 30, 168);
+        int currentValueChunk = 0;
         value = currentWordSeek.find(key + to_string(currentValueChunk));
-        cout << "searching through " << value << endl;
-        for(auto comp : value) {
-            switch(comp) {
-                case '<':
-                    break;
-                case '>':
-                    if(target < tempLocation && target > docEndingWordSeek.first) {
-                        found = true;
+        while(value.compare("") != 0) {
+            cout << "searching through " << key + to_string(currentValueChunk) << endl;
+            for (auto comp : value) {
+                switch (comp) {
+                    case '<':
                         break;
-                    }
-                    docEndingWordSeek.first = tempLocation;
-                    docEndingWordSeek.second = stoll(input);
-                    input = "";
-                    break;
-                case ',':
-                    tempLocation = stoll(input);
-                    input = "";
-                    break;
-                default:
-                    input += comp;
-                    break;
+                    case '>':
+                        if (target < tempLocation && target > docEndingWordSeek.first) {
+                            found = true;
+                            break;
+                        }
+                        docEndingWordSeek.first = tempLocation;
+                        docEndingWordSeek.second = stoll(input);
+                        input = "";
+                        break;
+                    case ',':
+                        tempLocation = stoll(input);
+                        input = "";
+                        break;
+                    default:
+                        input += comp;
+                        break;
+                }
+                if (found) {
+                    string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
+                    currentFile = open(fileName.c_str(), O_RDONLY);
+                    memMap = (char *) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile,
+                                           0);
+                    memMap += docEndingWordSeek.second;
+                    cout << "found" << endl;
+                    return;
+                }
             }
-            if(found) {
-                string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
-                currentFile = open(fileName.c_str(), O_RDONLY);
-                memMap = (char*) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile, 0);
-                memMap += docEndingWordSeek.second;
-                cout << "found" << endl;
-                return;
-            }
+            currentValueChunk++;
+            value = currentWordSeek.find(key + to_string(currentValueChunk));
         }
         currentChunk++;
+
     }
 }
 
