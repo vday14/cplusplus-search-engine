@@ -3,8 +3,8 @@
 //
 
 #include "ISREndDoc.h"
-//#define pathToIndex "/constraintSolver/index-test-files/twitter/"
-#define pathToIndex "/build/"
+#define pathToIndex "/constraintSolver/index-test-files/twitter/"
+//#define pathToIndex "/build/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
@@ -70,15 +70,18 @@ void ISREndDoc::seek(Location target) {
     string key = "=docEnding";
     string value = "";
     bool found = false;
-    pair<size_t, size_t> docEndingWordSeek;         // location, offset
-    size_t tempLocation;
+    pair<size_t, size_t> docEndingWordSeek = {0, 0};         // location, offset
+    size_t tempLocation = 0;
     string input = "";
+    bool init = false;
+    bool breakout = false;
     while(!found) {
         string fileName = util::GetCurrentWorkingDir() +
                           pathToIndex +
                           to_string(currentChunk) + "-wordseek.txt";
         if(0 != access(fileName.c_str(), 0)) {
-            return;
+            currentChunk--;
+            break;
         }
         MMDiskHashTable currentWordSeek = MMDiskHashTable(fileName, 30, 168);
         int currentValueChunk = 0;
@@ -91,9 +94,14 @@ void ISREndDoc::seek(Location target) {
                         break;
                     case '>':
                         if (target < tempLocation && target > docEndingWordSeek.first) {
+                            if(!init) {
+                                breakout = true;
+                                break;
+                            }
                             found = true;
                             break;
                         }
+                        init = true;
                         docEndingWordSeek.first = tempLocation;
                         docEndingWordSeek.second = stoll(input);
                         input = "";
@@ -112,15 +120,24 @@ void ISREndDoc::seek(Location target) {
                     memMap = (char *) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile,
                                            0);
                     memMap += docEndingWordSeek.second;
-                    cout << "found" << endl;
-                    return;
+                    break;
                 }
+                if(breakout) {
+                    break;
+                }
+            }
+            if(breakout) {
+                break;
             }
             currentValueChunk++;
             value = currentWordSeek.find(key + to_string(currentValueChunk));
         }
+        if(breakout) {
+            break;
+        }
         currentChunk++;
-
+    }
+    while(target > (next().docEndPosition - 1)) {
     }
 }
 
