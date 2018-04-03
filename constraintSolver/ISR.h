@@ -16,7 +16,8 @@
 #include "ISREndDoc.h"
 
 
-#define pathToIndex "/build/"
+#define pathToIndex "/constraintSolver/index-test-files/twitter/"
+//#define pathToIndex "/build/"
 typedef size_t Location;  // Location 0 is the null location.
 const Location MAX_Location = std::numeric_limits<unsigned>::max();
 

@@ -87,7 +87,6 @@ void ISREndDoc::seek(Location target) {
         int currentValueChunk = 0;
         value = currentWordSeek.find(key + to_string(currentValueChunk));
         while(value.compare("") != 0) {
-            cout << "searching through " << key + to_string(currentValueChunk) << endl;
             for (auto comp : value) {
                 switch (comp) {
                     case '<':
