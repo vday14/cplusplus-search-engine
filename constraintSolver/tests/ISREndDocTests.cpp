@@ -4,6 +4,6 @@ using namespace std;
 
 int main() {
     ISREndDoc endDoc;
-    endDoc.seek(4000);
-    cout << endDoc.next().docEndPosition << endl;
+    endDoc.seek(43);
+    cout << endDoc.getCurrentDoc().docEndPosition << endl;
 }
