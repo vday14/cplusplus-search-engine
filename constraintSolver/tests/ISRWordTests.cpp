@@ -13,7 +13,7 @@ using namespace std;
 
 int main ( ) {
 	//char* query = "iphone";
-	ISRWord queryWord("teal");
+	ISRWord queryWord("fake");
 	ISREndDoc endDocs;
 	vector<size_t> locations;
 	vector<DocumentEnding> docEnds;

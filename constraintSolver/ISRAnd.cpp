@@ -5,17 +5,17 @@
 #include "ISRAnd.h"
 #include <cassert>
 
-ISRAnd::ISRAnd ( vector<ISR * > InputTerms ) : Terms( InputTerms )
+ISRAnd::ISRAnd( vector < ISR * > InputTerms ) : Terms( InputTerms )
 	{
 
-	assert(InputTerms.size() > 1);
+	assert( InputTerms.size( ) > 1 );
 
 	Location first = MAX_Location;
 
-	for(auto isr : Terms)
+	for ( auto isr : Terms )
 		{
-		Location temp = isr->Seek( 0 );
-		if (temp < first)
+		Location temp = isr->currentLocation;
+		if ( temp < first )
 			{
 			first = temp;
 			}
@@ -49,18 +49,18 @@ Location ISRAnd::First()
 	}
 
 
-Location ISRAnd::Next ( )
+Location ISRAnd::Next()
 	{
-	return Seek( nearestStartLocation);
+	return Seek( nearestStartLocation );
 	}
 
 Location ISRAnd::NextDocument()
 	{
-	currentLocation =  Seek( GetEndDocument()->getCurrentDoc().docEndPosition  + 1);
+	currentLocation = Seek( GetEndDocument( )->getCurrentDoc( ).docEndPosition + 1 );
 	return currentLocation;
 	}
 
-Location ISRAnd::Seek ( Location target )
+Location ISRAnd::Seek( Location target )
 	{
 	//Todo
 	// 1. Seek all the ISRs to the first occurrence beginning at
@@ -75,50 +75,67 @@ Location ISRAnd::Seek ( Location target )
 	Location nearest;
 	Location furthest = 0;
 
-	while(furthest != MAX_Location) {
+	while ( furthest != MAX_Location )
+		{
 
 		nearest = MAX_Location;
 
 		//find nearest & furthest ISR
-		for (auto isr : Terms) {
+		for ( auto isr : Terms )
+			{
 			Location temp = isr->Seek( target );
-			if (temp == MAX_Location) return MAX_Location;
-			if (temp > furthest)
+			if ( temp == MAX_Location )
+				return MAX_Location;
+			if ( temp > furthest )
 				{
 				furthest = temp;
 				furthestTerm = isr;
 				}
-			if (temp < nearest) nearest = temp;
-		}
+			if ( temp < nearest )
+				{
+				nearest = temp;
+				nearestTerm = isr;
+				}
+			}
 
 		//Get Document of the furthest ISR
 		//DocumentEnd->Seek( furthest  );
 
-		//set next target to be starting location of document
-		Location lastDocStart = GetEndDocument()->GetStartingPositionOfDoc();
+		if(nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition == furthestTerm->GetEndDocument()->getCurrentDoc().docEndPosition )
+			{
+			cout << "MATCHING " << endl;
+			return nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition;
+			}
 
-		if(nearest >= lastDocStart)
-		{
+		//set next target to be starting location of document
+		Location lastDocStart = GetEndDocument( )->GetStartingPositionOfDoc( );
+
+		if ( nearest >= lastDocStart )
+			{
 			//MATCH
 			//Does it matter for 'AND' what location we return? first/last in document?
 			//Should we return an ISR as well?
 			return nearest;
-		} else{
+			}
+		else
+			{
 			//No Match yet, keep searching
 			target = lastDocStart;
+			}
+
 		}
+	return MAX_Location;
 
 	}
 
-	}
-
-ISREndDoc * ISRAnd::GetEndDocument()
+ISREndDoc *ISRAnd::GetEndDocument()
 	{
 	//What does currentLocation hold?  When is it updated?
 	return furthestTerm->DocumentEnd;
 	}
 
-Location ISRAnd::GetCurrentLocation(){
+Location ISRAnd::GetCurrentLocation()
+	{
 	//What does currentLocation hold?  When is it updated?
 	//return DocumentEnd->Seek(currentLocation);
 	return currentLocation;

@@ -6,6 +6,9 @@
 #include <set>
 #include "../../indexer/DocumentEnding.h"
 #include "../ISRWord.h"
+#include <iterator>
+
+#include <vector>
 #include "../ISREndDoc.h"
 
 
@@ -13,14 +16,12 @@ using namespace std;
 
 int main ( )
 	{
-	char* query = "iphone";
-	clock_t start = clock();
 	vector<ISRWord> queries;
 	vector< vector< size_t > > locations;
 
 
-	ISRWord q1 = ISRWord("%trump");
-	ISRWord q2 = ISRWord("%world");
+	ISRWord q1 = ISRWord("moment");
+	ISRWord q2 = ISRWord("life");
 	queries.push_back(q2);
 	queries.push_back(q1);
 
@@ -28,9 +29,9 @@ int main ( )
 	vector<DocumentEnding> docEnds;
 
 
-	vector<set<string>> urls;
-	set<string> out1;
-	set<string> out2;
+	vector<vector<string>> urls;
+	vector<string> out1;
+	vector<string> out2;
 	urls.push_back(out1 );
 	urls.push_back(out2 );
 
@@ -41,29 +42,51 @@ int main ( )
 	locations.push_back(loc1);
 	locations.push_back(loc2);
 
+
+	vector<double> times;
 	for(int i = 0; i <queries.size() ; i++ )
 		{
+		clock_t start = clock();
 		while(queries[i].getCurrentLocation() != MAX_Location)  {
 			auto url = queries[i].DocumentEnd->getCurrentDoc().url;
-			urls[i].insert( url  );
+			urls[i].push_back( url  );
 			queries[i].NextDocument();
 
 			}
+		clock_t end = clock();
+		double time = (end - start) / (double) CLOCKS_PER_SEC;
+		times.push_back(time);
+
 		}
-	clock_t end = clock();
 
 
 
 
 
+	int i = 0;
 	for(auto output  : urls)
 		{
+		cout << queries[i].term << endl;
+		cout << "Time to complete query: " << times[i] << endl;
 		for(auto urrl : output) {
 			cout << urrl << endl;
 			}
-
+		i++;
 		}
 
-	cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
+	cout << "Printing Set Intersection " << endl;
+	vector<string> v1 = urls[0];
+	vector<string> v2 = urls[1];
+
+	std::vector<string> v_intersection;
+
+	std::set_intersection(v1.begin(), v1.end(),
+								 v2.begin(), v2.end(),
+								 std::back_inserter(v_intersection));
+	for(auto url : v_intersection)
+		std::cout << url << endl;
+
+
 	return 0;
 	}

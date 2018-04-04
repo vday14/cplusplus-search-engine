@@ -14,37 +14,41 @@ using namespace std;
 int main ( )
 	{
 	char* query;
-	ISRWord *q1 = new ISRWord("%trump");
-	ISRWord *q2 = new ISRWord("%washington");
+	ISRWord *q1 = new ISRWord("moment");
+	ISRWord *q2 = new ISRWord("life");
 	vector< ISR* > input;
 	input.push_back(q1);
 	input.push_back(q2);
 	ISRAnd *queryAnd = new ISRAnd(input);
-	ISREndDoc endDocs;
-	vector<size_t> locations;
-	vector<DocumentEnding> docEnds;
 	set<string> urls;
+	clock_t start = clock();
+
 	while(queryAnd->GetCurrentLocation() != MAX_Location) {
-		locations.push_back(queryAnd->NextDocument());
-		}
 
-
-	while(endDocs.next().url != "aaa")
-		{
-		for(auto locs : locations)
-			{
-			if(locs < endDocs.getCurrentDoc().docEndPosition &&
-				locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
-				urls.insert(endDocs.getCurrentDoc().url);
-				}
-			}
+		auto url = queryAnd->GetEndDocument()->getCurrentDoc().url;
+		urls.insert(url);
+		queryAnd->NextDocument();
 
 		}
 
+	clock_t end = clock();
 
 
 	for(auto urrl : urls) {
 		cout << urrl << endl;
 		}
+
+	cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
+	/*
+	 *
+	 * moment and life
+	 *file3tweet151407709667856384
+		file5tweet151408405939093504
+		file9tweet151409353818255361
+	 *
+	 */
+
+
 	return 0;
 	}
