@@ -85,7 +85,7 @@ int main ( int argc, char *argv[] )
 
 	};
 
-	while ( ( choice = getopt_long( argc, argv, "m:c:d:r:", long_options, &option_index ) ) != -1 )
+	while ( ( choice = getopt_long( argc, argv, "m:c:d:r", long_options, &option_index ) ) != -1 )
 		{
 		switch ( choice )
 			{
@@ -166,8 +166,8 @@ int main ( int argc, char *argv[] )
 			urlFrontier->Push( url );
 			}
 		}
-	//else
-		//urlFrontier->ReadDataFromDisk();
+	else
+		urlFrontier->readDataFromDisk();
 
 
 

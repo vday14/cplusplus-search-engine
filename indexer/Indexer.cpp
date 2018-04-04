@@ -19,53 +19,60 @@ Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in,
 void Indexer::run()
 	{
 
-	bool cond = true;
 
-	while ( alive || pointerToDictionaries->Size( ) > 0 )
+	while ( *alive  || pointerToDictionaries->Size( ) > 0 )
 		{
-		DocIndex *dictionary = pointerToDictionaries->Pop( );
-		DocumentEnding docEnd = DocumentEnding( );
-		size_t indexedCount = 0;
-		currentBlockNumberDocs++;
 
-		for ( auto word : *dictionary )
+		if( pointerToDictionaries->Size( ) > 0)
 			{
-			if ( word.first.at( 0 ) == '=' )
+
+
+			DocIndex *dictionary = pointerToDictionaries->Pop( );
+			DocumentEnding docEnd = DocumentEnding( );
+			size_t indexedCount = 0;
+			currentBlockNumberDocs++;
+
+			for ( auto word : *dictionary )
 				{
-				docEnd.url = word.first.substr( 1, word.first.length( ));
-				continue;
+				if ( word.first.at( 0 ) == '=' )
+					{
+					docEnd.url = word.first.substr( 1, word.first.length( ));
+					continue;
+					}
+
+				indexedCount += word.second.size( );
+				currentBlockNumberWords += word.second.size( );
+				totalWordsIndexed += word.second.size( );
+
+				for ( auto location : word.second )
+					{
+					masterDictionary[ word.first ].push_back( currentlyIndexed + location );
+					}
 				}
 
-			indexedCount += word.second.size( );
-			currentBlockNumberWords += word.second.size( );
-			totalWordsIndexed += word.second.size( );
+			currentlyIndexed += indexedCount;
+			docEnd.docEndPosition = currentlyIndexed;
+			docEnd.docNumWords = indexedCount;
+			docEndings.push_back( docEnd );
+			//add the url to the ->doc end map
+			urlToDocEndings[ docEnd.url ] = docEnd.docEndPosition;
 
-			for ( auto location : word.second )
+
+			if ( currentBlockNumberWords >= 20000 )
 				{
-				masterDictionary[ word.first ].push_back( currentlyIndexed + location );
+				cout << " --- Saving current chunk --- " << endl;
+				save( );
+				saveWordSeek( );
+				reset( );
 				}
+			delete dictionary;
 			}
-
-		currentlyIndexed += indexedCount;
-		docEnd.docEndPosition = currentlyIndexed;
-		docEnd.docNumWords = indexedCount;
-		docEndings.push_back( docEnd );
-		//add the url to the ->doc end map
-		urlToDocEndings[ docEnd.url ] = docEnd.docEndPosition;
-
-
-		if ( currentBlockNumberWords >= 20000 )
-			{
-			cout << " --- Saving current chunk --- " << endl;
-			save( );
-			saveWordSeek( );
-			reset( );
-			}
-		delete dictionary;
 
 
 		}
-
+	cout << "Indexer is shutting down" << endl;
+	//cout << "Size of ptr 2 dict" << pointerToDictionaries->Size( );
+	//cout << "alive state: " << *alive;
 	save( );
 	saveWordSeek( );
 	reset( );
@@ -277,7 +284,7 @@ void Indexer::reset()
 
 void Indexer::Kill()
 	{
-	this->alive = false;
+	*(this->alive) = false;
 	currentFile++;
 	}
 

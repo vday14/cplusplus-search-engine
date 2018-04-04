@@ -5,6 +5,7 @@
 #include "UrlFrontier.h"
 #include "../util/Tokenizer.h"
 
+
 //checks the current url to see if should be crawled
 //first, checks if the exact url has already seen
 //if so , doesnt add to the frontier
@@ -45,10 +46,10 @@ bool UrlFrontier::checkUrl( ParsedUrl *url )
 			time_t lastSeen = this->domainMap->at( url->getHost( ));
 			difference = difftime( now, lastSeen );
 			if ( difference == 0 )
-				difference = .5;
+				difference = .01;
 			else
 				difference = difference / 100;
-			//url->updateScore( difference );
+			url->updateScore( difference );
 
 			pthread_mutex_lock( &m );
 			(*domainMap)[ url->getHost( ) ] = now;
@@ -158,14 +159,14 @@ void UrlFrontier::writeDataToDisk()
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
 	pthread_mutex_lock( &m );
-	string currentTime = currentDateTime( );
-	write( file, currentTime.c_str( ), strlen( currentTime.c_str( )));
+
 
 	while ( !queue.empty( ))
 		{
 		ParsedUrl *url = queue.top( );
 		queue.pop( );
-		write( file, url->getCompleteUrl( ).c_str( ), strlen( url->getCompleteUrl( ).c_str( )));
+		string url_disk = url->getCompleteUrl() + "\n";
+		write( file, url_disk.c_str( ), strlen( url_disk.c_str( )  ));
 		url = 0;
 		delete url;
 		}
@@ -175,6 +176,34 @@ void UrlFrontier::writeDataToDisk()
 
 	return;
 	}
+
+void UrlFrontier::readDataFromDisk( )
+	{
+
+	cout << "Read queue from disk" << endl;
+
+	string fileName = "/build/savedQueue.txt";
+
+	char *files = util::getFileMap( fileName );
+
+	string testFile;
+	while ( *files )
+		{
+		if ( *files == '\n' )
+			{
+
+			ParsedUrl *url = new ParsedUrl( testFile );
+			cout << "Pushing: " << testFile << " to queue\n";
+			Push( url );
+			testFile = "";
+			}
+		else
+			testFile.push_back( *files );
+
+		++files;
+		}
+	}
+
 
 
 void UrlFrontier::printAnchorTable()

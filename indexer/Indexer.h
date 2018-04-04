@@ -74,7 +74,7 @@ private:
 	size_t currentBlockNumberWords;
 	size_t currentBlockNumberDocs;
 
-	bool alive = true;
+	atomic_bool* alive = new atomic_bool(true);
 
 };
 

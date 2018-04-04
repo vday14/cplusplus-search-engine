@@ -45,7 +45,10 @@ void Crawler::WaitOnAllSpiders ( )
 			delete spider;
 			}
 
+	cout << "Spiders have finished running " << endl;
+	return;
 		}
+
 
 /*
  *
@@ -107,6 +110,6 @@ void Crawler::passAnchorTextToIndex( )
 		}
 
 	AnchorQueue->Push( urlToAnchorDict );
-
+	cout << "Crawler has sent the anchor text" << endl;
 	return;
 	}
