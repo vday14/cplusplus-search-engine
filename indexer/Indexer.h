@@ -63,6 +63,9 @@ private:
 	unordered_map< string, pair<vector< size_t >, size_t> > chunkDictionary;		// <chunks>, occurances
 	unordered_map< string, vector< PostingsSeekTableEntry > > postingsSeekTable;
 
+	unordered_map< string, size_t> urlToDocEndings;
+
+
 	vector< DocumentEnding > docEndings;
 	vector< pair<size_t, size_t> > docEndingsSeek;		// <realLocation, offset (to the correspond docEnding)>
 	size_t totalWordsIndexed;

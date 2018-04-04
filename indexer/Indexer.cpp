@@ -45,6 +45,8 @@ void Indexer::run ( )
 			  docEnd.docEndPosition = currentlyIndexed;
 			  docEnd.docNumWords = indexedCount;
 			  docEndings.push_back(docEnd);
+		 //add the url to the ->doc end map
+		 		urlToDocEndings[docEnd.url] = docEnd.docEndPosition;
 
 
 				  if(currentBlockNumberWords >= 20000) {
@@ -282,6 +284,13 @@ void Indexer::SaveAnchorText( unordered_map<string , DocIndex*> * anchorDict )
 		auto const &outer_key = ent1.first;
 		cout << "url: " << outer_key << endl;
 
+		if( urlToDocEndings.find(outer_key) != urlToDocEndings.end())
+			{
+			size_t docEndForUrl = urlToDocEndings[outer_key];
+			cout << "Urls doc end : " << docEndForUrl << endl;
+
+			}
+
 
 		DocIndex *inner_map = ent1.second;
 
@@ -290,10 +299,11 @@ void Indexer::SaveAnchorText( unordered_map<string , DocIndex*> * anchorDict )
 
 
 			auto const &inner_key = ent2.first;
-			auto const &inner_value = ent2.second;cout << "url: " << outer_key << endl;
-			cout << "anchor text : " << inner_key << endl;
-			for(auto offset :inner_value)
-				cout << "offset " << offset << endl;
+			auto const &inner_value = ent2.second;
+			//cout << "url: " << outer_key << endl;
+			//cout << "anchor text : " << inner_key << endl;
+			//for(auto offset :inner_value)
+			//	cout << "offset " << offset << endl;
 
 
 			}
