@@ -3,8 +3,9 @@
 
 #define  pathToIndex "/build/"
 
-Indexer::Indexer ( ProducerConsumerQueue< DocIndex * > *doc_index_queue_in ) : pointerToDictionaries(
-		doc_index_queue_in )
+Indexer::Indexer ( ProducerConsumerQueue< DocIndex * > *doc_index_queue_in, ProducerConsumerQueue < unordered_map<string , DocIndex * > > *anchor_in
+						) :
+						pointerToDictionaries(  doc_index_queue_in ), AnchorQueue( anchor_in)
 	{
     totalWordsIndexed = 0;
     currentFile = 0;
@@ -61,7 +62,9 @@ void Indexer::run ( )
 	 saveWordSeek();
     reset();
     saveChunkDictionary();
-		SaveAnchorText():
+
+	unordered_map<string , DocIndex*> anchorDict = AnchorQueue->Pop();
+	SaveAnchorText(&anchorDict);
 	cout << " Indexer has finished running" << endl;
 	return ;
 }
@@ -253,12 +256,12 @@ void Indexer::reset ( )
 
 void Indexer::Kill()
 	{
-	this->alive = 'true';
+	this->alive = false;
 	currentFile++;
 	}
 
 
-void Indexer::SaveAnchorText( )
+void Indexer::SaveAnchorText( unordered_map<string , DocIndex*> * anchorDict )
 	{
 
 	//TODO create pointer to anchor
@@ -272,6 +275,31 @@ void Indexer::SaveAnchorText( )
 	//for each anchor text in url map
 	// create a  anchor text - > list of doc endings
 	//write to disk
+
+	cout << " -- SAVING ANCHOR TEXT --- " << endl;
+	for ( auto const &ent1 : *anchorDict )
+		{
+		auto const &outer_key = ent1.first;
+		cout << "url: " << outer_key << endl;
+
+
+		DocIndex *inner_map = ent1.second;
+
+		for ( auto const &ent2 : *inner_map )
+			{
+
+
+			auto const &inner_key = ent2.first;
+			auto const &inner_value = ent2.second;cout << "url: " << outer_key << endl;
+			cout << "anchor text : " << inner_key << endl;
+			for(auto offset :inner_value)
+				cout << "offset " << offset << endl;
+
+
+			}
+
+		}
+
 
 
 

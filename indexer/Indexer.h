@@ -34,7 +34,9 @@ using DocIndex = const unordered_map< string, vector< unsigned long > >;
 class Indexer : public ThreadClass
 	{
 public:
-	Indexer ( ProducerConsumerQueue< DocIndex * > *doc_index_queue_in );
+	Indexer ( ProducerConsumerQueue< DocIndex * > *doc_index_queue_in ,  ProducerConsumerQueue < unordered_map<string , DocIndex * > >  *anchor_in  );
+
+
 
 
 	void run ( );
@@ -50,10 +52,13 @@ private:
 	void save ( );
     void saveWordSeek();
     void saveChunkDictionary ( );
-	void SaveAnchorText( );
+	void SaveAnchorText( unordered_map<string , DocIndex*> * anchorDict );
 	void reset ( );
 
 	ProducerConsumerQueue< DocIndex * > *pointerToDictionaries;
+	ProducerConsumerQueue< unordered_map<string , DocIndex * > > *AnchorQueue;
+
+
 	unordered_map< string, vector< size_t > > masterDictionary;
 	unordered_map< string, pair<vector< size_t >, size_t> > chunkDictionary;		// <chunks>, occurances
 	unordered_map< string, vector< PostingsSeekTableEntry > > postingsSeekTable;

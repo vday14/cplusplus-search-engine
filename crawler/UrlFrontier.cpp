@@ -2,7 +2,7 @@
 // Created by Jake Close on 3/26/18.
 //
 
-#include "urlFrontier.h"
+#include "UrlFrontier.h"
 #include "../util/Tokenizer.h"
 
 //checks the current url to see if should be crawled

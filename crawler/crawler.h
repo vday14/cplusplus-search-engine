@@ -20,8 +20,11 @@ class Crawler
 public:
 	Crawler ( string mode_in,
 				 UrlFrontier  *url_q_in,
-				 ProducerConsumerQueue< DocIndex * > *doc_index_queue_in )
-			: IndexerQueue( doc_index_queue_in ),
+				 ProducerConsumerQueue< DocIndex * > *doc_index_queue_in,
+				 ProducerConsumerQueue< unordered_map<string , DocIndex * > > *anchor_queue_in
+				)
+			: IndexerQueue ( doc_index_queue_in ),
+			  AnchorQueue ( anchor_queue_in ),
 			  mode( mode_in ),
 			  urlFrontier( url_q_in )
 		{ };
@@ -45,6 +48,9 @@ private:
 	vector< Spider * > spiders;
 	//UrlFrontier  *urlFrontier;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue;
+	ProducerConsumerQueue< unordered_map<string , DocIndex * > > *AnchorQueue;
+
+
 	//CrawlerStatistics housekeeper;
 	string mode;
 

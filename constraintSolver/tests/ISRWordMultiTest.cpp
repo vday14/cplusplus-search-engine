@@ -20,7 +20,7 @@ int main ( )
 	vector< vector< size_t > > locations;
 
 
-	ISRWord q1 = ISRWord("moment");
+	ISRWord q1 = ISRWord("token");
 	ISRWord q2 = ISRWord("life");
 	queries.push_back(q2);
 	queries.push_back(q1);

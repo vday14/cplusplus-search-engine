@@ -154,7 +154,7 @@ void ISRWord::getWordSeek() {
 //if so, set location to that big chunk
 //go to next chunk
 Location ISRWord::Seek( Location target ) {
-	 if(target < currentLocation)
+	 if(target <= currentLocation)
 		 return currentLocation;
 
     if(!wordSeekLookupTable.empty()) {

@@ -131,6 +131,7 @@ int main ( int argc, char *argv[] )
 
 	UrlFrontier *urlFrontier = new UrlFrontier();
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue = new ProducerConsumerQueue< DocIndex * >( );
+	ProducerConsumerQueue< unordered_map<string , DocIndex * >  > *AnchorQueue = new ProducerConsumerQueue< unordered_map<string , DocIndex * >  >( );
 
 
 	char *seeds;
@@ -172,10 +173,10 @@ int main ( int argc, char *argv[] )
 
 
 
-	Indexer indexer( IndexerQueue );
+	Indexer indexer( IndexerQueue , AnchorQueue );
 	indexer.StartThread( );
 
-	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue );
+	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
 	atomic_bool *alive = new atomic_bool(true);
 	crawler->SpawnSpiders( numberOfSpiders , alive);
 
@@ -189,7 +190,7 @@ int main ( int argc, char *argv[] )
 		{
 		cout << "Crawling 100,000 documents for each spider" << endl;
 		crawler->WaitOnAllSpiders( );
-		//crawler->passAnchorTextToIndex( );
+		crawler->passAnchorTextToIndex( );
 		indexer.Kill();
 		indexer.WaitForFinish( );
 		urlFrontier->writeDataToDisk();

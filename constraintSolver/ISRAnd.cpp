@@ -57,11 +57,15 @@ Location ISRAnd::Next()
 Location ISRAnd::NextDocument()
 	{
 	currentLocation = Seek( GetEndDocument( )->getCurrentDoc( ).docEndPosition + 1 );
+
+
 	return currentLocation;
 	}
 
 Location ISRAnd::Seek( Location target )
 	{
+
+
 	//Todo
 	// 1. Seek all the ISRs to the first occurrence beginning at
 	//    the target location.
@@ -122,10 +126,13 @@ Location ISRAnd::Seek( Location target )
 			{
 			//No Match yet, keep searching
 			//docs before the fursther? may be hit
-			target = furthest-1;
+			target = furthest-1; // => works but slow
+			//target = lastDocStart-1;
+
 			}
 
 		}
+
 	return MAX_Location;
 
 	}
