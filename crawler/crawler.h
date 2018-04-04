@@ -32,8 +32,7 @@ public:
 	//spawns a number of works
 	void SpawnSpiders ( size_t num_spiders, atomic_bool* alive );
 
-	//Creates a housekeeping thread
-	void houseKeeper ( );
+
 
 	void passAnchorTextToIndex( );
 

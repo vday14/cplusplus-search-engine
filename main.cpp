@@ -23,7 +23,6 @@
 #include <chrono>
 #include <future>
 #include <ctime>
-#include "crawler/HouseKeeper.h"
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 using namespace std;
@@ -180,8 +179,6 @@ int main ( int argc, char *argv[] )
 	atomic_bool *alive = new atomic_bool(true);
 	crawler->SpawnSpiders( numberOfSpiders , alive);
 
-	HouseKeeper logger( crawler );
-	//logger.StartThread( );
 
 	string input;
 	clock_t start = clock();

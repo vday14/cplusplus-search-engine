@@ -33,15 +33,6 @@ void Crawler::SpawnSpiders ( size_t num_spiders , atomic_bool * alive)
 void Crawler::WaitOnAllSpiders ( )
 	{
 	cout << "Waiting for spiders to finish...\n";
-	/*
-	for ( Spider *spider : spiders )
-		{
-		spider->WaitForFinish( );
-
-		delete spider; //FIXME do this in destructor?
-		}
-	}
-	 */
 
 		while( ! spiders.empty( ) )
 			{
@@ -56,6 +47,10 @@ void Crawler::WaitOnAllSpiders ( )
 
 		}
 
+/*
+ *
+ * Set all of the spiders atomic bools to false so that they finish crawling the web
+ */
 
 void Crawler::KillAllSpiders ( )
 	{
@@ -63,9 +58,16 @@ void Crawler::KillAllSpiders ( )
 	for ( Spider *spider : spiders )
 		{
 		spider->kill( );
-		//delete spider; //FIXME do this in destructor?
 		}
 	}
+
+/*
+ *
+ * Looks through the  url map an gets all associated anchor text with the url
+ * Uses the tokenizer to create a dictionary of all anchor texts
+ * Creates a new dictionary of urls - >  tokenized dicts
+ * Pushes the dictionary of urls -> tokenized dicts to the anchor queue
+ */
 
 
 void Crawler::passAnchorTextToIndex( )
@@ -99,8 +101,6 @@ void Crawler::passAnchorTextToIndex( )
 					urlToAnchorDict[outer_key] = dict;
 
 				}
-			//else
-			//	cerr << "url: " << outer_key << " has no anchor text " << endl;
 
 			}
 
