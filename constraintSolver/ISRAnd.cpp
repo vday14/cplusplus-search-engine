@@ -101,9 +101,10 @@ Location ISRAnd::Seek( Location target )
 		//Get Document of the furthest ISR
 		//DocumentEnd->Seek( furthest  );
 
+
 		if(nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition == furthestTerm->GetEndDocument()->getCurrentDoc().docEndPosition )
 			{
-			cout << "MATCHING " << endl;
+			cout << "Found Match " << endl;
 			return nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition;
 			}
 
@@ -120,7 +121,8 @@ Location ISRAnd::Seek( Location target )
 		else
 			{
 			//No Match yet, keep searching
-			target = lastDocStart;
+			//docs before the fursther? may be hit
+			target = furthest-1;
 			}
 
 		}
