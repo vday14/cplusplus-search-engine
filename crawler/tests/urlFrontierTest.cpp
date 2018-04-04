@@ -31,10 +31,11 @@ int main ( int argc, char *argv[] )
 	int numberOfSpiders = 1;
 	unordered_map < size_t, int > *duplicateUrlMap = new unordered_map < size_t, int >( );
 	UrlFrontier *urlFrontier = new UrlFrontier( );
+	ProducerConsumerQueue< unordered_map<string , DocIndex * >  > *AnchorQueue = new ProducerConsumerQueue< unordered_map<string , DocIndex * >  >( );
 
 
 	ProducerConsumerQueue < DocIndex * > *IndexerQueue = new ProducerConsumerQueue < DocIndex * >( );
-	Indexer indexer( IndexerQueue );
+	Indexer indexer( IndexerQueue, AnchorQueue );
 	string path = util::GetCurrentWorkingDir() +"/crawler/tests/testSeeds.txt";
 
 
@@ -52,8 +53,10 @@ int main ( int argc, char *argv[] )
 
 	indexer.StartThread( );
 
-	Crawler crawler( mode, urlFrontier, IndexerQueue );
-	crawler.SpawnSpiders( numberOfSpiders  );
+	Crawler crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
+	atomic_bool *alive = new atomic_bool(true);
+
+	crawler.SpawnSpiders( numberOfSpiders , alive );
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );
