@@ -7,12 +7,13 @@
 #ifndef EECS398_SEARCH_SITE_H
 #define EECS398_SEARCH_SITE_H
 
+#include <string>
 class Site
 	{
 public:
 
 	double getScore();
-	string url;
+	std::string url;
 	double score;
 	bool hasBeenScored;
 	};

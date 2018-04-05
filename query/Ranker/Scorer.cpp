@@ -3,23 +3,25 @@
 //
 
 #include "Scorer.h"
+#include "Site.h"
+#include <vector>
 
 /***
  * Calculate the score for some site, Normalize the score to 1.0
  * @return
  */
-double Scorer::getScore ( Site )
+double Scorer::getScore ( Site website)
 	{
 	double score = 0.0;
 	int numberOfFunctions = 1;
 
 	//Repeat for each function
-	score += Simple( Site )*SIMPLE_WEIGHT;
+	score += Simple( website )*SIMPLE_WEIGHT;
 
 	return score / (double)numberOfFunctions;
 	}
 
-double Simple( Site )
+double Scorer::Simple( Site )
 	{
 	return 42.0;
 	}

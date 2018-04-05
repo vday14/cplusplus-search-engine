@@ -5,6 +5,8 @@
 #ifndef EECS398_SEARCH_SCORER_H
 #define EECS398_SEARCH_SCORER_H
 
+#include "Site.h"
+
 class Scorer
 	{
 public:

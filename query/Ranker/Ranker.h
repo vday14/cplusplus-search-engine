@@ -6,6 +6,11 @@
 #ifndef EECS398_SEARCH_RANKER_H
 #define EECS398_SEARCH_RANKER_H
 
+
+#include <queue>
+#include "../../constraintSolver/ISRWord.h"
+#include "Site.h"
+
 /***
  * Custom Comparator for the priority queue that keeps the websites in their correct order.
  */
@@ -21,17 +26,19 @@ public:
 class Ranker
 	{
 public:
+
 	Ranker(){};
+
 	Ranker( vector< ISRWord > query ){
 		init( query );
 		};
-	vector< urls > rank();
+	vector< string > rank();
 private:
 
-	void init( query );
+	void init( vector< ISRWord> query );
 
 	//Queue to continuously sort the sites
-	priority_queue< Site, Comp > WebsiteQueue;
+	priority_queue< Site, vector< Site> , Comp > WebsiteQueue;
 	vector< ISRWord > inputQuery;
 
 	//TODO: Not sure if we will need these

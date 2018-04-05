@@ -25,18 +25,14 @@ void testSimple()
 	vector<DocumentEnding> docEnds;
 	set<string> urls;
 
-	clock_t start = clock();
-
-
 	while( queryWord.getCurrentLocation() != MAX_Location )
 		{
 		auto url = queryWord.DocumentEnd->getCurrentDoc().url;
-		urls.insert( url  );
+		urls.insert(  url  );
 		queryWord.NextDocument();
 
 		}
 
-	clock_t end = clock();
 	}
 
 
