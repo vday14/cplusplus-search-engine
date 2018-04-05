@@ -13,11 +13,24 @@ using namespace std;
 
 int main ( ) {
 	//char* query = "iphone";
-	ISRWord queryWord("fake");
+	ISRWord queryWord("news");
 	ISREndDoc endDocs;
 	vector<size_t> locations;
 	vector<DocumentEnding> docEnds;
 	set<string> urls;
+
+	clock_t start = clock();
+
+
+	while(queryWord.getCurrentLocation() != MAX_Location)  {
+		auto url = queryWord.DocumentEnd->getCurrentDoc().url;
+		cout << url << endl;
+		urls.insert( url  );
+		queryWord.NextDocument();
+
+		}
+
+	/*
 	while(queryWord.getCurrentLocation() != MAX_Location) {
 		locations.push_back(queryWord.Next());
     }
@@ -39,10 +52,9 @@ int main ( ) {
 			}
         }
     }
-    end = clock();
-	for(auto urrl : urls) {
-		cout << urrl << endl;
-    }
+    */
+    clock_t end = clock();
+
     cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
 
     return 0;

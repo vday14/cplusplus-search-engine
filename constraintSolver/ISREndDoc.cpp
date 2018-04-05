@@ -11,7 +11,7 @@ ISREndDoc::ISREndDoc() {
 }
 
 DocumentEnding ISREndDoc::next() {
-    if(memMap == nullptr) {
+    if(*memMap == '\0' || memMap == nullptr) {
         string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
         currentFile = open(fileName.c_str(), O_RDONLY);
         string seekFileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + "-seek.txt";
@@ -60,6 +60,8 @@ DocumentEnding ISREndDoc::next() {
                 break;
         }
     }
+
+
     return currentDoc;
 }
 
@@ -75,6 +77,8 @@ void ISREndDoc::seek(Location target) {
     string input = "";
     bool init = false;
     bool breakout = false;
+	bool between = false;
+	 size_t foundChunk;
     while(!found) {
         string fileName = util::GetCurrentWorkingDir() +
                           pathToIndex +
@@ -93,14 +97,18 @@ void ISREndDoc::seek(Location target) {
                     case '<':
                         break;
                     case '>':
-                        if (target < tempLocation && target > docEndingWordSeek.first) {
+                        if (target < tempLocation && target > docEndingWordSeek.first)
+									{
                             if(!init) {
                                 breakout = true;
                                 break;
                             }
+									breakout = true;
                             found = true;
+									foundChunk = between ? currentChunk - 1 : currentChunk   ;
                             break;
-                        }
+                        	}
+							 	between = false;
                         init = true;
                         docEndingWordSeek.first = tempLocation;
                         docEndingWordSeek.second = stoll(input);
@@ -115,12 +123,11 @@ void ISREndDoc::seek(Location target) {
                         break;
                 }
                 if (found) {
-                    string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
+                    string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(foundChunk) + ".txt";
                     currentFile = open(fileName.c_str(), O_RDONLY);
                     memMap = (char *) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile,
                                            0);
                     memMap += docEndingWordSeek.second;
-                    break;
                 }
                 if(breakout) {
                     break;
@@ -136,9 +143,12 @@ void ISREndDoc::seek(Location target) {
             break;
         }
         currentChunk++;
+		  between = true;
     }
+
     while(target > (next().docEndPosition - 1)) {
     }
+	//next();
 }
 
 DocumentEnding ISREndDoc::getCurrentDoc() {
@@ -147,5 +157,5 @@ DocumentEnding ISREndDoc::getCurrentDoc() {
 
 Location ISREndDoc::GetStartingPositionOfDoc( )
     {
-    return currentDoc.docEndPosition - currentDoc.docNumWords;
+    return currentDoc.docEndPosition - currentDoc.docNumWords - 1;
     }

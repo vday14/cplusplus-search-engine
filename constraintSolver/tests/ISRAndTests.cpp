@@ -14,8 +14,13 @@ using namespace std;
 int main ( )
 	{
 	char* query;
-	ISRWord *q1 = new ISRWord("moment");
-	ISRWord *q2 = new ISRWord("life");
+	ISRWord *q1 = new ISRWord("fake");
+	ISRWord *q2 = new ISRWord("time");
+	ISRWord *q3 = new ISRWord("time");
+	ISRWord *q4 = new ISRWord("time");
+	ISRWord *q5 = new ISRWord("time");
+	ISRWord *q6 = new ISRWord("time");
+
 	vector< ISR* > input;
 	input.push_back(q1);
 	input.push_back(q2);

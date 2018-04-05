@@ -108,7 +108,9 @@ Location ISRWord::Next ( )
 		currentLocation += stoll( delta );
 		currentMemMap++;
 		}
-	DocumentEnd->seek( currentLocation );
+
+
+	//DocumentEnd->seek( currentLocation );
 	return currentLocation;
 	}
 
@@ -169,12 +171,16 @@ Location ISRWord::Seek( Location target ) {
                 currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
                 currentMemMap += best.seekOffset;
                 currentLocation = best.realLocation;
+					 DocumentEnd->seek( currentLocation );
                 return best.realLocation;
             }
         }
     } else {
         while(Next() <= target) {
+
         }
+		if( currentLocation == MAX_Location)
+			return MAX_Location;
 
 		 DocumentEnd->seek( currentLocation );
 		 return currentLocation;

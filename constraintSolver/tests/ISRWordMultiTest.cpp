@@ -20,8 +20,8 @@ int main ( )
 	vector< vector< size_t > > locations;
 
 
-	ISRWord q1 = ISRWord("token");
-	ISRWord q2 = ISRWord("life");
+	ISRWord q1 = ISRWord("fake");
+	ISRWord q2 = ISRWord("time");
 	queries.push_back(q2);
 	queries.push_back(q1);
 
@@ -83,7 +83,7 @@ int main ( )
 
 	std::set_intersection(v1.begin(), v1.end(),
 								 v2.begin(), v2.end(),
-								 std::back_inserter(v_intersection));
+								 std::inserter(v_intersection, v_intersection.begin()));
 	for(auto url : v_intersection)
 		std::cout << url << endl;
 
