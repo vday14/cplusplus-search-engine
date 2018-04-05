@@ -4,7 +4,7 @@
 
 #include "ISREndDoc.h"
 //#define pathToIndex "/constraintSolver/index-test-files/twitter/"
-#define pathToIndex "/build/"
+#define pathToIndex "/buildIndex/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;

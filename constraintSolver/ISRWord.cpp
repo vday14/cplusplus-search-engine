@@ -13,6 +13,11 @@ ISRWord::ISRWord ( string word ) {
 	term = word;
 
 	getChunks( );
+	if(listOfChunks.size( ) == 0)
+		{
+		currentLocation = MAX_Location;
+		return;
+		}
 	currentChunk = 0;
 	currentLocation = First( );
 	DocumentEnd->seek( currentLocation );

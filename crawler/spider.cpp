@@ -106,34 +106,44 @@ void Spider::run ( )
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while (*alive && cond < 20)
+	while (*alive && cond < 130)
 	{
-		ParsedUrl * currentUrl = getUrl( );
-		size_t docID = hash( currentUrl->getCompleteUrl().c_str() );
-		if ( shouldURLbeCrawled( docID ) )
-		{
-			StreamReader *reader = SR_factory( currentUrl, this->mode );
-			if(reader)
+		if(cond % 25 == 0)
 			{
-				bool success = reader->request( );
-				if ( success )
-				{
-					cout << "Parsing " << currentUrl->getCompleteUrl();
-					DocIndex *dict = parser.execute( reader );
-					IndexerQueue->Push( dict );
-
-					reader->closeReader( );
-					//delete dict;
-
-					cond++;
-				}
+			cout << "Spider has crawled" << to_string(cond) << endl;
 			}
 
 
-			delete reader;
+		if(urlFrontier->Size() > 0)
+			{
+
+				ParsedUrl * currentUrl = getUrl( );
+				size_t docID = hash( currentUrl->getCompleteUrl().c_str() );
+				if ( shouldURLbeCrawled( docID ) )
+				{
+					StreamReader *reader = SR_factory( currentUrl, this->mode );
+					if(reader)
+					{
+						bool success = reader->request( );
+						if ( success )
+						{
+							cout << "Parsing " << currentUrl->getCompleteUrl();
+							DocIndex *dict = parser.execute( reader );
+							IndexerQueue->Push( dict );
+
+							reader->closeReader( );
+							//delete dict;
+
+							cond++;
+						}
+					}
 
 
-		}
+					delete reader;
+
+
+				}
+			}
 	}
 	cout << "Spider has finished running " << endl;
 	return;

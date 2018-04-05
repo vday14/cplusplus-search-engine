@@ -25,6 +25,7 @@ class ISRWord : public ISR
 	public:
 		ISRWord ( string word );
 
+
 		Location First ( ) override;
 		Location Next ( ) override;
 		Location NextDocument ( ) override;

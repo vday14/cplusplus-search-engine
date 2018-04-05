@@ -19,15 +19,17 @@ Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in,
 void Indexer::run()
 	{
 
-
+	int documentsStored = 0;
 	while ( *alive  || pointerToDictionaries->Size( ) > 0 )
 		{
 
 		if( pointerToDictionaries->Size( ) > 0)
 			{
-
+			cout << "Received number of  " << documentsStored << endl;
+			documentsStored++;
 
 			DocIndex *dictionary = pointerToDictionaries->Pop( );
+
 			DocumentEnding docEnd = DocumentEnding( );
 			size_t indexedCount = 0;
 			currentBlockNumberDocs++;
@@ -191,7 +193,7 @@ void Indexer::save()
 		}
 
 	close( file );
-	//seeker.CloseFile();
+	seeker.CloseFile();
 	}
 
 void Indexer::saveChunkDictionary()

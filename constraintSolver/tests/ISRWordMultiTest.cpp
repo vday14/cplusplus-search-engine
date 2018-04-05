@@ -19,11 +19,21 @@ int main ( )
 	vector<ISRWord> queries;
 	vector< vector< size_t > > locations;
 
+	/*
+	static const char TITLE = '#';
+	static const char ANCHOR = '@';
+	static const char URL = '$';
+	static const char BODY = '%';
+	static const char HOST = '=';
+	*/
 
-	ISRWord q1 = ISRWord("fake");
-	ISRWord q2 = ISRWord("time");
+	ISRWord q1 = ISRWord("#trump");
+	ISRWord q2 = ISRWord("%trump");
+
+
 	queries.push_back(q2);
 	queries.push_back(q1);
+
 
 
 	vector<DocumentEnding> docEnds;

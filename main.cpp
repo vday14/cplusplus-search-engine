@@ -27,13 +27,8 @@ using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 using namespace std;
 
-string wait_for_user_input()
-	{
-	std::string answer;
-	std::cin >> answer;
-	return answer; ;
-	}
 
+atomic_bool *alive = new atomic_bool(true);
 
 
 void signalHandler( int signum ) {
@@ -41,8 +36,8 @@ void signalHandler( int signum ) {
 	cout << "Ending the Index build" << endl;
 	// cleanup and close up stuff here
 	// terminate program
-
-	exit(signum);
+	(*alive) = false;
+	//exit(signum);
 	}
 
 
@@ -67,7 +62,7 @@ int main ( int argc, char *argv[] )
 	 */
 
 	//
-
+	signal(SIGINT, signalHandler);
 
 
 	string mode = "web";
@@ -176,7 +171,6 @@ int main ( int argc, char *argv[] )
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
-	atomic_bool *alive = new atomic_bool(true);
 	crawler->SpawnSpiders( numberOfSpiders , alive);
 
 

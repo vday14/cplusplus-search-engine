@@ -1,6 +1,7 @@
 //
 // Created by Jake Close on 3/13/18.
 //
+//segs with globe
 
 #pragma once
 
@@ -16,7 +17,7 @@
 #include "ISREndDoc.h"
 
 //#define pathToIndex "/constraintSolver/index-test-files/twitter/"
-#define pathToIndex "/build/"
+#define pathToIndex "/buildIndex/"
 
 //#define pathToIndex "/constraintSolver/index-test-files/twitter/"
 //#define pathToIndex "/build/"

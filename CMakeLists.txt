@@ -128,7 +128,13 @@ add_executable(ParserTest
 add_executable(SharedTableTest
         shared/SharedHashMapTest.cpp )
 
-add_executable(URLTEST shared/url.h shared/urlTest.cpp)
+add_executable(URLTEST
+        shared/url.h
+        shared/urlTest.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+
+        )
 
 add_executable(search-engine search.cpp query/Query.cpp)
 
