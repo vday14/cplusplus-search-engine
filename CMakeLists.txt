@@ -210,3 +210,4 @@ target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
+
