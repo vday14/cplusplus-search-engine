@@ -16,21 +16,21 @@
 // then adds both to the url map and the host map
 
 
-bool UrlFrontier::checkUrl( ParsedUrl *url )
+bool UrlFrontier::checkUrl( ParsedUrl url )
 	{
 
-	if( Blacklist.find(  url->getHost(  )  ) != Blacklist.end( ) )
+	if( Blacklist.find(  url.getHost(  )  ) != Blacklist.end( ) )
 		return false;
 
 
 	//Looks to see if the complete url already exists, if so return
-	if ( this->duplicateUrlMap->find( url->getCompleteUrl( )) != this->duplicateUrlMap->end( ))
+	if ( this->duplicateUrlMap->find( url.getCompleteUrl( )) != this->duplicateUrlMap->end( ))
 		{
 		//update the anchor text
-		if ( !url->getAnchorText( ).empty( ) || url->getAnchorText( ) != "")
+		if ( !url.getAnchorText( ).empty( ) || url.getAnchorText( ) != "")
 			{
 			pthread_mutex_lock( &m );
-			(*duplicateUrlMap)[ url->getCompleteUrl( ) ][ url->getAnchorText( ) ]++;
+			(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ]++;
 			pthread_mutex_unlock( &m );
 			}
 		//add the new
@@ -44,26 +44,26 @@ bool UrlFrontier::checkUrl( ParsedUrl *url )
 		time( &now );
 		double difference = 0;
 		//Has the domain been seen?
-		if ( this->domainMap->find( url->getHost( )) != this->domainMap->end( ))
+		if ( this->domainMap->find( url.getHost( )) != this->domainMap->end( ))
 			{
 			//get the last time it was seen and find the time difference
-			time_t lastSeen = this->domainMap->at( url->getHost( ));
+			time_t lastSeen = this->domainMap->at( url.getHost( ));
 			difference = difftime( now, lastSeen );
 			if ( difference == 0 )
 				difference = .01;
 			else
 				difference = difference / 100;
-			url->updateScore( difference );
+			url.updateScore( difference );
 
 			pthread_mutex_lock( &m );
-			(*domainMap)[ url->getHost( ) ] = now;
+			(*domainMap)[ url.getHost( ) ] = now;
 			pthread_mutex_unlock( &m );
 
 			}
 		else
 			{
 			pthread_mutex_lock( &m );
-			this->domainMap->insert( std::make_pair( url->getHost( ), now ));   //otherwise add to the map the current time
+			this->domainMap->insert( std::make_pair( url.getHost( ), now ));   //otherwise add to the map the current time
 			pthread_mutex_unlock( &m );
 
 
@@ -72,7 +72,7 @@ bool UrlFrontier::checkUrl( ParsedUrl *url )
 
 		//add url to the duplicate url map
 		pthread_mutex_lock( &m );
-		(*duplicateUrlMap)[ url->getCompleteUrl( ) ][ url->getAnchorText( ) ] = 1;
+		(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ] = 1;
 		pthread_mutex_unlock( &m );
 
 		return true;
@@ -80,10 +80,10 @@ bool UrlFrontier::checkUrl( ParsedUrl *url )
 	}
 
 
-void UrlFrontier::Push( ParsedUrl *url )
+void UrlFrontier::Push( ParsedUrl url )
 	{
 	//if the url has been seen? if so, dont add it
-	if ( url->isValid )
+	if ( url.isValid )
 		{
 
 		if ( checkUrl( url ))
@@ -104,10 +104,37 @@ void UrlFrontier::Push( ParsedUrl *url )
 		}
 	}
 
-
-ParsedUrl *UrlFrontier::Pop()
+bool UrlFrontier::try_pop( ParsedUrl& result )
 	{
 
+	gettimeofday(&now, NULL);
+	timeToWait.tv_sec = now.tv_sec + 5;
+	timeToWait.tv_nsec = (now.tv_usec+1000UL*100)*1000UL;
+
+	int retval;
+
+	pthread_mutex_lock(&m);
+
+	while(queue.empty()){
+		retval = pthread_cond_timedwait(&consumer_cv, &m, &timeToWait);
+		if(retval != 0){
+			fprintf(stderr, "pthread_cond_timedwait %s\n",
+					strerror(retval));
+			pthread_mutex_unlock(&m);
+			return false;
+		}
+	}
+
+	result = std::move(queue.top());
+	queue.pop();
+
+	pthread_mutex_unlock(&m);
+	return true;
+	}
+
+
+ParsedUrl UrlFrontier::Pop()
+	{
 
 	pthread_mutex_lock( &m );
 
@@ -116,7 +143,7 @@ ParsedUrl *UrlFrontier::Pop()
 		pthread_cond_wait( &consumer_cv, &m );
 		}
 
-	ParsedUrl *front = queue.top( );
+	ParsedUrl front = queue.top( );
 	queue.pop( );
 
 	pthread_mutex_unlock( &m );
@@ -167,12 +194,11 @@ void UrlFrontier::writeDataToDisk()
 
 	while ( !queue.empty( ))
 		{
-		ParsedUrl *url = queue.top( );
+		ParsedUrl url = queue.top( );
 		queue.pop( );
-		string url_disk = url->getCompleteUrl() + "\n";
+		string url_disk = url.getCompleteUrl() + "\n";
 		write( file, url_disk.c_str( ), strlen( url_disk.c_str( )  ));
-		url = 0;
-		delete url;
+
 		}
 	pthread_mutex_unlock( &m );
 
@@ -196,7 +222,7 @@ void UrlFrontier::readDataFromDisk( )
 		if ( *files == '\n' )
 			{
 
-			ParsedUrl *url = new ParsedUrl( testFile );
+			ParsedUrl url(testFile);
 			cout << "Pushing: " << testFile << " to queue\n";
 			Push( url );
 			testFile = "";

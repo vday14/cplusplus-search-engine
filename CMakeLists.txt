@@ -7,6 +7,27 @@ add_executable(QueueTest
         shared/ProducerConsumerQueue.h
         shared/ProducerConsumerQueue_test.cpp)
 
+add_executable(TryPopTest
+        shared/TryPopTest.cpp
+        shared/ProducerConsumerQueue.h
+        shared/ThreadClass.h
+        shared/url.h
+        crawler/crawler.cpp
+        crawler/UrlFrontier.cpp
+        crawler/Readers/StreamReader.h
+        crawler/Readers/HttpReader.cpp
+        crawler/Readers/HttpsReader.cpp
+        crawler/Readers/LocalReader.cpp
+        crawler/spider.cpp
+        util/util.cpp
+        shared/Document.cpp
+        parser/Parser.cpp
+        util/Stemmer.cpp
+        util/Tokenizer.cpp
+        util/stringProcessing.cpp
+        indexer/Indexer.cpp
+        )
+
 add_executable(crawler-parser-Test
         main.cpp
         shared/ProducerConsumerQueue.h
@@ -200,6 +221,8 @@ add_executable(Indexer-twitter-tests
 
 
 find_package(OpenSSL REQUIRED)
+
+target_link_libraries(TryPopTest OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 

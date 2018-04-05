@@ -361,9 +361,9 @@ void Parser::pushToUrlQueue ( string url, ParsedUrl * currentUrl, string anchorT
 		{
 		try
 			{
-			ParsedUrl *pUrl =  new ParsedUrl( url );
-			pUrl->setAnchorText( anchorText );
-			urlFrontier->Push( pUrl );
+			ParsedUrl url_(url);
+			url_.setAnchorText( anchorText );
+			urlFrontier->Push( url_ );
 			if ( debug )
 				{
 				cout << url << endl;
