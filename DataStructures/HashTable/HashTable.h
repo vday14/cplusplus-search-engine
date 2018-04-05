@@ -123,8 +123,6 @@ public:
 	HashTable ( const HashTable & copy )
 		{
 		this->numElements = copy.numElements;
-		this->numCollisions = copy.numCollisions;
-		this->maxCollisions = copy.maxCollisions;
 		this->numBuckets = copy.numBuckets;
 		this->sizeVector = copy.sizeVector;
 		array.resize ( sizeVector );
