@@ -13,7 +13,7 @@ using namespace std;
 
 int main ( ) {
 	//char* query = "iphone";
-	ISRWord queryWord("when");
+	ISRWord queryWord("%trump");
 	ISREndDoc endDocs;
 	vector<size_t> locations;
 	vector<DocumentEnding> docEnds;
@@ -34,5 +34,7 @@ int main ( ) {
     cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
 		for(auto url :urls)
 			cout << url << endl;
+
+	cout << "Number of results: " << urls.size();
     return 0;
 }

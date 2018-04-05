@@ -31,7 +31,9 @@ class UrlFrontier
 	public:
 		void Push ( ParsedUrl * url );
 		bool checkUrl(ParsedUrl *  url);
+		void readBlackList( );
 		void printAnchorTable( );
+		set < string > Blacklist ;
 		ParsedUrl *	Pop ( );
 		size_t Size();
 		pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;

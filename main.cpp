@@ -196,7 +196,7 @@ int main ( int argc, char *argv[] )
 
 		cout << "Indexer has finished running " << endl;
 		clock_t end = clock();
-		cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+		cout << "Time to complete build: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
 
 		return 0;
 
@@ -223,7 +223,7 @@ int main ( int argc, char *argv[] )
 
 			cout << "Indexer has finished running " << endl;
 			clock_t end = clock();
-			cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+			cout << "Time to complete build: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
 
 			return 0;
 

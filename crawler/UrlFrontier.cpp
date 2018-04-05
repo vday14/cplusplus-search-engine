@@ -19,6 +19,10 @@
 bool UrlFrontier::checkUrl( ParsedUrl *url )
 	{
 
+	if( Blacklist.find(  url->getHost(  )  ) != Blacklist.end( ) )
+		return false;
+
+
 	//Looks to see if the complete url already exists, if so return
 	if ( this->duplicateUrlMap->find( url->getCompleteUrl( )) != this->duplicateUrlMap->end( ))
 		{

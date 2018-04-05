@@ -67,7 +67,7 @@ public:
 			temp_Service = temp_pathBuffer;
 
 
-					const char Colon = ':', Slash = '/', HashTag = '#', Period = '.';
+					const char Colon = ':', Slash = '/', HashTag = '#', Period = '.', QuestionMark = '?';
 					char *p;
 					for ( p = temp_pathBuffer; *p && *p != Colon; p++ );
 
@@ -106,6 +106,9 @@ public:
 
 						temp_Path = p;
 						for ( ; *p && *p != HashTag; p++ );
+
+
+						for ( ; *p && *p != QuestionMark; p++ );
 
 						if ( *p )
 							// Mark the end of the Path, remove fragments.

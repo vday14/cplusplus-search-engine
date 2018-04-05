@@ -102,8 +102,7 @@ void Indexer::verbose_run()
 void Indexer::save()
 	{
 
-	MMDiskHashTable seeker( util::GetCurrentWorkingDir( ) + pathToIndex + to_string( currentFile ) + "-seek.txt", 30,
-									8 );
+	MMDiskHashTable seeker( util::GetCurrentWorkingDir( ) + pathToIndex + to_string( currentFile ) + "-seek.txt", 30, 8 );
 	string fileName = util::GetCurrentWorkingDir( ) + pathToIndex + to_string( currentFile ) + ".txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
@@ -192,6 +191,7 @@ void Indexer::save()
 		}
 
 	close( file );
+	//seeker.CloseFile();
 	}
 
 void Indexer::saveChunkDictionary()

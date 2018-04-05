@@ -3,11 +3,12 @@
 //
 
 #include "ISREndDoc.h"
-#define pathToIndex "/constraintSolver/index-test-files/twitter/"
-//#define pathToIndex "/build/"
+//#define pathToIndex "/constraintSolver/index-test-files/twitter/"
+#define pathToIndex "/build/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
+	 memMap = nullptr;
 }
 
 DocumentEnding ISREndDoc::next() {

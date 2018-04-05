@@ -138,6 +138,11 @@ public:
         return "";
     }
 
+
+   void CloseFile ( )
+       {
+       close(file);
+       }
 private:
 
     int file;

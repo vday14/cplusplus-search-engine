@@ -52,6 +52,7 @@ int main ( )
 		}
 
 	cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+	cout << "Number of results: " << urls.size();
 
 	/*
 	 *
