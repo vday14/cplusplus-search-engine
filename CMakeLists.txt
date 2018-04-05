@@ -198,16 +198,29 @@ add_executable(Indexer-twitter-tests
         util/util.cpp
         indexer/IndexerTwitterTests.cpp)
 
+add_executable(query-Ranker-tests
+        query/Ranker/tests/RankerTest.cpp
+        query/Ranker/Ranker.h
+        query/Ranker/Scorer.h
+        query/Ranker/Site.h
+        query/Ranker/Ranker.cpp
+        query/Ranker/Scorer.cpp
+        query/Ranker/Site.cpp
+        util/util.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
 
-find_package(OpenSSL REQUIRED)
-
-target_link_libraries(ParserTest OpenSSL::SSL)
-
-target_link_libraries(isolated-integration OpenSSL::SSL pthread)
-target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
-
-target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
-target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
-
-target_link_libraries(QueueTest pthread)
+#find_package(OpenSSL REQUIRED)
+#
+#target_link_libraries(ParserTest OpenSSL::SSL)
+#
+#target_link_libraries(isolated-integration OpenSSL::SSL pthread)
+#target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
+#
+#target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
+#target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
+#
+#target_link_libraries(QueueTest pthread)
 
