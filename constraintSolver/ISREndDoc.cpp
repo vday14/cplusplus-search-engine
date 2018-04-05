@@ -11,7 +11,7 @@ ISREndDoc::ISREndDoc() {
 }
 
 DocumentEnding ISREndDoc::next() {
-    if(*memMap == '\0' || memMap == nullptr) {
+    if(memMap == nullptr || *memMap == '\0' ) {
         string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
         currentFile = open(fileName.c_str(), O_RDONLY);
         string seekFileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + "-seek.txt";

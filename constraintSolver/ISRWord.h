@@ -23,7 +23,7 @@ using namespace std;
 class ISRWord : public ISR
 	{
 	public:
-		ISRWord ( char *word );
+		ISRWord ( string word );
 
 		Location First ( ) override;
 		Location Next ( ) override;
@@ -42,7 +42,7 @@ class ISRWord : public ISR
 
 	// ISR *GetDocumentISR( );
 
-		char *term;
+		string term;
 		char *masterIndex;
 		vector< size_t > listOfChunks;
 		size_t frequency;

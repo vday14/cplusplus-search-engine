@@ -9,9 +9,8 @@ size_t FileSize(int f) {
     return fileInfo.st_size;
 }
 
-ISRWord::ISRWord ( char *word ) {
-	term = new char[strlen(word)];
-	strcpy(term, word);
+ISRWord::ISRWord ( string word ) {
+	term = word;
 
 	getChunks( );
 	currentChunk = 0;
