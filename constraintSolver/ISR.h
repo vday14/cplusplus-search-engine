@@ -42,6 +42,13 @@ public:
 
 		}
 
+
+	Location GetISRToBeginningOfDocument( )
+		{
+		return GetEndDocument()->getCurrentDoc().docEndPosition - GetEndDocument()->getCurrentDoc().docNumWords;
+
+		}
+
 	//Returns first instance of word after target location
 	virtual Location Seek ( Location target ) = 0;
 

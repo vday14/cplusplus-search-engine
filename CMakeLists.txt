@@ -244,7 +244,7 @@ add_executable(MasterReader-tests
         indexer/MasterReader.cpp
         )
 
-add_executable(query-Ranker-tests
+add_executable(queryRankerTest
         query/Ranker/tests/RankerTest.cpp
         query/Ranker/Ranker.h
         query/Ranker/Scorer.h
@@ -256,7 +256,13 @@ add_executable(query-Ranker-tests
         constraintSolver/ISRWord.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
-        util/Stemmer.cpp )
+        util/Stemmer.cpp
+        )
+add_executable(testQueryLang
+        query/queryLanguage/tests/testQueryParser.cpp
+        query/queryLanguage/QueryParser.cpp
+        util/
+        )
 
 find_package(OpenSSL REQUIRED)
 

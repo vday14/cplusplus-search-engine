@@ -34,8 +34,6 @@ int main ( )
 	while(queryOr->GetCurrentLocation() != MAX_Location) {
 
 		auto url = queryOr->GetEndDocument()->getCurrentDoc().url;
-		if(url == "file59tweet151421970293063681")
-			cout << "PREBUG";
 		cout << url << endl;
 		urls.insert(url);
 		queryOr->NextDocument();

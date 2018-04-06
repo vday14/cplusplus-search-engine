@@ -217,14 +217,7 @@ ISREndDoc * ISRWord::GetEndDocument()
 	return DocumentEnd;
 	}
 
-ISR * ISRWord::GetISRToBeginningOfDocument ( ) {
 
-	Location beginningOfDoc = DocumentEnd->getCurrentDoc().docEndPosition - DocumentEnd->getCurrentDoc().docNumWords;
-	ISR* BeginngISR = new ISRWord(this->term);
-	BeginngISR->Seek(beginningOfDoc);
-
-
-	}
 
 string ISRWord::GetTerm()
 	{

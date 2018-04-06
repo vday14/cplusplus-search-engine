@@ -37,7 +37,6 @@ class ISRWord : public ISR
 		unsigned GetNumberOfOccurrences ( );
 
 		string GetTerm( );
-		ISR * GetISRToBeginningOfDocument ( ) ;
 
 
 	// ISR *GetDocumentISR( );
