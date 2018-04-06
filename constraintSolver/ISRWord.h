@@ -46,7 +46,6 @@ class ISRWord : public ISR
 		string term;
 		char *masterIndex;
 		vector< size_t > listOfChunks;
-		size_t frequency;
 		vector< WordSeek > wordSeekLookupTable;
 		size_t currentChunk;
 		char *currentMemMap;
@@ -55,11 +54,17 @@ class ISRWord : public ISR
 		//set member variables to all of the chunks that occur, update current chunk
 		void getChunks ( );
 		Location getCurrentLocation();
+        size_t getFrequency();
+        size_t getDocFrequency();
+        size_t getLastLocation();
 
-	private:
+private:
 	void getWordSeek();
+	
+    size_t lastLocation;
+    size_t docFrequency;
+    size_t frequency;
 
-	size_t getFrequency();
 };
 
 
