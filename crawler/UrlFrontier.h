@@ -8,6 +8,7 @@
 #include <time.h>
 #include <unordered_map>
 #include <set>
+#include <iostream>
 using namespace std;
 
 
@@ -29,8 +30,10 @@ class UrlFrontier
 
 	public:
 		void Push ( ParsedUrl * url );
-		void checkUrl(ParsedUrl *  url);
-
+		bool checkUrl(ParsedUrl *  url);
+		void readBlackList( );
+		void printAnchorTable( );
+		set < string > Blacklist ;
 		ParsedUrl *	Pop ( );
 		size_t Size();
 		pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
@@ -42,9 +45,9 @@ class UrlFrontier
 		//Constructs the priority queue and duplicate map from stored data
 		void readDataFromDisk();
 
-
-	private:
 		urlMap *duplicateUrlMap =  new urlMap;
+	private:
+		//urlMap *duplicateUrlMap =  new urlMap;
 		unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
 
 	};

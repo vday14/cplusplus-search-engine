@@ -16,24 +16,30 @@
 #include "WordSeek.h"
 #include "../util/util.h"
 #include "../indexer/DocumentEnding.h"
+#include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 
 // Find occurrences of document ends.
-
+typedef size_t Location;
 class ISREndDoc
 	{
 public:
+
 	ISREndDoc();
 	DocumentEnding next();
+	void seek(Location target);
 	DocumentEnding getCurrentDoc();
+	Location GetStartingPositionOfDoc( );
+
 	unsigned GetDocumentLength ( );
 	unsigned GetTitleLength ( );
 	string getURL ( );
+
 private:
+
 	DocumentEnding currentDoc;
 	char* memMap;
 	int currentChunk;
     int currentFile;
-    vector<size_t> getSeekContents();
 
 };
 

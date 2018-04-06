@@ -281,19 +281,23 @@ string Parser::extractTitle ( string html )
  */
 string Parser::isLocal ( string url, ParsedUrl* currentUrl )
 	{
+	if( url.size() <= 1)
+		return url;
+
 	if ( url[ 0 ] != '/' )
 		{
 		return url;
 		}
+
 	if ( currentUrl->getCompleteUrl( ).back( ) == '/' )
 		{
-		string temp = currentUrl->getCompleteUrl( );
+		string temp = currentUrl->getDomain( );
 		temp.pop_back();
 		url = temp + url;
 		}
 	else
 		{
-		url = currentUrl->getCompleteUrl( ) + url;
+		url = currentUrl->getDomain( ) + url;
 		}
 	return url;
 	}
@@ -333,6 +337,12 @@ bool Parser::isValid ( string url )
 		{
 		return false;
 		}
+	if ( url[ 0 ] == '/' )
+		{
+		return false;
+		}
+
+
 	return true;
 	}
 

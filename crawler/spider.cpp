@@ -15,7 +15,11 @@
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 // FIND A BETTER PLACE TO PUT THIS FUNCTION
-
+/*
+ *
+ * Factory function to create the proper stream reader
+ *
+ */
 StreamReader *SR_factory ( ParsedUrl * url, string mode )
 	{
 	string localFile;
@@ -59,7 +63,10 @@ void printDocIndex ( DocIndex *dict )
 	cout << std::endl;
 
 	}
-
+/*
+ * Hash function
+ *
+ */
 
 size_t Spider::hash ( const char *s )
 	{
@@ -71,18 +78,35 @@ size_t Spider::hash ( const char *s )
 	return h;
 	}
 
+/*
+ *
+ * Gets a parsed url from the url frontier
+ *
+ */
 
 ParsedUrl * Spider::getUrl ( )
 	{
 	return urlFrontier->Pop( );
 	}
 
+/*
+ *
+ * Main function spider runs
+ *
+ * continue while atomic bool alive or has crawled X amount of docs
+ * gets the url off the queue
+ * creates a relevent stream reader
+ * attempts to download page
+ * if successful, pass page to parsed
+ * parser creates a dict which is then passed to the indexer
+ */
+
 void Spider::run ( )
 	{
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while (*alive)
+	while (*alive && cond < 20)
 	{
 		ParsedUrl * currentUrl = getUrl( );
 		size_t docID = hash( currentUrl->getCompleteUrl().c_str() );
@@ -98,7 +122,6 @@ void Spider::run ( )
 					DocIndex *dict = parser.execute( reader );
 					IndexerQueue->Push( dict );
 
-					//printDocIndex(dict);
 					reader->closeReader( );
 					//delete dict;
 
@@ -116,6 +139,8 @@ void Spider::run ( )
 	return;
 	}
 
+
+//Make the atomic bool false
 void Spider::kill()
 	{
 	*(this->alive) = false;

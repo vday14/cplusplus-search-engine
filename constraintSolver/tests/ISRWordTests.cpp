@@ -11,30 +11,30 @@
 
 using namespace std;
 
-int main ( )
-{
-    char* query;
-    ISRWord queryWord("iphone");
-    ISREndDoc endDocs;
-    vector<size_t> locations;
-    vector<DocumentEnding> docEnds;
-    set<string> urls;
-    while(queryWord.getCurrentLocation() != 9999999999999) {
-        locations.push_back(queryWord.Next());
-    }
-    while(endDocs.next().url != "aaa")
-        {
-        for(auto locs : locations)
-            {
-            if(locs < endDocs.getCurrentDoc().docEndPosition &&
-               locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
-                urls.insert(endDocs.getCurrentDoc().url);
-            }
-        }
+int main ( ) {
+	//char* query = "iphone";
+	ISRWord queryWord("%trump");
+	ISREndDoc endDocs;
+	vector<size_t> locations;
+	vector<DocumentEnding> docEnds;
+	set<string> urls;
 
-        }
-    for(auto urrl : urls) {
-        cout << urrl << endl;
-    }
+	clock_t start = clock();
+
+
+	while(queryWord.getCurrentLocation() != MAX_Location)  {
+		auto url = queryWord.DocumentEnd->getCurrentDoc().url;
+		urls.insert( url  );
+		queryWord.NextDocument();
+
+		}
+
+    clock_t end = clock();
+
+    cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+		for(auto url :urls)
+			cout << url << endl;
+
+	cout << "Number of results: " << urls.size();
     return 0;
 }

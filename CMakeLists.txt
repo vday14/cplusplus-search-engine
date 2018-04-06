@@ -35,7 +35,6 @@ add_executable(crawler-parser-indexer-Test
         shared/url.h
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
-        crawler/HouseKeeper.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
         crawler/Readers/HttpsReader.cpp
@@ -141,7 +140,12 @@ add_executable(ISRWord-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
-
+add_executable(ISREndDoc-tests
+        util/util.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        constraintSolver/ISREndDoc.cpp
+        constraintSolver/tests/ISREndDocTests.cpp)
 
 add_executable(ISROR-tests
         util/util.cpp
@@ -153,6 +157,46 @@ add_executable(ISROR-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
+add_executable(ISRAnd-tests
+        constraintSolver/tests/ISRAndTests.cpp
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
+add_executable(ISRWord-Multi-Test
+        constraintSolver/tests/ISRWordMultiTest.cpp
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
+
+
+add_executable(DataStructures-Vector-tests
+        DataStructures/Vector/Vector.h
+        DataStructures/Vector/VectorTests.cpp)
+
+add_executable(DataStructures-HashTable-tests
+        DataStructures/HashTable/HashTable.h
+        DataStructures/HashTable/HashTableTests.cpp)
+
+add_executable(DataStructures-DiskHashTable-tests
+        DataStructures/DiskHashTable/DiskHashTable.h
+        DataStructures/DiskHashTable/DiskHashTableTests.cpp)
+
+add_executable(Indexer-twitter-tests
+        DataStructures/DiskHashTable/MMDiskHashTable.h
+        indexer/Indexer.cpp
+        indexer/json.hpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        indexer/IndexerTwitterTests.cpp)
 
 
 find_package(OpenSSL REQUIRED)
@@ -166,3 +210,4 @@ target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
+

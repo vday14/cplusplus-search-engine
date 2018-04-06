@@ -2,111 +2,41 @@
 #include <string>
 #include "ISRWord.h"
 
+
 size_t FileSize(int f) {
     struct stat fileInfo;
     fstat( f, &fileInfo);
     return fileInfo.st_size;
 }
 
-ISRWord::ISRWord ( char *word ) : term( word )
-	{
+ISRWord::ISRWord ( string word ) {
+	term = word;
+
 	getChunks( );
 	currentChunk = 0;
 	currentLocation = First( );
-	}
-
-// put into util file
-vector<size_t> ISRWord::getSeekContents(string fileName) {
-    int file = open(fileName.c_str(), O_RDONLY);
-    ssize_t fileSize = FileSize(file);
-    vector<size_t> contents;
+	DocumentEnd->seek( currentLocation );
 
 
-    char* memMap = (char*) mmap(nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0);
-   // char* memMap = util::getFileMap(fileName);
-    string word = "";
-    bool midWord = false;
-    bool midFind = false;
-    WordSeek wordDictionaryEntry;
-    if(memMap != MAP_FAILED) {
-        for(char* map = memMap; map < memMap + fileSize; map++) {
-            if(midFind && isalpha(*map)) {
-                break;
-            }
-            switch(*map) {
-                if(midFind) {
-                    case '<':
-                        wordDictionaryEntry = WordSeek();
-                        break;
-                    case '>':
-                        wordDictionaryEntry.seekOffset = stoll(word);
-                        wordSeekLookupTable.push_back(wordDictionaryEntry);
-                        break;
-                    case ',':
-                        wordDictionaryEntry.realLocation = stoll(word);
-                        break;
-                }
-                case '\n':
-                case '\r':
-                case '\t':
-                case ' ':
-                    if (midFind && word != "") {
-                        contents.push_back(stoll(word));
-                        word = "";
-                    } else if (midWord) {
-                        midWord = false;
-                        if(word == term) {
-                            midFind = true;
-                        }
-                        word = "";
-                    }
-                    break;
-                default:
-                    word += *map;
-                    midWord = true;
-            }
-        }
-    }
-    return contents;
+
 }
 
 void ISRWord::getChunks() {
-
-    listOfChunks = getSeekContents(util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index-master.txt");
-//    int chunkFile = open("index-test-files/twitter/index-master.txt", O_RDONLY);
-//    ssize_t chunkFileSize = FileSize(chunkFile);
-//    char* chunkMemMap = (char*) mmap(nullptr, chunkFileSize, PROT_READ, MAP_PRIVATE, chunkFile, 0);
-//    string word = "";
-//    bool midWord = false;
-//    bool midChunkFind = false;
-//    if(chunkMemMap != MAP_FAILED) {
-//        for(char* map = chunkMemMap; map < chunkMemMap + chunkFileSize; map++) {
-//            if(midChunkFind && isalpha(*map)) {
-//                break;
-//            }
-//            switch(*map) {
-//                case '\t':
-//                case '\n':
-//                case '\r':
-//                case ' ':
-//                    if (midChunkFind && word != "") {
-//                        listOfChunks.push_back(stoll(word));
-//                        word = "";
-//                    } else if (midWord) {
-//                        midWord = false;
-//                        if(word == term) {
-//                            midChunkFind = true;
-//                        }
-//                        word = "";
-//                    }
-//                    break;
-//                default:
-//                    word += *map;
-//                    midWord = true;
-//            }
-//        }
-//    }
-	}
+    MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + pathToIndex + "master.txt" , 30, 168);
+	string value = diskHashTable.find(term);
+    string chunkInput = "";
+    for(char val : value) {
+        if(isnumber(val)) {
+            chunkInput += val;
+        } else if(val != '\t') {
+            listOfChunks.push_back(stoll(chunkInput));
+            chunkInput = "";
+        }
+    }
+    if(chunkInput != "") {
+        frequency = stoll(chunkInput);
+    }
+}
 
 //Go to current chunk
 //Look in seek dictionary for chunk (mem map, binary search)
@@ -117,24 +47,30 @@ void ISRWord::getChunks() {
 
 Location ISRWord::First ( )
 	{
+	if(listOfChunks.empty()) {
+		currentLocation = MAX_Location;
+		return MAX_Location;
+
+	}
 	string currentChunkSeekFileLocation =
-			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
 			"-seek.txt";
-	vector< size_t > location = getSeekContents( currentChunkSeekFileLocation );
+    MMDiskHashTable currentChunkSeekFileHashTable = MMDiskHashTable(currentChunkSeekFileLocation, 30, 8);
+    string loc = currentChunkSeekFileHashTable.find(term);
 	string currentChunkFileLocation =
-			util::GetCurrentWorkingDir( ) + "/constraintSolver/index-test-files/twitter/index" + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
 			".txt";
 	int currentChunkFile = open( currentChunkFileLocation.c_str( ), O_RDONLY );
 	ssize_t currentChunkFileSize = FileSize( currentChunkFile );
 	currentMemMap = ( char * ) mmap( nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0 );
-	currentMemMap += location[ 0 ];
-	string firstLoc = "";
-	while ( *currentMemMap != ' ' )
-		{
+	currentMemMap += stoll(loc);
+    string firstLoc = "";
+	while ( *currentMemMap != ' ' ) {
 		firstLoc += *currentMemMap;
 		currentMemMap++;
-		}
+    }
 	currentMemMap++;
+	getWordSeek();
 	return stoll( firstLoc );
 	}
 
@@ -154,7 +90,7 @@ Location ISRWord::Next ( )
 		currentChunk++;
         if(listOfChunks.size( ) <= currentChunk)
             {
-            currentLocation = 9999999999999;
+            currentLocation = MAX_Location;
             return currentLocation;
             }
 
@@ -171,13 +107,47 @@ Location ISRWord::Next ( )
 		currentLocation += stoll( delta );
 		currentMemMap++;
 		}
+
+
+	//DocumentEnd->seek( currentLocation );
 	return currentLocation;
 	}
 
-Location ISRWord::getCurrentLocation()
-    {
+Location ISRWord::getCurrentLocation() {
     return currentLocation;
-    }
+}
+
+size_t ISRWord::getFrequency() {
+	return frequency;
+}
+
+void ISRWord::getWordSeek() {
+	string currentChunkWordSeekFileLocation =
+			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
+			"-wordseek.txt";
+	MMDiskHashTable wordSeek = MMDiskHashTable(currentChunkWordSeekFileLocation, 30, 168);
+	string result = wordSeek.find(term);
+	WordSeek wordDictionaryEntry;
+	string token = "";
+	for(char comp : result) {
+		switch(comp) {
+			case '<':
+				wordDictionaryEntry = WordSeek();
+				break;
+			case '>':
+				wordDictionaryEntry.seekOffset = stoll(token);
+				wordSeekLookupTable.push_back(wordDictionaryEntry);
+				token = "";
+				break;
+			case ',':
+				wordDictionaryEntry.realLocation = stoll(token);
+				token = "";
+				break;
+			default:
+				token += comp;
+		}
+	}
+}
 
 //look thru each chunk
 //check if absolute position at offset in chunk is less then chunk,
@@ -185,25 +155,68 @@ Location ISRWord::getCurrentLocation()
 //if so, set location to that big chunk
 //go to next chunk
 Location ISRWord::Seek( Location target ) {
+	 if(target <= currentLocation)
+		 return currentLocation;
+
     if(!wordSeekLookupTable.empty()) {
         auto best = wordSeekLookupTable.front();
         for(auto entry : wordSeekLookupTable) {
             if(entry.realLocation < target) {
                 best = entry;
             } else {
-                string currentChunkFileLocation = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index" + to_string(listOfChunks[currentChunk]) + ".txt";
+                string currentChunkFileLocation = util::GetCurrentWorkingDir() + pathToIndex + to_string(listOfChunks[currentChunk]) + ".txt";
                 int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
                 ssize_t currentChunkFileSize = FileSize(currentChunkFile);
                 currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
                 currentMemMap += best.seekOffset;
                 currentLocation = best.realLocation;
+					 DocumentEnd->seek( currentLocation );
                 return best.realLocation;
             }
         }
     } else {
         while(Next() <= target) {
+
         }
-        return currentLocation;
+		if( currentLocation == MAX_Location)
+			return MAX_Location;
+
+		 DocumentEnd->seek( currentLocation );
+		 return currentLocation;
     }
 }
+
+
+Location  ISRWord::NextDocument()
+	{
+	//FixMe
+	//seek the isr to the first location after the doc end
+	 currentLocation = Seek( DocumentEnd->getCurrentDoc().docEndPosition + 1);
+	//update the doc end to the next doc end after the new seek position
+	return DocumentEnd->getCurrentDoc().docEndPosition;
+
+
+
+	}
+
+ISREndDoc * ISRWord::GetEndDocument()
+	{
+	//Fixme
+	return DocumentEnd;
+	}
+
+ISR * ISRWord::GetISRToBeginningOfDocument ( ) {
+
+	Location beginningOfDoc = DocumentEnd->getCurrentDoc().docEndPosition - DocumentEnd->getCurrentDoc().docNumWords;
+	ISR* BeginngISR = new ISRWord(this->term);
+	BeginngISR->Seek(beginningOfDoc);
+
+
+	}
+
+string ISRWord::GetTerm()
+	{
+
+	return string(this->term);
+	}
 

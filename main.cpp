@@ -23,7 +23,6 @@
 #include <chrono>
 #include <future>
 #include <ctime>
-#include "crawler/HouseKeeper.h"
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 using namespace std;
@@ -45,6 +44,8 @@ void signalHandler( int signum ) {
 
 	exit(signum);
 	}
+
+
 
 
 int main ( int argc, char *argv[] )
@@ -72,18 +73,19 @@ int main ( int argc, char *argv[] )
 	string mode = "web";
 	int numberOfSpiders = 1;
 	bool restart = false;
-
+	double DocsToCrawl = 0;
 	opterr = true;
 	int choice;
 	int option_index = 0;
 	option long_options[] = {
 			{ "mode",         optional_argument, nullptr, 'm' },
 			{ "num_crawlers", optional_argument, nullptr, 'c' },
+			{ "docsToCrawl", optional_argument, nullptr, 'd' },
 			{ "from_restart", optional_argument, nullptr, 'r' }
 
 	};
 
-	while ( ( choice = getopt_long( argc, argv, "m:c:r:", long_options, &option_index ) ) != -1 )
+	while ( ( choice = getopt_long( argc, argv, "m:c:d:r", long_options, &option_index ) ) != -1 )
 		{
 		switch ( choice )
 			{
@@ -111,6 +113,11 @@ int main ( int argc, char *argv[] )
 				restart = true;
 				break;
 
+			case 'd':
+
+				DocsToCrawl = atoi(optarg);
+				break;
+
 			default:
 				cerr << "Unknown input option";
 				exit( 1 );
@@ -123,6 +130,7 @@ int main ( int argc, char *argv[] )
 
 	UrlFrontier *urlFrontier = new UrlFrontier();
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue = new ProducerConsumerQueue< DocIndex * >( );
+	ProducerConsumerQueue< unordered_map<string , DocIndex * >  > *AnchorQueue = new ProducerConsumerQueue< unordered_map<string , DocIndex * >  >( );
 
 
 	char *seeds;
@@ -158,23 +166,43 @@ int main ( int argc, char *argv[] )
 			urlFrontier->Push( url );
 			}
 		}
-	//else
-		//urlFrontier->ReadDataFromDisk();
+	else
+		urlFrontier->readDataFromDisk();
 
 
 
 
-	Indexer indexer( IndexerQueue );
+	Indexer indexer( IndexerQueue , AnchorQueue );
 	indexer.StartThread( );
 
-	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue );
+	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
 	atomic_bool *alive = new atomic_bool(true);
 	crawler->SpawnSpiders( numberOfSpiders , alive);
 
-	HouseKeeper logger( crawler );
-	//logger.StartThread( );
 
 	string input;
+	clock_t start = clock();
+
+	if(DocsToCrawl > 0 )
+		{
+		cout << "Crawling 100,000 documents for each spider" << endl;
+		crawler->WaitOnAllSpiders( );
+		crawler->passAnchorTextToIndex( );
+		indexer.Kill();
+		indexer.WaitForFinish( );
+		urlFrontier->writeDataToDisk();
+		delete urlFrontier;
+		delete IndexerQueue;
+
+		cout << "Indexer has finished running " << endl;
+		clock_t end = clock();
+		cout << "Time to complete build: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
+		return 0;
+
+		}
+
+
 	while(true)
 		{
 		cout << "press enter to quit\n" << std::endl ;
@@ -186,16 +214,17 @@ int main ( int argc, char *argv[] )
 			cout << "Shutting down the indexer  " << endl ;
 			crawler->KillAllSpiders();
 			crawler->WaitOnAllSpiders( );
-
 			indexer.Kill();
 			indexer.WaitForFinish( );
-
 			urlFrontier->writeDataToDisk();
 
 			delete urlFrontier;
 			delete IndexerQueue;
 
 			cout << "Indexer has finished running " << endl;
+			clock_t end = clock();
+			cout << "Time to complete build: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
 			return 0;
 
 			}

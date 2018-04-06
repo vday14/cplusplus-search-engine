@@ -5,67 +5,73 @@
 #include <vector>
 #include <fstream>
 #include <unordered_map>
+#include "../shared/ProducerConsumerQueue.h"
 #include "json.hpp"
+#include "../util/util.h"
 #include "Indexer.h"
 
 using namespace std;
 using json = nlohmann::json;
 
-int main ( )
-	{
-//    Indexer indexer = Indexer();
-//
-//    vector<ifstream*> files;
-//    for(int i = 0; i < 60; i++) {
-//        string fileName = "tests/twitter/" + to_string(i) + ".json";
-//        if(i < 10) {
-//            fileName = "tests/twitter/0" + to_string(i) + ".json";
-//        }
-//        files.push_back(new ifstream(fileName));
-//    }
-//    string line = "";
-//    for(int i = 0; i < 60; i++) {
-//        int tweetId = 0;
-//        while(getline(*files[i], line)) {
-//            json j = json::parse(line);
-//            auto local = new unordered_map<string, vector<int> >();
-//            int id = 0;
-//            if(j.find("text") != j.end()) {
-//                string text = j.at("text");
-//                string word = "";
-//                bool midword = false;
-//                for(auto character : text) {
-//                    switch(character) {
-//                        case '\n':
-//                        case ' ':
-//                            if(midword) {
-//                                std::transform(word.begin(), word.end(), word.begin(), ::tolower);
-//                                word.erase(remove_if(word.begin(), word.end(), [](char c) { return !isalpha(c); } ), word.end());
-//                                if(word != "") {
-//                                    local->operator[](word).push_back(id);
-//                                    id++;
-//                                }
-//                                word = "";
-//                            }
-//                            midword = false;
-//                            break;
-//                        default:
-//                            word += character;
-//                            midword = true;
-//                    }
-//                }
-//                if(local->size() != 0) {
-//                    size_t id = j.at("id");
-//                    local->operator[]("=file " + to_string(i) + " tweet " + to_string(id)).push_back(0);
-//                    tweetId++;
-//                }
-//            }
-//            if(local->size() != 0) {
-//                indexer.pointerToDictionaries.Push(local);
-//            }
-//        }
-//    }
-//    indexer.run();
+using DocIndex = const unordered_map< string, vector< unsigned long > >;
+
+int main ( ) {
+	vector<ifstream *> files;
+	ProducerConsumerQueue< DocIndex * > *IndexerQueue = new ProducerConsumerQueue< DocIndex * >( );
+	for (int i = 0; i < 60; i++) {
+		string fileName = util::GetCurrentWorkingDir() + "/indexer/tests/twitter/" + to_string(i) + ".json";
+		if (i < 10) {
+			fileName = util::GetCurrentWorkingDir() + "/indexer/tests/twitter/0" + to_string(i) + ".json";
+		}
+		files.push_back(new ifstream(fileName));
+	}
+	string line = "";
+	for (int i = 0; i < 60; i++) {
+		int tweetId = 0;
+		while (getline(*files[i], line)) {
+			json j = json::parse(line);
+			auto local = new unordered_map< string, vector< unsigned long > >();
+			int id = 0;
+			if (j.find("text") != j.end()) {
+				string text = j.at("text");
+				string word = "";
+				bool midword = false;
+				for (auto character : text) {
+					switch (character) {
+						case '\n':
+						case ' ':
+							if (midword) {
+								std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+								word.erase(remove_if(word.begin(), word.end(), [](char c) { return !isalpha(c); }),
+										   word.end());
+								if (word != "") {
+									local->operator[](word).push_back(id);
+									id++;
+								}
+								word = "";
+							}
+							midword = false;
+							break;
+						default:
+							word += character;
+							midword = true;
+					}
+				}
+				if (local->size() != 0) {
+					size_t id = j.at("id");
+					local->operator[]("=file " + to_string(i) + " tweet " + to_string(id)).push_back(0);
+					tweetId++;
+				}
+			}
+			if (local->size() != 0) {
+				IndexerQueue->Push(local);
+			}
+		}
+	}
+	Indexer indexer = Indexer(IndexerQueue);
+    indexer.StartThread( );
+    indexer.WaitForFinish();
+	/*
 	string query;
 	cout << "What is your query?" << endl;
 	getline( cin, query );
@@ -236,3 +242,5 @@ int main ( )
 		}
 
 	}
+	 */
+}

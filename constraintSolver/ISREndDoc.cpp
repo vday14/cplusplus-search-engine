@@ -3,19 +3,27 @@
 //
 
 #include "ISREndDoc.h"
-
+//#define pathToIndex "/constraintSolver/index-test-files/twitter/"
+#define pathToIndex "/build/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
+	 memMap = nullptr;
 }
 
 DocumentEnding ISREndDoc::next() {
-    if(memMap == nullptr) {
-        string fileName = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index" + to_string(currentChunk) + ".txt";
+    if(memMap == nullptr || *memMap == '\0' ) {
+        string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
         currentFile = open(fileName.c_str(), O_RDONLY);
-        vector<size_t> contents = getSeekContents();
+        string seekFileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + "-seek.txt";
+        if(0 != access(seekFileName.c_str(), 0)) {
+            DocumentEnding a = DocumentEnding();
+            a.url = "aaa";
+            return a;
+        }
+        MMDiskHashTable de(seekFileName, 30, 8);
         memMap = (char*) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile, 0);
-        memMap += contents[0];
+        memMap += stoll(de.find("=docEnding"));
     }
     string currentOne;
     for(char* map = memMap; map < memMap + util::FileSize(currentFile); map++) {
@@ -23,11 +31,6 @@ DocumentEnding ISREndDoc::next() {
             currentChunk++;
             memMap = nullptr;
             return DocumentEnding();
-        }
-        if(currentChunk == 8) {
-            DocumentEnding a = DocumentEnding();
-            a.url = "aaa";
-            return a;
         }
         if(*map == '\n') {
             memMap = map;
@@ -58,51 +61,102 @@ DocumentEnding ISREndDoc::next() {
                 break;
         }
     }
+
+
     return currentDoc;
+}
+
+// open up current chunk wordseek mem map
+// seek all possible keys for doc ending
+// check bounds
+void ISREndDoc::seek(Location target) {
+    string key = "=docEnding";
+    string value = "";
+    bool found = false;
+    pair<size_t, size_t> docEndingWordSeek = {0, 0};         // location, offset
+    size_t tempLocation = 0;
+    string input = "";
+    bool init = false;
+    bool breakout = false;
+	bool between = false;
+	 size_t foundChunk;
+    while(!found) {
+        string fileName = util::GetCurrentWorkingDir() +
+                          pathToIndex +
+                          to_string(currentChunk) + "-wordseek.txt";
+        if(0 != access(fileName.c_str(), 0)) {
+            currentChunk--;
+            break;
+        }
+        MMDiskHashTable currentWordSeek = MMDiskHashTable(fileName, 30, 168);
+        int currentValueChunk = 0;
+        value = currentWordSeek.find(key + to_string(currentValueChunk));
+        while(value.compare("") != 0) {
+            //cout << "searching through " << key + to_string(currentValueChunk) << endl;
+            for (auto comp : value) {
+                switch (comp) {
+                    case '<':
+                        break;
+                    case '>':
+                        if (target < tempLocation && target > docEndingWordSeek.first)
+									{
+                            if(!init) {
+                                breakout = true;
+                                break;
+                            }
+									breakout = true;
+                            found = true;
+									foundChunk = between ? currentChunk - 1 : currentChunk   ;
+                            break;
+                        	}
+							 	between = false;
+                        init = true;
+                        docEndingWordSeek.first = tempLocation;
+                        docEndingWordSeek.second = stoll(input);
+                        input = "";
+                        break;
+                    case ',':
+                        tempLocation = stoll(input);
+                        input = "";
+                        break;
+                    default:
+                        input += comp;
+                        break;
+                }
+                if (found) {
+                    string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(foundChunk) + ".txt";
+                    currentFile = open(fileName.c_str(), O_RDONLY);
+                    memMap = (char *) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile,
+                                           0);
+                    memMap += docEndingWordSeek.second;
+                }
+                if(breakout) {
+                    break;
+                }
+            }
+            if(breakout) {
+                break;
+            }
+            currentValueChunk++;
+            value = currentWordSeek.find(key + to_string(currentValueChunk));
+        }
+        if(breakout) {
+            break;
+        }
+        currentChunk++;
+		  between = true;
+    }
+
+    while(target > (next().docEndPosition - 1)) {
+    }
+	//next();
 }
 
 DocumentEnding ISREndDoc::getCurrentDoc() {
     return currentDoc;
 }
 
-vector<size_t> ISREndDoc::getSeekContents() {
-    string fileName = util::GetCurrentWorkingDir() + "/constraintSolver/index-test-files/twitter/index" + to_string(currentChunk) + "-seek.txt";
-    int file = open(fileName.c_str(), O_RDONLY);
-    ssize_t fileSize = util::FileSize(file);
-    vector<size_t> contents;
-
-
-    char* memMap = (char*) mmap(nullptr, fileSize, PROT_READ, MAP_PRIVATE, file, 0);
-    // char* memMap = util::getFileMap(fileName);
-    string word = "";
-    bool midWord = false;
-    bool midFind = false;
-    if(memMap != MAP_FAILED) {
-        for(char* map = memMap; map < memMap + fileSize; map++) {
-            if(midFind && isalpha(*map)) {
-                break;
-            }
-            switch(*map) {
-                case '\n':
-                case '\r':
-                case '\t':
-                case ' ':
-                    if (midFind && word != "") {
-                        contents.push_back(stoll(word));
-                        word = "";
-                    } else if (midWord) {
-                        midWord = false;
-                        if(word == "=docEnding") {
-                            midFind = true;
-                        }
-                        word = "";
-                    }
-                    break;
-                default:
-                    word += *map;
-                    midWord = true;
-            }
-        }
+Location ISREndDoc::GetStartingPositionOfDoc( )
+    {
+    return currentDoc.docEndPosition - currentDoc.docNumWords - 1;
     }
-    return contents;
-}

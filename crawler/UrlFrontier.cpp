@@ -2,7 +2,8 @@
 // Created by Jake Close on 3/26/18.
 //
 
-#include "urlFrontier.h"
+#include "UrlFrontier.h"
+#include "../util/Tokenizer.h"
 
 
 //checks the current url to see if should be crawled
@@ -15,18 +16,25 @@
 // then adds both to the url map and the host map
 
 
-void UrlFrontier::checkUrl(ParsedUrl* url)
+bool UrlFrontier::checkUrl( ParsedUrl *url )
 	{
 
+	if( Blacklist.find(  url->getHost(  )  ) != Blacklist.end( ) )
+		return false;
+
+
 	//Looks to see if the complete url already exists, if so return
-	if ( this->duplicateUrlMap->find( url->getCompleteUrl() ) != this->duplicateUrlMap->end( ) )
+	if ( this->duplicateUrlMap->find( url->getCompleteUrl( )) != this->duplicateUrlMap->end( ))
 		{
 		//update the anchor text
-		pthread_mutex_lock( &m );
-		(*duplicateUrlMap)[url->getCompleteUrl()][url->getAnchorText()]++;
-		pthread_mutex_unlock( &m );
+		if ( !url->getAnchorText( ).empty( ) || url->getAnchorText( ) != "")
+			{
+			pthread_mutex_lock( &m );
+			(*duplicateUrlMap)[ url->getCompleteUrl( ) ][ url->getAnchorText( ) ]++;
+			pthread_mutex_unlock( &m );
+			}
 		//add the new
-		return ;
+		return false;
 		}
 
 
@@ -40,12 +48,16 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 			{
 			//get the last time it was seen and find the time difference
 			time_t lastSeen = this->domainMap->at( url->getHost( ));
-			difference =  difftime( now , lastSeen);
-			if(difference == 0)
-				difference = 5 ;
+			difference = difftime( now, lastSeen );
+			if ( difference == 0 )
+				difference = .01;
 			else
-				difference =  difference/10;
+				difference = difference / 100;
 			url->updateScore( difference );
+
+			pthread_mutex_lock( &m );
+			(*domainMap)[ url->getHost( ) ] = now;
+			pthread_mutex_unlock( &m );
 
 			}
 		else
@@ -55,32 +67,29 @@ void UrlFrontier::checkUrl(ParsedUrl* url)
 			pthread_mutex_unlock( &m );
 
 
-
 			}
 
 
 		//add url to the duplicate url map
 		pthread_mutex_lock( &m );
-		(*duplicateUrlMap)[url->getCompleteUrl()][url->getAnchorText()] = 1;
+		(*duplicateUrlMap)[ url->getCompleteUrl( ) ][ url->getAnchorText( ) ] = 1;
 		pthread_mutex_unlock( &m );
 
-		return;
+		return true;
 		}
 	}
 
 
-void UrlFrontier::Push( ParsedUrl * url )
+void UrlFrontier::Push( ParsedUrl *url )
 	{
 	//if the url has been seen? if so, dont add it
-		if(url->isValid)
+	if ( url->isValid )
+		{
+
+		if ( checkUrl( url ))
 			{
 
-			checkUrl(url);
 
-
-			//set the value of the last time the domain was seen to score
-			//url.setTime(difference);
-			//url.setScore();
 			pthread_mutex_lock( &m );
 
 			queue.push( url );
@@ -92,13 +101,11 @@ void UrlFrontier::Push( ParsedUrl * url )
 
 			pthread_mutex_unlock( &m );
 			}
+		}
 	}
 
 
-
-
-
-ParsedUrl * UrlFrontier::Pop()
+ParsedUrl *UrlFrontier::Pop()
 	{
 
 
@@ -109,7 +116,7 @@ ParsedUrl * UrlFrontier::Pop()
 		pthread_cond_wait( &consumer_cv, &m );
 		}
 
-	ParsedUrl * front = queue.top( );
+	ParsedUrl *front = queue.top( );
 	queue.pop( );
 
 	pthread_mutex_unlock( &m );
@@ -118,7 +125,7 @@ ParsedUrl * UrlFrontier::Pop()
 
 	}
 
-size_t UrlFrontier::Size ( )
+size_t UrlFrontier::Size()
 	{
 	pthread_mutex_lock( &m );
 	size_t size = queue.size( );
@@ -127,42 +134,43 @@ size_t UrlFrontier::Size ( )
 	}
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-const std::string currentDateTime() {
-	time_t     now = time(0);
-	struct tm  tstruct;
-	char       buf[80];
-	tstruct = *localtime(&now);
+const std::string currentDateTime()
+	{
+	time_t now = time( 0 );
+	struct tm tstruct;
+	char buf[80];
+	tstruct = *localtime( &now );
 	// Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
 	// for more information about date/time format
-	strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+	strftime( buf, sizeof( buf ), "%Y-%m-%d.%X", &tstruct );
 
 	return buf;
 	}
 
 
-void UrlFrontier::writeDataToDisk( )
+void UrlFrontier::writeDataToDisk()
 	{
 
 
 	cout << "Writing queue to disk" << endl;
 
-	string fileName = util::GetCurrentWorkingDir( )  + "/build/savedQueue.txt";
+	string fileName = util::GetCurrentWorkingDir( ) + "/build/savedQueue.txt";
 
-	if( remove( fileName.c_str() ) != 0 )
+	if ( remove( fileName.c_str( )) != 0 )
 		perror( "Error deleting file" );
 	else
 		puts( "File successfully deleted" );
-		int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
+	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
 	pthread_mutex_lock( &m );
-	string currentTime = currentDateTime();
-	write( file, currentTime.c_str( ), strlen( currentTime.c_str( ) ) );
 
-	while(! queue.empty() )
+
+	while ( !queue.empty( ))
 		{
-		ParsedUrl * url = queue.top( );
+		ParsedUrl *url = queue.top( );
 		queue.pop( );
-		write( file, url->getCompleteUrl().c_str( ), strlen( url->getCompleteUrl().c_str( ) ) );
+		string url_disk = url->getCompleteUrl() + "\n";
+		write( file, url_disk.c_str( ), strlen( url_disk.c_str( )  ));
 		url = 0;
 		delete url;
 		}
@@ -171,4 +179,63 @@ void UrlFrontier::writeDataToDisk( )
 	close( file );
 
 	return;
+	}
+
+void UrlFrontier::readDataFromDisk( )
+	{
+
+	cout << "Read queue from disk" << endl;
+
+	string fileName = "/build/savedQueue.txt";
+
+	char *files = util::getFileMap( fileName );
+
+	string testFile;
+	while ( *files )
+		{
+		if ( *files == '\n' )
+			{
+
+			ParsedUrl *url = new ParsedUrl( testFile );
+			cout << "Pushing: " << testFile << " to queue\n";
+			Push( url );
+			testFile = "";
+			}
+		else
+			testFile.push_back( *files );
+
+		++files;
+		}
+	}
+
+
+
+void UrlFrontier::printAnchorTable()
+	{
+	Tokenizer tokenizer;
+	unsigned long offset = 0;
+
+	for ( auto const &ent1 : *duplicateUrlMap )
+		{
+		auto const &outer_key = ent1.first;
+		auto const &inner_map = ent1.second;
+		for ( auto const &ent2 : inner_map )
+			{
+
+				auto const &inner_key = ent2.first;
+				auto const &inner_value = ent2.second;
+			if( ! inner_key.empty() )
+				{
+				cout << "url: " << outer_key << endl;
+				cout << "anchor text : " << inner_key << endl;
+				cout << "count " << inner_value << endl;
+
+				}
+			else
+				cout << "url: " << outer_key << " has no anchor text " << endl;
+
+			}
+
+		}
+
 	}

@@ -10,6 +10,8 @@ bool HttpReader::request ( )
 
 
 		sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
+		if(sock == -1)
+			throw HTTPConnectionError;
 		assert( sock != -1 );
 
 		// Get the host address.
@@ -33,6 +35,10 @@ bool HttpReader::request ( )
 
 		int connectResult = connect( sock, ( struct sockaddr * ) &address,
 									 sizeof( address ) );
+
+		if(connectResult == -1)
+			throw HTTPConnectionError;
+
 		assert( connectResult == 0 );
 
 		// Send a GET message for the desired page.
