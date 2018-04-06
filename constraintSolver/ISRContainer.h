@@ -6,49 +6,77 @@
 
 #include "ISR.h"
 #include "ISREndDoc.h"
+#include "../query/Ranker/Ranker.h"
 
 //Find occurrences of contained ISRs in a single document not containing any excluded ISRs.
 
-class ISRContainer : ISR
+class ISRContainer
 	{
 public:
-	ISR **Contained,
-			*Excluded;
-	ISREndDoc *EndDoc;
+	ISR *Contained;
+	ISR *Excluded;
+	vector<string> terms;
+
 	unsigned CountContained,
 			CountExcluded;
 
-	Location Next ( );
 
-	Post *Seek ( Location target )
+	Location Seek ( Location target )
 		{
 // 1. Seek all the included ISRs to the first occurrence beginning at
-//    the target location.
+//    the target location.
 // 2. Move the document end ISR to just past the furthest
-//    contained ISR, then calculate the document begin location.
+//    contained ISR, then calculate the document begin location.
 // 3. Seek all the other contained terms to past the document begin.
 // 4. If any contained erm is past the document end, return to
-//    step 2.
+//    step 2.
 // 5. If any ISR reaches the end, there is no match.
 // 6. Seek all the excluded ISRs to the first occurrence beginning at
-//    the document begin location.
+//    the document begin location.
 // 7. If any excluded ISR falls within the document, reset the
-//    target to one past the end of the document and return to
-//    step 1.
+//    target to one past the end of the document and return to
+//    step 1.
+
+
 		};
 
 
-	Post *Next ( )
+/*
+ * Seek()
+ * GetEndDocument
+ *
+ */
+	void Solve()
 		{
-		Seek( Contained[ nearestContained ]->GetStartlocation( ) + 1 );
+
+		while(Contained->GetCurrentLocation() != MAX_Location)
+			{
+
+/*
+ * beg = GetBeginning of Doc
+ * Pass Terms to ranker
+ *
+ * vector<words>
+ *
+ * Ranker:
+ * for term in terms
+ * IsrWord word = new ISR(term)
+ * Term.seek(beg)
+ * words.push(word)
+ * rank(words)
+ *
+ * NextDocument()
+ */
+			}
+
+
 		}
 
 
 private:
 	unsigned nearestTerm, farthestTerm;
 	Location nearestStartLocation, nearestEndLocation;
+	Ranker ranker;
 	};
 
 };
-
-
