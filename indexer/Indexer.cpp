@@ -1,7 +1,8 @@
 #include "Indexer.h"
 
 
-#define  pathToIndex "/build/"
+//#define  pathToIndex "/build/"
+#define	 pathToIndex "/constraintSolver/index-test-files/twitter/"
 
 Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in,
 						ProducerConsumerQueue < unordered_map < string, DocIndex * > > *anchor_in) :
@@ -18,7 +19,7 @@ void Indexer::run()
 	{
 
 
-	while ( *alive  || pointerToDictionaries->Size( ) > 0 )
+	while ( *alive || pointerToDictionaries->Size( ) > 0 )
 		{
 		if( pointerToDictionaries->Size( ) > 0)
 			{
@@ -204,6 +205,7 @@ void Indexer::saveChunkDictionary()
 	for(auto location : chunkEndLocation) {
 		string key = "=chunk" + to_string(currentChunk);
 		dhtChunk.insert(key, to_string(location));
+		currentChunk++;
 	}
 	}
 

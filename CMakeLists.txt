@@ -233,6 +233,14 @@ add_executable(MasterReader-tests
         indexer/MasterReader.cpp
         )
 
+add_executable(Corpus-tests
+        indexer/tests/CorpusTests.cpp
+        indexer/Corpus.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        )
+
 
 find_package(OpenSSL REQUIRED)
 
