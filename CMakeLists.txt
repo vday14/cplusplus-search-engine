@@ -244,7 +244,16 @@ add_executable(MasterReader-tests
         indexer/MasterReader.cpp
         )
 
-add_executable(queryRankerTest
+
+add_executable(Corpus-tests
+        indexer/tests/CorpusTests.cpp
+        indexer/Corpus.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        )
+
+add_executable(query-Ranker-tests
         query/Ranker/tests/RankerTest.cpp
         query/Ranker/Ranker.h
         query/Ranker/Scorer.h
