@@ -45,8 +45,8 @@ int main ( int argc, char *argv[] )
 	//string url2 = "https:";
 
 	//string bad_url = "http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />";
-	ParsedUrl * url  = new ParsedUrl(url1);
-	ParsedUrl * url_1  = new ParsedUrl(url2);
+	ParsedUrl url(url1);
+	ParsedUrl url_1(url2);
 
 	urlFrontier->Push(url);
 	urlFrontier->Push(url_1);

@@ -84,7 +84,7 @@ size_t Spider::hash ( const char *s )
  *
  */
 
-ParsedUrl * Spider::getUrl ( )
+ParsedUrl Spider::getUrl ( )
 	{
 	return urlFrontier->Pop( );
 	}
@@ -105,45 +105,37 @@ void Spider::run ( )
 	{
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
+	ParsedUrl currentUrl;
 
-	while (*alive && cond < 100)
+
+	while (*alive && cond < docs_to_crawl)
 	{
-		if(cond % 25 == 0)
-			{
-			cout << "Spider has crawled" << to_string(cond) << endl;
-			}
+		bool not_empty = urlFrontier->try_pop(currentUrl);
 
+		if(not_empty) {
+			size_t docID = hash(currentUrl.getCompleteUrl().c_str());
+			if (shouldURLbeCrawled(docID)) {
+				StreamReader *reader = SR_factory(&currentUrl, this->mode);
+				if (reader) {
+					bool success = reader->request();
+					if (success) {
+						cout << "Parsing " << currentUrl.getCompleteUrl();
+						DocIndex *dict = parser.execute(reader);
+						IndexerQueue->Push(dict);
 
-		if(urlFrontier->Size() > 0)
-			{
+						reader->closeReader();
+						//delete dict;
 
-				ParsedUrl * currentUrl = getUrl( );
-				size_t docID = hash( currentUrl->getCompleteUrl().c_str() );
-				if ( shouldURLbeCrawled( docID ) )
-				{
-					StreamReader *reader = SR_factory( currentUrl, this->mode );
-					if(reader)
-					{
-						bool success = reader->request( );
-						if ( success )
-						{
-							cout << "Parsing " << currentUrl->getCompleteUrl();
-							DocIndex *dict = parser.execute( reader );
-							IndexerQueue->Push( dict );
-
-							reader->closeReader( );
-							//delete dict;
-
-							cond++;
-						}
+						cond++;
 					}
-
-
-					delete reader;
-
-
 				}
+
+
+				delete reader;
+
+
 			}
+		}
 	}
 	cout << "Spider has finished running " << endl;
 	return;
