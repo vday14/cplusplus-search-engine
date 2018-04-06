@@ -25,7 +25,7 @@ int main ( ) {
 	for(auto dec : decorators)
 		{
 
-		ISRWord queryWord( dec + "globe");
+		ISRWord queryWord( dec + "trump");
 		queries.push_back(queryWord);
 		}
 
@@ -40,7 +40,7 @@ int main ( ) {
 			auto url = query.DocumentEnd->getCurrentDoc().url;
 			urls.insert( url  );
 			query.NextDocument();
-
+			cout << url << endl;
 			}
 
 		}

@@ -209,6 +209,31 @@ void UrlFrontier::readDataFromDisk( )
 	}
 
 
+void UrlFrontier::readBlackList()
+	{
+
+	string blackListFile = "/crawler/blacklist.txt"
+	char *hosts = util::getFileMap( fileName );
+
+	string toBlackList;
+	while ( *hosts )
+		{
+		if ( *hosts == '\n' )
+			{
+
+			Blacklist.insert(toBlackList)
+			toBlackList = "";
+			}
+		else
+			toBlackList.push_back( *hosts );
+
+		++hosts;
+		}
+	}
+
+	}
+
+
 
 void UrlFrontier::printAnchorTable()
 	{

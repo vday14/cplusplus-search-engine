@@ -29,6 +29,10 @@ class UrlFrontier
 	{
 
 	public:
+		UrlFrontier( ) {
+				readBlackList();
+		};
+
 		void Push ( ParsedUrl * url );
 		bool checkUrl(ParsedUrl *  url);
 		void readBlackList( );

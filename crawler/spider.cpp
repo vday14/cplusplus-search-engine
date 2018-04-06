@@ -106,7 +106,7 @@ void Spider::run ( )
 	std::cout << "Spider is crawling" << endl;
 	int cond = 0;
 
-	while (*alive && cond < 130)
+	while (*alive && cond < 100)
 	{
 		if(cond % 25 == 0)
 			{
