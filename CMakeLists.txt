@@ -203,6 +203,17 @@ add_executable(ISRWord-Multi-Test
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
+add_executable(ISRMultiWordORTest
+        constraintSolver/tests/ISRMultiWordORTest.cpp
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp )
+
+
 
 add_executable(DataStructures-Vector-tests
         DataStructures/Vector/Vector.h

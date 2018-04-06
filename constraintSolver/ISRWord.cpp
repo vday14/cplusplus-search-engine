@@ -11,7 +11,7 @@ size_t FileSize(int f) {
 
 ISRWord::ISRWord ( string word ) {
 	term = word;
-
+	frequency = 0;
 	getChunks( );
 	if(listOfChunks.size( ) == 0)
 		{
@@ -163,6 +163,7 @@ Location ISRWord::Seek( Location target ) {
 	 if(target <= currentLocation)
 		 return currentLocation;
 
+
     if(!wordSeekLookupTable.empty()) {
         auto best = wordSeekLookupTable.front();
         for(auto entry : wordSeekLookupTable) {
@@ -181,7 +182,6 @@ Location ISRWord::Seek( Location target ) {
         }
     } else {
         while(Next() <= target) {
-
         }
 		if( currentLocation == MAX_Location)
 			return MAX_Location;
@@ -192,17 +192,7 @@ Location ISRWord::Seek( Location target ) {
 }
 
 
-Location  ISRWord::NextDocument()
-	{
-	//FixMe
-	//seek the isr to the first location after the doc end
-	 currentLocation = Seek( DocumentEnd->getCurrentDoc().docEndPosition + 1);
-	//update the doc end to the next doc end after the new seek position
-	return DocumentEnd->getCurrentDoc().docEndPosition;
 
-
-
-	}
 
 ISREndDoc * ISRWord::GetEndDocument()
 	{

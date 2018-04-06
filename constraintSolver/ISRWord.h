@@ -26,9 +26,8 @@ class ISRWord : public ISR
 		ISRWord ( string word );
 
 
-		Location First ( ) override;
-		Location Next ( ) override;
-		Location NextDocument ( ) override;
+		Location First ( ) ;
+		Location Next ( ) ;
 		Location Seek ( Location target ) override;
 		ISREndDoc * GetEndDocument ( ) override;
 

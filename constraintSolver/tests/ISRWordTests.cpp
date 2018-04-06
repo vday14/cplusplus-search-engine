@@ -6,6 +6,7 @@
 #include <set>
 #include "../../indexer/DocumentEnding.h"
 #include "../ISRWord.h"
+#include "../../util/Stemmer.h"
 #include "../ISREndDoc.h"
 
 
@@ -22,13 +23,17 @@ int main ( ) {
 	decorators.push_back("@");
 	decorators.push_back("$");
 
+	Stemmer stem;
+	/*
 	for(auto dec : decorators)
 		{
 
-		ISRWord queryWord( dec + "trump");
+		ISRWord queryWord( dec + stem.execute("world") ) ;
 		queries.push_back(queryWord);
 		}
-
+*/
+	ISRWord queryWord( "world" ) ;
+	queries.push_back(queryWord);
 	vector<size_t> locations;
 	set<string> urls;
 
@@ -40,7 +45,7 @@ int main ( ) {
 			auto url = query.DocumentEnd->getCurrentDoc().url;
 			urls.insert( url  );
 			query.NextDocument();
-			cout << url << endl;
+
 			}
 
 		}
