@@ -29,17 +29,26 @@ ISRWord::ISRWord ( string word ) {
 void ISRWord::getChunks() {
     MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + pathToIndex + "master.txt" , 30, 168);
 	string value = diskHashTable.find(term);
+	int part = 0;
     string chunkInput = "";
     for(char val : value) {
         if(isnumber(val)) {
             chunkInput += val;
-        } else if(val != '\t') {
+        } else if(val == ' ') {
             listOfChunks.push_back(stoll(chunkInput));
             chunkInput = "";
+        }  else if(val == '\t' && chunkInput != "") {
+        	if(part == 0) {
+        		frequency = stoll(chunkInput);
+        	} else if(part == 1) {
+        		lastLocation = stoll(chunkInput);
+        	}
+        	part++;
+        	chunkInput = "";
         }
     }
     if(chunkInput != "") {
-        frequency = stoll(chunkInput);
+		docFrequency = stoll(chunkInput);
     }
 }
 
@@ -124,6 +133,14 @@ Location ISRWord::getCurrentLocation() {
 
 size_t ISRWord::getFrequency() {
 	return frequency;
+}
+
+size_t ISRWord::getDocFrequency() {
+	return docFrequency;
+}
+
+size_t ISRWord::getLastLocation() {
+	return lastLocation;
 }
 
 void ISRWord::getWordSeek() {
