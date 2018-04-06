@@ -41,7 +41,7 @@ void Indexer::run()
 					}
                 chunkDictionary[word.first].docFrequency++;
                 indexedCount += word.second.size( );
-				currentBlockNumberWords += word.second.size( );
+					currentBlockNumberWords += word.second.size( );
 
 				for ( auto location : word.second )
 					{

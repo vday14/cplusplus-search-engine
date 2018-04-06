@@ -1,4 +1,8 @@
 //
+// Created by Jake Close on 4/6/18.
+//
+
+//
 // Created by nick on 3/16/18.
 //
 
@@ -27,8 +31,8 @@ int main ( )
 	static const char HOST = '=';
 	*/
 
-	ISRWord q1 = ISRWord("moment");
-	ISRWord q2 = ISRWord("life");
+	ISRWord q1 = ISRWord("chicken");
+	ISRWord q2 = ISRWord("waffle");
 
 
 	queries.push_back(q2);
@@ -90,13 +94,14 @@ int main ( )
 
 	std::vector<string> v_intersection;
 
-	std::set_intersection(v1.begin(), v1.end(),
+	std::set_union(v1.begin(), v1.end(),
 								 v2.begin(), v2.end(),
 								 std::inserter(v_intersection, v_intersection.begin()));
 	for(auto url : v_intersection)
 		std::cout << url << endl;
 
 	cout << "Number of results" << v_intersection.size( ) << endl;
+
 
 	return 0;
 	}

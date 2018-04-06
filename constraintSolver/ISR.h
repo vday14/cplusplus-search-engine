@@ -29,15 +29,18 @@ class ISR
 
 public:
 	// Returns
-	virtual Location First ( ) = 0;
 
 	//Returns next post of a word given current location
-	virtual Location Next ( ) = 0;
+	//virtual Location Next ( ) = 0;
 
 
 	//Calls seek onto one past the current end doc location
 	//Return first instance of word at new document
-	virtual Location NextDocument ( ) = 0;
+	void NextDocument ( ) {
+
+		currentLocation = Seek( GetEndDocument()->getCurrentDoc().docEndPosition + 1);
+
+		}
 
 	//Returns first instance of word after target location
 	virtual Location Seek ( Location target ) = 0;
@@ -47,10 +50,13 @@ public:
 	virtual ISREndDoc * GetEndDocument ( ) = 0;
 
 
+	Location GetCurrentLocation ( )
+		{
+		return currentLocation;
+		}
 
 
-
-	Location currentLocation;
+	Location currentLocation = 0;
 	ISREndDoc *DocumentEnd = new ISREndDoc ( );
 
 
