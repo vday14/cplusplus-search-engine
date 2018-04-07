@@ -154,7 +154,8 @@ void ISRWord::getWordSeek() {
 //check seek lookup table to find if offset+absulte is bigger than target
 //if so, set location to that big chunk
 //go to next chunk
-Location ISRWord::Seek( Location target ) {
+Location ISRWord::Seek( Location target )
+	{
 	 if(target <= currentLocation)
 		 return currentLocation;
 
@@ -194,9 +195,13 @@ Location  ISRWord::NextDocument()
 	 currentLocation = Seek( DocumentEnd->getCurrentDoc().docEndPosition + 1);
 	//update the doc end to the next doc end after the new seek position
 	return DocumentEnd->getCurrentDoc().docEndPosition;
+	}
 
 
-
+//Returns the location of the last item in the document you're currently at
+Location ISRWord::GetEndDocumentLocation () const
+	{
+	return DocumentEnd->getCurrentDoc().docEndPosition;
 	}
 
 ISREndDoc * ISRWord::GetEndDocument()
@@ -205,7 +210,8 @@ ISREndDoc * ISRWord::GetEndDocument()
 	return DocumentEnd;
 	}
 
-ISR * ISRWord::GetISRToBeginningOfDocument ( ) {
+ISR * ISRWord::GetISRToBeginningOfDocument ( )
+	{
 
 	Location beginningOfDoc = DocumentEnd->getCurrentDoc().docEndPosition - DocumentEnd->getCurrentDoc().docNumWords;
 	ISR* BeginngISR = new ISRWord(this->term);
