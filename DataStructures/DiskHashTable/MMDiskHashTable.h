@@ -32,6 +32,8 @@ class MMDiskHashTable {
 
 public:
 
+    MMDiskHashTable() {}
+
     /**
      * Constructs a disk hash table. If the file at the path is not found, or has a file size of 0, it will
      * automatically spawn a file for the disk hash table. The initial number of bytes that the hash table spawns with

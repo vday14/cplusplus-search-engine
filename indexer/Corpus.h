@@ -1,0 +1,27 @@
+#pragma once
+
+#include <vector>
+#include "../util/util.h"
+#include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
+#include "WordInfo.h"
+#include "Chunk.h"
+
+class Corpus {
+
+public:
+
+    Corpus();
+    WordInfo getWordInfo(string word);
+    size_t numberChunks;
+    size_t numberDocuments;
+    size_t numberWords;
+    std::vector<Chunk> chunks;
+
+private:
+
+    MMDiskHashTable master = MMDiskHashTable(util::GetCurrentWorkingDir() +
+                                             IndexerConstants::pathToIndex +
+                                             "master.txt",
+                                             IndexerConstants::masterKeySize,
+                                             IndexerConstants::masterValueSize);
+};
