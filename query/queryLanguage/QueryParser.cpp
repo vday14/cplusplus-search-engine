@@ -4,7 +4,7 @@
 
 #include "QueryParser.h"
 #include<unordered_set>
-#include "../../util/stringProcessing.h"
+//#include "../../util/stringProcessing.h"
 #include<iostream>
 /***
  *  QUERY PARSER CLASS
@@ -47,6 +47,10 @@ Token QueryParser::FindNextToken( int &index ){
 			}
 		else if ( stopChars.count( query[ start + size ] ) > 0)
 			{
+			while( query[start] == ' ')
+				{
+				++start;
+				}
 			index = start + size;
 			string text = query.substr ( start, size );
 			cout << "horse" << text;

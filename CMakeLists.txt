@@ -299,8 +299,8 @@ add_executable(testISRQueryTuple
 
 add_executable(query-queryLanguage-tests
         query/queryLanguage/QueryParser.cpp
-
-
+        query/queryLanguage/QueryParser.h
+        util/DataStructureLib/tuple.cpp
         )
 
 
