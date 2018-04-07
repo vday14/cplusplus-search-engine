@@ -15,5 +15,27 @@ int main() {
         cout << "\tNumber documents: " << corpus.chunks[i].numberDocs << endl;
         cout << "\tEnding offset: " << corpus.chunks[i].lastLocation << endl;
     }
+    WordInfo momentInfo = corpus.getWordInfo("moment");
+    cout << "Moment" << endl;
+    cout << "\tChunks: ";
+    for(auto chunk : momentInfo.chunks) {
+        cout << chunk << " ";
+    }
+    cout << endl;
+    cout << "\tDocument frequency: " << momentInfo.docFrequency << endl;
+    cout << "\tFrequency: " << momentInfo.frequency << endl;
+    cout << "\tLast location: " << momentInfo.lastLocation << endl;
+
+    WordInfo lifeInfo = corpus.getWordInfo("life");
+    cout << "Life" << endl;
+    cout << "\tChunks: ";
+    for(auto chunk : lifeInfo.chunks) {
+        cout << chunk << " ";
+    }
+    cout << endl;
+    cout << "\tDocument frequency: " << lifeInfo.docFrequency << endl;
+    cout << "\tFrequency: " << lifeInfo.frequency << endl;
+    cout << "\tLast location: " << lifeInfo.lastLocation << endl;
+
     return 0;
 }

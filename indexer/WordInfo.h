@@ -6,11 +6,6 @@ class WordInfo {
 
 public:
 
-    /**
-     * Meant to parse in input from master DHT
-     * @param value Value from DHT
-     */
-
     WordInfo() {
         chunks = std::vector<int>();
         frequency = 0;
@@ -18,6 +13,10 @@ public:
         lastLocation = 0;
     }
 
+    /**
+     * Meant to parse in input from master DHT
+     * @param value Value from DHT
+     */
     WordInfo(string value) {
         if(value == "") {
             return;

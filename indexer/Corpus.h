@@ -16,9 +16,6 @@ public:
     size_t numberDocuments;
     size_t numberWords;
     std::vector<Chunk> chunks;
-
-private:
-
     MMDiskHashTable master = MMDiskHashTable(util::GetCurrentWorkingDir() +
                                              IndexerConstants::pathToIndex +
                                              "master.txt",
