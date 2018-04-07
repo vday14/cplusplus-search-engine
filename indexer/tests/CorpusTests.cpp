@@ -9,7 +9,11 @@ int main() {
     cout << "Number documents: " << corpus.numberDocuments << endl;
     cout << "Number words: " << corpus.numberWords << endl;
     for(int i = 0; i < corpus.chunks.size(); i++) {
-        cout << "Ending for chunk " << i << ": " << corpus.chunks[i].lastLocation << endl;
+        cout << "Chunk " << i << endl;
+        cout << "\tNumber unique words: " << corpus.chunks[i].numberUniqueWords << endl;
+        cout << "\tNumber words: " << corpus.chunks[i].numberWords << endl;
+        cout << "\tNumber documents: " << corpus.chunks[i].numberDocs << endl;
+        cout << "\tEnding offset: " << corpus.chunks[i].lastLocation << endl;
     }
     return 0;
 }
