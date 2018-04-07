@@ -182,6 +182,8 @@ add_executable(ISRWord-tests
         constraintSolver/tests/ISRWordTests.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
+        indexer/Chunk.cpp
+        indexer/Corpus.cpp
         util/Stemmer.cpp )
 
 add_executable(ISREndDoc-tests
@@ -263,12 +265,16 @@ add_executable(MasterReader-tests
 
 
 add_executable(Corpus-tests
+
         indexer/tests/CorpusTests.cpp
         indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        DataStructures/DiskHashTable/MMDiskHashTable.h
         util/stringProcessing.cpp
         util/Stemmer.cpp
         util/util.cpp
         )
+
 
 add_executable(query-Ranker-tests
         query/Ranker/tests/RankerTest.cpp
@@ -319,6 +325,7 @@ add_executable(query-queryLanguage-tests
         query/queryLanguage/QueryParser.h
         util/DataStructureLib/tuple.cpp
         )
+
 
 
 find_package(OpenSSL REQUIRED)

@@ -54,7 +54,7 @@ void ISRContainer::Solve( )
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
 		cout << url << endl;
 		Location BeginningfDocument = Contained->GetISRToBeginningOfDocument( );
-		PassToRanker( BeginningfDocument );
+		//PassToRanker( BeginningfDocument );
 
 		//PassToRanker( BeginningfDocument );
 		Contained->NextDocument( );

@@ -4,22 +4,26 @@
 #include "../util/util.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 
+
 #define pathToIndexMaster "/constraintSolver/index-test-files/twitter/master.txt"
+#include "WordInfo.h"
+#include "Chunk.h"
+
 
 class Corpus {
 
 public:
 
     Corpus();
-    size_t getNumDocuments();
-    size_t getNumWords();
-    size_t getNumChunks();
-    size_t getChunkEnding(size_t chunk);
 
-private:
-
-    size_t numDocuments;
-    size_t numWords;
-    std::vector<size_t> chunkEndings;
-
+    WordInfo getWordInfo(string word);
+    size_t numberChunks;
+    size_t numberDocuments;
+    size_t numberWords;
+    std::vector<Chunk> chunks;
+    MMDiskHashTable master = MMDiskHashTable(util::GetCurrentWorkingDir() +
+                                             IndexerConstants::pathToIndex +
+                                             "master.txt",
+                                             IndexerConstants::masterKeySize,
+                                             IndexerConstants::masterValueSize);
 };

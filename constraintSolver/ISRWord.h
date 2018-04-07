@@ -45,7 +45,7 @@ class ISRWord : public ISR
 		char *masterIndex;
 		vector< size_t > listOfChunks;
 		vector< WordSeek > wordSeekLookupTable;
-		size_t currentChunk;
+		size_t &currentChunk;
 		char *currentMemMap;
 
 		//set member variables to all of the chunks that occur, update current chunk
@@ -63,7 +63,9 @@ private:
     size_t lastLocation;
     size_t docFrequency;
     size_t frequency;
+	Corpus corpus;
 
-};
+
+	};
 
 

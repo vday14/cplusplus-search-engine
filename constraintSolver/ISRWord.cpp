@@ -12,6 +12,7 @@ size_t FileSize(int f) {
 ISRWord::ISRWord ( string word ) {
 	term = word;
 	frequency = 0;
+
 	getChunks( );
 	if(listOfChunks.size( ) == 0)
 		{
@@ -85,7 +86,9 @@ Location ISRWord::First ( )
     }
 	currentMemMap++;
 	getWordSeek();
-	return stoll( firstLoc );
+	 currentLocation = stoll( firstLoc );
+	return currentLocation;
+
 	}
 
 //returns next absolute location in corpus
@@ -178,35 +181,98 @@ void ISRWord::getWordSeek() {
 //go to next chunk
 Location ISRWord::Seek( Location target )
 	{
+
+	if(target == 124924)
+		cout << "Bug target "<< endl;
 	 if(target <= currentLocation)
 		 return currentLocation;
 
+	size_t lastBest = currentChunk;
+	//iterate through the chunks in corpus
+	while(currentChunk < listOfChunks.size( ) )
+		{
+		//find a potential chunk
+		Location potentialChunk = listOfChunks[ currentChunk ];
 
-    if(!wordSeekLookupTable.empty()) {
-        auto best = wordSeekLookupTable.front();
-        for(auto entry : wordSeekLookupTable) {
-            if(entry.realLocation < target) {
-                best = entry;
-            } else {
-                string currentChunkFileLocation = util::GetCurrentWorkingDir() + pathToIndex + to_string(listOfChunks[currentChunk]) + ".txt";
-                int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
-                ssize_t currentChunkFileSize = FileSize(currentChunkFile);
-                currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
-                currentMemMap += best.seekOffset;
-                currentLocation = best.realLocation;
-					 DocumentEnd->seek( currentLocation );
-                return best.realLocation;
-            }
-        }
-    } else {
-        while(Next() <= target) {
-        }
-		if( currentLocation == MAX_Location)
-			return MAX_Location;
+		if(target < corpus.chunks[ potentialChunk  ].lastLocation   )
+			{
+			lastBest = currentChunk;
+			currentChunk++;
+			}
+			//if past point larger
+		else
+			currentChunk = lastBest;
+			break;
 
-		 DocumentEnd->seek( currentLocation );
-		 return currentLocation;
-    }
+		}
+	//have best chunk, initalize files
+	First();
+
+
+	if(!wordSeekLookupTable.empty())
+		{
+		auto best = wordSeekLookupTable.front( );
+		for ( auto entry : wordSeekLookupTable )
+			{
+			if ( entry.realLocation < target )
+				best = entry;
+			else
+				break;
+			}
+
+		currentMemMap += best.seekOffset;
+		currentLocation = best.realLocation;
+
+		}
+
+		while(Next() <= target);
+
+
+	DocumentEnd->seek( currentLocation);
+	return currentLocation;
+
+
+
+
+
+
+
+			/*
+			 if(!wordSeekLookupTable.empty()) {
+				  auto best = wordSeekLookupTable.front();
+				  for(auto entry : wordSeekLookupTable) {
+						if(entry.realLocation < target) {
+							 best = entry;
+						} else {
+							 string currentChunkFileLocation = util::GetCurrentWorkingDir() + pathToIndex + to_string(listOfChunks[currentChunk]) + ".txt";
+							 int currentChunkFile = open(currentChunkFileLocation.c_str(), O_RDONLY);
+							 ssize_t currentChunkFileSize = FileSize(currentChunkFile);
+							 currentMemMap = (char*) mmap(nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0);
+							 currentMemMap += best.seekOffset;
+							 currentLocation = best.realLocation;
+							if((DocumentEnd->getCurrentDoc().docEndPosition - DocumentEnd->getCurrentDoc().docNumWords) < currentLocation){
+								cerr << "PROBLEM" << endl;
+								exit(0);
+								}
+							 DocumentEnd->seek( currentLocation );
+
+							 return best.realLocation;
+						}
+
+				  }
+				 cout << "End of for loop"<< endl;
+			 } else {
+				  while(Next() <= target) {
+					cout << "NEXTING" << endl;
+				  }
+
+				 cout << "never gets here " << endl;
+				if( currentLocation == MAX_Location)
+					return MAX_Location;
+
+				 DocumentEnd->seek( currentLocation );
+				 return currentLocation;
+				 */
 }
 
 

@@ -15,7 +15,7 @@
 #include <sys/types.h>
 #include <limits>
 #include "ISREndDoc.h"
-
+#include "../indexer/Corpus.h"
 #define pathToIndex "/constraintSolver/index-test-files/twitter/"
 //#define pathToIndex "/buildIndex/"
 
