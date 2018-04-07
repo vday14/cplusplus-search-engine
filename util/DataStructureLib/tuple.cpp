@@ -75,4 +75,9 @@ public:
 			}
 		}
 
+	int getNumberOfChildren()
+		{
+		return Next.size();
+		}
+
 	};
