@@ -1,33 +1,33 @@
 #include "Indexer.h"
 
 
-#define  pathToIndex "/build/"
+//#define  pathToIndex "/build/"
+#define	 pathToIndex "/constraintSolver/index-test-files/twitter/"
 
 Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in,
-						ProducerConsumerQueue < unordered_map < string, DocIndex * > > *anchor_in
-) :
+						ProducerConsumerQueue < unordered_map < string, DocIndex * > > *anchor_in) :
 		pointerToDictionaries( doc_index_queue_in ), AnchorQueue( anchor_in )
 	{
-	totalWordsIndexed = 0;
 	currentFile = 0;
 	currentlyIndexed = 0;
 	currentBlockNumberWords = 0;
 	currentBlockNumberDocs = 0;
-
+	numberDocsIndexed = 0;
 	}
 
 void Indexer::run()
 	{
 
 
-	while ( *alive  || pointerToDictionaries->Size( ) > 0 )
+	while ( *alive || pointerToDictionaries->Size( ) > 0 )
 		{
-
 		if( pointerToDictionaries->Size( ) > 0)
 			{
 
-
 			DocIndex *dictionary = pointerToDictionaries->Pop( );
+			numberDocsIndexed++;
+			cout << "Number of documents indexed :: " << to_string(numberDocsIndexed) << endl;
+
 			DocumentEnding docEnd = DocumentEnding( );
 			size_t indexedCount = 0;
 			currentBlockNumberDocs++;
@@ -39,10 +39,9 @@ void Indexer::run()
 					docEnd.url = word.first.substr( 1, word.first.length( ));
 					continue;
 					}
-
-				indexedCount += word.second.size( );
-				currentBlockNumberWords += word.second.size( );
-				totalWordsIndexed += word.second.size( );
+                chunkDictionary[word.first].docFrequency++;
+                indexedCount += word.second.size( );
+					currentBlockNumberWords += word.second.size( );
 
 				for ( auto location : word.second )
 					{
@@ -71,8 +70,6 @@ void Indexer::run()
 
 		}
 	cout << "Indexer is shutting down" << endl;
-	//cout << "Size of ptr 2 dict" << pointerToDictionaries->Size( );
-	//cout << "alive state: " << *alive;
 	save( );
 	saveWordSeek( );
 	reset( );
@@ -84,38 +81,23 @@ void Indexer::run()
 	return;
 	}
 
-void Indexer::verbose_run()
-	{
-	/*
-    while(pointerToDictionaries.Size() != 0) {
-		 	DocIndex *pointerToDictionaries.Pop();
-        for(auto word : dictionary) {
-	        for(auto location : word.second) {
-//                indexedCount++;
-                masterDictionary[word.first].push_back(location);
-                }
-            }
-        }
-        */
-	}
-
 void Indexer::save()
 	{
-
 	MMDiskHashTable seeker( util::GetCurrentWorkingDir( ) + pathToIndex + to_string( currentFile ) + "-seek.txt", 30, 8 );
 	string fileName = util::GetCurrentWorkingDir( ) + pathToIndex + to_string( currentFile ) + ".txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
 	// TODO: these should really be c strings
 	string statsHeader = "===STATS==="
-										"\nunique words: " + to_string( masterDictionary.size( )) +
-								"\nnumber words: " + to_string( currentBlockNumberWords ) +
-								"\nnumber docs: " + to_string( currentBlockNumberDocs ) +
-								"\n===========\n";
+                        "\nunique words: " + to_string( masterDictionary.size( )) +
+                        "\nnumber words: " + to_string( currentBlockNumberWords ) +
+                        "\nnumber docs: " + to_string( currentBlockNumberDocs ) +
+                        "\n===========\n";
 	write( file, statsHeader.c_str( ), strlen( statsHeader.c_str( )));
 
 	// REALLY GROSS HACK
 	size_t seekOffset = strlen( statsHeader.c_str( ));
+	size_t chunkEnd = 0;
 
 	for ( auto word : masterDictionary )
 		{
@@ -130,23 +112,24 @@ void Indexer::save()
 			seeker.insert( word.first, to_string( seekOffset ));
 			}
 
-		chunkDictionary[ word.first ].first.push_back( currentFile );
-//        string wordBreak = word.first + "\n";
-//        write(file, wordBreak.c_str(), strlen(wordBreak.c_str()));
-//        seekOffset += strlen(wordBreak.c_str());
+		chunkDictionary[ word.first ].chunks.push_back( currentFile );
+
 		bool firstPost = true;
 		size_t lastOne = 0;
 		int numIndexed = 0;
 		for ( auto location : word.second )
 			{
-			chunkDictionary[ word.first ].second++;
+			if(chunkEnd < location) {
+				chunkEnd = location;
+			}
+			chunkDictionary[ word.first ].frequency++;
 			numIndexed++;
 			if ( numIndexed == 100 )
 				{
-				PostingsSeekTableEntry entry = PostingsSeekTableEntry( );
+				SeekEntry entry = SeekEntry( );
 				entry.offset = seekOffset;
 				entry.realLocation = location;
-				postingsSeekTable[ word.first ].push_back( entry );
+                seekDictionary[ word.first ].push_back( entry );
 				numIndexed = 0;
 				}
 			if ( firstPost )
@@ -165,6 +148,7 @@ void Indexer::save()
 				}
 			lastOne = location;
 			}
+		chunkDictionary[ word.first ].lastLocation = lastOne;
 		write( file, "\n", 1 );
 		seekOffset += 1;
 		}
@@ -177,21 +161,21 @@ void Indexer::save()
 	for ( auto ending : docEndings )
 		{
 		string docEndString = "[" +
-									 ending.url + ", " +
-									 to_string( ending.docEndPosition ) + ", " +
-									 to_string( ending.docNumWords ) + "]\n";
+                                 ending.url + ", " +
+                                 to_string( ending.docEndPosition ) + ", " +
+                                 to_string( ending.docNumWords ) + "]\n";
 		write( file, docEndString.c_str( ), strlen( docEndString.c_str( )));
 		docEndSeekCounter++;
 		if ( docEndSeekCounter == 100 )
 			{
 			docEndSeekCounter = 0;
-			docEndingsSeek.push_back( {ending.docEndPosition, seekOffset} );
+			seekDictionary["=docEnding"].push_back( SeekEntry(ending.docEndPosition, seekOffset ));
 			}
 		seekOffset += strlen( docEndString.c_str( ));
 		}
-
+	chunkEndLocation.push_back(chunkEnd);
 	close( file );
-	//seeker.CloseFile();
+        //seeker.CloseFile();
 	}
 
 void Indexer::saveChunkDictionary()
@@ -206,23 +190,35 @@ void Indexer::saveChunkDictionary()
 			key.resize( 30 );
 			}
 		string value = "";
-		for ( auto chunk : word.second.first )
+		for ( auto chunk : word.second.chunks )
 			{
 			value += to_string( chunk ) + " ";
 			}
-		value += "\t" + to_string( word.second.second );
+		value += "\t" + to_string( word.second.frequency );
+		value += "\t" + to_string( word.second.lastLocation);
+		value += "\t" + to_string( word.second.docFrequency);
 		dhtChunk.insert( key, value );
 		}
-	dhtChunk.insert( "=totalNumberIndexed", to_string( totalWordsIndexed ));
+	dhtChunk.insert( "=totalNumberIndexed", to_string( currentlyIndexed ));
+	dhtChunk.insert("=totalDocsIndexed", to_string(numberDocsIndexed));
+	int currentChunk = 0;
+	for(auto location : chunkEndLocation) {
+		string key = "=chunk" + to_string(currentChunk);
+		dhtChunk.insert(key, to_string(location));
+		currentChunk++;
+	}
 	}
 
 void Indexer::saveWordSeek()
 	{
 	MMDiskHashTable wordSeek = MMDiskHashTable(
 			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( currentFile ) + "-wordseek.txt", 30, 168 );
-	for ( auto word : postingsSeekTable )
+	for ( auto word : seekDictionary )
 		{
 		string key = word.first;
+		if(key == "=docEnding") {
+			continue;
+		}
 		if ( key.size( ) > 30 )
 			{
 			key.resize( 30 );
@@ -237,11 +233,11 @@ void Indexer::saveWordSeek()
 	string key = "=docEnding";
 	string value = "";
 	int currentEndingPartition = 0;
-	for ( size_t i = 0; i < docEndingsSeek.size( ); i++ )
+	for ( size_t i = 0; i < seekDictionary["=docEnding"].size( ); i++ )
 		{
 		string prospectiveDocEnding = "<" +
-												to_string( docEndingsSeek[ i ].first ) +
-												", " + to_string( docEndingsSeek[ i ].second ) + "> ";
+												to_string( seekDictionary["=docEnding"][ i ].offset ) +
+												", " + to_string( seekDictionary["=docEnding"][ i ].realLocation ) + "> ";
 		if ( value.size( ) + prospectiveDocEnding.size( ) <= 168 )
 			{
 			value += prospectiveDocEnding;
@@ -253,39 +249,23 @@ void Indexer::saveWordSeek()
 			value = prospectiveDocEnding;
 			}
 		}
-	}
-
-void Indexer::verbose_save()
-	{
-	map < string, vector < size_t > > maps( masterDictionary.begin( ), masterDictionary.end( ));
-	for ( auto word : maps )
-		{
-		cout << word.first << endl;
-		for ( auto location : word.second )
-			{
-			cout << location << " ";
-			}
-		cout << endl;
-		}
-	currentFile++;
+		currentFile++;
 	}
 
 void Indexer::reset()
 	{
 	masterDictionary.clear( );
 	docEndings.clear( );
-	postingsSeekTable.clear( );
-	docEndingsSeek.clear( );
+	seekDictionary.clear();
 	currentBlockNumberWords = 0;
 	currentBlockNumberDocs = 0;
-
 	}
 
 
 void Indexer::Kill()
 	{
 	*(this->alive) = false;
-	currentFile++;
+	//currentFile++;
 	}
 
 
@@ -308,12 +288,12 @@ void Indexer::SaveAnchorText( unordered_map < string, DocIndex * > *anchorDict )
 	for ( auto const &ent1 : *anchorDict )
 		{
 		auto const &outer_key = ent1.first;
-		cout << "url: " << outer_key << endl;
+		//cout << "url: " << outer_key << endl;
 
 		if ( urlToDocEndings.find( outer_key ) != urlToDocEndings.end( ))
 			{
 			size_t docEndForUrl = urlToDocEndings[ outer_key ];
-			cout << "Urls doc end : " << docEndForUrl << endl;
+			//cout << "Urls doc end : " << docEndForUrl << endl;
 
 			}
 

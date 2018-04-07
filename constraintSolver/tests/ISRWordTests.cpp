@@ -6,6 +6,7 @@
 #include <set>
 #include "../../indexer/DocumentEnding.h"
 #include "../ISRWord.h"
+#include "../../util/Stemmer.h"
 #include "../ISREndDoc.h"
 
 
@@ -13,21 +14,42 @@ using namespace std;
 
 int main ( ) {
 	//char* query = "iphone";
-	ISRWord queryWord("%trump");
-	ISREndDoc endDocs;
+
+
+	vector<ISRWord> queries;
+	vector<string> decorators;
+	decorators.push_back("#");
+	decorators.push_back("%");
+	decorators.push_back("@");
+	decorators.push_back("$");
+
+	Stemmer stem;
+	/*
+	for(auto dec : decorators)
+		{
+
+		ISRWord queryWord( dec + stem.execute("world") ) ;
+		queries.push_back(queryWord);
+		}
+*/
+	ISRWord queryWord( "world" ) ;
+	queries.push_back(queryWord);
 	vector<size_t> locations;
-	vector<DocumentEnding> docEnds;
 	set<string> urls;
 
 	clock_t start = clock();
 
+	for(auto query : queries)
+		{
+		while(query.getCurrentLocation() != MAX_Location)  {
+			auto url = query.DocumentEnd->getCurrentDoc().url;
+			urls.insert( url  );
+			query.NextDocument();
 
-	while(queryWord.getCurrentLocation() != MAX_Location)  {
-		auto url = queryWord.DocumentEnd->getCurrentDoc().url;
-		urls.insert( url  );
-		queryWord.NextDocument();
+			}
 
 		}
+
 
     clock_t end = clock();
 

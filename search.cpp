@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
-#include "query/Query.h"
+#include "query/Searcher.h"
 
 
 using namespace std;

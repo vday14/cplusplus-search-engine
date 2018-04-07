@@ -3,113 +3,78 @@
 //
 
 #include "ISROr.h"
+#include <cassert>
 
-
-ISROr::ISROr ( vector<ISR * > InputTerms ) : Terms( InputTerms )
+ISROr::ISROr( vector < ISR * > InputTerms ) : Terms( InputTerms )
 	{
 
-	for (auto currentTerm : InputTerms)
+	assert( InputTerms.size( ) > 1 );
+
+	Location first = MAX_Location;
+
+	for ( auto isr : Terms )
 		{
-		currentTerm->First();
-		Location currentLocation = currentTerm->currentLocation;
-		if (currentLocation < nearestStartLocation) {
-			nearestTerm = currentTerm;
-			nearestStartLocation = currentLocation;
-
+		Location temp = isr->currentLocation;
+		if ( temp < first )
+			{
+			first = temp;
+			}
 		}
-		if (currentLocation > nearestEndLocation) {
-			nearestEndLocation = currentLocation;
-		}
-		++NumberOfTerms;
-		currentTerm++;
 
-		}
+
+	//fixme should this return the nearest location of one subterm or the nearest location all the terms match?
+	currentLocation = Seek( first  );
+	return;
 	}
 
 
-Location ISROr::GetStartLocation ( )
-	{
-	return nearestStartLocation;
-	}
-
-Location ISROr::GetCurrentLocation(){
-	return nearestStartLocation;
-	}
 
 
-Location ISROr::GetEndLocation ( )
-	{
-	return nearestEndLocation;
-	}
 
 
-Location ISROr::First()
-	{
-	//Fixme
-	Location x;
-	return x;
-	}
-
-/*
-Returns the location of the next document that is a match
-*/
-Location ISROr::Next ( )
-	{
-	Location nearestEnd = this->nearestTerm->GetEndDocument( );
-
-	for(auto Term : Terms)
-	{
-		Location newSeekLocation = Term->Seek( nearestEnd + 1 );
-		if ( newSeekLocation < nearestStartLocation )
-		{
-			nearestStartLocation = newSeekLocation;
-			nearestTerm = Term;
-		}
-	}
-
-	return this->nearestTerm->currentLocation;
-
-	}
-
-Location ISROr::NextDocument()
-	{
-	//Fixme
-	Location x;
-	return x;
-	}
-
-
-Location ISROr::Seek ( Location target )
+Location ISROr::Seek( Location target )
 	{
 
-	// Seek all the ISRs to the first occurrence beginning at// the target location. Return null if there is no match.
-	// The document is the document containing the nearest term.
-	//seek past target locations,
-	//seek all terms in or past starting location, take the ones that nears
-	//the document that the nearest term is in is the document ur in
-	//updates private members
+
+	//Todo
+	// 1. Seek all the ISRs to the first occurrence beginning at
+	//    the target location.
+	// 2. Move the document end ISR to just past the furthest
+	//    word, then calculate the document begin location.
+	// 3. Seek all the other terms to past the document begin.
+	// 4. If any term is past the document end, return to
+	//    step 2.
+	// 5. If any ISR reaches the end, there is no match.
+
+	Location nearest = MAX_Location ;
+
+
+		//find nearest & furthest ISR
+		for ( auto isr : Terms )
+			{
+			Location temp = isr->Seek( target );
+			if ( temp < nearest )
+				{
+				nearest = temp;
+				nearestTerm = isr;
+				}
+
+			}
+		return nearest;
 
 
 
 
-	return 1;
+
+
 
 	}
 
-
-Location ISROr::GetEndDocument()
+ISREndDoc *ISROr::GetEndDocument()
 	{
-	//Fixme
-	Location x;
-	return x;
+	//What does currentLocation hold?  When is it updated?
+	return nearestTerm->DocumentEnd;
 	}
 
-/*
-ISR *ISROr::GetCurrentEndDoc ( )
-	{
 
-	return this->nearestTerm->GetDocumentISR( );
-
-	}
-*/
 

@@ -25,9 +25,9 @@ class ISRWord : public ISR
 	public:
 		ISRWord ( string word );
 
-		Location First ( ) override;
-		Location Next ( ) override;
-		Location NextDocument ( ) override;
+
+		Location First ( ) ;
+		Location Next ( ) ;
 		Location Seek ( Location target ) override;
 		ISREndDoc * GetEndDocument ( ) override;
 
@@ -37,7 +37,6 @@ class ISRWord : public ISR
 		unsigned GetNumberOfOccurrences ( );
 
 		string GetTerm( );
-		ISR * GetISRToBeginningOfDocument ( ) ;
 
 
 	// ISR *GetDocumentISR( );
@@ -45,20 +44,26 @@ class ISRWord : public ISR
 		string term;
 		char *masterIndex;
 		vector< size_t > listOfChunks;
-		size_t frequency;
 		vector< WordSeek > wordSeekLookupTable;
 		size_t currentChunk;
 		char *currentMemMap;
 
-
 		//set member variables to all of the chunks that occur, update current chunk
 		void getChunks ( );
 		Location getCurrentLocation();
+		size_t getFrequency();
+		size_t getDocFrequency();
+		size_t getLastLocation();
 
-	private:
+		Location GetEndDocumentLocation() const;
+
+private:
 	void getWordSeek();
+	
+    size_t lastLocation;
+    size_t docFrequency;
+    size_t frequency;
 
-	size_t getFrequency();
 };
 
 

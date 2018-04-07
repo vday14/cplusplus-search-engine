@@ -13,11 +13,11 @@ using DocIndex = const unordered_map< string, vector< unsigned long > >;
  */
 
 
-void Crawler::SpawnSpiders ( size_t num_spiders , atomic_bool * alive)
+void Crawler::SpawnSpiders ( size_t num_spiders , atomic_bool * alive, int numdocs)
 	{
 	for ( size_t i = 0; i < num_spiders; i++ )
 		{
-		Spider *temp = new Spider( this->mode, this->urlFrontier, this->IndexerQueue , alive);
+		Spider *temp = new Spider( this->mode, this->urlFrontier, this->IndexerQueue , alive, numdocs);
 		temp->StartThread( );
 		this->spiders.push_back( temp );
 		}

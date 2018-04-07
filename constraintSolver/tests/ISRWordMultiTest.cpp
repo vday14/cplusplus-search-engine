@@ -19,14 +19,23 @@ int main ( )
 	vector<ISRWord> queries;
 	vector< vector< size_t > > locations;
 
+	/*
+	static const char TITLE = '#';
+	static const char ANCHOR = '@';
+	static const char URL = '$';
+	static const char BODY = '%';
+	static const char HOST = '=';
+	*/
 
-	ISRWord q1 = ISRWord("fake");
-	ISRWord q2 = ISRWord("time");
+	ISRWord q1 = ISRWord("moment");
+	ISRWord q2 = ISRWord("life");
+
+
 	queries.push_back(q2);
 	queries.push_back(q1);
 
 
-	vector<DocumentEnding> docEnds;
+
 
 
 	vector<vector<string>> urls;
@@ -59,10 +68,6 @@ int main ( )
 
 		}
 
-
-
-
-
 	int i = 0;
 	for(auto output  : urls)
 		{
@@ -87,6 +92,7 @@ int main ( )
 	for(auto url : v_intersection)
 		std::cout << url << endl;
 
+	cout << "Number of results" << v_intersection.size( ) << endl;
 
 	return 0;
 	}

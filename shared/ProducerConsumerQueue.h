@@ -7,6 +7,9 @@
 
 #include <queue>
 #include <pthread.h>
+#include <chrono>
+#include <sys/time.h>
+
 
 //for now use STL queue, create better one later
 
@@ -14,10 +17,6 @@
 template< class T >
 class ProducerConsumerQueue
 	{
-private:
-	std::queue< T > queue;
-	pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
-	pthread_cond_t consumer_cv = PTHREAD_COND_INITIALIZER;
 
 public:
 
@@ -25,15 +24,20 @@ public:
 		{ }
 
 
-	void Push ( T obj );
-
-	T Pop ( );
-
-	size_t Size ( );
+	virtual void Push ( T obj );
+	virtual bool try_pop(T& result);
+	virtual T Pop ( );
+	virtual size_t Size ( );
 
 	//Right now these pass objects by value but
 	// probably should pass pointers in future
 
+protected:
+	std::queue< T > queue_;
+	pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+	pthread_cond_t consumer_cv = PTHREAD_COND_INITIALIZER;
+	struct timespec timeToWait;
+	struct timeval now;
 	};
 
 //Necessary because this class is templated

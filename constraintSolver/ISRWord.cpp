@@ -11,8 +11,13 @@ size_t FileSize(int f) {
 
 ISRWord::ISRWord ( string word ) {
 	term = word;
-
+	frequency = 0;
 	getChunks( );
+	if(listOfChunks.size( ) == 0)
+		{
+		currentLocation = MAX_Location;
+		return;
+		}
 	currentChunk = 0;
 	currentLocation = First( );
 	DocumentEnd->seek( currentLocation );
@@ -24,17 +29,26 @@ ISRWord::ISRWord ( string word ) {
 void ISRWord::getChunks() {
     MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + pathToIndex + "master.txt" , 30, 168);
 	string value = diskHashTable.find(term);
+	int part = 0;
     string chunkInput = "";
     for(char val : value) {
         if(isnumber(val)) {
             chunkInput += val;
-        } else if(val != '\t') {
+        } else if(val == ' ') {
             listOfChunks.push_back(stoll(chunkInput));
             chunkInput = "";
+        }  else if(val == '\t' && chunkInput != "") {
+        	if(part == 0) {
+        		frequency = stoll(chunkInput);
+        	} else if(part == 1) {
+        		lastLocation = stoll(chunkInput);
+        	}
+        	part++;
+        	chunkInput = "";
         }
     }
     if(chunkInput != "") {
-        frequency = stoll(chunkInput);
+		docFrequency = stoll(chunkInput);
     }
 }
 
@@ -121,6 +135,14 @@ size_t ISRWord::getFrequency() {
 	return frequency;
 }
 
+size_t ISRWord::getDocFrequency() {
+	return docFrequency;
+}
+
+size_t ISRWord::getLastLocation() {
+	return lastLocation;
+}
+
 void ISRWord::getWordSeek() {
 	string currentChunkWordSeekFileLocation =
 			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
@@ -154,9 +176,11 @@ void ISRWord::getWordSeek() {
 //check seek lookup table to find if offset+absulte is bigger than target
 //if so, set location to that big chunk
 //go to next chunk
-Location ISRWord::Seek( Location target ) {
+Location ISRWord::Seek( Location target )
+	{
 	 if(target <= currentLocation)
 		 return currentLocation;
+
 
     if(!wordSeekLookupTable.empty()) {
         auto best = wordSeekLookupTable.front();
@@ -176,7 +200,6 @@ Location ISRWord::Seek( Location target ) {
         }
     } else {
         while(Next() <= target) {
-
         }
 		if( currentLocation == MAX_Location)
 			return MAX_Location;
@@ -187,16 +210,11 @@ Location ISRWord::Seek( Location target ) {
 }
 
 
-Location  ISRWord::NextDocument()
+
+//Returns the location of the last item in the document you're currently at
+Location ISRWord::GetEndDocumentLocation () const
 	{
-	//FixMe
-	//seek the isr to the first location after the doc end
-	 currentLocation = Seek( DocumentEnd->getCurrentDoc().docEndPosition + 1);
-	//update the doc end to the next doc end after the new seek position
 	return DocumentEnd->getCurrentDoc().docEndPosition;
-
-
-
 	}
 
 ISREndDoc * ISRWord::GetEndDocument()
@@ -205,14 +223,8 @@ ISREndDoc * ISRWord::GetEndDocument()
 	return DocumentEnd;
 	}
 
-ISR * ISRWord::GetISRToBeginningOfDocument ( ) {
-
-	Location beginningOfDoc = DocumentEnd->getCurrentDoc().docEndPosition - DocumentEnd->getCurrentDoc().docNumWords;
-	ISR* BeginngISR = new ISRWord(this->term);
-	BeginngISR->Seek(beginningOfDoc);
 
 
-	}
 
 string ISRWord::GetTerm()
 	{

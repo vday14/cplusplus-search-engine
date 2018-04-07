@@ -6,6 +6,7 @@
 #include "../util/util.h"
 #include <math.h>
 #include <time.h>
+#include "../util/stringProcessing.h"
 //#include "../crawler/SocketReader.h"
 using namespace std;
 
@@ -105,10 +106,12 @@ public:
 						// Whatever remains is the Path. // need to remove fragments
 
 						temp_Path = p;
+						for ( ; *p && *p != QuestionMark; p++ );
+
 						for ( ; *p && *p != HashTag; p++ );
 
 
-						for ( ; *p && *p != QuestionMark; p++ );
+
 
 						if ( *p )
 							// Mark the end of the Path, remove fragments.
@@ -128,6 +131,8 @@ public:
 						Domain = string(temp_Domain, strlen(temp_Domain));
 
 					Path = string(temp_Path, strlen(temp_Path));
+
+					//vector<string> noquestionmakr =	splitStr(Path, '?', false);
 					AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
 					pathBuffer = temp_pathBuffer;
 
@@ -147,6 +152,8 @@ public:
 			}
 
 		}
+
+
 
 	void printUrl ( )
 		{
@@ -180,7 +187,7 @@ public:
 				else if ( Domain == EDU  )
 					Score += .5;
 				else if ( Domain ==  GOV )
-					Score += 1;
+					Score += .75;
 				else if ( Domain ==  COM )
 					Score += .5;
 				else if ( Domain ==  NET )
