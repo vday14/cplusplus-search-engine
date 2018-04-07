@@ -212,6 +212,11 @@ add_executable(query-Ranker-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
+add_executable(query-queryLanguage-tests
+        query/queryLanguage/QueryParser.cpp
+        query/queryLanguage/QueryParser.h
+        )
+
 #find_package(OpenSSL REQUIRED)
 #
 #target_link_libraries(ParserTest OpenSSL::SSL)

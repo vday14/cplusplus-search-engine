@@ -2,13 +2,18 @@
 // Created by Zane Dunnings on 3/16/18.
 //
 
-//Outline of query language from Prof. Nicole Hamilton, University of Michigan 03/15/2018
-// 72 lines
 #include "QueryParser.h"
 #include<unordered_set>
 #include "../../util/stringProcessing.h"
 #include<iostream>
-
+/***
+ *  QUERY PARSER CLASS
+ *
+ *  1. Constraint() - CAll this at the highest level, will split on ORs if there are ORs at the highest level,
+ *  	Will split on AND if theres an AND at the highest level. b
+ *
+ *
+ */
 /***
  * Returns a token of the next word in the query, past the given index
  * @param index
@@ -171,9 +176,9 @@ bool QueryParser::MatchAND( string input )
 	ORMatch.insert("AND");
 	ORMatch.insert("&");
 	ORMatch.insert("&&");
-3ww	ORMatch.insert("and");
+	ORMatch.insert("and");
 
-	if( 3ORMatch.count( input ) > 0 )
+	if( ORMatch.count( input ) > 0 )
 		{
 		return true;
 		}
@@ -195,6 +200,8 @@ Tuple* QueryParser::Constraint( string input )
 		t->Type = OrTupleType;
 	else
 		t->Type = AndTupleType;
+		Tuple* toBeKilled = constraintList[ 0 ];
+		constraintList = breakOnAND ( input );
 	t->Next = constraintList;
 
 	//Iterate through the subcontraints and if there are ORs, then run this again, else split on and for each
@@ -255,33 +262,6 @@ vector<Tuple * > QueryParser::breakOnOR( string input )
 		if( query[ i ] == "(")
 			{
 			++depth;
-//			++depth;
-//			++i;
-//			start = i;
-//			while(depth != 0 && ( i < query.size()) )
-//				{
-//				if (query[ i ] == "(")
-//					++depth;
-//				else if (query[ i ] == ")")
-//					--depth;
-//					if (depth == 0)
-//						{
-//						--i;
-//						break;
-//						}
-//				else
-//					++i;
-//				}
-//			if (i == query.size())
-//						i = query.size() - 1;
-//			string text = "";
-//			for ( int j = start; j < i; ++ j)
-//				{
-//				text+= query[ j ];
-//				}
-//			Tuple * t = new Tuple( text );
-//			constraintList.push_back( t );
-//			t->Type = AndTupleType;
 			}
 		else if( query[ i ] == ")")
 			{
