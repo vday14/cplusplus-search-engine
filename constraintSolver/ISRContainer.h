@@ -56,6 +56,7 @@ public:
  *
  */
 	void Solve( );
+	void PassToRanker ( Location BeginningfDocument );
 
 
 private:

@@ -24,20 +24,25 @@ void ISRContainer::compile( )
 
 ISR * ISRContainer::recurviseCompile( Tuple * root )
 	{
-	vector< ISR * > terms;
+	vector< ISR * > words;
 	if( root->Type == WordTupleType )
-		return new ISRWord( root->object.text );
+		{
+
+		string currentTerm;
+		terms.push_back( currentTerm );
+		return new ISRWord( currentTerm );
+		}
 
 	else
 		{
 		for( auto child : root->Next )
-			terms.push_back( recurviseCompile( child ) );
+			words.push_back( recurviseCompile( child ) );
 		}
 
 		if( root->Type == AndTupleType )
-			return  new ISRAnd ( terms );
+			return  new ISRAnd ( words );
 		else
-			return  new ISROr ( terms );
+			return  new ISROr ( words );
 
 	}
 
@@ -47,6 +52,8 @@ void ISRContainer::Solve( )
 		{
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
 		cout << url << endl;
+		Location BeginningfDocument = Contained->GetISRToBeginningOfDocument( );
+		PassToRanker( BeginningfDocument );
 
 		Contained->NextDocument( );
 
@@ -70,5 +77,21 @@ void ISRContainer::Solve( )
 		}
 
 
+	}
+
+void ISRContainer::PassToRanker( Location docBeginning )
+	{
+
+	vector<ISRWord* > toRanker;
+	for ( auto term : Terms )
+		{
+
+		ISRWord * isrWord = new ISRWord ( term ) ;
+		isrWord->Seek( docBeginning );
+		toRanker.push_back( isrWord );
+
+		}
+
+	ranker.rank ( toRanker )
 	}
 
