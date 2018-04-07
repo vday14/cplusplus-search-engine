@@ -157,7 +157,7 @@ add_executable(URLTEST
 
         )
 
-add_executable(search-engine search.cpp query/Query.cpp)
+add_executable(search-engine search.cpp query/Searcher.cpp)
 
 add_executable(ISRWord-tests
         util/util.cpp

@@ -32,7 +32,6 @@ vector< string > Ranker::rank ( )
 	vector<DocumentEnding> docEnds;
 	set<string> urls;
 
-
 	for( auto queryWord = inputQuery.begin(); queryWord < inputQuery.end(); ++queryWord)
 		{
 		while ( queryWord->getCurrentLocation ( ) != MAX_Location )

@@ -2,7 +2,7 @@
 // Created by Jake Close on 3/7/18.
 //
 
-#include "Query.h"
+#include "Searcher.h"
 #include <iostream>
 
 using namespace std;
@@ -13,19 +13,30 @@ using namespace std;
  *
  */
 
-void QueryParser::search ( )
+void Searcher::search ( )
 	{
 
-	if ( strcmp( CompleteQuery, "-quit" ) == 0 )
+	if (*CompleteQuery == "-quit" ||*CompleteQuery == "-q" )
 		{
 		cout << "Thank you for using C++lue search engine" << endl;
 		exit( 0 );
 		}
-	else if ( strcmp( CompleteQuery, "-help" ) == 0 )
+	else if ( *CompleteQuery == "-help")
 		{
 		cout << "Manual" << endl;
 		return;
 		}
+	else
+		{
+		queryParser.parse(*CompleteQuery);
+		container->compile( queryParser );
+		container->solve( );
+
+
+
+
+		}
+
 
 
 	return;
