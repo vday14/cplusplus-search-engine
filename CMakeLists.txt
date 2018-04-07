@@ -157,7 +157,24 @@ add_executable(URLTEST
 
         )
 
-add_executable(search-engine search.cpp query/Searcher.cpp)
+add_executable(search-engine
+        search.cpp
+        query/Searcher.cpp
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        constraintSolver/ISRContainer.cpp
+        constraintSolver/ISR.h
+        query/Ranker/Ranker.cpp
+        query/Ranker/Site.cpp
+        query/Ranker/Scorer.cpp
+        query/queryLanguage/QueryParser.cpp
+        constraintSolver/ISREndDoc.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISROr.cpp)
+
 
 add_executable(ISRWord-tests
         util/util.cpp
@@ -223,7 +240,7 @@ add_executable(DataStructures-HashTable-tests
         DataStructures/HashTable/HashTable.h
         DataStructures/HashTable/HashTableTests.cpp)
 
-add_executable(DataStructures-DiskHashTable-tests
+add_executable(DataStructures-q-DiskHashTable-tests
         DataStructures/DiskHashTable/DiskHashTable.h
         DataStructures/DiskHashTable/DiskHashTableTests.cpp)
 
@@ -299,8 +316,8 @@ add_executable(testISRQueryTuple
 
 add_executable(query-queryLanguage-tests
         query/queryLanguage/QueryParser.cpp
-
-
+        query/queryLanguage/QueryParser.h
+        util/DataStructureLib/tuple.cpp
         )
 
 
