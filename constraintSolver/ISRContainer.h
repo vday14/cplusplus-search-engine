@@ -6,7 +6,10 @@
 
 #include "ISR.h"
 #include "ISREndDoc.h"
+#include "ISRAnd.h"
+#include "ISROr.h"
 #include "../query/Ranker/Ranker.h"
+#include "../util/DataStructureLib/tuple.cpp"
 
 //Find occurrences of contained ISRs in a single document not containing any excluded ISRs.
 
@@ -16,9 +19,15 @@ public:
 	ISR *Contained;
 	ISR *Excluded;
 	vector<string> terms;
+	Tuple* root;
+
+	ISRContainer( Tuple * tuple_in );
+	ISR * recurviseCompile( Tuple * root );
 
 	unsigned CountContained,
 			CountExcluded;
+
+	void compile( );
 
 
 	Location Seek ( Location target )
@@ -36,7 +45,7 @@ public:
 // 7. If any excluded ISR falls within the document, reset the
 //    target to one past the end of the document and return to
 //    step 1.
-
+		return 1;
 
 		};
 
@@ -46,31 +55,7 @@ public:
  * GetEndDocument
  *
  */
-	void Solve()
-		{
-
-		while(Contained->GetCurrentLocation() != MAX_Location)
-			{
-
-/*
- * beg = GetBeginning of Doc
- * Pass Terms to ranker
- *
- * vector<words>
- *
- * Ranker:
- * for term in terms
- * IsrWord word = new ISR(term)
- * Term.seek(beg)
- * words.push(word)
- * rank(words)
- *
- * NextDocument()
- */
-			}
-
-
-		}
+	void Solve( );
 
 
 private:
@@ -78,5 +63,3 @@ private:
 	Location nearestStartLocation, nearestEndLocation;
 	Ranker ranker;
 	};
-
-};

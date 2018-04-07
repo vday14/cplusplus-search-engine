@@ -1,0 +1,41 @@
+//
+// Created by Jake Close on 4/7/18.
+//
+
+
+#include "../QueryParser.h"
+#include<iostream>
+#include <fstream>
+#include "../../../constraintSolver/ISRContainer.h"
+
+int main()
+	{
+	string query = "moment life";
+	string OR = "bike cycle ";
+	QueryParser parser;
+	parser.parse( query );
+
+	Token orParentToken = Token("-OR-");
+	Tuple * orparent = new Tuple( orParentToken );
+
+	Token bike = Token("bike");
+	Token cycle = Token("cycle");
+
+	Tuple* bikeTuple = new Tuple( bike );
+	Tuple* cycleTuple = new Tuple( cycle );
+
+	orparent->Next.push_back(bikeTuple);
+	orparent->Next.push_back( cycleTuple);
+
+
+	parser.printCompiledQuery();
+
+
+	//parser.queryTree->Next.push_back( orparent );
+
+
+
+	ISRContainer container ( parser.queryTree  );
+
+	container.Solve( );
+	}

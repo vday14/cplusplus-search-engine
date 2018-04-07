@@ -270,8 +270,39 @@ add_executable(query-Ranker-tests
 add_executable(testQueryLang
         query/queryLanguage/tests/testQueryParser.cpp
         query/queryLanguage/QueryParser.cpp
-        util/
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+
         )
+
+add_executable(testISRQueryTuple
+        query/queryLanguage/tests/queryIsrTest.cpp
+        query/queryLanguage/QueryParser.cpp
+
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        constraintSolver/ISRContainer.cpp
+        constraintSolver/ISR.h
+        query/Ranker/Ranker.cpp
+        query/Ranker/Site.cpp
+        query/Ranker/Scorer.cpp
+        constraintSolver/ISREndDoc.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISROr.cpp
+
+        )
+
+
+add_executable(query-queryLanguage-tests
+        query/queryLanguage/QueryParser.cpp
+
+
+        )
+
 
 find_package(OpenSSL REQUIRED)
 
@@ -286,4 +317,9 @@ target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
+
+
+
+
+
 

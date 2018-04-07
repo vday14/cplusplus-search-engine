@@ -176,7 +176,8 @@ void ISRWord::getWordSeek() {
 //check seek lookup table to find if offset+absulte is bigger than target
 //if so, set location to that big chunk
 //go to next chunk
-Location ISRWord::Seek( Location target ) {
+Location ISRWord::Seek( Location target )
+	{
 	 if(target <= currentLocation)
 		 return currentLocation;
 
@@ -210,12 +211,18 @@ Location ISRWord::Seek( Location target ) {
 
 
 
+//Returns the location of the last item in the document you're currently at
+Location ISRWord::GetEndDocumentLocation () const
+	{
+	return DocumentEnd->getCurrentDoc().docEndPosition;
+	}
 
 ISREndDoc * ISRWord::GetEndDocument()
 	{
 	//Fixme
 	return DocumentEnd;
 	}
+
 
 
 

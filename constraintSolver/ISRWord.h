@@ -48,13 +48,14 @@ class ISRWord : public ISR
 		size_t currentChunk;
 		char *currentMemMap;
 
-
 		//set member variables to all of the chunks that occur, update current chunk
 		void getChunks ( );
 		Location getCurrentLocation();
-        size_t getFrequency();
-        size_t getDocFrequency();
-        size_t getLastLocation();
+		size_t getFrequency();
+		size_t getDocFrequency();
+		size_t getLastLocation();
+
+		Location GetEndDocumentLocation() const;
 
 private:
 	void getWordSeek();

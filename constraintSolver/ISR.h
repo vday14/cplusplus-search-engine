@@ -19,6 +19,7 @@
 #define pathToIndex "/constraintSolver/index-test-files/twitter/"
 //#define pathToIndex "/buildIndex/"
 
+
 //#define pathToIndex "/constraintSolver/index-test-files/twitter/"
 //#define pathToIndex "/build/"
 typedef size_t Location;  // Location 0 is the null location.
