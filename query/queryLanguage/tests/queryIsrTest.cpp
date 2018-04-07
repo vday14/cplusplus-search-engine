@@ -13,9 +13,17 @@ int main()
 	string query = "moment life";
 	string OR = "bike cycle ";
 	QueryParser parser;
-	parser.parse( query );
+	parser.parse( "moment" );
 
-	Token orParentToken = Token("-OR-");
+	Token life = Token("life");
+	Tuple* lifeTuple = new Tuple( life );
+
+	parser.queryTree->Next.push_back( lifeTuple );
+
+
+
+
+	Token orParentToken = Token("-And-");
 	Tuple * orparent = new Tuple( orParentToken );
 
 	Token bike = Token("bike");

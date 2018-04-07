@@ -29,10 +29,13 @@ int main( int argc, char *argv[] )
 
 		while ( getline( cin, q ) && !q.empty( ))
 			{
-			QueryParser *query = new QueryParser( q.c_str( ));
-			query->search( );
-			query->printResults( );
+			Searcher searchEngine( q );
+			cout << "Results" << endl;
+			searchEngine.search( );
+			//query->printResults( );
+			cout << "Please enter another search " << endl;
 			}
+
 
 		}
 

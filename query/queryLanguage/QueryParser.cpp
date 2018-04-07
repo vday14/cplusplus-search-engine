@@ -4,6 +4,7 @@
 
 #include "QueryParser.h"
 #include<unordered_set>
+
 //#include "../../util/stringProcessing.h"
 #include<iostream>
 /***
@@ -14,18 +15,28 @@
  *
  *
  */
+
+void removeWhitespace(string &str)
+	{
+	str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+	}
 /***
+ *
  * Returns a token of the next word in the query, past the given index
  * @param index
  * @return
  */
 Token QueryParser::FindNextToken( int &index ){
+
 	//TODO remove this when you add new ISR
 	unordered_set<char> stopChars;
 	stopChars.insert(' ');
 
 	int size = 1;
 	int start = index;
+	//vector<string> words = splitStr( query , ' ', 0);
+	//string text = words [ start ] ;
+	//++index;
 
 
 	while(start + size < query.size())
@@ -41,19 +52,21 @@ Token QueryParser::FindNextToken( int &index ){
 				++size;
 			index = start + size;
 			string text = query.substr ( start, size );
+			removeWhitespace(text);
 			if( MatchOR ( text ) )
 				return Token( "-OR-" );
 			return Token( text );
 			}
 		else if ( stopChars.count( query[ start + size ] ) > 0)
 			{
-			while( query[start] == ' ')
-				{
-				++start;
-				}
+
+			//while( query[start] == ' ')
+			//	{
+			//	++start;
+			//	}
 			index = start + size;
 			string text = query.substr ( start, size );
-			cout << "horse" << text;
+			removeWhitespace(text);
 
 			return Token( text );
 			}
@@ -63,8 +76,11 @@ Token QueryParser::FindNextToken( int &index ){
 			}
 		}
 		index = start + size;
+
 		string text = query.substr ( start, size );
-	cout << "horsey: " << text;
+		removeWhitespace(text);
+
+
 
 	return Token( text );
 	}
