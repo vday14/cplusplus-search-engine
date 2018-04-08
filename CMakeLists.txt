@@ -167,6 +167,8 @@ add_executable(search-engine
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
         query/Ranker/Ranker.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         query/Ranker/Site.cpp
         query/Ranker/Scorer.cpp
         query/queryLanguage/QueryParser.cpp
@@ -205,6 +207,8 @@ add_executable(ISROR-tests
 
 add_executable(ISRAnd-tests
         constraintSolver/tests/ISRAndTests.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/util.cpp
         constraintSolver/ISR.cpp
         constraintSolver/ISRWord.cpp

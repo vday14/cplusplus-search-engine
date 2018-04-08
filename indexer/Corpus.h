@@ -3,9 +3,6 @@
 #include <vector>
 #include "../util/util.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
-
-
-#define pathToIndexMaster "/constraintSolver/index-test-files/twitter/master.txt"
 #include "WordInfo.h"
 #include "Chunk.h"
 

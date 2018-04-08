@@ -1,9 +1,8 @@
 namespace IndexerConstants {
-   // const string pathToIndex = "/buildIndex/";
-		const string pathToIndex = "/constraintSolver/index-test-files/twitter/";
+//    const string pathToIndex = "/buildIndex/";
+	const string pathToIndex = "/constraintSolver/index-test-files/twitter/";
 
-
-		const size_t maxWordSize = 30;
+	const size_t maxWordSize = 30;
 
     const size_t masterKeySize = 30;
     const size_t masterValueSize = 168;

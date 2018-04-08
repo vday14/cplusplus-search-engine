@@ -197,7 +197,7 @@ Location ISRWord::Seek( Location target )
 		if(target < corpus.chunks[ potentialChunk  ].lastLocation   )
 			{
 			lastBest = currentChunk;
-			currentChunk++;
+			potentialChunk++;
 			}
 			//if past point larger
 		else

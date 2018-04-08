@@ -1,10 +1,5 @@
 #include "Indexer.h"
 
-
-//#define  pathToIndex "/build/"
-//#define	 pathToIndex "/constraintSolver/index-test-files/twitter/"
-
-
 Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in,
 						ProducerConsumerQueue < unordered_map < string, DocIndex * > > *anchor_in) :
 		pointerToDictionaries( doc_index_queue_in ), AnchorQueue( anchor_in )

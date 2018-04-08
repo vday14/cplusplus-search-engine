@@ -44,6 +44,7 @@ int main ( ) {
 		while(query.getCurrentLocation() != MAX_Location)  {
 			auto url = query.DocumentEnd->getCurrentDoc().url;
 			urls.insert( url  );
+			cout << url << endl;
 			query.NextDocument();
 
 			}
