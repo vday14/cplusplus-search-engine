@@ -31,8 +31,8 @@ int main ( )
 	static const char HOST = '=';
 	*/
 
-	ISRWord q1 = ISRWord("chicken");
-	ISRWord q2 = ISRWord("waffle");
+	ISRWord q1 = ISRWord("moment");
+	ISRWord q2 = ISRWord("life");
 
 
 	queries.push_back(q2);

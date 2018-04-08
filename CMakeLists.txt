@@ -202,6 +202,8 @@ add_executable(ISROR-tests
         constraintSolver/ISROr.cpp
         constraintSolver/tests/ISROrTests.cpp
         constraintSolver/ISREndDoc.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
@@ -224,6 +226,8 @@ add_executable(ISRWord-Multi-Test
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/Stemmer.cpp )
 
 add_executable(ISRMultiWordORTest
@@ -233,6 +237,8 @@ add_executable(ISRMultiWordORTest
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISREndDoc.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
@@ -300,6 +306,8 @@ add_executable(testQueryLang
         util/DataStructureLib/tuple.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
 
         )
 

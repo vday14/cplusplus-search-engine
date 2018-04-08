@@ -6,9 +6,8 @@
 #include <set>
 #include "../../indexer/DocumentEnding.h"
 #include "../ISRWord.h"
-#include "../ISREndDoc.h"
+
 #include "../ISROr.h"
-#include <vector>
 using namespace std;
 
 int main ( )

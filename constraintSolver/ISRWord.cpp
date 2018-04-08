@@ -102,6 +102,7 @@ Location ISRWord::First ( )
 
 Location ISRWord::Next ( )
 	{
+
 	if ( *currentMemMap == '\n' )
 		{
 		currentChunk++;
@@ -120,6 +121,11 @@ Location ISRWord::Next ( )
 			{
 			delta += *currentMemMap;
 			currentMemMap++;
+			}
+		if(delta.empty( ))
+			{
+			return MAX_Location;
+			cout << "No more delta" << endl;
 			}
 		currentLocation += stoll( delta );
 		currentMemMap++;
@@ -183,7 +189,7 @@ Location ISRWord::Seek( Location target )
 	{
 
 	 if(target <= currentLocation)
-		 return currentLocation;
+ 		 return currentLocation;
 	 if(target > lastLocation)
 	     return MAX_Location;
 
