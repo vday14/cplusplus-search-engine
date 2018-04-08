@@ -182,17 +182,18 @@ void ISRWord::getWordSeek() {
 Location ISRWord::Seek( Location target )
 	{
 
-	if(target == 124924)
-		cout << "Bug target "<< endl;
 	 if(target <= currentLocation)
 		 return currentLocation;
+	 if(target > lastLocation)
+	     return MAX_Location;
+
 
 	size_t lastBest = currentChunk;
-	//iterate through the chunks in corpus
-	while(currentChunk < listOfChunks.size( ) )
+        Location potentialChunk = listOfChunks[ currentChunk ];
+        //iterate through the chunks in corpus
+	while(potentialChunk < listOfChunks.size( ) )
 		{
 		//find a potential chunk
-		Location potentialChunk = listOfChunks[ currentChunk ];
 
 		if(target < corpus.chunks[ potentialChunk  ].lastLocation   )
 			{
@@ -200,11 +201,13 @@ Location ISRWord::Seek( Location target )
 			potentialChunk++;
 			}
 			//if past point larger
-		else
+		else {
 			currentChunk = lastBest;
 			break;
+		}
 
 		}
+
 	//have best chunk, initalize files
 	First();
 
