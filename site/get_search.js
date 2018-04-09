@@ -9,7 +9,7 @@ $(function () {
 
 
 
-function get_request(artist_name){
+function get_request(){
     $query = $("#query").val();
     console.log("Making a query");
 
@@ -31,7 +31,8 @@ function get_request(artist_name){
             console.log("error");
             console.log(data.responseText);
             var dataReturned = data.responseText;
-            var result = $( "<div id='result1'>" + dataReturned + " </div>" );
+            $("#results").empty();
+            var result = $( "<div id='result1'>" + dataReturned + "</div>" );
             $("#results").append(result);
 
         }
