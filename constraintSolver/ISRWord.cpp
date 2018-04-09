@@ -47,9 +47,12 @@ Location ISRWord::First ( )
 	string currentChunkFileLocation =
 			util::GetCurrentWorkingDir( ) + IndexerConstants::pathToIndex + to_string( info.chunks[ currentChunk ] ) +
 			".txt";
-	int currentChunkFile = open( currentChunkFileLocation.c_str( ), O_RDONLY );
-	ssize_t currentChunkFileSize = FileSize( currentChunkFile );
-	currentMemMap = ( char * ) mmap( nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0 );
+//	int currentChunkFile = open( currentChunkFileLocation.c_str( ), O_RDONLY );
+//	ssize_t currentChunkFileSize = FileSize( currentChunkFile );
+//	currentMemMap = ( char * ) mmap( nullptr, currentChunkFileSize, PROT_READ, MAP_PRIVATE, currentChunkFile, 0 );
+
+    currentMemMap = corpus.chunks[info.chunks[currentChunk]].chunkMap;
+
 	currentMemMap += stoll(loc);
     string firstLoc = "";
 	while ( *currentMemMap != ' ' ) {
@@ -58,7 +61,7 @@ Location ISRWord::First ( )
     }
 	currentMemMap++;
 	getWordSeek();
-	 currentLocation = stoll( firstLoc );
+	currentLocation = stoll( firstLoc );
 	return currentLocation;
 
 	}
@@ -74,7 +77,7 @@ Location ISRWord::First ( )
 
 Location ISRWord::Next ( )
 	{
-	if ( currentMemMap && *currentMemMap == '\n' )
+	if ( currentMemMap && *currentMemMap == '\n' || *currentMemMap == '\0' )
 		{
 		currentChunk++;
         if(info.chunks.size( ) <= currentChunk)
@@ -165,26 +168,19 @@ Location ISRWord::Seek( Location target )
 	 if(target > getLastLocation())
 	     return MAX_Location;
 
-
-	size_t lastBest = currentChunk;
-        Location potentialChunk = info.chunks[currentChunk];
-        //iterate through the chunks in corpus
-	while(potentialChunk < info.chunks.size() )
-		{
-		//find a potential chunk
-
-		if(target < corpus.chunks[ potentialChunk  ].lastLocation   )
-			{
-			lastBest = currentChunk;
-			potentialChunk++;
-			}
-			//if past point larger
-		else {
-			currentChunk = lastBest;
-			break;
-		}
-
-		}
+	 int chunk = currentChunk + 1;
+	 if(target < corpus.chunks[info.chunks[0]].lastLocation) {
+	     chunk = 0;
+	 } else {
+	     if(chunk >= info.chunks.size()) {
+	         chunk--;
+	     }
+	     while(target > corpus.chunks[info.chunks[chunk]].lastLocation) {
+	         chunk++;
+	     }
+	     chunk--;
+	 }
+	 currentChunk = chunk;
 
 	//have best chunk, initalize files
 	First();
@@ -201,6 +197,7 @@ Location ISRWord::Seek( Location target )
 				break;
 			}
 
+        currentMemMap = corpus.chunks[info.chunks[currentChunk]].chunkMap;
 		currentMemMap += best.seekOffset;
 		currentLocation = best.realLocation;
 
