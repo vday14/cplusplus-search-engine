@@ -130,6 +130,25 @@ vector<Tuple * > QueryParser::breakOnOR( string input )
 		if( query[ i ] == "(")
 			{
 			++depth;
+			++i;
+			string text;
+
+			while ( depth != 0)
+				{
+				if( query[ i ] == "(")
+					++depth;
+				else if ( query[ i ] == ")")
+					--depth;
+				if( depth != 0)
+					{
+					if( text!= "")
+						text+=" ";
+					text+=query[ i ];
+					}
+				}
+			Tuple * subConstraint = Constraint( text );
+			constraintList.push_back( subConstraint );
+			start = i + 1;
 			}
 		else if( query[ i ] == ")")
 			{
@@ -173,7 +192,7 @@ vector<Tuple * > QueryParser::breakOnOR( string input )
  */
 bool QueryParser::isOrType( string input )
 	{
-	vector<string> query = splitStr (input, ' ', true);
+	vector<string> query = splitStr (input, ' ', false);
 	int depth = 0;
 	for( auto word = query.begin();  word != query.end();  ++word )
 		{
@@ -198,7 +217,7 @@ bool QueryParser::isOrType( string input )
  */
 bool QueryParser::isAndType( string input )
 	{
-	vector<string> query = splitStr (input, ' ', true);
+	vector<string> query = splitStr (input, ' ', false);
 
 	if( query.size( ) == 1)
 		return false;
@@ -238,7 +257,7 @@ vector<Tuple * > QueryParser::breakOnAND( string input )
 	closedBracket.insert(')');
 	closedBracket.insert('}');
 	closedBracket.insert(']');
-	vector<string> query = splitStr (input, ' ', true);
+	vector<string> query = splitStr (input, ' ', false);
 
 	vector<Tuple *> constraintList;
 	int start = 0;
@@ -248,6 +267,26 @@ vector<Tuple * > QueryParser::breakOnAND( string input )
 		if( query[ i ] == "(")
 			{
 			++depth;
+			++i;
+			string text;
+
+			while ( depth != 0)
+				{
+				if( query[ i ] == "(")
+					++depth;
+				else if ( query[ i ] == ")")
+					--depth;
+				if( depth != 0)
+					{
+					if( text!= "")
+						text+=" ";
+					text+=query[ i ];
+					}
+				++i;
+				}
+			Tuple * subConstraint = Constraint( text );
+			constraintList.push_back( subConstraint );
+			start = i + 1;
 			}
 		else if( query[ i ] == ")")
 			{

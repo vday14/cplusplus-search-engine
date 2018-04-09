@@ -13,7 +13,7 @@ int main()
 	parser.parse( query );
 	parser.printCompiledQuery();
 
-	string query1 = " apollo moon (landing OR fake)";
+	string query1 = " apollo moon ( landing OR fake )";
 	QueryParser parser1;
 	parser1.parse( query1 );
 	parser1.printCompiledQuery ();

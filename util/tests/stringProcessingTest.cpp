@@ -145,7 +145,7 @@ void testSplitStr ( string original )
 	assert( vec[ 0 ] == "hello" && vec[ 1 ] == "goodbye" );
 
 	word = "apollo moon OR landing";
-	vec = splitStr( word, ' ', true );
+	vec = splitStr( word, ' ', false );
 	assert( vec.size( ) == 4 );
 	assert( vec[ 0 ] == "apollo" && vec[ 1 ] == "moon" && vec[ 2 ] == "OR" && vec[ 3 ] == "landing" );
 
