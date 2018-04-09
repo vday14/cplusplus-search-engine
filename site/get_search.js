@@ -30,6 +30,9 @@ function get_request(artist_name){
         error: function (data) {
             console.log("error");
             console.log(data.responseText);
+            var dataReturned = data.responseText;
+            var result = $( "<div id='result1'>" + dataReturned + " </div>" );
+            $("#results").append(result);
 
         }
     });
