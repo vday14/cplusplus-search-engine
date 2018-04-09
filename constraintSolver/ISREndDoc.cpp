@@ -3,30 +3,18 @@
 //
 
 #include "ISREndDoc.h"
-#define pathToIndex "/constraintSolver/index-test-files/twitter/"
-//#define pathToIndex "/buildIndex/"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
-	 memMap = nullptr;
+    memMap = nullptr;
 }
 
 DocumentEnding ISREndDoc::next() {
     if(memMap == nullptr || *memMap == '\0' ) {
-        string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + ".txt";
-        currentFile = open(fileName.c_str(), O_RDONLY);
-        string seekFileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(currentChunk) + "-seek.txt";
-        if(0 != access(seekFileName.c_str(), 0)) {
-            DocumentEnding a = DocumentEnding();
-            a.url = "aaa";
-            return a;
-        }
-        MMDiskHashTable de(seekFileName, 30, 8);
-        memMap = (char*) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile, 0);
-        memMap += stoll(de.find("=docEnding"));
+        openChunk(++currentChunk);
     }
     string currentOne;
-    for(char* map = memMap; map < memMap + util::FileSize(currentFile); map++) {
+    for(char* map = memMap; map < memMap + util::FileSize(currentFileHandle); map++) {
         if(*map == '\0') {
             currentChunk++;
             memMap = nullptr;
@@ -66,97 +54,155 @@ DocumentEnding ISREndDoc::next() {
     return currentDoc;
 }
 
-// open up current chunk wordseek mem map
-// seek all possible keys for doc ending
-// check bounds
-void ISREndDoc::seek(Location target) {
-    string key = "=docEnding";
-    string value = "";
-    bool found = false;
-    pair<size_t, size_t> docEndingWordSeek = {0, 0};         // location, offset
-    size_t tempLocation = 0;
+void ISREndDoc::openChunk(int chunk) {
+    assert(chunk >= 0 && chunk < corpus.chunks.size());
+    currentChunk = chunk;
+    seekTable.clear();
+    memMap = corpus.chunks[chunk].chunkMap;
+    currentFileHandle = corpus.chunks[chunk].chunkFileHandle;
+    memMap += stoll(corpus.chunks[chunk].seeker.find("=docEnding"));
+
+    WordSeek entry = WordSeek();
+    int currentSeekLookup = 0;
     string input = "";
-    bool init = false;
-    bool breakout = false;
-	bool between = false;
-	 size_t foundChunk;
-    while(!found) {
-        string fileName = util::GetCurrentWorkingDir() +
-                          pathToIndex +
-                          to_string(currentChunk) + "-wordseek.txt";
-        if(0 != access(fileName.c_str(), 0)) {
-            currentChunk--;
-            break;
-        }
-        MMDiskHashTable currentWordSeek = MMDiskHashTable(fileName, 30, 168);
-        int currentValueChunk = 0;
-        value = currentWordSeek.find(key + to_string(currentValueChunk));
-        while(value.compare("") != 0) {
-            //cout << "searching through " << key + to_string(currentValueChunk) << endl;
-            for (auto comp : value) {
-                switch (comp) {
-                    case '<':
-                        break;
-                    case '>':
-                        if (target < tempLocation && target > docEndingWordSeek.first)
-									{
-                            if(!init) {
-                                breakout = true;
-                                break;
-                            }
-									breakout = true;
-                            found = true;
-									foundChunk = between ? currentChunk - 1 : currentChunk   ;
-                            break;
-                        	}
-							 	between = false;
-                        init = true;
-                        docEndingWordSeek.first = tempLocation;
-                        docEndingWordSeek.second = stoll(input);
-                        input = "";
-                        break;
-                    case ',':
-                        tempLocation = stoll(input);
-                        input = "";
-                        break;
-                    default:
-                        input += comp;
-                        break;
-                }
-                if (found) {
-                    string fileName = util::GetCurrentWorkingDir() + pathToIndex + to_string(foundChunk) + ".txt";
-                    currentFile = open(fileName.c_str(), O_RDONLY);
-                    memMap = (char *) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile,
-                                           0);
-                    memMap += docEndingWordSeek.second;
-                }
-                if(breakout) {
+    string value = corpus.chunks[chunk].wordSeek.find("=docEnding" + to_string(currentSeekLookup));
+    while(value != "") {
+        for (auto comp : value) {
+            switch (comp) {
+                case '<':
+                    entry = WordSeek();
                     break;
-                }
+                case '>':
+                    entry.seekOffset = stoll(input);
+                    seekTable.push_back(entry);
+                    input = "";
+                    break;
+                case ',':
+                    entry.realLocation = stoll(input);
+                    input = "";
+                    break;
+                default:
+                    input += comp;
+                    break;
             }
-            if(breakout) {
+        }
+        currentSeekLookup++;
+        value = corpus.chunks[chunk].wordSeek.find("=docEnding" + to_string(currentSeekLookup));
+    }
+}
+
+void ISREndDoc::seek(Location target) {
+    int chunk = 0;
+
+    while(target < corpus.chunks[chunk].lastLocation)
+        chunk++;
+
+    if(chunk != currentChunk)
+        openChunk(chunk);
+
+    if(!seekTable.empty()) {
+        WordSeek last = WordSeek();
+        for(int i = 0; i < seekTable.size(); i++) {
+            if(target < seekTable[i].realLocation) {
+                last = seekTable[i];
+            } else if(target >= seekTable[i].realLocation) {
                 break;
             }
-            currentValueChunk++;
-            value = currentWordSeek.find(key + to_string(currentValueChunk));
         }
-        if(breakout) {
-            break;
-        }
-        currentChunk++;
-		  between = true;
-    }
 
-    while(target > (next().docEndPosition - 1)) {
+        memMap += last.seekOffset;
     }
-	//next();
+    while(target > (next().docEndPosition - 1));
 }
+
+
+//void ISREndDoc::seek(Location target) {
+//    string key = "=docEnding";
+//    string value = "";
+//    bool found = false;
+//    pair<size_t, size_t> docEndingWordSeek = {0, 0};         // location, offset
+//    size_t tempLocation = 0;
+//    string input = "";
+//    bool init = false;
+//    bool breakout = false;
+//	bool between = false;
+//	 size_t foundChunk;
+//    while(!found) {
+//        string fileName = util::GetCurrentWorkingDir() +
+//                          IndexerConstants::pathToIndex +
+//                          to_string(currentChunk) + "-wordseek.txt";
+//        if(0 != access(fileName.c_str(), 0)) {
+//            currentChunk--;
+//            break;
+//        }
+//        MMDiskHashTable currentWordSeek = MMDiskHashTable(fileName, 30, 168);
+//        int currentValueChunk = 0;
+//        value = currentWordSeek.find(key + to_string(currentValueChunk));
+//        while(value.compare("") != 0) {
+//            //cout << "searching through " << key + to_string(currentValueChunk) << endl;
+//            for (auto comp : value) {
+//                switch (comp) {
+//                    case '<':
+//                        break;
+//                    case '>':
+//                        if (target < tempLocation && target > docEndingWordSeek.first)
+//									{
+//                            if(!init) {
+//                                breakout = true;
+//                                break;
+//                            }
+//									breakout = true;
+//                            found = true;
+//									foundChunk = between ? currentChunk - 1 : currentChunk   ;
+//                            break;
+//                        	}
+//							 	between = false;
+//                        init = true;
+//                        docEndingWordSeek.first = tempLocation;
+//                        docEndingWordSeek.second = stoll(input);
+//                        input = "";
+//                        break;
+//                    case ',':
+//                        tempLocation = stoll(input);
+//                        input = "";
+//                        break;
+//                    default:
+//                        input += comp;
+//                        break;
+//                }
+//                if (found) {
+//                    string fileName = util::GetCurrentWorkingDir() + IndexerConstants::pathToIndex + to_string(foundChunk) + ".txt";
+//                    currentFile = open(fileName.c_str(), O_RDONLY);
+//                    memMap = (char *) mmap(nullptr, util::FileSize(currentFile), PROT_READ, MAP_PRIVATE, currentFile,
+//                                           0);
+//                    memMap += docEndingWordSeek.second;
+//                }
+//                if(breakout) {
+//                    break;
+//                }
+//            }
+//            if(breakout) {
+//                break;
+//            }
+//            currentValueChunk++;
+//            value = currentWordSeek.find(key + to_string(currentValueChunk));
+//        }
+//        if(breakout) {
+//            break;
+//        }
+//        currentChunk++;
+//		  between = true;
+//    }
+//
+//    while(target > (next().docEndPosition - 1)) {
+//    }
+//	//next();
+//}
 
 DocumentEnding ISREndDoc::getCurrentDoc() {
     return currentDoc;
 }
 
-Location ISREndDoc::GetStartingPositionOfDoc( )
-    {
+Location ISREndDoc::GetStartingPositionOfDoc( ) {
     return currentDoc.docEndPosition - currentDoc.docNumWords - 1;
-    }
+}

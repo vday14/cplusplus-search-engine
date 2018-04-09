@@ -9,6 +9,9 @@ class Chunk {
 public:
 
     Chunk(int number);
+
+    int chunkFileHandle;
+    char* chunkMap;
     MMDiskHashTable seeker;
     MMDiskHashTable wordSeek;
     size_t numberUniqueWords;
