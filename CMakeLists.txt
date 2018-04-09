@@ -237,6 +237,7 @@ add_executable(ISRMultiWordORTest
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISREndDoc.cpp
+        util/DataStructureLib/tuple.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
         util/stringProcessing.cpp
