@@ -183,20 +183,15 @@ void *Talk( void *p )
 			{
 			std::cout << "Requested url = " << fullUrl << std::endl;
 			std::string search = "/search";
-			bool isSearch = true;
-			for ( int i = 0; i < search.size( ); i++ )
-				{
-				if ( potentialSearch[ i ] != search[ i ] )
-					isSearch = false;
-				break;
 
-				}
-			if ( isSearch )
-				{
 
+			if ( potentialSearch.compare(0,7, "/search") == 0)
+				{
 
 				std::cout << "---Making a search GET---" << std::endl;
+				potentialSearch = potentialSearch.erase(0, 8);
 				std::cout << potentialSearch << std::endl;
+
 				}
 			else
 				{
