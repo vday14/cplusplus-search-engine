@@ -96,6 +96,6 @@ namespace util
 		string GetCurrentWorkingDir ( void )
 			{
 
-			return ( getenv( "PWD" ) );;
+			return ( getenv( "PWD" ) );
 			}
 	}
