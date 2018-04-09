@@ -7,9 +7,6 @@
 
 #include "../../util/DataStructureLib/tuple.cpp"
 #include<deque>
-// Outline of query language from Prof. Nicole Hamilton, University of Michigan 03/15/2018
-// 41 lines
-
 
 //  <Constraint>        ::= <BaseConstraint>
 //                              { <OrOp> <BaseConstraint> }

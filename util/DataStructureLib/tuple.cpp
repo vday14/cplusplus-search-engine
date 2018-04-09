@@ -4,10 +4,9 @@
 
 // Outline of query language from Prof. Nicole Hamilton, University of Michigan 03/15/2018
 //31 lines
-#pragma  once
 #include<string>
 #include<vector>
-#include "../../parser/Parser.h"
+//#include "../../parser/Parser.h"
 //#include "../../constraintSolver/ISRAnd.h"
 using namespace std;
 
@@ -38,6 +37,7 @@ enum TupleType
 	OrTupleType,
 	AndTupleType,
 	NotTupleType,
+	SearchTupleType,
 	WordTupleType
 	};
 
@@ -51,6 +51,7 @@ public:
 	//ISR *Compile( );
 	Tuple( )
 			: object( Token() ), Type( AndTupleType ) {}
+
 	Tuple( Token input )
 			: object( input ), Type( AndTupleType )
 		{
@@ -75,6 +76,14 @@ public:
 				break;
 			}
 		}
+
+	Tuple( string inputString )
+			:object( Token( inputString ) ), Type( WordTupleType )
+		{
+		}
+
+	Tuple( string inputString , TupleType type )
+			: object( Token( inputString ) ), Type( type ){}
 
 	int getNumberOfChildren()
 		{

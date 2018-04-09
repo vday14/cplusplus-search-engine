@@ -254,6 +254,10 @@ vector< string > splitStr ( string originalText, set< char > delims, bool remove
 				{
 				word.push_back( begin );
 				}
+			else if ( !removeSyms )
+				{
+				word.push_back( begin );
+				}
 			++i;
 			begin = originalText[ i ];
 			}
