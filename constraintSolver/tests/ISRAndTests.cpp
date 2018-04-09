@@ -35,6 +35,7 @@ int main ( )
 
 		auto url = queryAnd->GetEndDocument()->getCurrentDoc().url;
 		urls.insert(url);
+		cout << url << endl;
 		queryAnd->NextDocument();
 
 		}

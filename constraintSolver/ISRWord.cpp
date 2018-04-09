@@ -1,5 +1,3 @@
-
-#include <string>
 #include "ISRWord.h"
 
 
@@ -11,10 +9,9 @@ size_t FileSize(int f) {
 
 ISRWord::ISRWord ( string word ) {
 	term = word;
-	frequency = 0;
+	info = corpus.getWordInfo(word);
 
-	getChunks( );
-	if(listOfChunks.size( ) == 0)
+	if(info.chunks.size( ) == 0)
 		{
 		currentLocation = MAX_Location;
 		return;
@@ -27,32 +24,6 @@ ISRWord::ISRWord ( string word ) {
 
 }
 
-void ISRWord::getChunks() {
-    MMDiskHashTable diskHashTable(util::GetCurrentWorkingDir() + pathToIndex + "master.txt" , 30, 168);
-	string value = diskHashTable.find(term);
-	int part = 0;
-    string chunkInput = "";
-    for(char val : value) {
-        if(isnumber(val)) {
-            chunkInput += val;
-        } else if(val == ' ') {
-            listOfChunks.push_back(stoll(chunkInput));
-            chunkInput = "";
-        }  else if(val == '\t' && chunkInput != "") {
-        	if(part == 0) {
-        		frequency = stoll(chunkInput);
-        	} else if(part == 1) {
-        		lastLocation = stoll(chunkInput);
-        	}
-        	part++;
-        	chunkInput = "";
-        }
-    }
-    if(chunkInput != "") {
-		docFrequency = stoll(chunkInput);
-    }
-}
-
 //Go to current chunk
 //Look in seek dictionary for chunk (mem map, binary search)
 //Have offset into chunk, find post seek to post, return value
@@ -62,18 +33,19 @@ void ISRWord::getChunks() {
 
 Location ISRWord::First ( )
 	{
-	if(listOfChunks.empty()) {
+	if(info.chunks.empty()) {
 		currentLocation = MAX_Location;
 		return MAX_Location;
 
 	}
-	string currentChunkSeekFileLocation =
-			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
-			"-seek.txt";
-    MMDiskHashTable currentChunkSeekFileHashTable = MMDiskHashTable(currentChunkSeekFileLocation, 30, 8);
-    string loc = currentChunkSeekFileHashTable.find(term);
+//	string currentChunkSeekFileLocation =
+//			util::GetCurrentWorkingDir( ) + IndexerConstants::pathToIndex + to_string( info.chunks[ currentChunk ] ) +
+//			"-seek.txt";
+	MMDiskHashTable currentChunkSeekFile = corpus.chunks[info.chunks[currentChunk]].seeker;
+//    MMDiskHashTable currentChunkSeekFileHashTable = MMDiskHashTable(currentChunkSeekFileLocation, 30, 8);
+    string loc = currentChunkSeekFile.find(term);
 	string currentChunkFileLocation =
-			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
+			util::GetCurrentWorkingDir( ) + IndexerConstants::pathToIndex + to_string( info.chunks[ currentChunk ] ) +
 			".txt";
 	int currentChunkFile = open( currentChunkFileLocation.c_str( ), O_RDONLY );
 	ssize_t currentChunkFileSize = FileSize( currentChunkFile );
@@ -102,10 +74,10 @@ Location ISRWord::First ( )
 
 Location ISRWord::Next ( )
 	{
-	if ( *currentMemMap == '\n' )
+	if ( currentMemMap && *currentMemMap == '\n' )
 		{
 		currentChunk++;
-        if(listOfChunks.size( ) <= currentChunk)
+        if(info.chunks.size( ) <= currentChunk)
             {
             currentLocation = MAX_Location;
             return currentLocation;
@@ -135,22 +107,23 @@ Location ISRWord::getCurrentLocation() {
 }
 
 size_t ISRWord::getFrequency() {
-	return frequency;
+	return info.frequency;
 }
 
 size_t ISRWord::getDocFrequency() {
-	return docFrequency;
+	return info.docFrequency;
 }
 
 size_t ISRWord::getLastLocation() {
-	return lastLocation;
+	return info.lastLocation;
 }
 
 void ISRWord::getWordSeek() {
-	string currentChunkWordSeekFileLocation =
-			util::GetCurrentWorkingDir( ) + pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
-			"-wordseek.txt";
-	MMDiskHashTable wordSeek = MMDiskHashTable(currentChunkWordSeekFileLocation, 30, 168);
+//	string currentChunkWordSeekFileLocation =
+//			util::GetCurrentWorkingDir( ) + IndexerConstants::pathToIndex + to_string( listOfChunks[ currentChunk ] ) +
+//			"-wordseek.txt";
+//	MMDiskHashTable wordSeek = MMDiskHashTable(currentChunkWordSeekFileLocation, 30, 168);
+	MMDiskHashTable& wordSeek = corpus.chunks[info.chunks[currentChunk]].wordSeek;
 	string result = wordSeek.find(term);
 	WordSeek wordDictionaryEntry;
 	string token = "";
@@ -184,14 +157,14 @@ Location ISRWord::Seek( Location target )
 
 	 if(target <= currentLocation)
 		 return currentLocation;
-	 if(target > lastLocation)
+	 if(target > getLastLocation())
 	     return MAX_Location;
 
 
 	size_t lastBest = currentChunk;
-        Location potentialChunk = listOfChunks[ currentChunk ];
+        Location potentialChunk = info.chunks[currentChunk];
         //iterate through the chunks in corpus
-	while(potentialChunk < listOfChunks.size( ) )
+	while(potentialChunk < info.chunks.size() )
 		{
 		//find a potential chunk
 
@@ -288,16 +261,11 @@ Location ISRWord::GetEndDocumentLocation () const
 
 ISREndDoc * ISRWord::GetEndDocument()
 	{
-	//Fixme
 	return DocumentEnd;
 	}
 
-
-
-
 string ISRWord::GetTerm()
 	{
-
 	return string(this->term);
 	}
 
