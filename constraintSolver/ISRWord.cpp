@@ -93,6 +93,11 @@ Location ISRWord::Next ( )
 			delta += *currentMemMap;
 			currentMemMap++;
 			}
+		if(delta.empty( ))
+			{
+			return MAX_Location;
+			cout << "No more delta" << endl;
+			}
 		currentLocation += stoll( delta );
 		currentMemMap++;
 		}
