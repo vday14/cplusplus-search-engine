@@ -188,8 +188,10 @@ void *Talk( void *p )
 			if ( potentialSearch.compare(0,7, "/search") == 0)
 				{
 
+
 				std::cout << "---Making a search GET---" << std::endl;
 				potentialSearch = potentialSearch.erase(0, 8);
+				//TODO remove %20 from multi word strings
 				std::cout << potentialSearch << std::endl;
 
 				std::cout << "Returning results" << std::endl;

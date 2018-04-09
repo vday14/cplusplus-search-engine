@@ -11,7 +11,8 @@ $(function () {
 
 function get_request(){
     $query = $("#query").val();
-    console.log("Making a query");
+    console.log("Making a query: ");
+    console.log($query);
 
     $.ajax({
         url: "/search",
