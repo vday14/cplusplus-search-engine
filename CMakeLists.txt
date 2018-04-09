@@ -332,7 +332,7 @@ add_executable(testISRQueryTuple
         )
 
 add_executable(server
-        util/LinuxTinyServer.cpp)
+        site/LinuxTinyServer.cpp)
 
 add_executable(query-queryLanguage-tests
         query/queryLanguage/QueryParser.cpp
