@@ -192,6 +192,21 @@ void *Talk( void *p )
 				potentialSearch = potentialSearch.erase(0, 8);
 				std::cout << potentialSearch << std::endl;
 
+				std::cout << "Returning results" << std::endl;
+
+				std::string okMessage = "HTTP/1.1 200 OK\r\n"
+						"Content-Length: ";
+				okMessage += ( potentialSearch.size( ) );
+				okMessage += "\r\nConnection: close\r\nContent-Type: ";
+				okMessage += "text/plain";
+				okMessage += "\r\n\r\n";
+
+				std::cout << "Sending" << std::endl;
+				std::cout << okMessage;
+
+				send( s, okMessage.c_str( ), okMessage.length( ), 0 );
+				send( s, potentialSearch.c_str( ), potentialSearch.length( ), 0 );
+				close( s );
 				}
 			else
 				{
