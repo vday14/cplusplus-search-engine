@@ -32,7 +32,7 @@ int main ( ) {
 		queries.push_back(queryWord);
 		}
 */
-	ISRWord queryWord( "#penetr" ) ;
+	ISRWord queryWord( "%night" ) ;
 	queries.push_back(queryWord);
 	vector<size_t> locations;
 	set<string> urls;

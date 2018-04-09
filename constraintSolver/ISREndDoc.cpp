@@ -6,7 +6,7 @@
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
-    memMap = nullptr;
+    openChunk(currentChunk);
 }
 
 DocumentEnding ISREndDoc::next() {
@@ -92,10 +92,15 @@ void ISREndDoc::openChunk(int chunk) {
 }
 
 void ISREndDoc::seek(Location target) {
-    int chunk = 0;
-
-    while(target < corpus.chunks[chunk].lastLocation)
-        chunk++;
+    int chunk = 1;
+    if(target < corpus.chunks[0].lastLocation) {
+        chunk = 0;
+    } else {
+        while (target > corpus.chunks[chunk].lastLocation) {
+            chunk++;
+        }
+        chunk--;
+    }
 
     if(chunk != currentChunk)
         openChunk(chunk);
