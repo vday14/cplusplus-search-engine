@@ -157,7 +157,26 @@ add_executable(URLTEST
 
         )
 
-add_executable(search-engine search.cpp query/Searcher.cpp)
+add_executable(search-engine
+        search.cpp
+        query/Searcher.cpp
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        constraintSolver/ISRContainer.cpp
+        constraintSolver/ISR.h
+        query/Ranker/Ranker.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        query/Ranker/Site.cpp
+        query/Ranker/Scorer.cpp
+        query/queryLanguage/QueryParser.cpp
+        constraintSolver/ISREndDoc.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISROr.cpp)
+
 
 add_executable(ISRWord-tests
         util/util.cpp
@@ -165,6 +184,8 @@ add_executable(ISRWord-tests
         constraintSolver/tests/ISRWordTests.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
+        indexer/Chunk.cpp
+        indexer/Corpus.cpp
         util/Stemmer.cpp )
 
 add_executable(ISREndDoc-tests
@@ -181,11 +202,15 @@ add_executable(ISROR-tests
         constraintSolver/ISROr.cpp
         constraintSolver/tests/ISROrTests.cpp
         constraintSolver/ISREndDoc.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
 add_executable(ISRAnd-tests
         constraintSolver/tests/ISRAndTests.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/util.cpp
         constraintSolver/ISR.cpp
         constraintSolver/ISRWord.cpp
@@ -201,6 +226,8 @@ add_executable(ISRWord-Multi-Test
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/Stemmer.cpp )
 
 add_executable(ISRMultiWordORTest
@@ -210,6 +237,8 @@ add_executable(ISRMultiWordORTest
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISREndDoc.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
 
@@ -223,7 +252,7 @@ add_executable(DataStructures-HashTable-tests
         DataStructures/HashTable/HashTable.h
         DataStructures/HashTable/HashTableTests.cpp)
 
-add_executable(DataStructures-DiskHashTable-tests
+add_executable(DataStructures-q-DiskHashTable-tests
         DataStructures/DiskHashTable/DiskHashTable.h
         DataStructures/DiskHashTable/DiskHashTableTests.cpp)
 
@@ -246,12 +275,16 @@ add_executable(MasterReader-tests
 
 
 add_executable(Corpus-tests
+
         indexer/tests/CorpusTests.cpp
         indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        DataStructures/DiskHashTable/MMDiskHashTable.h
         util/stringProcessing.cpp
         util/Stemmer.cpp
         util/util.cpp
         )
+
 
 add_executable(query-Ranker-tests
         query/Ranker/tests/RankerTest.cpp
@@ -273,6 +306,8 @@ add_executable(testQueryLang
         util/DataStructureLib/tuple.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
 
         )
 
@@ -296,12 +331,15 @@ add_executable(testISRQueryTuple
 
         )
 
+add_executable(server
+        site/LinuxTinyServer.cpp)
 
 add_executable(query-queryLanguage-tests
         query/queryLanguage/QueryParser.cpp
-
-
+        query/queryLanguage/QueryParser.h
+        util/DataStructureLib/tuple.cpp
         )
+
 
 
 find_package(OpenSSL REQUIRED)

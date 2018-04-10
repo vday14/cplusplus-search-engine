@@ -24,20 +24,26 @@ void ISRContainer::compile( )
 
 ISR * ISRContainer::recurviseCompile( Tuple * root )
 	{
-	vector< ISR * > terms;
+	vector< ISR * > words;
 	if( root->Type == WordTupleType )
-		return new ISRWord( root->object.text );
+		{
+
+
+		string currentTerm = root->object.text;
+		terms.push_back( currentTerm );
+		return new ISRWord( currentTerm );
+		}
 
 	else
 		{
 		for( auto child : root->Next )
-			terms.push_back( recurviseCompile( child ) );
+			words.push_back( recurviseCompile( child ) );
 		}
 
 		if( root->Type == AndTupleType )
-			return  new ISRAnd ( terms );
+			return  new ISRAnd ( words );
 		else
-			return  new ISROr ( terms );
+			return  new ISROr ( words );
 
 	}
 
@@ -47,28 +53,31 @@ void ISRContainer::Solve( )
 		{
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
 		cout << url << endl;
+		Location BeginningfDocument = Contained->GetISRToBeginningOfDocument( );
+		//PassToRanker( BeginningfDocument );
 
+		//PassToRanker( BeginningfDocument );
 		Contained->NextDocument( );
 
+		}
+	return;
 
+	}
 
-/*
- * beg = GetBeginning of Doc
- * Pass Terms to ranker
- *
- * vector<words>
- *
- * Ranker:
- * for term in terms
- * IsrWord word = new ISR(term)
- * Term.seek(beg)
- * words.push(word)
- * rank(words)
- *
- * NextDocument()
- */
+void ISRContainer::PassToRanker( Location docBeginning )
+	{
+
+	vector<ISRWord* > toRanker;
+	for ( auto term : terms )
+		{
+
+		ISRWord * isrWord = new ISRWord ( term ) ;
+		isrWord->Seek( docBeginning );
+		toRanker.push_back( isrWord );
+
 		}
 
+	//ranker.rank( toRanker );
 
 	}
 

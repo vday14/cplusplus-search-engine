@@ -32,7 +32,7 @@ int main ( ) {
 		queries.push_back(queryWord);
 		}
 */
-	ISRWord queryWord( "world" ) ;
+	ISRWord queryWord( "moment" ) ;
 	queries.push_back(queryWord);
 	vector<size_t> locations;
 	set<string> urls;
@@ -44,6 +44,7 @@ int main ( ) {
 		while(query.getCurrentLocation() != MAX_Location)  {
 			auto url = query.DocumentEnd->getCurrentDoc().url;
 			urls.insert( url  );
+			cout << url << endl;
 			query.NextDocument();
 
 			}

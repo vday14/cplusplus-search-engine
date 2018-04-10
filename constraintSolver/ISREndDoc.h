@@ -33,12 +33,12 @@ public:
 	unsigned GetDocumentLength ( );
 	unsigned GetTitleLength ( );
 	string getURL ( );
-
+	size_t currentChunk;
 private:
 
 	DocumentEnding currentDoc;
 	char* memMap;
-	int currentChunk;
+
     int currentFile;
 
 };

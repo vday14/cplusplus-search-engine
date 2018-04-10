@@ -8,6 +8,7 @@
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 #include "../util/util.h"
 #include "WordInfo.h"
+#include "IndexerConstants.h"
 #include <unordered_map>
 #include <map>
 #include <vector>

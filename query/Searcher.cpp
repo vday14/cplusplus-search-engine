@@ -16,21 +16,21 @@ using namespace std;
 void Searcher::search ( )
 	{
 
-	if (*CompleteQuery == "-quit" ||*CompleteQuery == "-q" )
+	if (CompleteQuery == "-quit" ||CompleteQuery == "-q" )
 		{
 		cout << "Thank you for using C++lue search engine" << endl;
 		exit( 0 );
 		}
-	else if ( *CompleteQuery == "-help")
+	else if ( CompleteQuery == "-help")
 		{
 		cout << "Manual" << endl;
 		return;
 		}
 	else
 		{
-		queryParser.parse(*CompleteQuery);
-		container->compile( queryParser );
-		container->solve( );
+		queryParser.parse(CompleteQuery);
+		ISRContainer container = ISRContainer( queryParser.queryTree );
+		container.Solve( );
 
 
 
@@ -50,7 +50,7 @@ void Searcher::search ( )
  *
  */
 
-void QueryParser::printResults ( )
+void Searcher::printResults ( )
 	{
 	cout << " Generated XXX results in about XXX seconds " << endl;
 

@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "WordSeek.h"
+#include "../indexer/Corpus.h"
 #include "../util/util.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 #include "ISREndDoc.h"
@@ -42,7 +43,6 @@ class ISRWord : public ISR
 	// ISR *GetDocumentISR( );
 
 		string term;
-		char *masterIndex;
 		vector< size_t > listOfChunks;
 		vector< WordSeek > wordSeekLookupTable;
 		size_t currentChunk;
@@ -63,7 +63,9 @@ private:
     size_t lastLocation;
     size_t docFrequency;
     size_t frequency;
+	Corpus corpus = Corpus();
 
-};
+
+	};
 
 
