@@ -1,6 +1,3 @@
-//
-// Created by Zane Dunnings on 4/2/18.
-//
 
 #include "Scorer.h"
 #include "Site.h"
@@ -23,10 +20,5 @@ double Scorer::getScore ( Site website)
 
 double Scorer::Simple( Site inputSite)
 	{
-	double score = 0;
-	for( auto i = inputSite.wordData.begin(); i != inputSite.wordData.end(); ++i )
-		{
-		score+=i->second.frequency;
-		}
-	return score;
+	return 5;
 	}
