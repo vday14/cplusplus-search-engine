@@ -22,8 +22,9 @@
 void QueryParser::parse( string input )
 	{
 	query = input;
+	preprocess();
 	Token current;
-	queryTree = Constraint ( input );
+	queryTree = Constraint ( query );
 	}
 
 /***
@@ -120,7 +121,7 @@ vector<Tuple * > QueryParser::breakOnOR( string input )
 	closedBracket.insert(')');
 	closedBracket.insert('}');
 	closedBracket.insert(']');
-	vector<string> query = splitStr (input, ' ', true);
+	vector<string> query = splitStr (input, ' ', false);
 
 	vector<Tuple *> constraintList;
 	int start = 0;
@@ -135,6 +136,8 @@ vector<Tuple * > QueryParser::breakOnOR( string input )
 
 			while ( depth != 0)
 				{
+				if( i > query.size() )
+					break;
 				if( query[ i ] == "(")
 					++depth;
 				else if ( query[ i ] == ")")
@@ -144,6 +147,7 @@ vector<Tuple * > QueryParser::breakOnOR( string input )
 					if( text!= "")
 						text+=" ";
 					text+=query[ i ];
+					++i;
 					}
 				}
 			Tuple * subConstraint = Constraint( text );
@@ -163,12 +167,13 @@ vector<Tuple * > QueryParser::breakOnOR( string input )
 				if( j < ( i -1 ) )
 					text+= " ";
 				}
-			if( text == "" || text == " ")
-				break;
-
-			Tuple * subConstraint = Constraint( text );
-			constraintList.push_back( subConstraint );
+			if( text != "" && text != " ")
+				{
+				Tuple * subConstraint = Constraint( text );
+				constraintList.push_back( subConstraint );
+				}
 			start = i + 1;
+
 			}
 		else if( i == query.size( ) - 1 )
 			{
@@ -281,8 +286,8 @@ vector<Tuple * > QueryParser::breakOnAND( string input )
 					if( text!= "")
 						text+=" ";
 					text+=query[ i ];
+					++i;
 					}
-				++i;
 				}
 			Tuple * subConstraint = Constraint( text );
 			constraintList.push_back( subConstraint );
@@ -294,19 +299,6 @@ vector<Tuple * > QueryParser::breakOnAND( string input )
 			}
 		else if( MatchAND( query[ i ]) && depth == 0 )
 			{
-			string text;
-			for ( int j = start; j < i; ++ j)
-				{
-				text+= query[ j ];
-				if( j < ( i -1 ) )
-					text+= " ";
-				}
-			if( text == "" || text == " ")
-				break;
-
-			Tuple * subConstraint = Constraint( text );
-			constraintList.push_back( subConstraint );
-			start = i + 1;
 			}
 		else if( depth == 0 )
 			{
@@ -325,18 +317,31 @@ vector<Tuple * > QueryParser::breakOnAND( string input )
  */
 void QueryParser::printCompiledQuery()
 	{
-	cout << "Query Tree: \n";
+	cout << "\nQuery Tree: \n";
+	cout << getTestingTree();
+
+	}
+
+/***
+ * generates the string that the printCompiledQuery will print
+ *
+ */
+string QueryParser::getTestingTree()
+	{
+	string output = "";
 	deque<Tuple *> queue;
 	deque<int> levelQueue;
 	queue.push_back( queryTree );
 	levelQueue.push_back( 0 );
-	traverse( queue, levelQueue );
+	traverse( queue, levelQueue, output );
+	return output;
 	}
 
 
-void QueryParser::traverse(deque< Tuple*> queue, deque< int> levels)
+void QueryParser::traverse(deque< Tuple*> queue, deque< int> levels, string &output)
 	{
 	int deepest = 0;
+	int level = 0;
 	while(!queue.empty())
 		{
 		Tuple *current = queue.front ( );
@@ -348,17 +353,20 @@ void QueryParser::traverse(deque< Tuple*> queue, deque< int> levels)
 			queue.push_back( current->Next[ i ] );
 			levels.push_back( currLevel + 1);
 			}
-		cout << " | ";
+		output += " | ";
 		if( currLevel > deepest)
 			{
 			deepest = currLevel;
-			cout << "\n[ "<<deepest<<" ] ";
+			output += "\n[ ";
+			output += to_string(deepest);
+			output += " ] ";
 			}
 
-		cout << " " << current->object.text << " ";
+		output += " ";
+		output += current->object.text;
+		output += " ";
 		}
 	}
-
 
 /***
  * destructor for the Query Parser
@@ -380,4 +388,23 @@ void QueryParser::delete_children( Tuple* node )
 		delete_children( node->Next[ i ] );
 		delete node->Next[ i ];
 		}
+	}
+
+void QueryParser::preprocess( )
+	{
+	string formattedString;
+	for( int i = 0; i < query.size(); ++i)
+		{
+		if( query[ i ] == '(' || query[ i ] == ')')
+			{
+			formattedString += " ";
+			formattedString +=  query[i] ;
+			formattedString += " ";
+			}
+		else
+			{
+			formattedString+=  query[i];
+			}
+		}
+	query = formattedString;
 	}

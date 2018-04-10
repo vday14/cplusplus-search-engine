@@ -49,6 +49,7 @@ public:
 	vector<Tuple * > breakOnAND( string input );
 
 	void printCompiledQuery( );
+	string getTestingTree( );
 
 	~QueryParser ( );
 
@@ -56,7 +57,8 @@ public:
 	Tuple* queryTree;
 	string query;
 private:
-	void traverse(deque< Tuple*> queue, deque< int> levels);
+	void preprocess( );
+	void traverse(deque< Tuple*> queue, deque< int> levels, string &output);
 	void delete_children( Tuple* node );
 	bool MatchOR( string input );
 	bool MatchAND( string input );
