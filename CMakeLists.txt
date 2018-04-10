@@ -354,20 +354,20 @@ add_executable(testQueryLanguage
         util/Stemmer.cpp
         )
 
-
-find_package(OpenSSL REQUIRED)
-
-target_link_libraries(TryPopTest OpenSSL::SSL)
-
-target_link_libraries(ParserTest OpenSSL::SSL)
-
-target_link_libraries(isolated-integration OpenSSL::SSL pthread)
-target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
-
-target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
-target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
-
-target_link_libraries(QueueTest pthread)
+#
+#find_package(OpenSSL REQUIRED)
+#
+#target_link_libraries(TryPopTest OpenSSL::SSL)
+#
+#target_link_libraries(ParserTest OpenSSL::SSL)
+#
+#target_link_libraries(isolated-integration OpenSSL::SSL pthread)
+#target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
+#
+#target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
+#target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
+#
+#target_link_libraries(QueueTest pthread)
 
 
 

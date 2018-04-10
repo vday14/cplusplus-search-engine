@@ -63,6 +63,7 @@ private:
 	bool MatchAND( string input );
 	bool isAndType( string input );
 	bool isOrType( string input );
+	Tuple * getDecoratedWord( string input );
 
 
 

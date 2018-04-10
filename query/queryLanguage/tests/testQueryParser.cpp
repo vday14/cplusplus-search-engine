@@ -35,6 +35,7 @@ void testAND()
 	QueryParser lebronParser;
 	lebronParser.parse( query );
 	string correct = " |  -AND-  | \n[ 1 ]  Is  |  Lebron  |  james  |  the  |  goat ";
+	lebronParser.printCompiledQuery();
 	assert(correct == lebronParser.getTestingTree( ));
 
 	string dessertQuery = "I like cookies AND cake & pie && icecream and dessert";
