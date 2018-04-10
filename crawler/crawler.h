@@ -6,7 +6,6 @@
 #include "../shared/ProducerConsumerQueue.h"
 #include <unordered_map>
 #include "UrlFrontier.h"
-
 //#include "CrawlerStatistics.h"
 /*
  *

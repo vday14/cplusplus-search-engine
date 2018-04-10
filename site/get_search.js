@@ -37,7 +37,7 @@ function get_request(){
 
             for(r in results)
             {
-                var result = $( "<div id='result1'>" + results[r] + "</div>" );
+                var result = $( "<a href='"+ results[r]   +"' id='result1'>" + results[r] + "</a>" );
                 $("#results").append(result);
 
             }
