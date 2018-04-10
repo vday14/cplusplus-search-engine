@@ -28,6 +28,9 @@ void Searcher::search ( )
 		}
 	else
 		{
+
+		//This will toggle decoration off to test things lile '$russia $trump or #hillary'
+		//queryParser.toggleDecorator( );
 		queryParser.parse(CompleteQuery);
 		ISRContainer container = ISRContainer( queryParser.queryTree );
 		Results = container.Solve( );
