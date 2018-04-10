@@ -30,7 +30,8 @@ void Searcher::search ( )
 		{
 		queryParser.parse(CompleteQuery);
 		ISRContainer container = ISRContainer( queryParser.queryTree );
-		container.Solve( );
+		Results = container.Solve( );
+
 
 
 
@@ -56,4 +57,11 @@ void Searcher::printResults ( )
 
 
 	return;
+	}
+
+
+string Searcher::GetResults ( )
+	{
+
+	return Results;
 	}

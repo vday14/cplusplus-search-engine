@@ -7,7 +7,23 @@
 
 void ISRPhrase::ISRPhrase( vector < ISR * > InputTerms )
 	{
+	assert( InputTerms.size( ) > 1 );
 
+	Location first = MAX_Location;
+
+	for ( auto isr : Terms )
+		{
+		Location temp = isr->currentLocation;
+		if ( temp < first )
+			{
+			first = temp;
+			}
+		}
+
+
+	//fixme should this return the nearest location of one subterm or the nearest location all the terms match?
+	currentLocation = Seek( first  );
+	return;
 
 
 	}

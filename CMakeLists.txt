@@ -332,6 +332,28 @@ add_executable(testISRQueryTuple
 
         )
 
+add_executable(server
+        site/LinuxTinyServer.cpp
+
+        query/Searcher.cpp
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        constraintSolver/ISRContainer.cpp
+        constraintSolver/ISR.h
+        query/Ranker/Ranker.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        query/Ranker/Site.cpp
+        query/Ranker/Scorer.cpp
+        query/queryLanguage/QueryParser.cpp
+        constraintSolver/ISREndDoc.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISROr.cpp
+
+        )
 
 add_executable(query-queryLanguage-tests
         query/queryLanguage/QueryParser.cpp

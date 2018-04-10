@@ -47,12 +47,14 @@ ISR * ISRContainer::recurviseCompile( Tuple * root )
 
 	}
 
-void ISRContainer::Solve( )
+string ISRContainer::Solve( )
 	{
+	string results;
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
 		cout << url << endl;
+		results += url + ",";
 		Location BeginningfDocument = Contained->GetISRToBeginningOfDocument( );
 		//PassToRanker( BeginningfDocument );
 
@@ -60,7 +62,8 @@ void ISRContainer::Solve( )
 		Contained->NextDocument( );
 
 		}
-	return;
+
+	return results;
 
 	}
 

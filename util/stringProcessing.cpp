@@ -210,7 +210,14 @@ vector< string > splitStr ( string originalText, char delim, bool removeSyms )
 		string word = "";
 		while ( begin != delim && i < originalText.size( ) )
 			{
-			if ( removeSyms && ( isAlpha( begin ) || isNum( begin ) ) )
+			if ( removeSyms)
+				{
+				if( isAlpha( begin ) || isNum( begin ) )
+					{
+					word.push_back( begin );
+					}
+				}
+			else
 				{
 				word.push_back( begin );
 				}
@@ -251,6 +258,10 @@ vector< string > splitStr ( string originalText, set< char > delims, bool remove
 		while ( delims.find( begin ) == delims.end( ) && i < originalText.size( ) )
 			{
 			if ( removeSyms && ( isAlpha( begin ) || isNum( begin ) ) )
+				{
+				word.push_back( begin );
+				}
+			else if ( !removeSyms )
 				{
 				word.push_back( begin );
 				}

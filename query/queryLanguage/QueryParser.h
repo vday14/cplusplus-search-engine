@@ -2,14 +2,10 @@
 // Created by Zane Dunnings on 3/16/18.
 //
 
-#ifndef EECS398_SEARCH_QUERYPARSER_H
-#define EECS398_SEARCH_QUERYPARSER_H
 
+#pragma  once
 #include "../../util/DataStructureLib/tuple.cpp"
 #include<deque>
-// Outline of query language from Prof. Nicole Hamilton, University of Michigan 03/15/2018
-// 41 lines
-
 
 //  <Constraint>        ::= <BaseConstraint>
 //                              { <OrOp> <BaseConstraint> }
@@ -33,6 +29,7 @@
 //  <NestedConstraint>  ::= '(' <Constraint> ')'
 
 
+
 class QueryParser
 	{
 
@@ -51,6 +48,7 @@ public:
 	vector<Tuple * > breakOnAND( string input );
 
 	void printCompiledQuery( );
+	string getTestingTree( );
 
 	~QueryParser ( );
 
@@ -58,7 +56,8 @@ public:
 	Tuple* queryTree;
 	string query;
 private:
-	void traverse(deque< Tuple*> queue, deque< int> levels);
+	void preprocess( );
+	void traverse(deque< Tuple*> queue, deque< int> levels, string &output);
 	void delete_children( Tuple* node );
 	bool MatchOR( string input );
 	bool MatchAND( string input );
@@ -69,4 +68,3 @@ private:
 
 	};
 
-#endif //EECS398_SEARCH_QUERYPARSER_H
