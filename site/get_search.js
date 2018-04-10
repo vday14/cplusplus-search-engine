@@ -32,9 +32,16 @@ function get_request(){
             console.log("error");
             console.log(data.responseText);
             var dataReturned = data.responseText;
+            var results = data.responseText.split(',');
             $("#results").empty();
-            var result = $( "<div id='result1'>" + dataReturned + "</div>" );
-            $("#results").append(result);
+
+            for(r in results)
+            {
+                var result = $( "<div id='result1'>" + results[r] + "</div>" );
+                $("#results").append(result);
+
+            }
+
 
         }
     });
