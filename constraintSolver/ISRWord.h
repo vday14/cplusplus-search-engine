@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <fcntl.h>
+#include <string>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -43,13 +44,11 @@ class ISRWord : public ISR
 	// ISR *GetDocumentISR( );
 
 		string term;
-		vector< size_t > listOfChunks;
 		vector< WordSeek > wordSeekLookupTable;
 		size_t currentChunk;
 		char *currentMemMap;
 
 		//set member variables to all of the chunks that occur, update current chunk
-		void getChunks ( );
 		Location getCurrentLocation();
 		size_t getFrequency();
 		size_t getDocFrequency();
@@ -59,10 +58,8 @@ class ISRWord : public ISR
 
 private:
 	void getWordSeek();
-	
-    size_t lastLocation;
-    size_t docFrequency;
-    size_t frequency;
+
+	WordInfo info;
 	Corpus corpus = Corpus();
 
 

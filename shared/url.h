@@ -122,6 +122,11 @@ public:
 
 
 					CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
+					//remove question marks
+					size_t found = CompleteUrl.find("?");
+					if(found < CompleteUrl.size( ) )
+						CompleteUrl.erase(found, CompleteUrl.size( ));
+
 					Service = string(temp_Service, strlen(temp_Service));
 					Host = string(temp_Host, strlen(temp_Host));
 
