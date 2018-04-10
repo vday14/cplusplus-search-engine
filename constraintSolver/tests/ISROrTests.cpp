@@ -6,40 +6,61 @@
 #include <set>
 #include "../../indexer/DocumentEnding.h"
 #include "../ISRWord.h"
-#include "../ISREndDoc.h"
+
 #include "../ISROr.h"
-#include <vector>
 using namespace std;
 
 int main ( )
 	{
-	char* query;
-	ISRWord *q1 = new ISRWord("iphone");
-	ISRWord *q2 = new ISRWord("apple");
+	string query;
 	vector< ISR* > input;
-	input.push_back(q1);
-	input.push_back(q2);
-	ISROr *queryOr = new ISROr(input);
-	ISREndDoc endDocs;
-	vector<size_t> locations;
-	vector<DocumentEnding> docEnds;
-	set<string> urls;
-	while(queryOr->GetCurrentLocation() != MAX_Location) {
-		locations.push_back(queryOr->Next());
-		}
-	while(endDocs.next().url != "aaa")
+	query = "!";
+	while(cin >> query)
 		{
-		for(auto locs : locations)
-			{
-			if(locs < endDocs.getCurrentDoc().docEndPosition &&
-				locs >= (endDocs.getCurrentDoc().docEndPosition - endDocs.getCurrentDoc().docNumWords)) {
-				urls.insert(endDocs.getCurrentDoc().url);
-				}
-			}
+		if(query == "-q")
+			break;
+		ISRWord *q = new ISRWord( query.c_str() );
+		input.push_back(q);
+		}
+
+
+
+
+	ISROr *queryOr = new ISROr(input);
+	set<string> urls;
+	clock_t start = clock();
+
+	while(queryOr->GetCurrentLocation() != MAX_Location) {
+
+		auto url = queryOr->GetEndDocument()->getCurrentDoc().url;
+		cout << url << endl;
+		urls.insert(url);
+		queryOr->NextDocument();
 
 		}
+
+	clock_t end = clock();
+
+
 	for(auto urrl : urls) {
 		cout << urrl << endl;
 		}
+
+	cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+	cout << "Number of results: " << urls.size();
+
+	/*
+	 *
+	 * moment and life
+	 	file3tweet151407709667856384
+		file5tweet151408405939093504
+		file9tweet151409353818255361
+	 *
+	 *
+	 * token and life
+	 * file48tweet151419172700684288
+	 */
+
+
 	return 0;
 	}

@@ -27,40 +27,10 @@ ISRAnd::ISRAnd( vector < ISR * > InputTerms ) : Terms( InputTerms )
 	return;
 	}
 
-Location ISRAnd::First()
-	{
-	//Fixme?
-	/*
-	Location first = MAX_Location;
-
-	for(auto isr : Terms)
-		{
-			Location temp = isr->First();
-			if (temp < first)
-			{
-				first = temp;
-			}
-		}
-
-	//fixme should this return the nearest location of one subterm or the nearest location all the terms match?
-	currentLocation = Seek(first);
-	return currentLocation;
-	*/
-	}
 
 
-Location ISRAnd::Next()
-	{
-	return Seek( nearestStartLocation );
-	}
-
-Location ISRAnd::NextDocument()
-	{
-	currentLocation = Seek( GetEndDocument( )->getCurrentDoc( ).docEndPosition + 1 );
 
 
-	return currentLocation;
-	}
 
 Location ISRAnd::Seek( Location target )
 	{
@@ -145,11 +115,5 @@ ISREndDoc *ISRAnd::GetEndDocument()
 	return furthestTerm->DocumentEnd;
 	}
 
-Location ISRAnd::GetCurrentLocation()
-	{
-	//What does currentLocation hold?  When is it updated?
-	//return DocumentEnd->Seek(currentLocation);
-	return currentLocation;
-	}
 
 

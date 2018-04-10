@@ -23,26 +23,45 @@
 #include <chrono>
 #include <future>
 #include <ctime>
+
 using DocIndex = const unordered_map< string, vector< unsigned long > >;
 
 using namespace std;
 
-string wait_for_user_input()
+
+atomic_bool *alive = new atomic_bool(true);
+//atomic_bool has_shutdown = false;
+
+/*
+void wait_to_shutdown(Indexer& indexer, Crawler* crawler, UrlFrontier* urlFrontier, ProducerConsumerQueue< DocIndex * > *IndexerQueue)
 	{
-	std::string answer;
-	std::cin >> answer;
-	return answer; ;
+	cout << "Press anything to quit" << endl;
+	char c = 't';
+	while(c != 'Q' && !has_shutdown)
+	{
+		c = getchar();
 	}
+	if(has_shutdown) return;
 
+	crawler->passAnchorTextToIndex( );
+	indexer.Kill();
+	indexer.WaitForFinish( );
+	urlFrontier->writeDataToDisk();
+	delete urlFrontier;
+	delete IndexerQueue;
+>>>>>>> QueueRefactor
 
+	cout << "Indexer has finished running " << endl;
+	}
+*/
 
 void signalHandler( int signum ) {
 	cout << "Interrupt signal (" << signum << ") received.\n";
 	cout << "Ending the Index build" << endl;
 	// cleanup and close up stuff here
 	// terminate program
-
-	exit(signum);
+	(*alive) = false;
+	//exit(signum);
 	}
 
 
@@ -67,7 +86,7 @@ int main ( int argc, char *argv[] )
 	 */
 
 	//
-
+	signal(SIGINT, signalHandler);
 
 
 	string mode = "web";
@@ -150,7 +169,7 @@ int main ( int argc, char *argv[] )
 			if ( *seeds == '\n' )
 				{
 
-				ParsedUrl * url = new ParsedUrl( testFile );
+				ParsedUrl url(testFile);
 				cout << "Pushing: " << testFile << " to queue\n";
 				urlFrontier->Push( url );
 				testFile = "";
@@ -162,8 +181,8 @@ int main ( int argc, char *argv[] )
 		if ( testFile != "" )
 			{
 			cout << "Pushing: " << testFile << " to queue\n";
-			ParsedUrl * url = new ParsedUrl( testFile );
-			urlFrontier->Push( url );
+			ParsedUrl url1(testFile);
+			urlFrontier->Push( url1 );
 			}
 		}
 	else
@@ -176,8 +195,10 @@ int main ( int argc, char *argv[] )
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
-	atomic_bool *alive = new atomic_bool(true);
-	crawler->SpawnSpiders( numberOfSpiders , alive);
+
+	//atomic_bool *alive = new atomic_bool(true);
+	crawler->SpawnSpiders( numberOfSpiders , alive, DocsToCrawl);
+
 
 
 	string input;
@@ -185,8 +206,9 @@ int main ( int argc, char *argv[] )
 
 	if(DocsToCrawl > 0 )
 		{
-		cout << "Crawling 100,000 documents for each spider" << endl;
+		cout << "Crawling: " << DocsToCrawl << " documents for each spider" << endl;
 		crawler->WaitOnAllSpiders( );
+			//has_shutdown = true;
 		crawler->passAnchorTextToIndex( );
 		indexer.Kill();
 		indexer.WaitForFinish( );

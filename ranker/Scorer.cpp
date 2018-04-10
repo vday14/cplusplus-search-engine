@@ -21,7 +21,12 @@ double Scorer::getScore ( Site website)
 	return score / (double)numberOfFunctions;
 	}
 
-double Scorer::Simple( Site )
+double Scorer::Simple( Site inputSite)
 	{
-	return 42.0;
+	double score = 0;
+	for( auto i = inputSite.wordData.begin(); i != inputSite.wordData.end(); ++i )
+		{
+		score+=i->second.frequency;
+		}
+	return score;
 	}

@@ -1,5 +1,6 @@
 
 #include "HttpReader.h"
+#include <sys/time.h>
 
 std::runtime_error HTTPConnectionError( "Error connecting HTTP to url" );
 
@@ -55,6 +56,13 @@ bool HttpReader::request ( )
 		send( sock, getMessage.c_str( ), getMessage.length( ), 0 );
 
 		bool isSuccess = checkStatus( );
+
+		//set timeout option
+		struct timeval tv;
+		tv.tv_sec = 10;
+		tv.tv_usec = 0;
+		setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof(tv));
+
 		return isSuccess;
 
 	}

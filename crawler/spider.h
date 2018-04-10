@@ -22,22 +22,24 @@ class Spider : public ThreadClass
 public:
 
 	Spider ( string mode_in,
-				UrlFrontier  *url_q_in,
+			 UrlFrontier  *url_q_in,
 	         ProducerConsumerQueue< DocIndex * > *doc_index_queue_in,
-				atomic_bool * bool_in
+			 atomic_bool * bool_in,
+			 int numdocs
 	)
 			: mode( mode_in ),
 			  urlFrontier( url_q_in ),
 			  parser( url_q_in ),
 			  IndexerQueue( doc_index_queue_in ),
-			  alive( bool_in )
+			  alive( bool_in ),
+			  docs_to_crawl(numdocs)
 		{
 
 		};
 
 
 	//Takes a url off of the url frontier
-	ParsedUrl * getUrl ( );
+	ParsedUrl getUrl ( );
 
 	virtual void run ( );
 
@@ -61,5 +63,6 @@ private:
 	string mode;
 	Parser parser;
 	atomic_bool* alive;
+	int docs_to_crawl;
 
 	};

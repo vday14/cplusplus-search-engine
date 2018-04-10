@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <fcntl.h>
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -17,6 +18,8 @@
 #include "../util/util.h"
 #include "../indexer/DocumentEnding.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
+#include "../indexer/IndexerConstants.h"
+#include "../indexer/Corpus.h"
 
 // Find occurrences of document ends.
 typedef size_t Location;
@@ -26,20 +29,21 @@ public:
 
 	ISREndDoc();
 	DocumentEnding next();
+	void openChunk(int chunk);
 	void seek(Location target);
 	DocumentEnding getCurrentDoc();
 	Location GetStartingPositionOfDoc( );
 
-	unsigned GetDocumentLength ( );
-	unsigned GetTitleLength ( );
-	string getURL ( );
-
 private:
 
 	DocumentEnding currentDoc;
-	char* memMap;
-	int currentChunk;
-    int currentFile;
+    int currentFileHandle;
+    int currentChunk;
+    char* memMap;
+
+    vector<WordSeek> seekTable;
+
+    Corpus corpus;
 
 };
 

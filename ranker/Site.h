@@ -1,6 +1,3 @@
-//
-// Created by Zane Dunnings on 4/2/18.
-//
 /***
  * Class to represent each website in the ranking engine
  */
@@ -8,6 +5,14 @@
 #define EECS398_SEARCH_SITE_H
 
 #include <string>
+#include <unordered_map>
+
+
+struct data
+	{
+	unsigned long frequency;
+	};
+
 class Site
 	{
 public:
@@ -16,6 +21,6 @@ public:
 	std::string url;
 	double score;
 	bool hasBeenScored;
-
+	std::unordered_map< std::string, data> wordData;
 	};
 #endif //EECS398_SEARCH_SITE_H
