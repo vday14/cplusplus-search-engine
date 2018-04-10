@@ -74,7 +74,7 @@ Location ISRWord::First ( )
 
 Location ISRWord::Next ( )
 	{
-	if ( currentMemMap && *currentMemMap == '\n' )
+	if ( currentMemMap && *currentMemMap == '\n' || *currentMemMap == '\0')
 		{
 		currentChunk++;
         if(info.chunks.size( ) <= currentChunk)

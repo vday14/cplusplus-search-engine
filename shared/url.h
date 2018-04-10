@@ -179,7 +179,7 @@ public:
 			isValid = false;
 
 
-		Score +=  1/ ( lengthOfUrl );
+		Score +=  1/ ( lengthOfUrl ) / 10;
 
 		if(lengthOfUrl > 4)
 		{
