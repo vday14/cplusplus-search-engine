@@ -35,10 +35,9 @@ class QueryParser
 
 public:
 	QueryParser( )
-			:queryTree( nullptr ), query( "" ){
+			:queryTree( nullptr ), query( "" ), decorate(true){
 		queryTree = new Tuple( TupleType::AndTupleType );
 		}
-	//QueryParser( string query );
 
 	void parse( string input );
 
@@ -49,6 +48,7 @@ public:
 
 	void printCompiledQuery( );
 	string getTestingTree( );
+	void toggleDecorator();
 
 	~QueryParser ( );
 
@@ -56,6 +56,7 @@ public:
 	Tuple* queryTree;
 	string query;
 private:
+	bool decorate;
 	void preprocess( );
 	void traverse(deque< Tuple*> queue, deque< int> levels, string &output);
 	void delete_children( Tuple* node );

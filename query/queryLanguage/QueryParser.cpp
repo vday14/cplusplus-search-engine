@@ -21,8 +21,7 @@
  */
 void QueryParser::parse( string input )
 	{
-	query = input;
-	query = stemWord(query);
+	query = stemWord(input);
 	preprocess();
 	Token current;
 	queryTree = Constraint ( query );
@@ -412,20 +411,30 @@ void QueryParser::preprocess( )
 
 Tuple * QueryParser::getDecoratedWord( string input )
 	{
+
+	if( !decorate )
+		{
+		return new Tuple(input, WordTupleType);
+		}
 	vector< Tuple *> NextList;
 	Tuple * parent = new Tuple( "-OR-", OrTupleType);
-	Tuple * body = new Tuple( "%" + input, WordTupleType);
-	NextList.push_back(body);
+	//Tuple * body = new Tuple( "%" + input, WordTupleType);
+	//NextList.push_back(body);
 	Tuple * url = new Tuple( "$" + input, WordTupleType);
 	NextList.push_back(url);
 //	Tuple * host = new Tuple( "=" + input, WordTupleType);
 //	NextList.push_back(host);
 //	Tuple * anchor = new Tuple( "@" + input, WordTupleType);
 //	NextList.push_back(anchor);
-//	Tuple * title = new Tuple( "#" + input, WordTupleType);
-	//NextList.push_back(title);
+	Tuple * title = new Tuple( "#" + input, WordTupleType);
+	NextList.push_back(title);
 
 	parent->Next = NextList;
 
 	return parent;
+	}
+
+void QueryParser::toggleDecorator()
+	{
+	decorate = !decorate;
 	}
