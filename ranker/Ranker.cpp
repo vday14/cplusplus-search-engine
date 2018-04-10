@@ -1,7 +1,3 @@
-//
-// Created by Zane Dunnings on 4/2/18.
-//
-
 #include "Ranker.h"
 #include "Site.h"
 #include "../constraintSolver/ISRWord.h"

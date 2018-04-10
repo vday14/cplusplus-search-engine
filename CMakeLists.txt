@@ -167,11 +167,11 @@ add_executable(search-engine
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
+        ranker/Ranker.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         query/queryLanguage/QueryParser.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
@@ -277,7 +277,6 @@ add_executable(MasterReader-tests
 
 
 add_executable(Corpus-tests
-
         indexer/tests/CorpusTests.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
@@ -290,9 +289,6 @@ add_executable(Corpus-tests
 
 add_executable(query-Ranker-tests
         ranker/tests/RankerTest.cpp
-        ranker/Ranker.h
-        ranker/Scorer.h
-        ranker/Site.h
         ranker/Ranker.cpp
         ranker/Scorer.cpp
         ranker/Site.cpp
@@ -300,7 +296,9 @@ add_executable(query-Ranker-tests
         constraintSolver/ISRWord.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
+        indexer/Corpus.cpp
         util/Stemmer.cpp
+        indexer/Chunk.cpp
         )
 add_executable(testQueryLang
         query/queryLanguage/tests/testQueryParser.cpp
@@ -323,9 +321,9 @@ add_executable(testISRQueryTuple
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Ranker.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
@@ -343,11 +341,11 @@ add_executable(server
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
+        ranker/Ranker.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         query/queryLanguage/QueryParser.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp

@@ -1,7 +1,3 @@
-//
-// Created by Zane Dunnings on 4/2/18.
-//
-
 
 #ifndef EECS398_SEARCH_RANKER_H
 #define EECS398_SEARCH_RANKER_H
@@ -10,6 +6,7 @@
 #include <queue>
 #include "../constraintSolver/ISRWord.h"
 #include "Site.h"
+#include "Scorer.h"
 #include <unordered_map>
 
 /***
