@@ -23,9 +23,12 @@ public:
 
 	void printResults ( );
 
+	string GetResults( );
+
 private:
 	string CompleteQuery;
 	QueryParser queryParser;
+	string Results;
 	//ISRContainer container;
 
 

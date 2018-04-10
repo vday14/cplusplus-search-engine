@@ -55,7 +55,7 @@ public:
  * GetEndDocument
  *
  */
-	void Solve( );
+	string Solve( );
 	void PassToRanker ( Location BeginningfDocument );
 
 

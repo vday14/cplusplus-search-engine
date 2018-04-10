@@ -12,10 +12,29 @@
 #include <sys/types.h>
 #include <string.h>
 #include <string>
-
+#include "../query/Searcher.h"
 #include <cassert>
 //using namespace std;
 //  Multipurpose Internet Mail Extensions (MIME) types
+
+string proccessUrl( string s )
+	{
+	std::string delimiter = "%20";
+	std::string output;
+	size_t pos = 0;
+	std::string token;
+	while ((pos = s.find(delimiter)) != std::string::npos) {
+		token = s.substr(0, pos);
+		std::cout << token << std::endl;
+		output += " " + token;
+		s.erase(0, pos + delimiter.length());
+		}
+	output += " " + s;
+	return output;
+
+
+	}
+
 
 struct MimetypeMap
 	{
@@ -151,13 +170,14 @@ char *ParseGetRequest( char *request )
 
 char *RootDirectory;
 
-
+/*
 off_t FileSize( int f )
 	{
 	struct stat fileInfo;
 	fstat( f, &fileInfo );
 	return fileInfo.st_size;
 	}
+ */
 
 
 void *Talk( void *p )
@@ -193,6 +213,12 @@ void *Talk( void *p )
 				potentialSearch = potentialSearch.erase(0, 8);
 				//TODO remove %20 from multi word strings
 				std::cout << potentialSearch << std::endl;
+				std::string cleanInput = proccessUrl(potentialSearch);
+				Searcher searcher = Searcher(cleanInput);
+				searcher.search( );
+
+				string results = searcher.GetResults( );
+
 
 				std::cout << "Returning results" << std::endl;
 
@@ -207,7 +233,7 @@ void *Talk( void *p )
 				std::cout << okMessage;
 
 				send( s, okMessage.c_str( ), okMessage.length( ), 0 );
-				send( s, potentialSearch.c_str( ), potentialSearch.length( ), 0 );
+				send( s, results.c_str( ), results.length( ), 0 );
 				close( s );
 				}
 			else
@@ -220,13 +246,13 @@ void *Talk( void *p )
 
 
 				//completePath += fullUrl;
-				std::cout << "Reqested file = " << completePath << std::endl;
+				std::cout << "Requested file = " << completePath << std::endl;
 
 				int f = open( completePath.c_str( ), O_RDONLY );
 
 				if ( f != -1 )
 					{
-					off_t filesize = FileSize( f );
+					off_t filesize = util::FileSize( f );
 					std::string okMessage = "HTTP/1.1 200 OK\r\n"
 							"Content-Length: ";
 					okMessage += std::to_string( filesize );
@@ -300,7 +326,7 @@ int main( int argc, char **argv )
 	listenSocket = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 	assert( listenSocket != -1 );
 
-	int bindResult = bind( listenSocket, (sockaddr *) &listenAddress, sizeof( listenAddress ));
+	int bindResult = ::bind( listenSocket, (sockaddr *) &listenAddress, sizeof( listenAddress ));
 	assert( bindResult == 0 );
 
 	int listenResult = listen( listenSocket, SOMAXCONN );
@@ -310,7 +336,7 @@ int main( int argc, char **argv )
 	PrintAddress( &listenAddress, sizeof( listenAddress ));
 
 	while ((talkAddressLength = sizeof( talkAddress ),
-			talkSocket = accept( listenSocket, (sockaddr *) &talkAddress,
+			talkSocket = ::accept( listenSocket, (sockaddr *) &talkAddress,
 										&talkAddressLength )) && talkSocket != -1 )
 		{
 		std::cout << "Connection accepted, talkSocket = " << talkSocket << std::endl;
