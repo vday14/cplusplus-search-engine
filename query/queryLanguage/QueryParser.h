@@ -2,9 +2,8 @@
 // Created by Zane Dunnings on 3/16/18.
 //
 
-#ifndef EECS398_SEARCH_QUERYPARSER_H
-#define EECS398_SEARCH_QUERYPARSER_H
 
+#pragma  once
 #include "../../util/DataStructureLib/tuple.cpp"
 #include<deque>
 
@@ -69,4 +68,3 @@ private:
 
 	};
 
-#endif //EECS398_SEARCH_QUERYPARSER_H

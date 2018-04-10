@@ -2,10 +2,10 @@
 // Created by Jake Close on 3/7/18.
 //
 
+
+#pragma once
 #include "../query/queryLanguage/QueryParser.h"
 #include "../constraintSolver/ISRContainer.h"
-#pragma once
-
 using namespace std;
 
 class Searcher
