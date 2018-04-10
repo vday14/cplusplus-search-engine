@@ -4,8 +4,8 @@
 
 #include "Ranker.h"
 #include "Site.h"
-#include "../../constraintSolver/ISRWord.h"
-#include "../../constraintSolver/ISREndDoc.h"
+#include "../constraintSolver/ISRWord.h"
+#include "../constraintSolver/ISREndDoc.h"
 #include <vector>
 #include <queue>
 #include <string>

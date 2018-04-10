@@ -11,9 +11,9 @@ void testSimple();
 
 int main()
 	{
-	cout << "------Starting Ranker Test------" << endl;
+	cout << "------Starting ranker Test------" << endl;
 	testSimple ();
-	cout << "------Passed All Ranker Tests---" << endl;
+	cout << "------Passed All ranker Tests---" << endl;
 	}
 
 void testSimple()

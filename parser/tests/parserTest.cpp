@@ -21,7 +21,8 @@ void testURL( );
 void testBody ( );
 void testExtractBody ( );
 void testAnchorText ( );
-
+void testHttps ( );
+void testWSJ();
 
 
 void printDictionary ( unordered_map< string, vector< unsigned long > > dictionary );
@@ -29,12 +30,16 @@ void printDictionary ( unordered_map< string, vector< unsigned long > > dictiona
 int main ( )
 	{
 	cout << "Testing Parser ... " << endl << endl;
-	testSimple( );
-	testHttp( );
-	testURL( );
-	testBody ( );
-	testExtractBody ( );
-	testAnchorText ( );
+//	testSimple( );
+//	testHttp( );
+//	testURL( );
+//	testBody ( );
+//	testExtractBody ( );
+//	testAnchorText ( );
+//	testHttps( );
+	testWSJ();
+
+
 	cout << "Parser Tests Passed! :D" << endl;
 	}
 
@@ -299,4 +304,54 @@ void testAnchorText ( )
 	dictionary = nullptr;
 
 	cout << "Extract Anchor Test Passed!" << endl;
+	}
+
+
+
+void testHttps ( )
+	{
+	cout << "Testing HTTPS: " << endl;
+	UrlFrontier urlFrontierTest;
+	Parser parser( &urlFrontierTest );
+	ParsedUrl httpsURL = ParsedUrl( "https://www.washingtonpost.com/local/md-politics/trump-taxes-legalized-pot-and-fracking-what-md-lawmakers-passed--and-didnt/2017/04/11/908b3744-1dfd-11e7-a0a7-8b2a45e3dc84_story.html?utm_term=.c3dbbe8e9ddd" );
+
+	HttpsReader reader( &httpsURL );
+	auto success = reader.request( );
+	if ( !success )
+		{
+		cerr << "Couldn't open file\n";
+		exit( 1 );
+		}
+
+	auto dictionary = parser.execute( &reader );
+	printDictionary( *dictionary );
+
+	delete dictionary;
+	dictionary = nullptr;
+
+	cout << "HTTPS Test Passed! " << endl << endl;
+	}
+
+void testWSJ( )
+	{
+	cout << "Testing ExtractBody: " << endl;
+	UrlFrontier urlFrontierTest;
+	Parser parser( &urlFrontierTest );
+	ParsedUrl *fake_url = new ParsedUrl( "https://developer.mozilla.org/en-US/docs/Learn" );
+	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testExtractBodyTest2.html";
+
+	LocalReader reader( filepath );
+	reader.setUrl( fake_url );
+	auto success = reader.request( );
+	if ( !success )
+		{
+		cerr << "Couldn't open file\n";
+		exit( 1 );
+		}
+
+	auto dictionary = parser.execute( &reader );
+	printDictionary( *dictionary );
+
+	delete dictionary;
+	dictionary = nullptr;
 	}

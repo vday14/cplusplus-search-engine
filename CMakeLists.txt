@@ -25,7 +25,7 @@ add_executable(crawler-parser-Test
         util/Stemmer.cpp
         util/Tokenizer.cpp
         util/stringProcessing.cpp
-        crawler/HouseKeeper.cpp
+#        crawler/HouseKeeper.cpp
         indexer/Indexer.cpp)
 
 
@@ -200,13 +200,13 @@ add_executable(Indexer-twitter-tests
         indexer/IndexerTwitterTests.cpp)
 
 add_executable(query-Ranker-tests
-        query/Ranker/tests/RankerTest.cpp
-        query/Ranker/Ranker.h
-        query/Ranker/Scorer.h
-        query/Ranker/Site.h
-        query/Ranker/Ranker.cpp
-        query/Ranker/Scorer.cpp
-        query/Ranker/Site.cpp
+        ranker/tests/RankerTest.cpp
+        ranker/Ranker.h
+        ranker/Scorer.h
+        ranker/Site.h
+        ranker/Ranker.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
         util/util.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISREndDoc.cpp

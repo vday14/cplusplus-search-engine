@@ -16,5 +16,6 @@ public:
 	std::string url;
 	double score;
 	bool hasBeenScored;
+
 	};
 #endif //EECS398_SEARCH_SITE_H

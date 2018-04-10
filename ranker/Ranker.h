@@ -8,7 +8,7 @@
 
 
 #include <queue>
-#include "../../constraintSolver/ISRWord.h"
+#include "../constraintSolver/ISRWord.h"
 #include "Site.h"
 
 /***
