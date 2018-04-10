@@ -52,12 +52,13 @@ void testOR()
 	string query = "who or what OR when || where | why";
 	QueryParser Parser;
 	Parser.parse( query );
-	string correct = " |  -OR-  | \n[ 1 ]  who  |  what  |  when  |  where  |  why ";
+	string correct = " |  -OR-  | \n[ 1 ]  who  |  what  |  when  |  where  |  whi ";
 	assert(correct == Parser.getTestingTree( ));
 
 	string simple = "left or right";
 	QueryParser simpleParser;
 	simpleParser.parse( simple );
+
 	string simpleCorrect = " |  -OR-  | \n[ 1 ]  left  |  right ";
 	assert( simpleCorrect == simpleParser.getTestingTree( ) );
 

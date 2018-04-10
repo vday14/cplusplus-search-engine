@@ -22,6 +22,7 @@
 void QueryParser::parse( string input )
 	{
 	query = input;
+	query = stemWord(query);
 	preprocess();
 	Token current;
 	queryTree = Constraint ( query );
