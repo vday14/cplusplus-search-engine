@@ -14,7 +14,7 @@ double Site::getScore ( )
 	{
 	if( this->hasBeenScored )
 		{
-		return this->score;
+	return this->score;
 		}
 
 	hasBeenScored = true;
