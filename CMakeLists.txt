@@ -301,6 +301,7 @@ add_executable(query-Ranker-tests
         indexer/Chunk.cpp
         parser/queryParser.cpp
         util/Tokenizer.cpp
+        query/Query.cpp
         )
 
 add_executable(testISRQueryTuple

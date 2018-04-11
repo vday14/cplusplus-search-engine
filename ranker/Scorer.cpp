@@ -33,18 +33,12 @@ double Scorer::getScore ( Site website)
  * Static ranker
  *
  * @param inputSite
- * @return
+ * @return double
  */
 double Scorer::Static( Site inputSite )
 	{
 	double score = 0;
-	std::string inputUrl = inputSite.getUrl( );
-	if ( findStr( "http://", inputUrl ) == inputUrl.size( ) )
-		{
-		inputUrl = "http://" + inputUrl;
-		}
-	ParsedUrl url(  inputUrl );
-	std::string domain = url.getDomain( );
+	std::string domain = inputSite.getUrl( ).getDomain( );
 
 	if ( Scorer::domainMap.find( domain ) != Scorer::domainMap.end( ) )
 		{
@@ -54,20 +48,32 @@ double Scorer::Static( Site inputSite )
 	}
 
 /**
- * Calculates score for phrase matching
+ * Calculates score for exact phrase matches
  *
  * @param inputSite
- * @return
+ * @return double
  */
 double Scorer::PhraseMatch( Site inputSite )
 	{
-	QueryParser parser( inputSite.getQuery( ) );
-	auto dictionary = parser.execute( );
+	double score = 0;
+//	auto queryTokens = inputSite.getQuery( ).getQueryTokens( );
 
+	//TODO Logic
 
-	delete dictionary;
-	dictionary = nullptr;
-	return 0;
+	return score;
 	}
 
+/**
+ * Calculates score for proximity matches
+ *
+ * @param inputSite
+ * @return double
+ */
+double Scorer::ProximityMatch( Site inputSite )
+	{
+	double score = 0;
+//	auto queryTokens = inputSite.getQuery( ).getQueryTokens( );
 
+	//TODO Logic
+	return score;
+	}

@@ -35,9 +35,8 @@ void testStatic()
 	cout << "Number of results: " << urls.size() << "\n\n\n";
 
 	clock_t startRanker = clock();
-
-	Ranker rankeyboi;
-	ISRWord doc(query);
+	Ranker rankeyboi( query );
+	ISRWord doc( query );
 
 	while(doc.getCurrentLocation() != MAX_Location)
 		{

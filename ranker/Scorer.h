@@ -23,9 +23,9 @@ public:
 
 private:
 
-	const static double STATIC_WEIGHT = 1.0;
-	const static double TFIDF_WEIGHT = 1.0;
-	const static double PHRASE_WEIGHT = 1.0;
+	constexpr static double STATIC_WEIGHT = 1.0;
+	constexpr static double TFIDF_WEIGHT = 1.0;
+	constexpr static double PHRASE_WEIGHT = 1.0;
 
 	/**
 	 * Map of domain TLDs to weights
@@ -39,17 +39,25 @@ private:
 	 * Static ranker
 	 *
 	 * @param inputSite
-	 * @return
+	 * @return double
 	 */
 	double Static( Site inputSite );
 
 	/**
-	 * Calculates score for phrase matching
+	 * Calculates score for exact phrase matches
 	 *
 	 * @param inputSite
-	 * @return
+	 * @return double
 	 */
-	double PhraseMatch( Site inputeSite );
+	double PhraseMatch( Site inputSite );
+
+	/**
+	 * Calculates score for proximity matches
+	 *
+	 * @param inputSite
+	 * @return double
+	 */
+	double ProximityMatch( Site inputSite );
 
 	};
 #endif //EECS398_SEARCH_SCORER_H
