@@ -1,22 +1,19 @@
-//
-// Created by Zane Dunnings on 4/2/18.
-//
 
 #include "../Ranker.h"
 #include <iostream>
 #include <set>
 
 
-void testSimple();
+void testStatic();
 
 int main()
 	{
-	cout << "------Starting Ranker Test------" << endl;
-	testSimple ();
-	cout << "------Passed All Ranker Tests---" << endl;
+	cout << "------Starting ranker Test------" << endl;
+	testStatic ();
+	cout << "------Passed All ranker Tests---" << endl;
 	}
 
-void testSimple()
+void testStatic()
 	{
 	//Initialize Ran
 	string query = "%everybodi";

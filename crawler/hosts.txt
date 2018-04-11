@@ -23,3 +23,6 @@ www.billboard.com
 www.usa.gov
 www.rottentomatoes.com
 www.theguardian.comus
+www.youtube.com
+www.github.com
+www.linkedin.com

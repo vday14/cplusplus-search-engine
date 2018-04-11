@@ -1,6 +1,3 @@
-//
-// Created by Zane Dunnings on 4/2/18.
-//
 
 #include "Site.h"
 #include "Scorer.h"
@@ -22,4 +19,9 @@ double Site::getScore ( )
 	hasBeenScored = true;
 	Scorer rank = Scorer();
 	return rank.getScore( *this );
+	}
+
+std::string Site::getUrl( )
+	{
+	return this->url;
 	}

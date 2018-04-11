@@ -1,38 +1,72 @@
-//
-// Created by anvia on 3/29/2018.
-//
 
 #ifndef EECS398_SEARCH_RANKER_H
 #define EECS398_SEARCH_RANKER_H
 
+
 #include <queue>
 #include "../constraintSolver/ISRWord.h"
-#include "../parser/Parser.h"
-#include "../util/Tokenizer.h"
+#include "Site.h"
+#include "Scorer.h"
+#include <unordered_map>
 
+/***
+ * Custom Comparator for the priority queue that keeps the websites in their correct order.
+ */
+class Comp
+	{
+public:
+	bool operator()(Site* L, Site* R)
+		{
+		return L->getScore() < R->getScore();
+		}
+	};
 
-class Ranker {
-    //Send query to parser - have to create new functions in parser, and initialize query vector
-    Ranker( std::vector< ISRWord > *ISRsIn, std::unordered_map< std::string, std::vector< unsigned long > > *query_in );
-    //Get word from ISR 'get word?' method
-    unsigned long docFrequency ( std::string word );
-    //TODO figure out input, some way to access a 'stats' folder - ask Nick
-    unsigned long getNumDocs ( );
-    //TODO figure out input, some way to access a 'stats' folder - ask Nick
-    unsigned long getDocFreq( );
-    std::vector< unsigned long > tfIdfVec( );
-    unsigned long cosineSim( std::vector< unsigned long > queryTfIdfs, std::vector < unsigned long > docTfIdfs );
-    //TODO phrase matching: add 1 / log(distance) between words to points?
+class Ranker
+	{
+public:
 
+	Ranker(){};
 
+	Ranker( vector< ISRWord > isrListInput ){
+		init( isrListInput );
+		};
 
-    //need distance
+	~Ranker( );
 
+	void generateSiteList();
+	void printSites();
+	void printRankedSites();
+	void rank();
 
 private:
-    std::vector< ISRWord > *wordISRs;
-    const std::unordered_map< std::string, std::vector< unsigned long > > *queryVector;
-};
+
+	void init( vector< ISRWord> query );
+
+	//Queue to continuously sort the sites
+	priority_queue< Site * , vector< Site* > , Comp > WebsiteQueue;
+	vector< ISRWord > ISRList;
+
+	//TODO: Not sure if we will need these
+	vector< string > urls;
+
+	unordered_map<string, Site * > Websites;
+	unordered_map< string , vector< unsigned long > > queryOffsets;
+	void addWordtoSites( ISRWord isrWord);
+
+	data getData( ISRWord isrWord );
+
+
+	/***
+	 * Ranker will work by doing these things:
+	 * 1. Goes through all of the ISRWords in the vector and creates Sites for the new ones and adds information
+	 * 	- If the Site already exists then just add the Site and attributes
+	 * 	- Store the frequency of the word in the document
+	 * 2. Go through the vector of Sites and score each, then push onto the priority queue as you score them
+	 *
+	 */
+
+	};
 
 
 #endif //EECS398_SEARCH_RANKER_H
+

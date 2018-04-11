@@ -46,6 +46,7 @@ add_executable(crawler-parser-Test
         util/Stemmer.cpp
         util/Tokenizer.cpp
         util/stringProcessing.cpp
+#        crawler/HouseKeeper.cpp
         indexer/Indexer.cpp)
 
 
@@ -166,11 +167,11 @@ add_executable(search-engine
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
+        ranker/Ranker.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         query/queryLanguage/QueryParser.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
@@ -276,7 +277,6 @@ add_executable(MasterReader-tests
 
 
 add_executable(Corpus-tests
-
         indexer/tests/CorpusTests.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
@@ -288,18 +288,17 @@ add_executable(Corpus-tests
 
 
 add_executable(query-Ranker-tests
-        query/Ranker/tests/RankerTest.cpp
-        query/Ranker/Ranker.h
-        query/Ranker/Scorer.h
-        query/Ranker/Site.h
-        query/Ranker/Ranker.cpp
-        query/Ranker/Scorer.cpp
-        query/Ranker/Site.cpp
+        ranker/tests/RankerTest.cpp
+        ranker/Ranker.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
         util/util.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
+        indexer/Corpus.cpp
         util/Stemmer.cpp
+        indexer/Chunk.cpp
         )
 
 add_executable(testISRQueryTuple
@@ -312,9 +311,9 @@ add_executable(testISRQueryTuple
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Ranker.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
@@ -332,11 +331,11 @@ add_executable(server
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
+        ranker/Ranker.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         query/queryLanguage/QueryParser.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp

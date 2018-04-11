@@ -1,6 +1,3 @@
-//
-// Created by Zane Dunnings on 4/2/18.
-//
 /***
  * Class to represent each website in the ranking engine
  */
@@ -20,7 +17,8 @@ class Site
 	{
 public:
 
-	double getScore();
+	double getScore( );
+	std::string getUrl( );
 	std::string url;
 	double score;
 	bool hasBeenScored;
