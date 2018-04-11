@@ -3,6 +3,8 @@
 #include "Site.h"
 #include <vector>
 #include "../shared/url.h"
+#include "../parser/Parser.h"
+#include "../parser/queryParser.h"
 
 /***
  * Calculate the score for some site, Normalize the score to 1.0
@@ -35,6 +37,15 @@ double Scorer::Static( Site inputSite )
 		return Scorer::domainMap[ domain ];
 		}
 	return 0;
+	}
+
+double Scorer::PhraseMatch( Site inputeSite )
+	{
+
+	QueryParser parser( inputeSite.getQuery( ) );
+	auto dictionary = parser.execute( );
+	delete dictionary;
+	dictionary = nullptr;
 	}
 
 

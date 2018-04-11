@@ -19,7 +19,9 @@ public:
 
 	double getScore( );
 	std::string getUrl( );
+	std::string getQuery( );
 	std::string url;
+	std::string query;
 	double score;
 	bool hasBeenScored;
 	std::unordered_map< std::string, data> wordData;
