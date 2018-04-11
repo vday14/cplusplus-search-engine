@@ -6,8 +6,15 @@
 #include "../parser/Parser.h"
 #include "../parser/queryParser.h"
 
-/***
+/**
+ * Scorer cstor
+ */
+Scorer::Scorer ( )
+	{ }
+
+/**
  * Calculate the score for some site, Normalize the score to 1.0
+ *
  * @return
  */
 double Scorer::getScore ( Site website)
@@ -16,14 +23,21 @@ double Scorer::getScore ( Site website)
 	int numberOfFunctions = 1;
 
 	//Repeat for each function
-	score += Static( website )*STATIC_WEIGHT;
+	score += Static( website ) * Scorer::STATIC_WEIGHT;
+	score += PhraseMatch( website ) * Scorer::PHRASE_WEIGHT;
 
 	return score / (double)numberOfFunctions;
 	}
 
-
+/**
+ * Static ranker
+ *
+ * @param inputSite
+ * @return
+ */
 double Scorer::Static( Site inputSite )
 	{
+	double score = 0;
 	std::string inputUrl = inputSite.getUrl( );
 	if ( findStr( "http://", inputUrl ) == inputUrl.size( ) )
 		{
@@ -34,16 +48,23 @@ double Scorer::Static( Site inputSite )
 
 	if ( Scorer::domainMap.find( domain ) != Scorer::domainMap.end( ) )
 		{
-		return Scorer::domainMap[ domain ];
+		score = Scorer::domainMap[ domain ];
 		}
-	return 0;
+	return score;
 	}
 
-double Scorer::PhraseMatch( Site inputeSite )
+/**
+ * Calculates score for phrase matching
+ *
+ * @param inputSite
+ * @return
+ */
+double Scorer::PhraseMatch( Site inputSite )
 	{
-
-	QueryParser parser( inputeSite.getQuery( ) );
+	QueryParser parser( inputSite.getQuery( ) );
 	auto dictionary = parser.execute( );
+
+
 	delete dictionary;
 	dictionary = nullptr;
 	return 0;
