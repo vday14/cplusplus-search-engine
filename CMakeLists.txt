@@ -300,16 +300,6 @@ add_executable(query-Ranker-tests
         util/Stemmer.cpp
         indexer/Chunk.cpp
         )
-add_executable(testQueryLang
-        query/queryLanguage/tests/testQueryParser.cpp
-        query/queryLanguage/QueryParser.cpp
-        util/DataStructureLib/tuple.cpp
-        util/stringProcessing.cpp
-        util/Stemmer.cpp
-        indexer/Corpus.cpp
-        indexer/Chunk.cpp
-
-        )
 
 add_executable(testISRQueryTuple
         query/queryLanguage/tests/queryIsrTest.cpp
@@ -354,12 +344,14 @@ add_executable(server
 
         )
 
-add_executable(query-queryLanguage-tests
-        query/queryLanguage/QueryParser.cpp
-        query/queryLanguage/QueryParser.h
-        util/DataStructureLib/tuple.cpp
-        )
 
+add_executable(testQueryLanguage
+        query/queryLanguage/tests/testQueryParser.cpp
+        query/queryLanguage/QueryParser.cpp
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        )
 
 
 find_package(OpenSSL REQUIRED)
