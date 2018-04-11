@@ -19,7 +19,7 @@ int main()
 void testSimple()
 	{
 	//Initialize Ran
-	string query = "%everybodi";
+	string query = "%trump";
 	ISRWord queryWord(query);
 	set<string> urls;
 	clock_t start = clock();
@@ -36,29 +36,25 @@ void testSimple()
 		cout << url << endl;
 
 	cout << "Number of results: " << urls.size() << "\n\n\n";
-	ISRWord queryWord1(query);
-	ISRWord queryWord2(query);
-	queryWord2.NextDocument();
-	ISRWord queryWord3(query);
-	queryWord3.NextDocument();
 
-	ISRWord queryWord4(query);
-	queryWord4.NextDocument();
-	queryWord4.NextDocument();
+	clock_t startRanker = clock();
 
+	Ranker rankeyboi;
+	ISRWord doc(query);
 
-	vector< ISRWord > wordList;
-	wordList.push_back( queryWord1 );
-	wordList.push_back( queryWord2 );
-	wordList.push_back( queryWord3 );
-	wordList.push_back( queryWord4 );
+	while(doc.getCurrentLocation() != MAX_Location)
+		{
+		vector< ISRWord > docvec;
+		docvec.push_back ( doc );
+		rankeyboi.addDoc ( docvec );
+		doc.NextDocument ( );
+		}
 
 
-	Ranker rankeyboi = Ranker( wordList );
-	rankeyboi.generateSiteList();
-	rankeyboi.printSites();
-	rankeyboi.rank();
 	rankeyboi.printRankedSites();
+
+	clock_t endRanker = clock();
+	cout << "Time to complete query: " << (endRanker - startRanker) / (double) CLOCKS_PER_SEC << endl;
 
 	}
 
