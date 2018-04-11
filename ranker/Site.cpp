@@ -21,7 +21,16 @@ double Site::getScore ( )
 	return rank.getScore( *this );
 	}
 
+/**
+ *
+ * @return
+ */
 std::string Site::getUrl( )
 	{
 	return this->url;
+	}
+
+std::string Site::getQuery( )
+	{
+	return this->query;
 	}

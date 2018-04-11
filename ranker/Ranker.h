@@ -27,8 +27,9 @@ public:
 
 	Ranker(){};
 
-	Ranker( vector< ISRWord > isrListInput ){
+	Ranker( vector< ISRWord > isrListInput, std::string query_in ){
 		init( isrListInput );
+		this->query = query_in;
 		};
 
 	~Ranker( );
@@ -41,7 +42,7 @@ public:
 private:
 
 	void init( vector< ISRWord> query );
-
+	std::string query;
 	//Queue to continuously sort the sites
 	priority_queue< Site * , vector< Site* > , Comp > WebsiteQueue;
 	vector< ISRWord > ISRList;

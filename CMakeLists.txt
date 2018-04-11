@@ -344,6 +344,11 @@ add_executable(server
 
         )
 
+add_executable(testQueryParser
+        parser/queryParser.cpp
+        util/Tokenizer.cpp
+        )
+
 
 add_executable(testQueryLanguage
         query/queryLanguage/tests/testQueryParser.cpp
