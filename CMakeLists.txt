@@ -300,6 +300,8 @@ add_executable(query-Ranker-tests
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
         )
 
 add_executable(testISRQueryTuple
