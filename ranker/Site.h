@@ -17,7 +17,8 @@ class Site
 	{
 public:
 
-	double getScore();
+	double getScore( );
+	std::string getUrl( );
 	std::string url;
 	double score;
 	bool hasBeenScored;

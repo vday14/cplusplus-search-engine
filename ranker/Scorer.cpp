@@ -2,6 +2,7 @@
 #include "Scorer.h"
 #include "Site.h"
 #include <vector>
+#include "../shared/url.h"
 
 /***
  * Calculate the score for some site, Normalize the score to 1.0
@@ -13,12 +14,27 @@ double Scorer::getScore ( Site website)
 	int numberOfFunctions = 1;
 
 	//Repeat for each function
-	score += Simple( website )*SIMPLE_WEIGHT;
+	score += Static( website )*STATIC_WEIGHT;
 
 	return score / (double)numberOfFunctions;
 	}
 
-double Scorer::Simple( Site inputSite)
+
+double Scorer::Static( Site inputSite )
 	{
-	return 5;
+	std::string inputUrl = inputSite.getUrl( );
+	if ( findStr( "http://", inputUrl ) == inputUrl.size( ) )
+		{
+		inputUrl = "http://" + inputUrl;
+		}
+	ParsedUrl url(  inputUrl );
+	std::string domain = url.getDomain( );
+
+	if ( Scorer::domainMap.find( domain ) != Scorer::domainMap.end( ) )
+		{
+		return Scorer::domainMap[ domain ];
+		}
+	return 0;
 	}
+
+

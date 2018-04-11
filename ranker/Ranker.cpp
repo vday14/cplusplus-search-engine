@@ -112,7 +112,7 @@ void Ranker::printRankedSites()
 	{
 	cout << "----RANKED RESULTS----" << endl;
 
-	int size  = WebsiteQueue.size();
+	unsigned long size  = WebsiteQueue.size();
 	for( auto i = size; i > 0; --i )
 		{
 		Site * website = WebsiteQueue.top();

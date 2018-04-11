@@ -4,16 +4,16 @@
 #include <set>
 
 
-void testSimple();
+void testStatic();
 
 int main()
 	{
 	cout << "------Starting ranker Test------" << endl;
-	testSimple ();
+	testStatic ();
 	cout << "------Passed All ranker Tests---" << endl;
 	}
 
-void testSimple()
+void testStatic()
 	{
 	//Initialize Ran
 	string query = "%everybodi";

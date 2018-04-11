@@ -54,6 +54,10 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 		// if open bracket
 		if ( html[ htmlIt ] == '<' )
 			{
+			auto x = html[ htmlIt ];
+			auto y = html[ htmlIt + 1];
+			auto z = html[ htmlIt +2];
+
 			if ( isInvalidTag(  html, htmlIt ) )
 				{
 				begCloseTag = findNext( ">", htmlIt, html );
@@ -157,7 +161,7 @@ string Parser::extractAnchorText ( string html )
 bool Parser::isInvalidTag( string html, unsigned long htmlIt )
 	{
 	// check size first so stay within string
-	if ( htmlIt + 1 < html.size( ) && html[ htmlIt + 1 ] == '!' && html[ htmlIt + 1 ] == '%' )
+	if ( htmlIt + 1 < html.size( ) && ( html[ htmlIt + 1 ] == '!' || html[ htmlIt + 1 ] == '%' ) )
 		{
 		// comment or <!DocType> or <%
 		return true;
@@ -207,6 +211,9 @@ bool Parser::isInvalidTag( string html, unsigned long htmlIt )
 			return true;
 			// track
 		else if ( html[ htmlIt + 1 ] == 't' && html[ htmlIt + 2 ] == 'r' && html[ htmlIt + 3 ] == 'a' && html[ htmlIt + 4 ] == 'c' )
+			return true;
+		// html
+		else if ( html[ htmlIt + 1 ] == 'h' && html[ htmlIt + 2 ] == 't' && html[ htmlIt + 3 ] == 'm' && html[ htmlIt + 4 ] == 'l' )
 			return true;
 		}
 
