@@ -65,7 +65,7 @@ data Ranker::getData( ISRWord isrWord)
 
 	//FixME just gets the word frequency, add more useful functions as we add heuristics
 
-	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc().docEndPosition)
+	while ( isrWord.GetCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc().docEndPosition)
 		{
 		isrWord.Next();
 		++freq;
