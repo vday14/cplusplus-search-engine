@@ -49,6 +49,7 @@ Location ISRWord::openChunk (int index)
         }
 
 	currentMemMap++;
+	wordSeekLookupTable.clear();
 	getWordSeek( );
 	currentLocation = stoll( firstLoc );
     DocumentEnd->openChunk( info.chunks[currentIndex] );
@@ -186,14 +187,14 @@ Location ISRWord::Seek ( Location target )
                 {
                 for (auto entry : wordSeekLookupTable)
                     {
-                    if (entry.realLocation < target)
+                    if (entry.seekOffset < target)
                         best = entry;
                     else
                         break;
                     }
                 currentMemMap = corpus.chunks[ info.chunks[ currentIndex ] ].getChunkMap( );
-                currentMemMap += best.seekOffset;
-                currentLocation = best.realLocation;
+                currentMemMap += best.realLocation;
+                currentLocation = best.seekOffset;
                 }
 		}
 
