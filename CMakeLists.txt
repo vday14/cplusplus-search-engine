@@ -299,12 +299,13 @@ add_executable(query-Ranker-tests
         indexer/Corpus.cpp
         util/Stemmer.cpp
         indexer/Chunk.cpp
+        parser/queryParser.cpp
+        util/Tokenizer.cpp
         )
 
 add_executable(testISRQueryTuple
         query/queryLanguage/tests/queryIsrTest.cpp
         query/queryLanguage/QueryParser.cpp
-
         util/DataStructureLib/tuple.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
@@ -362,6 +363,8 @@ add_executable(testQueryLanguage
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
+
+target_link_libraries(query-Ranker-tests OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 

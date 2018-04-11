@@ -24,37 +24,33 @@ public:
 class Ranker
 	{
 public:
-
-	Ranker(){};
-
-	Ranker( vector< ISRWord > isrListInput, std::string query_in ){
-		init( isrListInput );
-		this->query = query_in;
+	
+	Ranker()
+		{
+		sortedDocs.resize(DOCS_TO_RETURN);
 		};
-
+	
 	~Ranker( );
 
-	void generateSiteList();
-	void printSites();
+	void addDoc( vector<ISRWord> isrListInput );
 	void printRankedSites();
-	void rank();
 
 private:
 
 	void init( vector< ISRWord> query );
-	std::string query;
-	//Queue to continuously sort the sites
-	priority_queue< Site * , vector< Site* > , Comp > WebsiteQueue;
-	vector< ISRWord > ISRList;
-
-	//TODO: Not sure if we will need these
-	vector< string > urls;
-
+	data getData( ISRWord isrWord );
+	void selectivelyAddDocs( Site * doc);
+	
+	//A min heap to store a running list of the least most valuable sites
+	priority_queue< Site * , vector< Site* > , Comp > runningRankedQueue;
+	vector< Site* > sortedDocs;
 	unordered_map<string, Site * > Websites;
 	unordered_map< string , vector< unsigned long > > queryOffsets;
-	void addWordtoSites( ISRWord isrWord);
 
-	data getData( ISRWord isrWord );
+
+	const int DOCS_TO_RETURN = 10;
+
+
 
 
 	/***

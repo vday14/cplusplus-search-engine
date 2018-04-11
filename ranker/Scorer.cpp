@@ -46,6 +46,7 @@ double Scorer::PhraseMatch( Site inputeSite )
 	auto dictionary = parser.execute( );
 	delete dictionary;
 	dictionary = nullptr;
+	return 0;
 	}
 
 
