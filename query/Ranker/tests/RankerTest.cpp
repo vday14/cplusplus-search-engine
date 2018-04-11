@@ -19,19 +19,46 @@ int main()
 void testSimple()
 	{
 	//Initialize Ran
-	ISRWord queryWord("%trump");
-	ISREndDoc endDocs;
-	vector<size_t> locations;
-	vector<DocumentEnding> docEnds;
+	string query = "%everybodi";
+	ISRWord queryWord(query);
 	set<string> urls;
-
-	while( queryWord.getCurrentLocation() != MAX_Location )
-		{
+	clock_t start = clock();
+	while(queryWord.getCurrentLocation() != MAX_Location)  {
 		auto url = queryWord.DocumentEnd->getCurrentDoc().url;
-		urls.insert(  url  );
+		urls.insert( url  );
 		queryWord.NextDocument();
-
 		}
+
+	clock_t end = clock();
+
+	cout << "Time to complete query: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+	for(auto url :urls)
+		cout << url << endl;
+
+	cout << "Number of results: " << urls.size() << "\n\n\n";
+	ISRWord queryWord1(query);
+	ISRWord queryWord2(query);
+	queryWord2.NextDocument();
+	ISRWord queryWord3(query);
+	queryWord3.NextDocument();
+
+	ISRWord queryWord4(query);
+	queryWord4.NextDocument();
+	queryWord4.NextDocument();
+
+
+	vector< ISRWord > wordList;
+	wordList.push_back( queryWord1 );
+	wordList.push_back( queryWord2 );
+	wordList.push_back( queryWord3 );
+	wordList.push_back( queryWord4 );
+
+
+	Ranker rankeyboi = Ranker( wordList );
+	rankeyboi.generateSiteList();
+	rankeyboi.printSites();
+	rankeyboi.rank();
+	rankeyboi.printRankedSites();
 
 	}
 

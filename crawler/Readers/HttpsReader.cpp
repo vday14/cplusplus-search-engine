@@ -40,6 +40,12 @@ bool HttpsReader::request ( )
 
 		assert( connectResult == 0 );
 
+		// set timeout val before binding the ssl to the sock
+		struct timeval tv;
+		tv.tv_sec = 10;
+		tv.tv_usec = 0;
+		setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof(tv));
+
 		// Build an SSL layer and set it to read/write
 		// to the socket we've connected.
 

@@ -17,28 +17,37 @@ typedef   unordered_map<string , anchorToCountMap>  urlMap;
 
 class ComparisonClass {
 public:
-	bool operator() (ParsedUrl *lhs , ParsedUrl *rhs) {
+	bool operator() (ParsedUrl lhs , ParsedUrl rhs) {
 		//comparison code here
-		return lhs->getScore() > rhs->getScore();
+		return lhs.getScore() > rhs.getScore();
 		}
 	};
 
 
 
-class UrlFrontier
+class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 	{
 
 	public:
-		void Push ( ParsedUrl * url );
-		bool checkUrl(ParsedUrl *  url);
+		UrlFrontier( ) {
+				readBlackList();
+				readHosts( );
+		};
+
+		void Push ( ParsedUrl url ) override;
+		bool try_pop( ParsedUrl& result ) override;
+		ParsedUrl Pop ( ) override ;
+		size_t Size() override;
+
+		bool checkUrl(ParsedUrl url);
 		void readBlackList( );
+		void readHosts( );
+
 		void printAnchorTable( );
 		set < string > Blacklist ;
-		ParsedUrl *	Pop ( );
-		size_t Size();
-		pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
-		pthread_cond_t consumer_cv = PTHREAD_COND_INITIALIZER;
-		std::priority_queue<ParsedUrl *, std::vector<ParsedUrl*>, ComparisonClass> queue;
+		set < string > RestrictedHosts;
+
+		std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk
 		void writeDataToDisk( );

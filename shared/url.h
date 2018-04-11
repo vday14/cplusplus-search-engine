@@ -6,6 +6,7 @@
 #include "../util/util.h"
 #include <math.h>
 #include <time.h>
+#include "../util/stringProcessing.h"
 //#include "../crawler/SocketReader.h"
 using namespace std;
 
@@ -105,10 +106,12 @@ public:
 						// Whatever remains is the Path. // need to remove fragments
 
 						temp_Path = p;
+						for ( ; *p && *p != QuestionMark; p++ );
+
 						for ( ; *p && *p != HashTag; p++ );
 
 
-						for ( ; *p && *p != QuestionMark; p++ );
+
 
 						if ( *p )
 							// Mark the end of the Path, remove fragments.
@@ -119,6 +122,11 @@ public:
 
 
 					CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
+					//remove question marks
+					size_t found = CompleteUrl.find("?");
+					if(found < CompleteUrl.size( ) )
+						CompleteUrl.erase(found, CompleteUrl.size( ));
+
 					Service = string(temp_Service, strlen(temp_Service));
 					Host = string(temp_Host, strlen(temp_Host));
 
@@ -128,6 +136,8 @@ public:
 						Domain = string(temp_Domain, strlen(temp_Domain));
 
 					Path = string(temp_Path, strlen(temp_Path));
+
+					//vector<string> noquestionmakr =	splitStr(Path, '?', false);
 					AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
 					pathBuffer = temp_pathBuffer;
 
@@ -148,6 +158,8 @@ public:
 
 		}
 
+
+
 	void printUrl ( )
 		{
 		cout << "Complete URL: " << CompleteUrl << endl;
@@ -167,7 +179,7 @@ public:
 			isValid = false;
 
 
-		Score +=  1/ ( lengthOfUrl );
+		Score +=  1/ ( lengthOfUrl ) / 10;
 
 		if(lengthOfUrl > 4)
 		{
@@ -180,7 +192,7 @@ public:
 				else if ( Domain == EDU  )
 					Score += .5;
 				else if ( Domain ==  GOV )
-					Score += 1;
+					Score += .75;
 				else if ( Domain ==  COM )
 					Score += .5;
 				else if ( Domain ==  NET )

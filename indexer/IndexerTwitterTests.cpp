@@ -18,6 +18,7 @@ using DocIndex = const unordered_map< string, vector< unsigned long > >;
 int main ( ) {
 	vector<ifstream *> files;
 	ProducerConsumerQueue< DocIndex * > *IndexerQueue = new ProducerConsumerQueue< DocIndex * >( );
+	ProducerConsumerQueue< unordered_map<string , DocIndex * >  > *AnchorQueue = new ProducerConsumerQueue< unordered_map<string , DocIndex * >  >( );
 	for (int i = 0; i < 60; i++) {
 		string fileName = util::GetCurrentWorkingDir() + "/indexer/tests/twitter/" + to_string(i) + ".json";
 		if (i < 10) {
@@ -68,9 +69,10 @@ int main ( ) {
 			}
 		}
 	}
-	Indexer indexer = Indexer(IndexerQueue);
+	Indexer indexer = Indexer(IndexerQueue, AnchorQueue);
     indexer.StartThread( );
     indexer.WaitForFinish();
+    return 0;
 	/*
 	string query;
 	cout << "What is your query?" << endl;

@@ -10,7 +10,7 @@
 using namespace std;
 //Find occurrences of all child ISRs within a single document
 
-class ISRAnd : ISR
+class ISRAnd : public ISR
 	{
 public:
 	vector<ISR*>Terms;
@@ -18,12 +18,8 @@ public:
 
 	ISRAnd ( vector<ISR * > InputTerms );
 
-	Location First ( ) override;
-	Location Next ( ) override;
-	Location NextDocument ( ) override;
 	Location Seek ( Location target ) override;
 	ISREndDoc * GetEndDocument ( ) override;
-	Location GetCurrentLocation();
 
 
 

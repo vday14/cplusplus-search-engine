@@ -14,6 +14,12 @@ using namespace std;
 int main ( int argc, const char *argv[] )
 	{
 
+
+	ParsedUrl urlQuery = ParsedUrl("https://www.washingtonpost.com/lifestyle/style/boris-epshteyn-a-former-trump-surrogate-now-defends-him-as-a-sinclair-tv-pundit/2017/06/19/b230b2e8-512e-11e7-be25-3a519335381c_story.html?utm_term=.95798b49799f");
+
+	urlQuery.printUrl( );
+
+
 	ParsedUrl absoluteURLTest = ParsedUrl( "https://developer.mozilla.org/en-US/docs/Learn" );
 	//string protocol = test1.getProtocol();
 	absoluteURLTest.printUrl( );

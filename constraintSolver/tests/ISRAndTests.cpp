@@ -23,11 +23,6 @@ int main ( )
 		ISRWord *q = new ISRWord( query.c_str() );
 		input.push_back(q);
 		}
-	//ISRWord *q2 = new ISRWord("time");
-	//ISRWord *q3 = new ISRWord("time");
-	//ISRWord *q4 = new ISRWord("time");
-	//ISRWord *q5 = new ISRWord("time");
-	//ISRWord *q6 = new ISRWord("time");
 
 
 
@@ -40,6 +35,7 @@ int main ( )
 
 		auto url = queryAnd->GetEndDocument()->getCurrentDoc().url;
 		urls.insert(url);
+		cout << url << endl;
 		queryAnd->NextDocument();
 
 		}
