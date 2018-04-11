@@ -26,20 +26,11 @@ Ranker::Ranker( std::string query_in ) : query ( Query( query_in ) )
  */
 void Ranker::addDoc( vector<ISRWord> isrListInput )
 	{
-	//TODO FIX WHEN NO DOMAIN
-	Site * newSite = new Site( );
-	if( isrListInput.size( ) != 0 )
-		{
-		ParsedUrl url( isrListInput[ 0 ].DocumentEnd->getCurrentDoc ( ).url );
-		newSite->setUrl( url );
-		}
-	else
-		{
-		ParsedUrl url( "");
-		newSite->setUrl( url );
-		}
-
-//	newSite->setQuery( this->getQuery( ) );
+	//TODO FIX WHEN NO DOMAIN AND ASSERT
+	assert( isrListInput.size( ) != 0 );
+	ParsedUrl url( isrListInput[ 0 ].DocumentEnd->getCurrentDoc ( ).url );
+	Query query( this->getQuery() );
+	Site * newSite = new Site( url, query );
 
 	//Websites[ url ] = newSite;
 	for( auto isrWord: isrListInput)
@@ -65,10 +56,7 @@ void Ranker::printRankedSites()
 		runningRankedQueue.pop();
 		cout << "URL: " << website->getUrl( ).getCompleteUrl() << std::endl;
 
-		for( auto j = website->wordData.begin( ); j != website->wordData.end( ); ++j)
-			{
-			cout << j->first << ": " << j->second.frequency << std::endl;
-			}
+		cout << "score: " << website->getScore( ) << std::endl;
 		}
 	}
 

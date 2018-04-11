@@ -24,8 +24,8 @@ class Site
 private:
 
 	ParsedUrl url;
-//	Query query;
-	std::string query;
+	Query query;
+//	std::string query;
 	double score;
 	bool hasBeenScored;
 
@@ -38,7 +38,7 @@ public:
 	/**
 	 * Site cstor
 	 */
-	Site ( );
+	Site ( ParsedUrl url_in, Query query_in );
 
 	/**
 	 * Site dstor
@@ -46,27 +46,11 @@ public:
 	~Site( );
 
 	/**
-	 * Sets Site's url
-	 *
-	 * @param url_in
-	 */
-	void setUrl( ParsedUrl url );
-
-	/**
 	 * Sets the Site's score
 	 *
 	 * @param score_in
 	 */
 	void setScore( double score_in );
-
-	/**
-	 * Sets the Site's query
-	 *
-	 * @param query_in
-	 */
-//	void setQuery( Query query_in );
-	void setQuery( std::string query_in );
-
 
 	/**
 	 * Returns the score of some site. Either grabs the value if its been scored previously, or generates a new score using
@@ -89,7 +73,7 @@ public:
 	 * @return
 	 */
 //	Query getQuery( );
-	std::string getQuery( );
+//	std::string getQuery( );
 
 	};
 #endif //EECS398_SEARCH_SITE_H

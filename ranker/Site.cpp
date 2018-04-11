@@ -8,7 +8,8 @@
 /**
  * Site cstor
  */
-Site::Site ( )
+Site::Site ( ParsedUrl url_in, Query query_in )
+	: url ( url_in ), query ( query_in ), score ( 0 ), hasBeenScored ( false )
 	{ }
 
 /**
@@ -18,16 +19,6 @@ Site::~Site( )
 	{ }
 
 /**
- * Sets Site's url
- *
- * @param url_in
- */
-void Site::setUrl( ParsedUrl url_in )
-	{
-	this->url = url_in;
-	}
-
-/**
  * Sets the Site's score
  *
  * @param score_in
@@ -35,20 +26,6 @@ void Site::setUrl( ParsedUrl url_in )
 void Site::setScore( double score_in )
 	{
 	this->score = score_in;
-	}
-
-/**
- * Sets the Site's query
- *
- * @param query_in
- */
-//void Site::setQuery( Query query_in )
-//	{
-//	this->query = query_in;
-//	}
-void Site::setQuery ( std::string query_in )
-	{
-	this->query = query_in;
 	}
 
 /***
@@ -88,7 +65,7 @@ ParsedUrl Site::getUrl( )
 //	{
 //	return this->query;
 //	}
-std::string Site::getQuery( )
-	{
-	return this->query;
-	}
+//std::string Site::getQuery( )
+//	{
+//	return this->query;
+//	}

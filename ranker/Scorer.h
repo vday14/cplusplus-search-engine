@@ -23,9 +23,9 @@ public:
 
 private:
 
-	constexpr static double STATIC_WEIGHT = 1.0;
-	constexpr static double TFIDF_WEIGHT = 1.0;
-	constexpr static double PHRASE_WEIGHT = 1.0;
+	const double STATIC_WEIGHT = 1.0;
+	const double TFIDF_WEIGHT = 1.0;
+	const double PHRASE_WEIGHT = 1.0;
 
 	/**
 	 * Map of domain TLDs to weights
@@ -41,7 +41,7 @@ private:
 	 * @param inputSite
 	 * @return double
 	 */
-	double Static( Site inputSite );
+	double StaticScore( Site inputSite );
 
 	/**
 	 * Calculates score for exact phrase matches

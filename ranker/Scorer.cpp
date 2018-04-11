@@ -23,8 +23,8 @@ double Scorer::getScore ( Site website)
 	int numberOfFunctions = 1;
 
 	//Repeat for each function
-	score += Static( website ) * Scorer::STATIC_WEIGHT;
-	score += PhraseMatch( website ) * Scorer::PHRASE_WEIGHT;
+	score += StaticScore( website ) * STATIC_WEIGHT;
+//	score += PhraseMatch( website ) * Scorer::PHRASE_WEIGHT;
 
 	return score / (double)numberOfFunctions;
 	}
@@ -35,10 +35,16 @@ double Scorer::getScore ( Site website)
  * @param inputSite
  * @return double
  */
-double Scorer::Static( Site inputSite )
+double Scorer::StaticScore( Site inputSite )
 	{
 	double score = 0;
 	std::string domain = inputSite.getUrl( ).getDomain( );
+
+	//FIXME shouldn't have to create a new parsed url
+	if ( domain == "" )
+		{
+		domain = ParsedUrl( "http://" + inputSite.getUrl( ).getCompleteUrl( ) ).getDomain();
+		}
 
 	if ( Scorer::domainMap.find( domain ) != Scorer::domainMap.end( ) )
 		{

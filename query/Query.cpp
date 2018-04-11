@@ -13,8 +13,20 @@ Query::Query( )
  * @param query_in
  */
 Query::Query( std::string query_in )
+	: queryStr( query_in )
 	{
 	QueryParser parser( query_in );
+	this->queryTokens	= parser.execute( );
+	}
+
+/**
+ * Query Copy cstor
+ *
+ * @param copy
+ */
+Query::Query( const Query &copy )
+	{
+	QueryParser parser( copy.queryStr );
 	this->queryTokens	= parser.execute( );
 	}
 

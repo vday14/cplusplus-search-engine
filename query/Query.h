@@ -26,6 +26,13 @@ public:
 	Query( std::string query_in );
 
 	/**
+	 * Query Copy cstor
+	 *
+	 * @param copy
+	 */
+	Query( const Query &copy );
+
+	/**
 	 * Fetches the query's tokens
 	 * @return queryTokens
 	 */
@@ -42,6 +49,8 @@ private:
 	 * Query tokens
 	 */
 	const std::unordered_map< std::string, std::vector< unsigned long > > *queryTokens;
+
+	std::string queryStr;
 
 	};
 
