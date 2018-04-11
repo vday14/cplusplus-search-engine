@@ -20,7 +20,7 @@ private:
 	//Simple example heuristic
 	double Simple( Site );
 	double Static( Site inputSite );
-	double Scorer::PhraseMatch( Site inputeSite );
+	double PhraseMatch( Site inputeSite );
 	// https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains
 	std::unordered_map< std::string, double > domainMap =
 			{ { ".gov", 0.9 }, { ".com", 0.6 }, { ".net", 0.4 }, { ".org", 1.0 }, { ".edu", 0.9 }, { ".us", 0.1 } };
