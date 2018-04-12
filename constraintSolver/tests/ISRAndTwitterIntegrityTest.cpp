@@ -10,23 +10,25 @@
 using namespace std;
 using json = nlohmann::json;
 
+const int NUMBER_FILES = 5;
+
 vector<ifstream *> files;
 vector<thread> threads;
 
 void run(int file);
 
 int main() {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < NUMBER_FILES; i++) {
         string fileName = util::GetCurrentWorkingDir() + "/indexer/tests/twitter/" + to_string(i) + ".json";
         if (i < 10) {
             fileName = util::GetCurrentWorkingDir() + "/indexer/tests/twitter/0" + to_string(i) + ".json";
         }
         files.push_back(new ifstream(fileName));
     }
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < NUMBER_FILES; i++) {
         threads.push_back(thread(run, i));
     }
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < NUMBER_FILES; i++) {
         threads[i].join();
     }
     return 0;
