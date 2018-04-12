@@ -5,7 +5,7 @@
 #include <vector>
 #include "../shared/url.h"
 #include "../parser/Parser.h"
-#include "../parser/queryParser.h"
+#include "../parser/queryTokenizer.h"
 
 /**
  * Scorer cstor

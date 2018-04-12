@@ -35,6 +35,11 @@ class Ranker
 	{
 public:
 
+	double numberOfTotalResults;
+
+	Ranker( );
+
+	void addQuery( std::string query_in );
 	/**
 	 * Ranker cstor
 	 *
@@ -52,13 +57,19 @@ public:
 	 *
 	 * @param isrListInput
 	 */
-	void addDoc( vector<ISRWord> isrListInput );
+	void addDoc( Location beggingOfDocument );
 
 	/**
 	 * Outputs the ranked sites to stout
 	 *
 	 */
 	void printRankedSites();
+
+	string getResultsForSite( );
+
+	void addISR( vector<ISRWord> isr_in );
+
+	void orderResults( );
 
 	/**
 	 * Returns the query
@@ -75,9 +86,9 @@ private:
 	 * A min heap to store a running list of the least most valuable sites
 	 */
 	priority_queue< Site * , vector< Site* > , Comp > runningRankedQueue;
-
-	Query query;
 	vector< Site* > sortedDocs;
+	vector<ISRWord> isrListInput;
+	Query query;
 	unordered_map<string, Site * > Websites;
 
 	/**
@@ -109,6 +120,7 @@ private:
 	 * @param doc
 	 */
 	void selectivelyAddDocs( Site * doc);
+
 
 
 	};

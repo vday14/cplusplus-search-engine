@@ -7,7 +7,7 @@
 #include "../util/stringProcessing.h"
 #include "../util/Tokenizer.h"
 
-class QueryParser
+class QueryTokenizer
 	{
 public:
 
@@ -16,7 +16,7 @@ public:
 	 *
 	 * @param query
 	 */
-	QueryParser ( std::string query );
+	QueryTokenizer ( std::string query );
 
 
 	/**

@@ -1,3 +1,4 @@
+
 #include "Ranker.h"
 #include "Site.h"
 #include "../constraintSolver/ISRWord.h"
@@ -8,6 +9,9 @@
 #include <string>
 #include <set>
 
+
+Ranker::Ranker( )
+	{ }
 /**
  * Ranker cstor
  *
@@ -19,32 +23,35 @@ Ranker::Ranker( std::string query_in ) : query ( Query( query_in ) )
 	};
 
 
-/**
+void Ranker::addQuery( std::string query_in )
+	{
+	this->query = Query( query_in );
+	}
+/***
  * Adds a new site for the doc given as isrListInput
  *
  * @param isrListInput
  */
-void Ranker::addDoc( vector<ISRWord> isrListInput )
+void Ranker::addDoc( Location beggingOfDocument )
 	{
+
 	assert( isrListInput.size( ) != 0 );
-	std::string urlStr = isrListInput[ 0 ].DocumentEnd->getCurrentDoc ( ).url;
 
-	if ( findStr("http://", urlStr) == urlStr.size( ) )
-		urlStr = "http://" + urlStr;
-
-	ParsedUrl url( urlStr );
+	ParsedUrl url( isrListInput[ 0 ].DocumentEnd->getCurrentDoc( ).url );
 
 	Query query( this->getQuery() );
-	Site * newSite = new Site( url, query );
+	Site *newSite = new Site( url, query );
 
 	//Websites[ url ] = newSite;
-	for( auto isrWord: isrListInput)
+	for ( auto isrWord: isrListInput )
 		{
+		isrWord.Seek( beggingOfDocument );
 		string word = isrWord.term;
 		newSite->wordData[ word ] = getData( isrWord );
 		}
 
 	selectivelyAddDocs( newSite );
+
 	}
 
 /**
@@ -87,8 +94,6 @@ data Ranker::getData( ISRWord isrWord )
 	data wordData;
 	wordData.frequency = getFrequency( &isrWord );
 	wordData.offsets = getOffsets( &isrWord );
-
-
 	return wordData;
 	}
 
@@ -165,6 +170,52 @@ Ranker::~Ranker()
 		delete i->second;
 		}
 	}
+
+string Ranker::getResultsForSite( )
+	{
+	orderResults( );
+	string results = " { \"results\" : [ ";
+
+
+
+	for( int i = 0; i < sortedDocs.size( ) ; ++i )
+		{
+		Site * site = sortedDocs[ i ];
+		results += "{ \"site\": \"" + site->getUrl( ).getCompleteUrl ( ) + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\"}";
+		if(i != (sortedDocs.size( ) - 1) )
+			results += ",";
+
+		}
+	results += " ] } ";
+	return results;
+	}
+
+
+void Ranker::orderResults()
+	{
+	deque < Site * > stack;
+	while ( !runningRankedQueue.empty( ))
+		{
+		stack.push_back( runningRankedQueue.top( ));
+		runningRankedQueue.pop( );
+		}
+
+	while ( !stack.empty( ))
+		{
+		sortedDocs.push_back( stack.back( ));
+		stack.pop_back( );
+		}
+	}
+
+void Ranker::addISR( vector<ISRWord> isr_in )
+	{
+	isrListInput = isr_in;
+
+	}
+
+//	vector<size_t> locations;
+//	set<string> urls;
+// urls.insert ( url );
 
 
 //	vector<size_t> locations;

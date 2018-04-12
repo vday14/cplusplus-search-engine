@@ -15,7 +15,7 @@ Query::Query( )
 Query::Query( std::string query_in )
 	: queryStr( query_in )
 	{
-	QueryParser parser( query_in );
+	QueryTokenizer parser( query_in );
 	this->queryTokens	= parser.execute( );
 	}
 
