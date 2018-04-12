@@ -26,10 +26,10 @@ string proccessUrl( string s )
 	while ((pos = s.find(delimiter)) != std::string::npos) {
 		token = s.substr(0, pos);
 		std::cout << token << std::endl;
-		output += " " + token;
+		output += token + " ";
 		s.erase(0, pos + delimiter.length());
 		}
-	output += " " + s;
+	output +=  s;
 	return output;
 
 

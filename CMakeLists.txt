@@ -300,16 +300,8 @@ add_executable(query-Ranker-tests
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
-        )
-add_executable(testQueryLang
-        query/queryLanguage/tests/testQueryParser.cpp
-        query/queryLanguage/QueryParser.cpp
-        util/DataStructureLib/tuple.cpp
-        util/stringProcessing.cpp
-        util/Stemmer.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
-
         )
 
 add_executable(testISRQueryTuple
@@ -355,13 +347,27 @@ add_executable(server
 
         )
 
-add_executable(query-queryLanguage-tests
+
+add_executable(testQueryLanguage
+        query/queryLanguage/tests/testQueryParser.cpp
         query/queryLanguage/QueryParser.cpp
-        query/queryLanguage/QueryParser.h
         util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
         )
 
-
+add_executable(ISRAndTwitterIntegrityTest
+        constraintSolver/ISR.h
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        indexer/json.hpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        constraintSolver/tests/ISRAndTwitterIntegrityTest.cpp)
 
 find_package(OpenSSL REQUIRED)
 

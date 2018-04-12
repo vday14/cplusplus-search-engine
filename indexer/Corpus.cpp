@@ -1,7 +1,11 @@
 #include "Corpus.h"
 
 Corpus::Corpus() {
-
+    master = MMDiskHashTable(util::GetCurrentWorkingDir() +
+                      IndexerConstants::pathToIndex +
+                      "master.txt",
+                      IndexerConstants::masterKeySize,
+                      IndexerConstants::masterValueSize);
     numberChunks = stoll(master.find("=numberChunks"));
     numberDocuments = stoll(master.find("=totalDocsIndexed"));
     numberWords = stoll(master.find("=totalNumberIndexed"));
@@ -9,6 +13,11 @@ Corpus::Corpus() {
         chunks.push_back(Chunk(i));
         chunks[i].lastLocation = stoll(master.find("=chunk" + to_string(i)));
     }
+}
+
+Corpus& Corpus::getInstance() {
+    static Corpus corpus = Corpus();
+    return corpus;
 }
 
 WordInfo Corpus::getWordInfo(string word) {

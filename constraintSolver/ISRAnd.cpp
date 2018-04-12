@@ -80,7 +80,8 @@ Location ISRAnd::Seek( Location target )
 		if(nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition == furthestTerm->GetEndDocument()->getCurrentDoc().docEndPosition )
 			{
 			//cout << "Found Match " << endl;
-			return nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition;
+			//return nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition;
+			return nearest;
 			}
 
 		//set next target to be starting location of document
