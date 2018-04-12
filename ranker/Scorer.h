@@ -45,7 +45,7 @@ public:
 	 */
 	double phraseMatch ( Site inputSite );
 
-	bool phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
+	int phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
 
 	/**
 	 * Calculates score for proximity matches

@@ -23,7 +23,7 @@ std::vector< std::string > QueryParser::execute( )
 		{
 		if ( !isStopWord( tokens[ i ] ) )
 			{
-			processedQuery.push_back( stemWord( tokens[ i ] ) );
+			processedQuery.push_back( stemWord( toLower( tokens[ i ] ) ) );
 			}
 		}
 	return processedQuery;
