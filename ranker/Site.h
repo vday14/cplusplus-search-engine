@@ -6,6 +6,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 #include "../query/Query.h"
 #include "../shared/url.h"
 
@@ -15,7 +16,7 @@
 struct data
 	{
 	unsigned long frequency;
-	//TODO add offsets for proximity match
+	std::vector< size_t > offsets;
 	};
 
 class Site
@@ -25,7 +26,6 @@ private:
 
 	ParsedUrl url;
 	Query query;
-//	std::string query;
 	double score;
 	bool hasBeenScored;
 
@@ -72,8 +72,7 @@ public:
 	 *
 	 * @return
 	 */
-//	Query getQuery( );
-//	std::string getQuery( );
+	Query getQuery( );
 
 	};
 #endif //EECS398_SEARCH_SITE_H

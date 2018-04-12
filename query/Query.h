@@ -7,6 +7,9 @@
 #include <unordered_map>
 #include "../parser/queryParser.h"
 
+/**
+ * custom comparator to sort the query tokens by value
+ */
 class Query
 	{
 
@@ -36,7 +39,15 @@ public:
 	 * Fetches the query's tokens
 	 * @return queryTokens
 	 */
-	const std::unordered_map< std::string, std::vector< unsigned long > > *getQueryTokens ( );
+	std::vector< std::string > getQueryTokens ( );
+
+	/**
+	 * Sorts the query's tokens by value
+	 * Returns in a vector of correct order
+	 *
+	 * @return
+	 */
+	vector< string > sortQueryTokens( );
 
 	/**
 	 * Query dstor will destroy the query tokens
@@ -48,7 +59,7 @@ private:
 	/**
 	 * Query tokens
 	 */
-	const std::unordered_map< std::string, std::vector< unsigned long > > *queryTokens;
+	 std::vector< std::string > queryTokens;
 
 	std::string queryStr;
 

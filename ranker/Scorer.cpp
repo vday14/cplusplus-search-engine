@@ -23,8 +23,9 @@ double Scorer::getScore ( Site website)
 	int numberOfFunctions = 1;
 
 	//Repeat for each function
-	score += StaticScore( website ) * STATIC_WEIGHT;
-//	score += PhraseMatch( website ) * Scorer::PHRASE_WEIGHT;
+	score += staticScore( website ) * STATIC_WEIGHT;
+	score += phraseMatch( website ) * PHRASE_WEIGHT;
+	score += proximityMatch( website ) * PROXIMITY_WEIGHT;
 
 	return score / (double)numberOfFunctions;
 	}
@@ -35,17 +36,10 @@ double Scorer::getScore ( Site website)
  * @param inputSite
  * @return double
  */
-double Scorer::StaticScore( Site inputSite )
+double Scorer::staticScore ( Site inputSite )
 	{
 	double score = 0;
 	std::string domain = inputSite.getUrl( ).getDomain( );
-
-	//FIXME shouldn't have to create a new parsed url
-	if ( domain == "" )
-		{
-		domain = ParsedUrl( "http://" + inputSite.getUrl( ).getCompleteUrl( ) ).getDomain();
-		}
-
 	if ( Scorer::domainMap.find( domain ) != Scorer::domainMap.end( ) )
 		{
 		score = Scorer::domainMap[ domain ];
@@ -59,12 +53,19 @@ double Scorer::StaticScore( Site inputSite )
  * @param inputSite
  * @return double
  */
-double Scorer::PhraseMatch( Site inputSite )
+double Scorer::phraseMatch ( Site inputSite )
 	{
 	double score = 0;
-//	auto queryTokens = inputSite.getQuery( ).getQueryTokens( );
+	vector< std::string > queryTokens = inputSite.getQuery( ).getQueryTokens();
 
-	//TODO Logic
+	for ( int i = 0; i < queryTokens.size( ); ++i )
+		{
+		// check if query token is in doc
+		if ( inputSite.wordData.find( queryTokens[ i ] != inputSite.wordData.end( ) ) )
+			{
+			wordOffsets = inputSite.wordData.at( queryTokens[ i ] ).offsets;
+			}
+		}
 
 	return score;
 	}
@@ -75,7 +76,7 @@ double Scorer::PhraseMatch( Site inputSite )
  * @param inputSite
  * @return double
  */
-double Scorer::ProximityMatch( Site inputSite )
+double Scorer::proximityMatch ( Site inputSite )
 	{
 	double score = 0;
 //	auto queryTokens = inputSite.getQuery( ).getQueryTokens( );

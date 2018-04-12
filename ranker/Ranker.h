@@ -97,6 +97,13 @@ private:
 	unsigned long getFrequency ( ISRWord* isrWord );
 
 	/**
+	 * Returns the offsets of the word
+	 *
+	 * @return
+	 */
+	std::vector < size_t > getOffsets( ISRWord* isrWord );
+
+	/**
 	 * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
 	 *
 	 * @param doc

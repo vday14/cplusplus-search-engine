@@ -26,9 +26,14 @@ Ranker::Ranker( std::string query_in ) : query ( Query( query_in ) )
  */
 void Ranker::addDoc( vector<ISRWord> isrListInput )
 	{
-	//TODO FIX WHEN NO DOMAIN AND ASSERT
 	assert( isrListInput.size( ) != 0 );
-	ParsedUrl url( isrListInput[ 0 ].DocumentEnd->getCurrentDoc ( ).url );
+	std::string urlStr = isrListInput[ 0 ].DocumentEnd->getCurrentDoc ( ).url;
+
+	if ( findStr("http://", urlStr) == urlStr.size( ) )
+		urlStr = "http://" + urlStr;
+
+	ParsedUrl url( urlStr );
+
 	Query query( this->getQuery() );
 	Site * newSite = new Site( url, query );
 
@@ -81,7 +86,9 @@ data Ranker::getData( ISRWord isrWord )
 
 	data wordData;
 	wordData.frequency = getFrequency( &isrWord );
-//	TODO wordData.offsets = getOffsets( &isrWord );
+	wordData.offsets = getOffsets( &isrWord );
+
+
 	return wordData;
 	}
 
@@ -96,15 +103,31 @@ unsigned long Ranker::getFrequency ( ISRWord* isrWord )
 	ISREndDoc endDocs;
 	vector<DocumentEnding> docEnds;
 
-
 	unsigned long freq = 0;
-	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc().docEndPosition)
+	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
 		{
 		isrWord->Next();
 		++freq;
 		}
 	return freq;
 	}
+
+/**
+ * Returns the offsets of the word
+ *
+ * @return
+ */
+std::vector < size_t > Ranker::getOffsets( ISRWord* isrWord )
+	{
+	std::vector < size_t > offsets;
+	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
+		{
+		offsets.push_back( isrWord->getCurrentLocation( ) );
+		isrWord->Next();
+		}
+	return offsets;
+	}
+
 
 /**
  * Scores the document and only adds it to the returned list if it's score is greater than the smallest score

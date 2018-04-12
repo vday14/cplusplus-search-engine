@@ -3,6 +3,8 @@
 #define EECS398_SEARCH_QUERYPARSER_H
 
 #include <string>
+#include <vector>
+#include "../util/stringProcessing.h"
 #include "../util/Tokenizer.h"
 
 class QueryParser
@@ -22,7 +24,7 @@ public:
 	 *
 	 * @return tokenizer dict
 	 */
-	const unordered_map< string, vector< unsigned long > > *execute( );
+	std::vector < std::string > execute( );
 
 private:
 	std::string query;

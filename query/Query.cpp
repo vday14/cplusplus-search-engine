@@ -34,7 +34,7 @@ Query::Query( const Query &copy )
  * Fetches the query's tokens
  * @return queryTokens
  */
-const std::unordered_map< std::string, std::vector< unsigned long > > *Query::getQueryTokens ( )
+std::vector< std::string > Query::getQueryTokens ( )
 	{
 	return this->queryTokens;
 	}
@@ -44,9 +44,6 @@ const std::unordered_map< std::string, std::vector< unsigned long > > *Query::ge
  *
  */
 Query::~Query ( )
-	{
-	delete this->queryTokens;
-	queryTokens = nullptr;
-	}
+	{ }
 
 

@@ -61,11 +61,8 @@ ParsedUrl Site::getUrl( )
  *
  * @return
  */
-//Query Site::getQuery( )
-//	{
-//	return this->query;
-//	}
-//std::string Site::getQuery( )
-//	{
-//	return this->query;
-//	}
+Query Site::getQuery( )
+	{
+	return this->query;
+	}
+

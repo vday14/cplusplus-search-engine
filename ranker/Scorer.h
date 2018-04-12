@@ -24,8 +24,9 @@ public:
 private:
 
 	const double STATIC_WEIGHT = 1.0;
-	const double TFIDF_WEIGHT = 1.0;
 	const double PHRASE_WEIGHT = 1.0;
+	const double PROXIMITY_WEIGHT = 1.0;
+	const double TFIDF_WEIGHT = 1.0;
 
 	/**
 	 * Map of domain TLDs to weights
@@ -41,7 +42,7 @@ private:
 	 * @param inputSite
 	 * @return double
 	 */
-	double StaticScore( Site inputSite );
+	double staticScore ( Site inputSite );
 
 	/**
 	 * Calculates score for exact phrase matches
@@ -49,7 +50,7 @@ private:
 	 * @param inputSite
 	 * @return double
 	 */
-	double PhraseMatch( Site inputSite );
+	double phraseMatch ( Site inputSite );
 
 	/**
 	 * Calculates score for proximity matches
@@ -57,7 +58,7 @@ private:
 	 * @param inputSite
 	 * @return double
 	 */
-	double ProximityMatch( Site inputSite );
+	double proximityMatch ( Site inputSite );
 
 	};
 #endif //EECS398_SEARCH_SCORER_H
