@@ -391,6 +391,9 @@ add_executable(ISRAndTwitterIntegrityTest
         indexer/Chunk.cpp
         constraintSolver/tests/ISRAndTwitterIntegrityTest.cpp)
 
+add_executable(devtool-SumSpaceNumbers
+        devtools/SumSpaceNumbers.cpp)
+
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
