@@ -35,9 +35,10 @@ function get_request(){
             var results = data.responseText.split(',');
             $("#results").empty();
 
-            for(r in results)
+            for(count in results)
             {
-                var result = $( "<a href='"+ results[r]   +"' id='result1'>" + results[r] + "</a>" );
+                var result = $( "< a href='"+ results[count]   +"' class='result'" + count + " >" + results[count] + "</a>" );
+
                 $("#results").append(result);
 
             }
