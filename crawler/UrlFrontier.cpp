@@ -274,7 +274,7 @@ void UrlFrontier::readBlackList()
 void UrlFrontier::readHosts()
 	{
 
-	string hostsFile = "/crawler/hosts.txt";
+	string hostsFile = "/crawler/seeds.txt";
 	char *hosts = util::getFileMap( hostsFile );
 
 	string toRestrict;
@@ -282,8 +282,8 @@ void UrlFrontier::readHosts()
 		{
 		if ( *hosts == '\n' )
 			{
-
-			RestrictedHosts[toRestrict] = 0;
+			ParsedUrl url  = ParsedUrl( toRestrict );
+			RestrictedHosts[ url.getHost( ) ] = 0;
 			toRestrict = "";
 			}
 		else

@@ -298,13 +298,13 @@ string Parser::isLocal ( string url, ParsedUrl* currentUrl )
 
 	if ( currentUrl->getCompleteUrl( ).back( ) == '/' )
 		{
-		string temp = currentUrl->getDomain( );
+		string temp = currentUrl->getService() + "://" + currentUrl->getHost( );
 		temp.pop_back();
 		url = temp + url;
 		}
 	else
 		{
-		url = currentUrl->getDomain( ) + url;
+		url = currentUrl->getService() + "://" +currentUrl->getHost( ) + url;
 		}
 	return url;
 	}

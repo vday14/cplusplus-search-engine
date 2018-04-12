@@ -152,41 +152,7 @@ int main ( int argc, char *argv[] )
 	ProducerConsumerQueue< unordered_map<string , DocIndex * >  > *AnchorQueue = new ProducerConsumerQueue< unordered_map<string , DocIndex * >  >( );
 
 
-	char *seeds;
-	if ( mode == "local" )
-		seeds = util::getFileMap( "/tests/localSeed.txt" );
-	else
-		{
-		seeds = util::getFileMap( "/tests/webSeed.txt" );
-		SSL_library_init( );
-		}
 
-	if(restart == false)
-		{
-		string testFile;
-		while ( *seeds )
-			{
-			if ( *seeds == '\n' )
-				{
-
-				ParsedUrl url(testFile);
-				cout << "Pushing: " << testFile << " to queue\n";
-				urlFrontier->Push( url );
-				testFile = "";
-				}
-			else
-				testFile.push_back( *seeds );
-			++seeds;
-			}
-		if ( testFile != "" )
-			{
-			cout << "Pushing: " << testFile << " to queue\n";
-			ParsedUrl url1(testFile);
-			urlFrontier->Push( url1 );
-			}
-		}
-	else
-		urlFrontier->readDataFromDisk();
 
 
 
@@ -195,6 +161,7 @@ int main ( int argc, char *argv[] )
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
+	crawler->readSeeds(mode, restart );
 
 	//atomic_bool *alive = new atomic_bool(true);
 	crawler->SpawnSpiders( numberOfSpiders , alive, DocsToCrawl);
