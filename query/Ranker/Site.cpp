@@ -15,6 +15,7 @@
  */
 double Site::getScore ( )
 	{
+	clock_t start  = clock ( );
 	if( this->hasBeenScored )
 		{
 	return this->score;
@@ -23,5 +24,9 @@ double Site::getScore ( )
 	hasBeenScored = true;
 	Scorer rank = Scorer();
 	score = rank.getScore (*this);
+	clock_t end  = clock ( );
+	double time = (end - start) / (double) CLOCKS_PER_SEC;
+	//std::cout << "GET SCORE FN TIME " << time << std::endl;
+
 	return score;
 	}
