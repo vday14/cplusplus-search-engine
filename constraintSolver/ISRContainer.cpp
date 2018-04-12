@@ -53,34 +53,37 @@ string ISRContainer::Solve( )
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
-		cout << url << endl;
+		//cout << url << endl;
 		results += url + ",";
 		Location BeginningfDocument = Contained->GetISRToBeginningOfDocument( );
-		//PassToRanker( BeginningfDocument );
+		PassToRanker( BeginningfDocument );
 
 		//PassToRanker( BeginningfDocument );
 		Contained->NextDocument( );
 
 		}
 
+	cout << "RANKER" << endl;
+	ranker.printRankedSites( );
 	return results;
+
 
 	}
 
 void ISRContainer::PassToRanker( Location docBeginning )
 	{
 
-	vector<ISRWord* > toRanker;
+	vector<ISRWord > toRanker;
 	for ( auto term : terms )
 		{
 
-		ISRWord * isrWord = new ISRWord ( term ) ;
-		isrWord->Seek( docBeginning );
+		ISRWord  isrWord = ISRWord ( term ) ;
+		isrWord.Seek( docBeginning );
 		toRanker.push_back( isrWord );
 
 		}
 
-	//ranker.rank( toRanker );
+	ranker.addDoc( toRanker );
 
 	}
 

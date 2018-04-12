@@ -9,18 +9,19 @@
 
 class Corpus {
 
-public:
+private:
 
     Corpus();
+
+public:
+
+    static Corpus& getInstance();
 
     WordInfo getWordInfo(string word);
     size_t numberChunks;
     size_t numberDocuments;
     size_t numberWords;
     std::vector<Chunk> chunks;
-    MMDiskHashTable master = MMDiskHashTable(util::GetCurrentWorkingDir() +
-                                             IndexerConstants::pathToIndex +
-                                             "master.txt",
-                                             IndexerConstants::masterKeySize,
-                                             IndexerConstants::masterValueSize);
+    MMDiskHashTable master;
+
 };
