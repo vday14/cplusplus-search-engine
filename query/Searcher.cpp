@@ -36,10 +36,6 @@ void Searcher::search ( )
 		ISRContainer container = ISRContainer( queryParser.queryTree );
 		Results = container.Solve( );
 
-
-
-
-
 		}
 
 

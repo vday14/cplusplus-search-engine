@@ -53,9 +53,9 @@ public:
 	~Ranker( );
 
 	/**
-	 * Adds a new site for the doc given as isrListInput
+	 * Adds a new site for the doc given as beginning and end of document
 	 *
-	 * @param isrListInput
+	 * @param
 	 */
 	void addDoc( Location beggingOfDocument, Location EndOfDoc );
 
@@ -98,21 +98,6 @@ private:
 	 * @return data
 	 */
 	data getData( ISRWord * isrWord );
-
-	/**
-	 * Gets the frequency of a certain word
-	 *
-	 * @param isrWord
-	 * @return
-	 */
-	unsigned long getFrequency ( ISRWord* isrWord );
-
-	/**
-	 * Returns the offsets of the word
-	 *
-	 * @return
-	 */
-	std::vector < size_t > getOffsets( ISRWord* isrWord );
 
 	/**
 	 * Scores the document and only adds it to the returned list if it's score is greater than the smallest score

@@ -37,21 +37,28 @@ void Ranker::addDoc( Location beggingOfDocument,  Location EndOfDocument)
 
 	assert( isrListInput.size( ) != 0 );
 
-	ParsedUrl url( isrListInput[ 0 ]->DocumentEnd->getCurrentDoc( ).url );
-
 	Query query( this->getQuery() );
-	Site *newSite = new Site( url, query );
+	Site *newSite = nullptr;
+	string url;
 
 	for ( auto isrWord: isrListInput )
 		{
+
 		isrWord->Seek( beggingOfDocument);
+		if( url == "")
+			{
+			url = isrWord->DocumentEnd->getCurrentDoc( ).url;
+			newSite = new Site( url, query );
+			}
 		string word = isrWord->term;
 		if( isrWord->currentLocation  < EndOfDocument )
 			{
+
 			newSite->wordData[ word ] = getData( isrWord );
 			}
 
 		}
+	assert(newSite != nullptr);
 
 	selectivelyAddDocs( newSite );
 
@@ -69,7 +76,7 @@ void Ranker::printRankedSites()
 		{
 		Site * website = runningRankedQueue.top();
 		runningRankedQueue.pop();
-		cout << "URL: " << website->getUrl( ).getCompleteUrl() << std::endl;
+		cout << "URL: " << website->getUrl( ) << std::endl;
 
 		cout << "score: " << website->getScore( ) << std::endl;
 		}
@@ -95,47 +102,21 @@ data Ranker::getData( ISRWord* isrWord )
 	{
 
 	data wordData;
-	wordData.frequency = getFrequency( isrWord );
-	wordData.offsets = getOffsets( isrWord );
-	return wordData;
-	}
-
-/**
- * Gets the frequency of a certain word
- *
- * @param isrWord
- * @return
- */
-unsigned long Ranker::getFrequency ( ISRWord* isrWord )
-	{
 	ISREndDoc endDocs;
+	std::vector < size_t > offsets;
 	vector<DocumentEnding> docEnds;
 
 	unsigned long freq = 0;
 	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
 		{
+		offsets.push_back( isrWord->getCurrentLocation( ) );
 		isrWord->Next();
 		++freq;
 		}
-	return freq;
+	wordData.frequency = freq;
+	wordData.offsets = offsets;
+	return wordData;
 	}
-
-/**
- * Returns the offsets of the word
- *
- * @return
- */
-std::vector < size_t > Ranker::getOffsets( ISRWord* isrWord )
-	{
-	std::vector < size_t > offsets;
-	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
-		{
-		offsets.push_back( isrWord->getCurrentLocation( ) );
-		isrWord->Next();
-		}
-	return offsets;
-	}
-
 
 /**
  * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
@@ -184,7 +165,7 @@ string Ranker::getResultsForSite( )
 	for( int i = 0; i < sortedDocs.size( ) ; ++i )
 		{
 		Site * site = sortedDocs[ i ];
-		results += "{ \"site\": \"" + site->getUrl( ).getCompleteUrl ( ) + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\"}";
+		results += "{ \"site\": \"" + site->getUrl( ) + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\"}";
 		if(i != (sortedDocs.size( ) - 1) )
 			results += ",";
 
