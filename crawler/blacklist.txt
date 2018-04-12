@@ -1,10 +1,1 @@
-jsmm.p2ionline.com
-secure.adpay.com
-www.facebook.com
-www.newsalloy.com/
-miamiherald.typepad.com
-bit.ly
-www.tampabay.com
-theconservativetreehouse.com
-gunnyg.wordpress.com
-acenewsservices.wordpress.com
+https://www.eecs.umich.edu/eecs/etc/rooms/change/dco-dbroomperiodform.cgi

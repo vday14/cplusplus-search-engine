@@ -20,7 +20,7 @@ class Comp
 public:
 	bool operator()(Site* L, Site* R)
 		{
-		return L->getScore() < R->getScore();
+		return L->getScore() > R->getScore();
 		}
 	};
 
@@ -30,7 +30,7 @@ public:
 
 	Ranker()
 		{
-		sortedDocs.resize(DOCS_TO_RETURN);
+
 		};
 
 
@@ -38,6 +38,8 @@ public:
 
 	void addDoc( vector<ISRWord> isrListInput );
 	void printRankedSites();
+	string getResultsForSite( );
+	void orderResults( );
 
 private:
 
