@@ -8,7 +8,7 @@
 /**
  * Site cstor
  */
-Site::Site ( ParsedUrl url_in, Query query_in )
+Site::Site ( std::string url_in, Query query_in )
 	: url ( url_in ), query ( query_in ), score ( 0 ), hasBeenScored ( false )
 	{ }
 
@@ -51,7 +51,7 @@ double Site::getScore ( )
  *
  * @return
  */
-ParsedUrl Site::getUrl( )
+std::string Site::getUrl( )
 	{
 	return this->url;
 	}

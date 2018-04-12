@@ -29,6 +29,8 @@ public:
 	std::unordered_map< std::string, double > domainMap =
 			{ { ".gov", 0.9 }, { ".com", 0.6 }, { ".net", 0.4 }, { ".org", 1.0 }, { ".edu", 0.9 }, { ".us", 0.1 } };
 
+	std::string getUrlDomain( std::string url );
+
 	/**
 	 * Static ranker
 	 *
@@ -45,7 +47,7 @@ public:
 	 */
 	double phraseMatch ( Site inputSite );
 
-	bool phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
+	int phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
 
 	/**
 	 * Calculates score for proximity matches

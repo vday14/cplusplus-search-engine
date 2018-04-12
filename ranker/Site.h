@@ -24,7 +24,7 @@ class Site
 
 private:
 
-	ParsedUrl url;
+	std::string url;
 	Query query;
 	double score;
 	bool hasBeenScored;
@@ -38,7 +38,7 @@ public:
 	/**
 	 * Site cstor
 	 */
-	Site ( ParsedUrl url_in, Query query_in );
+	Site ( std::string url_in, Query query_in );
 
 	/**
 	 * Site dstor
@@ -65,7 +65,7 @@ public:
 	 *
 	 * @return
 	 */
-	ParsedUrl getUrl( );
+	std::string getUrl( );
 
 	/**
 	 * Returns the Site's url

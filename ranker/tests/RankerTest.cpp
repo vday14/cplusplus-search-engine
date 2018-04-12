@@ -36,8 +36,10 @@ void testSimple()
 
 	clock_t startRanker = clock();
 
+	ISRWord queryWord2(query);
+
 	vector<ISRWord*> input;
-	input.push_back(&queryWord);
+	input.push_back(&queryWord2);
 	Ranker rankeyboi;
 	rankeyboi.addISR(input);
 	ISRWord doc(query);
@@ -47,7 +49,7 @@ void testSimple()
 		//vector< ISRWord > docvec;
 		//docvec.push_back ( doc );
 
-		rankeyboi.addDoc ( doc.GetEndDocumentLocation() , doc.GetEndDocument()->getCurrentDoc().docEndPosition);
+		rankeyboi.addDoc ( doc.getCurrentLocation() , doc.GetEndDocument()->getCurrentDoc().docEndPosition);
 		doc.NextDocument ( );
 		}
 
