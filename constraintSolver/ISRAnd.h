@@ -21,6 +21,8 @@ public:
 	Location Seek ( Location target ) override;
 	ISREndDoc * GetEndDocument ( ) override;
 
+	~ISRAnd();
+
 
 
 private:
