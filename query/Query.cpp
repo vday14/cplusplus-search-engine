@@ -26,8 +26,7 @@ Query::Query( std::string query_in )
  */
 Query::Query( const Query &copy )
 	{
-	QueryParser parser( copy.queryStr );
-	this->queryTokens	= parser.execute( );
+	this->queryTokens	= copy.queryTokens;
 	}
 
 /**

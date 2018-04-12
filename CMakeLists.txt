@@ -261,12 +261,26 @@ add_executable(NestedAnd
         util/stringProcessing.cpp
         util/Stemmer.cpp
         query/queryLanguage/QueryParser.cpp
-        query/Ranker/Ranker.cpp
-        query/Ranker/Scorer.cpp
-        query/Ranker/Site.cpp
-
+        ranker/Ranker.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
         )
 
+add_executable(Scorer-tests
+        ranker/tests/ScorerTest.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Ranker.cpp
+        util/util.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        indexer/Corpus.cpp
+        util/Stemmer.cpp
+        indexer/Chunk.cpp
+        parser/queryParser.cpp
+        util/Tokenizer.cpp
+        query/Query.cpp)
 
 add_executable(DataStructures-Vector-tests
         DataStructures/Vector/Vector.h
@@ -413,6 +427,7 @@ target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
+target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
 
 
 

@@ -21,13 +21,6 @@ public:
 	 */
 	double getScore( Site );
 
-private:
-
-	const double STATIC_WEIGHT = 1.0;
-	const double PHRASE_WEIGHT = 1.0;
-	const double PROXIMITY_WEIGHT = 1.0;
-	const double TFIDF_WEIGHT = 1.0;
-
 	/**
 	 * Map of domain TLDs to weights
 	 *
@@ -52,6 +45,8 @@ private:
 	 */
 	double phraseMatch ( Site inputSite );
 
+	bool phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
+
 	/**
 	 * Calculates score for proximity matches
 	 *
@@ -59,6 +54,12 @@ private:
 	 * @return double
 	 */
 	double proximityMatch ( Site inputSite );
+
+private:
+	const double STATIC_WEIGHT = 1.0;
+	const double PHRASE_WEIGHT = 1.0;
+	const double PROXIMITY_WEIGHT = 1.0;
+	const double TFIDF_WEIGHT = 1.0;
 
 	};
 #endif //EECS398_SEARCH_SCORER_H
