@@ -32,10 +32,11 @@ function get_request(){
             console.log("error");
             console.log(data.responseText);
             var dataReturned = data.responseText;
-            var results = data.responseText.split(',');
+            var returnedJSON = JSON.parse(data.responseText)['results'];
             $("#results").empty();
-            $(results).each(function(number, url) {
-                $("<li/>").html($("<a>").attr("href",url).attr("class", "result").text(number + "    :    " + url)).appendTo('#results');
+            $(returnedJSON).each(function(index, result) {
+
+                $("<li/>").html($("<a>").attr("href",result['site']).attr("class", "result").text("Score: " + result['score'] + "    :  " + result['site'])).appendTo('#results');
             });
             /*
 
