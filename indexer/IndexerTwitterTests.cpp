@@ -58,6 +58,16 @@ int main ( ) {
 							midword = true;
 					}
 				}
+				if(!word.empty()) {
+					std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+					word.erase(remove_if(word.begin(), word.end(), [](char c) { return !isalpha(c); }),
+							   word.end());
+					if (word != "") {
+						local->operator[](word).push_back(id);
+						id++;
+					}
+					word = "";
+				}
 				if (local->size() != 0) {
 					size_t id = j.at("id");
 					local->operator[]("=file " + to_string(i) + " tweet " + to_string(id)).push_back(0);

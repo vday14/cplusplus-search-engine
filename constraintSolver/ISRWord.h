@@ -16,51 +16,47 @@
 #include "../util/util.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 #include "ISREndDoc.h"
+
 using namespace std;
-
-
-//Find occurrences of individual words
-
 
 class ISRWord : public ISR
 	{
-	public:
-		ISRWord ( string word );
+public:
+    ISRWord ( string word );
+    Location openChunk( int chunk );
+    Location Next ( ) ;
+    Location Seek ( Location target ) override;
+    ISREndDoc * GetEndDocument ( ) override;
 
 
-		Location First ( ) ;
-		Location Next ( ) ;
-		Location Seek ( Location target ) override;
-		ISREndDoc * GetEndDocument ( ) override;
+    unsigned GetDocumentCount ( );
+
+    unsigned GetNumberOfOccurrences ( );
+
+    string GetTerm( );
 
 
-		unsigned GetDocumentCount ( );
+// ISR *GetDocumentISR( );
 
-		unsigned GetNumberOfOccurrences ( );
+    string term;
+    vector< WordSeek > wordSeekLookupTable;
+    int currentIndex;
+    char *currentMemMap;
 
-		string GetTerm( );
+    //set member variables to all of the chunks that occur, update current chunk
+    Location getCurrentLocation();
+    size_t getFrequency();
+    size_t getDocFrequency();
+    size_t getLastLocation();
 
-
-	// ISR *GetDocumentISR( );
-
-		string term;
-		vector< WordSeek > wordSeekLookupTable;
-		size_t currentChunk;
-		char *currentMemMap;
-
-		//set member variables to all of the chunks that occur, update current chunk
-		Location getCurrentLocation();
-		size_t getFrequency();
-		size_t getDocFrequency();
-		size_t getLastLocation();
-
-		Location GetEndDocumentLocation() const;
+    Location GetEndDocumentLocation() const;
 
 private:
 	void getWordSeek();
 
+	bool justSwitched;
 	WordInfo info;
-	Corpus corpus = Corpus();
+	Corpus corpus = Corpus::getInstance();
 
 
 	};

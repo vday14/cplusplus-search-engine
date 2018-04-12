@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 #include "../util/util.h"
 #include "IndexerConstants.h"
@@ -9,9 +10,9 @@ class Chunk {
 public:
 
     Chunk(int number);
+    char* getChunkMap();
 
     int chunkFileHandle;
-    char* chunkMap;
     MMDiskHashTable seeker;
     MMDiskHashTable wordSeek;
     size_t numberUniqueWords;

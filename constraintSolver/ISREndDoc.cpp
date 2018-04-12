@@ -3,6 +3,7 @@
 //
 
 #include "ISREndDoc.h"
+#include "ISR.h"
 
 ISREndDoc::ISREndDoc() {
     currentChunk = 0;
@@ -58,7 +59,7 @@ void ISREndDoc::openChunk(int chunk) {
     assert(chunk >= 0 && chunk < corpus.chunks.size());
     currentChunk = chunk;
     seekTable.clear();
-    memMap = corpus.chunks[chunk].chunkMap;
+    memMap = corpus.chunks[chunk].getChunkMap();
     currentFileHandle = corpus.chunks[chunk].chunkFileHandle;
     memMap += stoll(corpus.chunks[chunk].seeker.find("=docEnding"));
 
@@ -92,30 +93,33 @@ void ISREndDoc::openChunk(int chunk) {
 }
 
 void ISREndDoc::seek(Location target) {
-    int chunk = 1;
+    if(target == MAX_Location) {
+        return;
+    }
+    int chunk = currentChunk;
     if(target < corpus.chunks[0].lastLocation) {
         chunk = 0;
     } else {
         while (target > corpus.chunks[chunk].lastLocation) {
             chunk++;
         }
-        chunk--;
     }
 
     if(chunk != currentChunk)
         openChunk(chunk);
 
     if(!seekTable.empty()) {
-        WordSeek last = WordSeek();
-        for(int i = 0; i < seekTable.size(); i++) {
-            if(target < seekTable[i].realLocation) {
+        WordSeek last = seekTable.front();
+        if (target > last.realLocation) {
+            for (int i = 1; i < seekTable.size(); i++) {
+                if (seekTable[i].realLocation > target && last.realLocation <= target) {
+                    break;
+                }
                 last = seekTable[i];
-            } else if(target >= seekTable[i].realLocation) {
-                break;
             }
+            memMap = corpus.chunks[chunk].getChunkMap();
+            memMap += last.seekOffset;
         }
-
-        memMap += last.seekOffset;
     }
     while(target > (next().docEndPosition - 1));
 }
