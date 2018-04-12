@@ -56,7 +56,7 @@ private:
 
 	bool justSwitched;
 	WordInfo info;
-	Corpus corpus = Corpus();
+	Corpus corpus = Corpus::getInstance();
 
 
 	};

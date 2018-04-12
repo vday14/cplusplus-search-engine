@@ -183,7 +183,7 @@ Location ISRWord::Seek ( Location target )
 	if(!wordSeekLookupTable.empty())
         {
             auto best = wordSeekLookupTable.front( );
-            if(target > best.realLocation)
+            if(target > best.seekOffset)
                 {
                 for (auto entry : wordSeekLookupTable)
                     {

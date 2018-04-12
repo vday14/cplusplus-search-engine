@@ -361,6 +361,18 @@ add_executable(query-queryLanguage-tests
         util/DataStructureLib/tuple.cpp
         )
 
+add_executable(ISRAndTwitterIntegrityTest
+        constraintSolver/ISR.h
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        indexer/json.hpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        constraintSolver/tests/ISRAndTwitterIntegrityTest.cpp)
 
 
 find_package(OpenSSL REQUIRED)
