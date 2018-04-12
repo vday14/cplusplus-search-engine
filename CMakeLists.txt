@@ -364,7 +364,8 @@ add_executable(testISRQueryTuple
 
 add_executable(server
         site/LinuxTinyServer.cpp
-
+        query/Query.cpp
+        parser/queryTokenizer.cpp
         query/Searcher.cpp
         util/DataStructureLib/tuple.cpp
         util/stringProcessing.cpp
@@ -386,8 +387,11 @@ add_executable(server
         )
 
 add_executable(testQueryParser
-        parser/queryTokenizer.cpp
+        query/queryLanguage/tests/testQueryParser.cpp
+        query/queryLanguage/QueryParser.cpp
         util/Tokenizer.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
         )
 
 
@@ -433,7 +437,7 @@ target_link_libraries(QueueTest pthread)
 target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
 target_link_libraries(search-engine OpenSSL::SSL pthread)
 
-
+target_link_libraries(server OpenSSL::SSL pthread)
 
 
 
