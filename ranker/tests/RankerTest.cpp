@@ -32,14 +32,16 @@ void testStatic()
 	for(auto url :urls)
 		cout << url << endl;
 
-	cout << "Number of results: " << urls.size() << "\n\n\n";
+	cout << "Number of results: " << urls.size( ) << "\n\n\n";
 
-	clock_t startRanker = clock();
+	clock_t startRanker = clock( );
+	vector<ISRWord> input;
+	input.push_back( queryWord );
+	Ranker rankeyboi ( query );
+	rankeyboi.addDoc( input );
+	ISRWord doc( query );
 
-	Ranker rankeyboi;
-	ISRWord doc(query);
-
-	while(doc.getCurrentLocation() != MAX_Location)
+	while(doc.getCurrentLocation( ) != MAX_Location)
 		{
 		vector< ISRWord > docvec;
 		docvec.push_back ( doc );

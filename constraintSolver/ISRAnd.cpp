@@ -27,6 +27,14 @@ ISRAnd::ISRAnd( vector < ISR * > InputTerms ) : Terms( InputTerms )
 	return;
 	}
 
+ISRAnd::~ISRAnd ( )
+	{
+	for(auto i:Terms)
+		{
+		delete i;
+		}
+	}
+
 
 
 
@@ -80,7 +88,8 @@ Location ISRAnd::Seek( Location target )
 		if(nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition == furthestTerm->GetEndDocument()->getCurrentDoc().docEndPosition )
 			{
 			//cout << "Found Match " << endl;
-			return nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition;
+			//return nearestTerm->GetEndDocument()->getCurrentDoc().docEndPosition;
+			return nearest;
 			}
 
 		//set next target to be starting location of document
@@ -112,7 +121,7 @@ Location ISRAnd::Seek( Location target )
 ISREndDoc *ISRAnd::GetEndDocument()
 	{
 	//What does currentLocation hold?  When is it updated?
-	return furthestTerm->DocumentEnd;
+	return furthestTerm->GetEndDocument();
 	}
 
 

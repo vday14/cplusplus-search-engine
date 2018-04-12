@@ -9,6 +9,15 @@ ISRContainer::ISRContainer( Tuple * top )  : root( top )
 	{
 
 	compile( );
+	vector < ISRWord > toRanker;
+	for ( auto term : terms )
+		{
+
+		ISRWord isrWord = ISRWord( term );
+		toRanker.push_back( isrWord );
+
+		}
+	ranker.addISR( toRanker );
 	}
 
 
@@ -50,37 +59,59 @@ ISR * ISRContainer::recurviseCompile( Tuple * root )
 string ISRContainer::Solve( )
 	{
 	string results;
+	clock_t start = clock();
+
+
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
-		cout << url << endl;
-		results += url + ",";
-		Location BeginningfDocument = Contained->GetISRToBeginningOfDocument( );
+		//cout << url << endl;
+		//results += url + ",";
+		Location BeginningofDocument = Contained->GetISRToBeginningOfDocument( );
+		clock_t inner_start = clock();
 		//PassToRanker( BeginningfDocument );
-
-		//PassToRanker( BeginningfDocument );
+		ranker.addDoc( BeginningofDocument );
+		clock_t inner_end = clock();
+		double time = (inner_end - inner_start) / (double) CLOCKS_PER_SEC;
+		//cout << "TIME TO RANK " << time << endl;
 		Contained->NextDocument( );
+		ranker.numberOfTotalResults++ ;
+
 
 		}
+	clock_t end = clock();
+	double time = (end - start) / (double) CLOCKS_PER_SEC;
 
-	return results;
+	results = ranker.getResultsForSite( );
+	cout << "Results" << endl;
+	cout << "Total number of results :: " << ranker.numberOfTotalResults << endl;
+	cout << "Total time to run :: " << to_string( time ) << endl;
+	cout << results << endl;
+	return results ;
+
 
 	}
 
 void ISRContainer::PassToRanker( Location docBeginning )
 	{
 
-	vector<ISRWord* > toRanker;
+	vector<ISRWord > toRanker;
 	for ( auto term : terms )
 		{
 
-		ISRWord * isrWord = new ISRWord ( term ) ;
-		isrWord->Seek( docBeginning );
+		ISRWord  isrWord = ISRWord ( term ) ;
+		isrWord.Seek( docBeginning );
 		toRanker.push_back( isrWord );
 
 		}
 
-	//ranker.rank( toRanker );
+	//ranker.addDoc( toRanker );
 
 	}
+
+ISRContainer::~ISRContainer ( )
+	{
+	delete Contained;
+	}
+
 

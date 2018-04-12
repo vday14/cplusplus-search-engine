@@ -2,24 +2,41 @@
 #include "Site.h"
 #include "../constraintSolver/ISRWord.h"
 #include "../constraintSolver/ISREndDoc.h"
+#include "../shared/url.h"
 #include <vector>
 #include <queue>
 #include <string>
 #include <set>
 
-/***
+/**
+ * Ranker cstor
+ *
+ * @param query_in
+ */
+Ranker::Ranker( std::string query_in ) : query ( Query( query_in ) )
+	{
+	sortedDocs.resize(DOCS_TO_RETURN);
+	};
+
+
+/**
  * Adds a new site for the doc given as isrListInput
+ *
  * @param isrListInput
  */
 void Ranker::addDoc( vector<ISRWord> isrListInput )
 	{
-	Site * newSite = new Site();
-	string url;
+	assert( isrListInput.size( ) != 0 );
+	std::string urlStr = isrListInput[ 0 ].DocumentEnd->getCurrentDoc ( ).url;
 
-	if( isrListInput.size( ) != 0 )
-		url = isrListInput[0].DocumentEnd->getCurrentDoc ( ).url;
+	if ( findStr("http://", urlStr) == urlStr.size( ) )
+		urlStr = "http://" + urlStr;
 
-	newSite->url = url;
+	ParsedUrl url( urlStr );
+
+	Query query( this->getQuery() );
+	Site * newSite = new Site( url, query );
+
 	//Websites[ url ] = newSite;
 	for( auto isrWord: isrListInput)
 		{
@@ -28,40 +45,94 @@ void Ranker::addDoc( vector<ISRWord> isrListInput )
 		}
 
 	selectivelyAddDocs( newSite );
-
 	}
 
-data Ranker::getData( ISRWord isrWord)
+/**
+ * Outputs the ranked sites to stout
+ *
+ */
+void Ranker::printRankedSites()
 	{
-	ISREndDoc endDocs;
-	vector<DocumentEnding> docEnds;
-
-
-	unsigned long freq = 0;
-
-	//FixME just gets the word frequency, add more useful functions as we add heuristics
-
-	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc().docEndPosition)
+	cout << "----RANKED RESULTS----" << endl;
+	unsigned long size  = runningRankedQueue.size();
+	for( auto i = size; i > 0; --i )
 		{
-		isrWord.Next();
-		++freq;
+		Site * website = runningRankedQueue.top();
+		runningRankedQueue.pop();
+		cout << "URL: " << website->getUrl( ).getCompleteUrl() << std::endl;
+
+		cout << "score: " << website->getScore( ) << std::endl;
 		}
+	}
+
+/**
+ * Returns the query
+ *
+ * @return Query
+ */
+Query Ranker::getQuery( )
+	{
+	return this->query;
+	}
+
+/**
+ * Sets the data for each word
+ *
+ * @param isrWord
+ * @return data
+ */
+data Ranker::getData( ISRWord isrWord )
+	{
 
 	data wordData;
-	wordData.frequency = freq;
+	wordData.frequency = getFrequency( &isrWord );
+	wordData.offsets = getOffsets( &isrWord );
+
 
 	return wordData;
 	}
 
-Ranker::~Ranker()
+/**
+ * Gets the frequency of a certain word
+ *
+ * @param isrWord
+ * @return
+ */
+unsigned long Ranker::getFrequency ( ISRWord* isrWord )
 	{
-	for( auto i = Websites.begin( ); i != Websites.end( ); ++i )
+	ISREndDoc endDocs;
+	vector<DocumentEnding> docEnds;
+
+	unsigned long freq = 0;
+	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
 		{
-		delete i->second;
+		isrWord->Next();
+		++freq;
 		}
+	return freq;
 	}
-/***
+
+/**
+ * Returns the offsets of the word
+ *
+ * @return
+ */
+std::vector < size_t > Ranker::getOffsets( ISRWord* isrWord )
+	{
+	std::vector < size_t > offsets;
+	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
+		{
+		offsets.push_back( isrWord->getCurrentLocation( ) );
+		isrWord->Next();
+		}
+	return offsets;
+	}
+
+
+/**
  * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
+ *
+ * @param doc
  */
 void Ranker::selectivelyAddDocs( Site * doc)
 	{
@@ -84,24 +155,17 @@ void Ranker::selectivelyAddDocs( Site * doc)
 		}
 
 	}
-
-
-void Ranker::printRankedSites()
+/**
+ * Ranker dstor
+ */
+Ranker::~Ranker()
 	{
-	cout << "----RANKED RESULTS----" << endl;
-	unsigned long size  = runningRankedQueue.size();
-	for( auto i = size; i > 0; --i )
+	for( auto i = Websites.begin( ); i != Websites.end( ); ++i )
 		{
-		Site * website = runningRankedQueue.top();
-		runningRankedQueue.pop();
-		cout << "URL: " << website->url << std::endl;
-
-		for( auto j = website->wordData.begin( ); j != website->wordData.end( ); ++j)
-			{
-			cout << j->first << ": " << j->second.frequency << std::endl;
-			}
+		delete i->second;
 		}
 	}
+
 
 //	vector<size_t> locations;
 //	set<string> urls;

@@ -242,9 +242,45 @@ add_executable(ISRMultiWordORTest
         indexer/Corpus.cpp
         indexer/Chunk.cpp
         util/stringProcessing.cpp
-        util/Stemmer.cpp )
+        util/Stemmer.cpp
 
+        )
+add_executable(NestedAnd
+        constraintSolver/tests/nestedAnd.cpp
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRContainer.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISROr.cpp
 
+        constraintSolver/ISREndDoc.cpp
+        util/DataStructureLib/tuple.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        query/queryLanguage/QueryParser.cpp
+        ranker/Ranker.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
+        )
+
+add_executable(Scorer-tests
+        ranker/tests/ScorerTest.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Ranker.cpp
+        util/util.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        indexer/Corpus.cpp
+        util/Stemmer.cpp
+        indexer/Chunk.cpp
+        parser/queryParser.cpp
+        util/Tokenizer.cpp
+        query/Query.cpp)
 
 add_executable(DataStructures-Vector-tests
         DataStructures/Vector/Vector.h
@@ -301,6 +337,7 @@ add_executable(query-Ranker-tests
         indexer/Chunk.cpp
         parser/queryParser.cpp
         util/Tokenizer.cpp
+        query/Query.cpp
         )
 
 add_executable(testISRQueryTuple
@@ -359,6 +396,21 @@ add_executable(testQueryLanguage
         util/Stemmer.cpp
         )
 
+add_executable(ISRAndTwitterIntegrityTest
+        constraintSolver/ISR.h
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        indexer/json.hpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        constraintSolver/tests/ISRAndTwitterIntegrityTest.cpp)
+
+add_executable(devtool-SumSpaceNumbers
+        devtools/SumSpaceNumbers.cpp)
 
 find_package(OpenSSL REQUIRED)
 
@@ -375,6 +427,7 @@ target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
+target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
 
 
 

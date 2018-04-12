@@ -14,11 +14,19 @@ QueryParser::QueryParser ( std::string query )
  *
  * @return tokenizer dict
  */
-const unordered_map< string, vector< unsigned long > > *QueryParser::execute( )
+std::vector< std::string > QueryParser::execute( )
 	{
-	Tokenizer tokenizer;
-	tokenizer.execute( query, 0, '\0' );
-	return tokenizer.get( );
+	std::vector< std::string > tokens = splitStr( query, ' ', true );
+	std::vector< std::string > processedQuery;
+
+	for ( int i = 0; i < tokens.size( ); ++i )
+		{
+		if ( !isStopWord( tokens[ i ] ) )
+			{
+			processedQuery.push_back( stemWord( tokens[ i ] ) );
+			}
+		}
+	return processedQuery;
 	}
 
 
