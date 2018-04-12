@@ -25,8 +25,8 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )
 		return false;
 
-	//else if( RestrictedHosts[ url.getHost ( ) ] > 200 )
-	//	return false;
+	if( RestrictedHosts[ url.getHost ( ) ] > 200 )
+		return false;
 
 
 
@@ -60,7 +60,7 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 				difference = .01;
 			else
 				difference = difference / 100;
-			url.updateScore( difference );
+			//url.updateScore( difference );
 
 			pthread_mutex_lock( &m );
 			(*domainMap)[ url.getHost( ) ] = now;

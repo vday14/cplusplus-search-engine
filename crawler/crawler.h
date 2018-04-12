@@ -7,6 +7,8 @@
 #include <unordered_map>
 #include "UrlFrontier.h"
 #include "../indexer/Indexer.h"
+#include "../indexer/Corpus.h"
+#include "../indexer/Chunk.h"
 //#include "CrawlerStatistics.h"
 /*
  *

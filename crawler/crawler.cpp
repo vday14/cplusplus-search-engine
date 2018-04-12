@@ -125,6 +125,8 @@ void Crawler::writeCrawlStats(double timeToCrawl , double numSpiders, Indexer* i
 		perror( "Error deleting file" );
 	else
 		puts( "File successfully deleted" );
+
+	//Corpus corpus = Corpus.getInstance();
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 	string stats = "Time to crawl:  " + to_string( timeToCrawl ) + "\n"
 						+"Number of spiders: " + to_string(numSpiders) + "\n"
