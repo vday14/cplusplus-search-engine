@@ -130,14 +130,6 @@ void Indexer::save()
 			}
 			chunkDictionary[ word.first ].frequency++;
 			numIndexed++;
-			if ( numIndexed == IndexerConstants::saveEveryXEntries )
-				{
-				SeekEntry entry = SeekEntry( );
-				entry.offset = seekOffset;
-				entry.realLocation = location;
-                seekDictionary[ word.first ].push_back( entry );
-				numIndexed = 0;
-				}
 			if ( firstPost )
 				{
 				string locationSpace = to_string( location ) + " ";
@@ -152,7 +144,15 @@ void Indexer::save()
 				write( file, deltaSpace.c_str( ), strlen( deltaSpace.c_str( )));
 				seekOffset += strlen( deltaSpace.c_str( ));
 				}
-			lastOne = location;
+			if ( numIndexed == IndexerConstants::saveEveryXEntries )
+			    {
+				SeekEntry entry = SeekEntry( );
+				entry.offset = seekOffset;
+				entry.realLocation = location;
+				seekDictionary[ word.first ].push_back( entry );
+				numIndexed = 0;
+			    }
+				lastOne = location;
 			}
 		chunkDictionary[ word.first ].lastLocation = lastOne;
 		write( file, "\n", 1 );

@@ -242,8 +242,30 @@ add_executable(ISRMultiWordORTest
         indexer/Corpus.cpp
         indexer/Chunk.cpp
         util/stringProcessing.cpp
-        util/Stemmer.cpp )
+        util/Stemmer.cpp
 
+        )
+add_executable(NestedAnd
+        constraintSolver/tests/nestedAnd.cpp
+        util/util.cpp
+        constraintSolver/ISR.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRContainer.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISROr.cpp
+
+        constraintSolver/ISREndDoc.cpp
+        util/DataStructureLib/tuple.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        query/queryLanguage/QueryParser.cpp
+        query/Ranker/Ranker.cpp
+        query/Ranker/Scorer.cpp
+        query/Ranker/Site.cpp
+
+        )
 
 
 add_executable(DataStructures-Vector-tests
@@ -372,6 +394,9 @@ add_executable(ISRAndTwitterIntegrityTest
         indexer/Corpus.cpp
         indexer/Chunk.cpp
         constraintSolver/tests/ISRAndTwitterIntegrityTest.cpp)
+
+add_executable(devtool-SumSpaceNumbers
+        devtools/SumSpaceNumbers.cpp)
 
 find_package(OpenSSL REQUIRED)
 
