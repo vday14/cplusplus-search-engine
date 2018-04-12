@@ -8,7 +8,7 @@
 #include "ISREndDoc.h"
 #include "ISRAnd.h"
 #include "ISROr.h"
-#include "../query/Ranker/Ranker.h"
+#include "../ranker/Ranker.h"
 #include "../util/DataStructureLib/tuple.cpp"
 
 //Find occurrences of contained ISRs in a single document not containing any excluded ISRs.
