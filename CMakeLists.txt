@@ -341,6 +341,7 @@ add_executable(query-Ranker-tests
         parser/queryTokenizer.cpp
         util/Tokenizer.cpp
         query/Query.cpp
+
         )
 
 add_executable(testISRQueryTuple

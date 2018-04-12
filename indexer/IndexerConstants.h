@@ -15,7 +15,7 @@ namespace IndexerConstants {
     const size_t chunkWordSeekKeySize = 30;
     const size_t chunkWordSeekValueSize = 168;
 
-    const size_t chunkSizeLimit = 200000;
+    const size_t chunkSizeLimit = 1000000;
 
     const size_t saveEveryXEntries = 25;
 }

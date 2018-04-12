@@ -25,6 +25,10 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )
 		return false;
 
+	//if( RestrictedHosts[ url.getHost ( ) ] > 500 )
+	//	return false;
+
+
 
 	//Looks to see if the complete url already exists, if so return
 	if ( this->duplicateUrlMap->find( url.getCompleteUrl( )) != this->duplicateUrlMap->end( ))
@@ -56,7 +60,7 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 				difference = .01;
 			else
 				difference = difference / 100;
-			url.updateScore( difference );
+			//url.updateScore( difference );
 
 			pthread_mutex_lock( &m );
 			(*domainMap)[ url.getHost( ) ] = now;
@@ -76,6 +80,10 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 		//add url to the duplicate url map
 		pthread_mutex_lock( &m );
 		(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ] = 1;
+		pthread_mutex_unlock( &m );
+
+		pthread_mutex_lock( &m );
+		RestrictedHosts[ url.getHost ( ) ]++;
 		pthread_mutex_unlock( &m );
 
 		return true;
@@ -207,8 +215,11 @@ void UrlFrontier::writeDataToDisk()
 
 	close( file );
 
+
+
 	return;
 	}
+
 
 void UrlFrontier::readDataFromDisk( )
 	{
@@ -272,7 +283,7 @@ void UrlFrontier::readHosts()
 		if ( *hosts == '\n' )
 			{
 
-			RestrictedHosts.insert(toRestrict);
+			RestrictedHosts[toRestrict] = 0;
 			toRestrict = "";
 			}
 		else

@@ -32,22 +32,25 @@ void Ranker::addQuery( std::string query_in )
  *
  * @param isrListInput
  */
-void Ranker::addDoc( Location beggingOfDocument )
+void Ranker::addDoc( Location beggingOfDocument,  Location EndOfDocument)
 	{
 
 	assert( isrListInput.size( ) != 0 );
 
-	ParsedUrl url( isrListInput[ 0 ].DocumentEnd->getCurrentDoc( ).url );
+	ParsedUrl url( isrListInput[ 0 ]->DocumentEnd->getCurrentDoc( ).url );
 
 	Query query( this->getQuery() );
 	Site *newSite = new Site( url, query );
 
-	//Websites[ url ] = newSite;
 	for ( auto isrWord: isrListInput )
 		{
-		isrWord.Seek( beggingOfDocument );
-		string word = isrWord.term;
-		newSite->wordData[ word ] = getData( isrWord );
+		isrWord->Seek( beggingOfDocument);
+		string word = isrWord->term;
+		if( isrWord->currentLocation  < EndOfDocument )
+			{
+			newSite->wordData[ word ] = getData( isrWord );
+			}
+
 		}
 
 	selectivelyAddDocs( newSite );
@@ -88,12 +91,12 @@ Query Ranker::getQuery( )
  * @param isrWord
  * @return data
  */
-data Ranker::getData( ISRWord isrWord )
+data Ranker::getData( ISRWord* isrWord )
 	{
 
 	data wordData;
-	wordData.frequency = getFrequency( &isrWord );
-	wordData.offsets = getOffsets( &isrWord );
+	wordData.frequency = getFrequency( isrWord );
+	wordData.offsets = getOffsets( isrWord );
 	return wordData;
 	}
 
@@ -207,7 +210,7 @@ void Ranker::orderResults()
 		}
 	}
 
-void Ranker::addISR( vector<ISRWord> isr_in )
+void Ranker::addISR( vector<ISRWord*> isr_in )
 	{
 	isrListInput = isr_in;
 
