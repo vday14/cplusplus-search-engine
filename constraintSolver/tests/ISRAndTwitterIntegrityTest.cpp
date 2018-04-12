@@ -10,7 +10,7 @@
 using namespace std;
 using json = nlohmann::json;
 
-const int NUMBER_FILES = 5;
+const int NUMBER_FILES = 2;
 
 vector<ifstream *> files;
 vector<thread> threads;
