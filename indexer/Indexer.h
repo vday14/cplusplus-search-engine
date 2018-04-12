@@ -41,6 +41,7 @@ public:
 
 	void run ( );
 	void Kill ( );
+	size_t numberDocsIndexed;
 
 private:
 	void save ( );
@@ -66,7 +67,6 @@ private:
 	size_t currentlyIndexed;
 	size_t currentBlockNumberWords;
 	size_t currentBlockNumberDocs;
-	size_t numberDocsIndexed;
 
 	atomic_bool* alive = new atomic_bool(true);
 

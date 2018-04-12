@@ -6,6 +6,7 @@
 #include "../shared/ProducerConsumerQueue.h"
 #include <unordered_map>
 #include "UrlFrontier.h"
+#include "../indexer/Indexer.h"
 //#include "CrawlerStatistics.h"
 /*
  *
@@ -38,6 +39,8 @@ public:
 	void KillAllSpiders ( );
 
 	void WaitOnAllSpiders ( );
+	void writeCrawlStats ( double timeToCrawl , double numSpiders, Indexer* indexer );
+
 	UrlFrontier  *urlFrontier;
 
 

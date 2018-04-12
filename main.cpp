@@ -212,13 +212,16 @@ int main ( int argc, char *argv[] )
 		crawler->passAnchorTextToIndex( );
 		indexer.Kill();
 		indexer.WaitForFinish( );
-		urlFrontier->writeDataToDisk();
+		//urlFrontier->writeDataToDisk();
+		clock_t end = clock();
+		double time = (end - start) / (double) CLOCKS_PER_SEC ;
+		cout << "Time to complete build: " << time;
+		crawler->writeCrawlStats( time, numberOfSpiders, &indexer );
 		delete urlFrontier;
 		delete IndexerQueue;
 
 		cout << "Indexer has finished running " << endl;
-		clock_t end = clock();
-		cout << "Time to complete build: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
 
 		return 0;
 
