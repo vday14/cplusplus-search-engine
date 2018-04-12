@@ -29,17 +29,19 @@ class Ranker
 public:
 
 	Ranker()
-		{
+	{
 
 		};
 
 
 	~Ranker( );
 
-	void addDoc( vector<ISRWord> isrListInput );
+	void addDoc( Location beggingOfDoc );
 	void printRankedSites();
 	string getResultsForSite( );
 	void orderResults( );
+	void addISR( vector<ISRWord> isr_in );
+	double numberOfTotalResults;
 
 private:
 
@@ -48,9 +50,11 @@ private:
 	void selectivelyAddDocs( Site * doc);
 
 
+
 	//A min heap to store a running list of the least most valuable sites
 	priority_queue< Site * , vector< Site* > , Comp > runningRankedQueue;
 	vector< Site* > sortedDocs;
+	vector<ISRWord> isrListInput;
 	unordered_map<string, Site * > Websites;
 	unordered_map< string , vector< unsigned long > > queryOffsets;
 

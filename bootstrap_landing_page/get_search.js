@@ -36,7 +36,8 @@ function get_request(){
             $("#results").empty();
             $(returnedJSON).each(function(index, result) {
 
-                $("<li/>").html($("<a>").attr("href",result['site']).attr("class", "result").text("Score: " + result['score'] + "    :  " + result['site'])).appendTo('#results');
+                var text = "Score: " + result['score'] + "    :  " + result['site'];
+                $("<li/>").html($("<a>").attr("href",result['site']).attr("class", "result").text( text )).appendTo('#results');
             });
             /*
 
