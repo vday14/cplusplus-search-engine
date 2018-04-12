@@ -13,8 +13,8 @@ void testOR();
 void testSimple();
 void testORwithAND();
 void testnestedOR();
-//void nestedAND();
 void testNestedORwithAND();
+void testDecoration();
 
 int main()
 	{
@@ -25,6 +25,8 @@ int main()
 	testORwithAND ();
 	testNestedORwithAND();
 	testnestedOR();
+	testDecoration ();
+	cout << "PASSED ALL TESTS!\n";
 
 	}
 
@@ -33,12 +35,14 @@ void testAND()
 	cout << "Testing AND...\n";
 	string query = "Is Lebron james the goat";
 	QueryParser lebronParser;
+	lebronParser.toggleDecorator();
 	lebronParser.parse( query );
 	string correct = " |  -AND-  | \n[ 1 ]  Is  |  Lebron  |  james  |  the  |  goat ";
 	assert(correct == lebronParser.getTestingTree( ));
 
 	string dessertQuery = "I like cookies AND cake & pie && icecream and dessert";
 	QueryParser dessertParser;
+	dessertParser.toggleDecorator();
 	dessertParser.parse( dessertQuery );
 	string correctDesserts = " |  -AND-  | \n[ 1 ]  I  |  like  |  cookies  |  cake  |  pie  |  icecream  |  dessert ";
 	assert(correctDesserts == dessertParser.getTestingTree( ));
@@ -51,12 +55,14 @@ void testOR()
 	cout << "Testing OR..\n";
 	string query = "who or what OR when || where | why";
 	QueryParser Parser;
+	Parser.toggleDecorator();
 	Parser.parse( query );
-	string correct = " |  -OR-  | \n[ 1 ]  who  |  what  |  when  |  where  |  why ";
+	string correct = " |  -OR-  | \n[ 1 ]  who  |  what  |  when  |  where  |  whi ";
 	assert(correct == Parser.getTestingTree( ));
 
 	string simple = "left or right";
 	QueryParser simpleParser;
+	simpleParser.toggleDecorator();
 	simpleParser.parse( simple );
 	string simpleCorrect = " |  -OR-  | \n[ 1 ]  left  |  right ";
 	assert( simpleCorrect == simpleParser.getTestingTree( ) );
@@ -70,6 +76,7 @@ void testSimple()
 	cout << "Testing Simple Case..\n";
 	string simple = "Zane";
 	QueryParser Parser;
+	Parser.toggleDecorator();
 	Parser.parse( simple );
 	string correct = " |  Zane ";
 	assert(correct == Parser.getTestingTree( ));
@@ -81,6 +88,7 @@ void testORwithAND()
 	cout << "Testing OR with AND\n";
 	string nasa = "moon mission was a lie OR truth ";
 	QueryParser Parser;
+	Parser.toggleDecorator();
 	Parser.parse( nasa );
 	string correct = " |  -OR-  | \n"
 			"[ 1 ]  -AND-  |  truth  | \n"
@@ -89,6 +97,7 @@ void testORwithAND()
 
 	string earth = "the earth is || isnt flat or round";
 	QueryParser earthParser;
+	earthParser.toggleDecorator();
 	earthParser.parse( earth );
 
 	correct = " |  -OR-  | \n"
@@ -106,6 +115,7 @@ void testnestedOR()
 	cout << "Testing nestedOR with AND\n";
 	string RB = "karan OR ( chris OR ( kareem or omaury ) ) ";
 	QueryParser RBParser;
+	RBParser.toggleDecorator();
 	RBParser.parse( RB );
 	string correct = " |  -OR-  | \n"
 			"[ 1 ]  karan  |  -OR-  | \n"
@@ -115,6 +125,7 @@ void testnestedOR()
 
 	string WR = "( DPJ or Tarik ) or (nico or oliver) or kekoa";
 	QueryParser WRParser;
+	WRParser.toggleDecorator();
 	WRParser.parse( WR );
 	correct = " |  -OR-  | \n"
 			"[ 1 ]  -OR-  |  -OR-  |  kekoa  | \n"
@@ -126,6 +137,7 @@ void testNestedORwithAND()
 	cout << "Testing nestedOR with AND\n";
 	string nasa = "moon mission was a ( lie OR truth )";
 	QueryParser Parser;
+	Parser.toggleDecorator();
 	Parser.parse( nasa );
 	string correct = " |  -AND-  | \n"
 			"[ 1 ]  moon  |  mission  |  was  |  a  |  -OR-  | \n"
@@ -134,6 +146,7 @@ void testNestedORwithAND()
 
 	string earth = "the earth ( is || isnt)( flat or round )";
 	QueryParser earthParser;
+	earthParser.toggleDecorator();
 	earthParser.parse( earth );
 
 	correct = " |  -AND-  | \n"
@@ -144,3 +157,18 @@ void testNestedORwithAND()
 	cout <<"All nested OR and AND tests passed!\n";
 	}
 
+void testDecoration()
+	{
+	cout << "Testing decoration...\n";
+	string earth = "the earth ( is || isnt)( flat or round )";
+	QueryParser earthParser;
+	earthParser.parse( earth );
+
+	string correct = " |  -AND-  | \n"
+			"[ 1 ]  -OR-  |  -OR-  |  -OR-  |  -OR-  | \n"
+			"[ 2 ]  $the  |  #the  |  $earth  |  #earth  |  -OR-  |  -OR-  |  -OR-  |  -OR-  | \n"
+			"[ 3 ]  $is  |  #is  |  $isnt  |  #isnt  |  $flat  |  #flat  |  $round  |  #round ";
+
+	assert( correct == earthParser.getTestingTree( ) );
+	cout << "All nested decoration tests passed! \n";
+	}

@@ -23,8 +23,10 @@
 
 // Find occurrences of document ends.
 typedef size_t Location;
+
 class ISREndDoc
 	{
+
 public:
 
 	ISREndDoc();
@@ -43,7 +45,7 @@ private:
 
     vector<WordSeek> seekTable;
 
-    Corpus corpus;
+    Corpus corpus = Corpus::getInstance();
 
 };
 

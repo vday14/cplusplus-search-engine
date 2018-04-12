@@ -5,6 +5,7 @@
 #include "Scorer.h"
 #include "Site.h"
 #include <vector>
+#include <cassert>
 
 /***
  * Calculate the score for some site, Normalize the score to 1.0
@@ -12,6 +13,7 @@
  */
 double Scorer::getScore ( Site website)
 	{
+	assert( SIMPLE_WEIGHT == 1);
 	double score = 0.0;
 	int numberOfFunctions = 1;
 

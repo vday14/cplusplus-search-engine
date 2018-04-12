@@ -22,6 +22,9 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 	if( Blacklist.find(  url.getHost(  )  ) != Blacklist.end( ) )
 		return false;
 
+	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )
+		return false;
+
 
 	//Looks to see if the complete url already exists, if so return
 	if ( this->duplicateUrlMap->find( url.getCompleteUrl( )) != this->duplicateUrlMap->end( ))
@@ -252,6 +255,28 @@ void UrlFrontier::readBlackList()
 			}
 		else
 			toBlackList.push_back( *hosts );
+
+		++hosts;
+		}
+	}
+
+void UrlFrontier::readHosts()
+	{
+
+	string hostsFile = "/crawler/hosts.txt";
+	char *hosts = util::getFileMap( hostsFile );
+
+	string toRestrict;
+	while ( *hosts )
+		{
+		if ( *hosts == '\n' )
+			{
+
+			RestrictedHosts.insert(toRestrict);
+			toRestrict = "";
+			}
+		else
+			toRestrict.push_back( *hosts );
 
 		++hosts;
 		}
