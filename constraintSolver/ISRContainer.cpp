@@ -88,3 +88,9 @@ void ISRContainer::PassToRanker( Location docBeginning )
 
 	}
 
+ISRContainer::~ISRContainer ( )
+	{
+	delete Contained;
+	}
+
+

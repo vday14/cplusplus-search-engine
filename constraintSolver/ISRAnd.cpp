@@ -27,6 +27,14 @@ ISRAnd::ISRAnd( vector < ISR * > InputTerms ) : Terms( InputTerms )
 	return;
 	}
 
+ISRAnd::~ISRAnd ( )
+	{
+	for(auto i:Terms)
+		{
+		delete i;
+		}
+	}
+
 
 
 

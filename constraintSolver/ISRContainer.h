@@ -58,6 +58,8 @@ public:
 	string Solve( );
 	void PassToRanker ( Location BeginningfDocument );
 
+	~ISRContainer ( );
+
 
 private:
 	unsigned nearestTerm, farthestTerm;
