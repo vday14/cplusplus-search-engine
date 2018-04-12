@@ -113,7 +113,7 @@ Location ISRAnd::Seek( Location target )
 ISREndDoc *ISRAnd::GetEndDocument()
 	{
 	//What does currentLocation hold?  When is it updated?
-	return furthestTerm->DocumentEnd;
+	return furthestTerm->GetEndDocument();
 	}
 
 

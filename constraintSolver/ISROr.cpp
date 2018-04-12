@@ -73,7 +73,7 @@ Location ISROr::Seek( Location target )
 ISREndDoc *ISROr::GetEndDocument()
 	{
 	//What does currentLocation hold?  When is it updated?
-	return nearestTerm->DocumentEnd;
+	return nearestTerm->GetEndDocument();
 	}
 
 
