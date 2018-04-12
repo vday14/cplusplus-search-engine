@@ -1,12 +1,12 @@
 
-#include "queryParser.h"
+#include "queryTokenizer.h"
 
 /**
  * Parser class just for Query
  *
  * @param query
  */
-QueryParser::QueryParser ( std::string query )
+QueryTokenizer::QueryTokenizer ( std::string query )
 	{ this->query = query; }
 
 /**
@@ -14,7 +14,7 @@ QueryParser::QueryParser ( std::string query )
  *
  * @return tokenizer dict
  */
-std::vector< std::string > QueryParser::execute( )
+std::vector< std::string > QueryTokenizer::execute( )
 	{
 	std::vector< std::string > tokens = splitStr( query, ' ', true );
 	std::vector< std::string > processedQuery;

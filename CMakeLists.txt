@@ -176,7 +176,9 @@ add_executable(search-engine
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
-        constraintSolver/ISROr.cpp)
+        constraintSolver/ISROr.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp)
 
 
 add_executable(ISRWord-tests
@@ -219,6 +221,7 @@ add_executable(ISRAnd-tests
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
+
 add_executable(ISRWord-Multi-Test
         constraintSolver/tests/ISRWordMultiTest.cpp
         util/util.cpp
@@ -278,7 +281,7 @@ add_executable(Scorer-tests
         indexer/Corpus.cpp
         util/Stemmer.cpp
         indexer/Chunk.cpp
-        parser/queryParser.cpp
+        parser/queryTokenizer.cpp
         util/Tokenizer.cpp
         query/Query.cpp)
 
@@ -335,7 +338,7 @@ add_executable(query-Ranker-tests
         indexer/Corpus.cpp
         util/Stemmer.cpp
         indexer/Chunk.cpp
-        parser/queryParser.cpp
+        parser/queryTokenizer.cpp
         util/Tokenizer.cpp
         query/Query.cpp
         )
@@ -383,7 +386,7 @@ add_executable(server
         )
 
 add_executable(testQueryParser
-        parser/queryParser.cpp
+        parser/queryTokenizer.cpp
         util/Tokenizer.cpp
         )
 
@@ -428,6 +431,8 @@ target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
 target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
+target_link_libraries(search-engine OpenSSL::SSL pthread)
+
 
 
 

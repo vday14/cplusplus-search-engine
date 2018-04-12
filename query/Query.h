@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include "../parser/queryParser.h"
+#include "../parser/queryTokenizer.h"
 
 /**
  * custom comparator to sort the query tokens by value

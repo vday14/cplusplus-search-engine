@@ -4,16 +4,16 @@
 #include <set>
 
 
-void testStatic();
+void testSimple();
 
 int main()
 	{
-	cout << "------Starting ranker Test------" << endl;
-	testStatic ();
-	cout << "------Passed All ranker Tests---" << endl;
+	cout << "------Starting Ranker Test------" << endl;
+	testSimple ();
+	cout << "------Passed All Ranker Tests---" << endl;
 	}
 
-void testStatic()
+void testSimple()
 	{
 	//Initialize Ran
 	string query = "%trump";
@@ -32,20 +32,21 @@ void testStatic()
 	for(auto url :urls)
 		cout << url << endl;
 
-	cout << "Number of results: " << urls.size( ) << "\n\n\n";
+	cout << "Number of results: " << urls.size() << "\n\n\n";
 
-	clock_t startRanker = clock( );
+	clock_t startRanker = clock();
+
 	vector<ISRWord> input;
-	input.push_back( queryWord );
-	Ranker rankeyboi ( query );
-	rankeyboi.addDoc( input );
-	ISRWord doc( query );
+	input.push_back(queryWord);
+	Ranker rankeyboi;
+	rankeyboi.addISR(input);
+	ISRWord doc(query);
 
-	while(doc.getCurrentLocation( ) != MAX_Location)
+	while(doc.getCurrentLocation() != MAX_Location)
 		{
-		vector< ISRWord > docvec;
-		docvec.push_back ( doc );
-		rankeyboi.addDoc ( docvec );
+		//vector< ISRWord > docvec;
+		//docvec.push_back ( doc );
+		rankeyboi.addDoc ( doc.GetEndDocumentLocation() );
 		doc.NextDocument ( );
 		}
 
@@ -56,5 +57,4 @@ void testStatic()
 	cout << "Time to complete query: " << (endRanker - startRanker) / (double) CLOCKS_PER_SEC << endl;
 
 	}
-
 
