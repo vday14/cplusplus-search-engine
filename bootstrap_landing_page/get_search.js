@@ -34,13 +34,19 @@ function get_request(){
             var dataReturned = data.responseText;
             var results = data.responseText.split(',');
             $("#results").empty();
+            $(results).each(function(number, url) {
+                $("<li/>").html($("<a>").attr("href",url).attr("class", "result").text(number + "    :    " + url)).appendTo('#results');
+            });
+            /*
 
-            for(r in results)
+            for(count in results)
             {
-                var result = $( "<a href='"+ results[r]   +"' id='result1'>" + results[r] + "</a>" );
+                var result = $( "< a href='"+ results[count]   +"' class='result'" + count + " >" + results[count] + "</a>" );
+
                 $("#results").append(result);
 
             }
+            */
 
 
         }
