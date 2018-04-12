@@ -33,7 +33,7 @@ void testPhraseMatchSimple( )
 	Scorer scorer = Scorer();
 	auto score = scorer.phraseMatch( newSite );
 
-	cout << score << endl;
+	cout << "Score: " << score << endl;
 	assert( score == 3 );
 
 	/// Banana Strawberry Cream Pie
@@ -45,7 +45,7 @@ void testPhraseMatchSimple( )
 	newSite.wordData[ "pie"].offsets[ 0 ] = 3;
 
 	score = scorer.phraseMatch( newSite );
-	cout << score << endl;
+	cout << "Score: " << score << endl;
 	assert( score == 2 );
 
 	/// Banana Strawberry Cream Cake Pie
@@ -55,7 +55,7 @@ void testPhraseMatchSimple( )
 	newSite.wordData[ "pie"].offsets[ 0 ] = 4;
 
 	score = scorer.phraseMatch( newSite );
-	cout << score << endl;
+	cout << "Score: " << score << endl;
 	assert( score == 0 );
 
 	}

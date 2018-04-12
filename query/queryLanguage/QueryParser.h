@@ -36,7 +36,6 @@ class QueryParser
 public:
 	QueryParser( )
 			:queryTree( nullptr ), query( "" ), decorate(true){
-		queryTree = new Tuple( TupleType::AndTupleType );
 		}
 
 	void parse( string input );

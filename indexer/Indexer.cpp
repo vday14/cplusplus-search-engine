@@ -72,7 +72,7 @@ void Indexer::run()
 	reset( );
 	saveChunkDictionary( );
 
-	unordered_map < string, DocIndex * > anchorDict = AnchorQueue->Pop( );
+		unordered_map < string, DocIndex * > anchorDict = AnchorQueue->Pop( );
 	SaveAnchorText( &anchorDict );
 	cout << " Indexer has finished running" << endl;
 	return;
@@ -228,38 +228,25 @@ void Indexer::saveWordSeek()
 	for ( auto word : seekDictionary )
 		{
 		string key = word.first;
-
-		if(key == "=docEnding")
-			continue;
+		int currentPartition = 0;
 
 		if ( key.size( ) > IndexerConstants::maxWordSize )
 			key.resize( IndexerConstants::maxWordSize );
 
 		string value = "";
-		for ( auto entry : word.second )
-			value += ("<" + to_string( entry.offset ) +
-					  ", " + to_string( entry.realLocation ) + "> ");
+		for ( auto entry : word.second ) {
+			string prospectiveSeek = "<" + to_string(entry.offset) +
+					  ", " + to_string(entry.realLocation) + "> ";
+			if(value.size() + prospectiveSeek.size() <= IndexerConstants::chunkWordSeekValueSize) {
+				value += prospectiveSeek;
+			} else {
+				wordSeek.insert(key + to_string(currentPartition), value);
+				currentPartition++;
+				value = prospectiveSeek;
+			}
+		}
 
 		wordSeek.insert( key, value );
-		}
-	string key = "=docEnding";
-	string value = "";
-	int currentEndingPartition = 0;
-	for ( size_t i = 0; i < seekDictionary["=docEnding"].size( ); i++ )
-		{
-		string prospectiveDocEnding = "<" +
-												to_string( seekDictionary["=docEnding"][ i ].offset ) +
-												", " + to_string( seekDictionary["=docEnding"][ i ].realLocation ) + "> ";
-		if ( value.size( ) + prospectiveDocEnding.size( ) <= IndexerConstants::chunkWordSeekValueSize )
-			{
-			value += prospectiveDocEnding;
-			}
-		else
-			{
-			wordSeek.insert( key + to_string( currentEndingPartition ), value );
-			currentEndingPartition++;
-			value = prospectiveDocEnding;
-			}
 		}
 		currentFile++;
 	}

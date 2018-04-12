@@ -1,10 +1,10 @@
 #pragma once
 
 namespace IndexerConstants {
-	 const string pathToIndex = "/buildIndex/";
+	 const string pathToIndex = "/build4000/";
 	//const string pathToIndex = "/constraintSolver/index-test-files/twitter/";
 
-	const size_t maxWordSize = 30;
+	const size_t maxWordSize = 28;
 
     const size_t masterKeySize = 30;
     const size_t masterValueSize = 168;
@@ -15,7 +15,7 @@ namespace IndexerConstants {
     const size_t chunkWordSeekKeySize = 30;
     const size_t chunkWordSeekValueSize = 168;
 
-    const size_t chunkSizeLimit = 20000;
+    const size_t chunkSizeLimit = 200000;
 
-    const size_t saveEveryXEntries = 100;
+    const size_t saveEveryXEntries = 25;
 }

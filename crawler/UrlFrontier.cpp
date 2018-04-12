@@ -19,7 +19,7 @@
 bool UrlFrontier::checkUrl( ParsedUrl url )
 	{
 
-	if( Blacklist.find(  url.getHost(  )  ) != Blacklist.end( ) )
+	if( Blacklist.find(  url.getCompleteUrl(  )  ) != Blacklist.end( ) )
 		return false;
 
 	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )

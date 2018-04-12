@@ -117,34 +117,36 @@ size_t ISRWord::getLastLocation ( )
 	return info.lastLocation;
 	}
 
-void ISRWord::getWordSeek ( )
-	{
-	MMDiskHashTable& wordSeek = corpus.chunks[ info.chunks[ currentIndex ] ].wordSeek;
-	string result = wordSeek.find(term);
+void ISRWord::getWordSeek ( ) {
+	MMDiskHashTable &wordSeek = corpus.chunks[info.chunks[currentIndex]].wordSeek;
+	int currentPartition = 0;
+	string result = wordSeek.find(term + to_string(currentPartition));
 
-	WordSeek wordDictionaryEntry;
-	string token = "";
-	for(char comp : result)
-		{
-		switch(comp)
-			{
-			case '<':
-				wordDictionaryEntry = WordSeek();
-				break;
-			case '>':
-				wordDictionaryEntry.seekOffset = stoll(token);
-				wordSeekLookupTable.push_back(wordDictionaryEntry);
-				token = "";
-				break;
-			case ',':
-				wordDictionaryEntry.realLocation = stoll(token);
-				token = "";
-				break;
-			default:
-				token += comp;
+	while (result != "") {
+		WordSeek wordDictionaryEntry;
+		string token = "";
+		for (char comp : result) {
+			switch (comp) {
+				case '<':
+					wordDictionaryEntry = WordSeek();
+					break;
+				case '>':
+					wordDictionaryEntry.seekOffset = stoll(token);
+					wordSeekLookupTable.push_back(wordDictionaryEntry);
+					token = "";
+					break;
+				case ',':
+					wordDictionaryEntry.realLocation = stoll(token);
+					token = "";
+					break;
+				default:
+					token += comp;
 			}
 		}
+		currentPartition++;
+		result = wordSeek.find(term + to_string(currentPartition));
 	}
+}
 
 //look thru each chunk
 //check if absolute position at offset in chunk is less then chunk,
