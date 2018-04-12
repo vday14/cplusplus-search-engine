@@ -33,7 +33,10 @@ void Indexer::run()
 				{
 				if ( word.first.at( 0 ) == '=' )
 					{
-					docEnd.url = word.first.substr( 1, word.first.length( ));
+                    if(word.second.front() == 0)
+                        docEnd.url = word.first.substr(1, word.first.length());
+                    else if(word.second.front() == 1)
+                        docEnd.title = word.first.substr(1, word.first.length());
 					continue;
 					}
                 chunkDictionary[word.first].docFrequency++;
@@ -168,6 +171,7 @@ void Indexer::save()
 		{
 		string docEndString = "[" +
                                  ending.url + ", " +
+                                 ending.title + ", " +
                                  to_string( ending.docEndPosition ) + ", " +
                                  to_string( ending.docNumWords ) + "]\n";
 		write( file, docEndString.c_str( ), strlen( docEndString.c_str( )));

@@ -47,6 +47,8 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 	// split by spaces
 	else
 		{
+        if( decorator == Tokenizer::TITLE )
+            ( *docIndex )[ Tokenizer::HOST + originalText ].push_back(1);
 		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
 		}
 	}
