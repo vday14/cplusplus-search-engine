@@ -9,11 +9,12 @@ ISRContainer::ISRContainer( Tuple * top )  : root( top )
 	{
 
 	compile( );
-	vector < ISRWord > toRanker;
+
+	vector < ISRWord * > toRanker;
 	for ( auto term : terms )
 		{
 
-		ISRWord isrWord = ISRWord( term );
+		ISRWord * isrWord = new ISRWord( term );
 		toRanker.push_back( isrWord );
 
 		}
@@ -62,18 +63,21 @@ string ISRContainer::Solve( )
 	clock_t start = clock();
 
 
+	double rankingTime;
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
 		//cout << url << endl;
 		//results += url + ",";
 		Location BeginningofDocument = Contained->GetISRToBeginningOfDocument( );
+
+		Location EndOfDoc = Contained->GetEndDocument()->getCurrentDoc().docEndPosition;
 		clock_t inner_start = clock();
-		//PassToRanker( BeginningfDocument );
-		ranker.addDoc( BeginningofDocument );
+		ranker.addDoc( BeginningofDocument ,EndOfDoc  );
 		clock_t inner_end = clock();
 		double time = (inner_end - inner_start) / (double) CLOCKS_PER_SEC;
-		//cout << "TIME TO RANK " << time << endl;
+		rankingTime += time;
+		//cout << "TIME TO RANK:: location " << to_string(BeginningofDocument) << " :: time :: " << time << endl;
 		Contained->NextDocument( );
 		ranker.numberOfTotalResults++ ;
 
@@ -81,6 +85,7 @@ string ISRContainer::Solve( )
 		}
 	clock_t end = clock();
 	double time = (end - start) / (double) CLOCKS_PER_SEC;
+
 
 	results = ranker.getResultsForSite( );
 	cout << "Results" << endl;

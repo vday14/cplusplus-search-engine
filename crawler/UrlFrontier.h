@@ -43,7 +43,7 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 
 		void printAnchorTable( );
 		set < string > Blacklist ;
-		set < string > RestrictedHosts;
+		unordered_map<string, int> RestrictedHosts;
 
 		std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 

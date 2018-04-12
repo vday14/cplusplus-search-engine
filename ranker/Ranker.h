@@ -57,7 +57,7 @@ public:
 	 *
 	 * @param isrListInput
 	 */
-	void addDoc( Location beggingOfDocument );
+	void addDoc( Location beggingOfDocument, Location EndOfDoc );
 
 	/**
 	 * Outputs the ranked sites to stout
@@ -67,7 +67,7 @@ public:
 
 	string getResultsForSite( );
 
-	void addISR( vector<ISRWord> isr_in );
+	void addISR( vector<ISRWord * > isr_in );
 
 	void orderResults( );
 
@@ -87,7 +87,7 @@ private:
 	 */
 	priority_queue< Site * , vector< Site* > , Comp > runningRankedQueue;
 	vector< Site* > sortedDocs;
-	vector<ISRWord> isrListInput;
+	vector<ISRWord* > isrListInput;
 	Query query;
 	unordered_map<string, Site * > Websites;
 
@@ -97,7 +97,7 @@ private:
 	 * @param isrWord
 	 * @return data
 	 */
-	data getData( ISRWord isrWord );
+	data getData( ISRWord * isrWord );
 
 	/**
 	 * Gets the frequency of a certain word
