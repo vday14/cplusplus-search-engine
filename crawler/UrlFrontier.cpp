@@ -25,8 +25,8 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )
 		return false;
 
-	if( RestrictedHosts[ url.getHost ( ) ] > 400 )
-		return false;
+	//if( RestrictedHosts[ url.getHost ( ) ] > 500 )
+	//	return false;
 
 
 
