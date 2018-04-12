@@ -63,24 +63,27 @@ string ISRContainer::Solve( )
 
 		}
 
+	cout << "RANKER" << endl;
+	//ranker.printRankedSites( );
 	return results;
+
 
 	}
 
 void ISRContainer::PassToRanker( Location docBeginning )
 	{
 
-	vector<ISRWord* > toRanker;
+	vector<ISRWord > toRanker;
 	for ( auto term : terms )
 		{
 
-		ISRWord * isrWord = new ISRWord ( term ) ;
-		isrWord->Seek( docBeginning );
+		ISRWord  isrWord = ISRWord ( term ) ;
+		isrWord.Seek( docBeginning );
 		toRanker.push_back( isrWord );
 
 		}
 
-	//ranker.rank( toRanker );
+	ranker.addDoc( toRanker );
 
 	}
 
