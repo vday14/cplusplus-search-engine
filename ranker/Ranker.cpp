@@ -32,9 +32,10 @@ void Ranker::addQuery( std::string query_in )
  *
  * @param isrListInput
  */
-void Ranker::addDoc( Location beggingOfDocument,  Location EndOfDocument)
+void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 	{
 
+	//cout << "B of location :: " << endl;
 	assert( isrListInput.size( ) != 0 );
 
 	Query query( this->getQuery() );
@@ -44,19 +45,23 @@ void Ranker::addDoc( Location beggingOfDocument,  Location EndOfDocument)
 	for ( auto isrWord: isrListInput )
 		{
 
-		isrWord->Seek( beggingOfDocument);
-		if( url == "")
-			{
-			url = isrWord->DocumentEnd->getCurrentDoc( ).url;
-			newSite = new Site( url, query );
-			}
-		string word = isrWord->term;
-		if( isrWord->currentLocation  < EndOfDocument )
-			{
+		isrWord->Seek( BoFDoc);
 
-			newSite->wordData[ word ] = getData( isrWord );
-			}
+		if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
+			{
+			if ( url == "" )
+				{
+				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+				newSite = new Site( url, query );
+				}
+			string word = isrWord->term;
+			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+			//cout << "Ranker adding url :: " << url << endl;
+			//cout << "Current location " << isrWord->currentLocation << endl;
 
+			newSite->wordData[ word ] = getData( *isrWord );
+
+			}
 		}
 	assert(newSite != nullptr);
 
@@ -98,7 +103,7 @@ Query Ranker::getQuery( )
  * @param isrWord
  * @return data
  */
-data Ranker::getData( ISRWord* isrWord )
+data Ranker::getData( ISRWord isrWord )
 	{
 
 	data wordData;
@@ -107,10 +112,10 @@ data Ranker::getData( ISRWord* isrWord )
 	vector<DocumentEnding> docEnds;
 
 	unsigned long freq = 0;
-	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
+	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc( ).docEndPosition )
 		{
-		offsets.push_back( isrWord->getCurrentLocation( ) );
-		isrWord->Next();
+		offsets.push_back( isrWord.getCurrentLocation( ) );
+		isrWord.Next();
 		++freq;
 		}
 	wordData.frequency = freq;

@@ -97,7 +97,7 @@ private:
 	 * @param isrWord
 	 * @return data
 	 */
-	data getData( ISRWord * isrWord );
+	data getData( ISRWord isrWord );
 
 	/**
 	 * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
