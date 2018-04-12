@@ -286,12 +286,12 @@ void Indexer::SaveAnchorText( unordered_map < string, DocIndex * > *anchorDict )
 	cout << " -- SAVING ANCHOR TEXT --- " << endl;
 	for ( auto const &ent1 : *anchorDict )
 		{
-		auto const &outer_key = ent1.first;
+		auto const &url = ent1.first;
 		//cout << "url: " << outer_key << endl;
 
-		if ( urlToDocEndings.find( outer_key ) != urlToDocEndings.end( ))
+		if ( urlToDocEndings.find( url ) != urlToDocEndings.end( ))
 			{
-			size_t docEndForUrl = urlToDocEndings[ outer_key ];
+			size_t docEndForUrl = urlToDocEndings[ url ];
 			//cout << "Urls doc end : " << docEndForUrl << endl;
 
 			}

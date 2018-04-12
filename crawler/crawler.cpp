@@ -144,3 +144,43 @@ void Crawler::writeCrawlStats(double timeToCrawl , double numSpiders, Indexer* i
 
 
 	}
+
+void  Crawler::readSeeds( string mode, bool restart )
+	{
+	char *seeds;
+	if ( mode == "local" )
+		seeds = util::getFileMap( "/crawler/localSeed.txt" );
+	else
+		{
+		seeds = util::getFileMap( "/crawler/seeds.txt" );
+		SSL_library_init( );
+		}
+
+	if(restart == false)
+		{
+		string testFile;
+		while ( *seeds )
+			{
+			if ( *seeds == '\n' )
+				{
+
+				ParsedUrl url(testFile);
+				cout << "Pushing: " << testFile << " to queue\n";
+				urlFrontier->Push( url );
+				testFile = "";
+				}
+			else
+				testFile.push_back( *seeds );
+			++seeds;
+			}
+		if ( testFile != "" )
+			{
+			cout << "Pushing: " << testFile << " to queue\n";
+			ParsedUrl url1(testFile);
+			urlFrontier->Push( url1 );
+			}
+		}
+	else
+		urlFrontier->readDataFromDisk();
+	}
+
