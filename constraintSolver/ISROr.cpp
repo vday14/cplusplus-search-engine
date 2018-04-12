@@ -28,10 +28,6 @@ ISROr::ISROr( vector < ISR * > InputTerms ) : Terms( InputTerms )
 	}
 
 
-
-
-
-
 Location ISROr::Seek( Location target )
 	{
 
@@ -63,11 +59,6 @@ Location ISROr::Seek( Location target )
 		return nearest;
 
 
-
-
-
-
-
 	}
 
 ISREndDoc *ISROr::GetEndDocument()
@@ -76,5 +67,11 @@ ISREndDoc *ISROr::GetEndDocument()
 	return nearestTerm->GetEndDocument();
 	}
 
-
+ISROr::~ISROr ( )
+	{
+	for(auto i:Terms)
+		{
+		delete i;
+		}
+	}
 
