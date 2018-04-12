@@ -30,14 +30,27 @@ public:
 	Parser ( UrlFrontier* urlFrontierIn );
 
 	/**
+	 * Special constructor for the query only
+	 */
+	Parser ( );
+
+	/**
 	 * Executes the Parser
 	 * @return
 	 */
 	const unordered_map< string, vector< unsigned long > > *execute ( StreamReader *reader );
 
+	/**
+	 * Returns processed query
+	 *
+	 * @param query
+	 * @return
+	 */
+	const unordered_map< string, vector< unsigned long > > *parseQuery ( std::string query );
 
 private:
 	UrlFrontier *urlFrontier;
+	std::string query;
 
 	/**
 	 * Parses file

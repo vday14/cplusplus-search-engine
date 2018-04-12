@@ -54,6 +54,10 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 		// if open bracket
 		if ( html[ htmlIt ] == '<' )
 			{
+			auto x = html[ htmlIt ];
+			auto y = html[ htmlIt + 1];
+			auto z = html[ htmlIt +2];
+
 			if ( isInvalidTag(  html, htmlIt ) )
 				{
 				begCloseTag = findNext( ">", htmlIt, html );
@@ -157,7 +161,7 @@ string Parser::extractAnchorText ( string html )
 bool Parser::isInvalidTag( string html, unsigned long htmlIt )
 	{
 	// check size first so stay within string
-	if ( htmlIt + 1 < html.size( ) && html[ htmlIt + 1 ] == '!' && html[ htmlIt + 1 ] == '%' )
+	if ( htmlIt + 1 < html.size( ) && ( html[ htmlIt + 1 ] == '!' || html[ htmlIt + 1 ] == '%' ) )
 		{
 		// comment or <!DocType> or <%
 		return true;
@@ -207,6 +211,9 @@ bool Parser::isInvalidTag( string html, unsigned long htmlIt )
 			return true;
 			// track
 		else if ( html[ htmlIt + 1 ] == 't' && html[ htmlIt + 2 ] == 'r' && html[ htmlIt + 3 ] == 'a' && html[ htmlIt + 4 ] == 'c' )
+			return true;
+		// html
+		else if ( html[ htmlIt + 1 ] == 'h' && html[ htmlIt + 2 ] == 't' && html[ htmlIt + 3 ] == 'm' && html[ htmlIt + 4 ] == 'l' )
 			return true;
 		}
 
@@ -429,7 +436,7 @@ void Parser::extractAll ( string line, unsigned long & offsetTitle, unsigned lon
 
 	else if ( url != "" )
 		{
-			pushToUrlQueue( url, currentUrl, extractAnchorText( line ), true );
+			pushToUrlQueue( url, currentUrl, extractAnchorText( line ), false );
 		}
 		// check if line is title
 		// check if line is title
@@ -473,49 +480,50 @@ bool Parser::isTag ( string html, string tag )
  * @return
  */
 string Parser::extractBody ( string html, unsigned long & offsetTitle, unsigned long & offsetBody, bool isParagraph,
-                     Tokenizer *tokenizer,
-                     ParsedUrl * currentUrl )
-	{
-	string body = "";
-	unsigned long startParTag = findNext( "<p", 0, html );
-	startParTag = findNext( ">", startParTag, html) - 1;
-	unsigned long closeParTag = findNext( "</p>", startParTag, html );
-	unsigned long nextCloseTag = findNext( "</", startParTag, html );
-	startParTag += 2;
-	while ( nextCloseTag != startParTag )
-		{
-		if ( closeParTag == nextCloseTag )
-			{
-			while ( startParTag != closeParTag )
-				{
-				body += html[ startParTag ];
-				++startParTag;
-				if ( startParTag >= html.size( ) )
-					{
-					return body;
-					}
-				}
-			}
-		else
-			{
-			unsigned long newHtmlStart = findNext( "<", startParTag, html );
-			char a = html[ newHtmlStart ];
-			unsigned long closeNewHtml = findNext( ">", newHtmlStart, html );
-			char b = html[ closeNewHtml ];
-			unsigned long newHtmlTagLength = closeNewHtml - newHtmlStart;
+                             Tokenizer *tokenizer,
+                             ParsedUrl * currentUrl )
+{
+    string body = "";
+    unsigned long startParTag = findNext( "<p", 0, html );
+    startParTag = findNext( ">", startParTag, html) - 1;
+    unsigned long closeParTag = findNext( "</p>", startParTag, html );
+    unsigned long nextCloseTag = findNext( "</", startParTag, html );
+    startParTag += 2;
+    while ( nextCloseTag != startParTag )
+    {
+        if ( closeParTag == nextCloseTag )
+        {
+            while ( startParTag != closeParTag )
+            {
+                body += html[ startParTag ];
+                ++startParTag;
+                if ( startParTag >= html.size( ) )
+                {
+                    return body;
+                }
+            }
+        }
+        else
+        {
+            unsigned long newHtmlStart = findNext( "<", startParTag, html );
+            unsigned long closeNewHtml = findNext( ">", newHtmlStart, html );
+            unsigned long newCloseTag = findNext("</", closeNewHtml, html);
+            newCloseTag = findNext(">", newCloseTag, html);
 
-			while ( startParTag != newHtmlStart )
-				{
-				body += html[ startParTag ];
-				++startParTag;
-				}
 
-			string newHtml = subStr( html, newHtmlStart, nextCloseTag - newHtmlStart + newHtmlTagLength + 2 );
-			extractAll( newHtml, offsetTitle, offsetBody, false, tokenizer, currentUrl );
-			startParTag = nextCloseTag + newHtmlTagLength + 2;
-			nextCloseTag = findNext( "</", startParTag, html );
-			}
-		}
+            while ( startParTag != newHtmlStart )
+            {
+                body += html[ startParTag ];
+                ++startParTag;
+            }
+
+            string newHtml = subStr( html, newHtmlStart, newCloseTag - newHtmlStart + 1);
+            //string newHtml = subStr( html, newHtmlStart, nextCloseTag - newHtmlStart + newHtmlTagLength + 2 );
+            extractAll( newHtml, offsetTitle, offsetBody, false, tokenizer, currentUrl );
+            startParTag = newCloseTag + 1;
+            nextCloseTag = findNext( "</", startParTag, html );
+        }
+    }
 
 	return body;
 	}

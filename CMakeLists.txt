@@ -46,6 +46,7 @@ add_executable(crawler-parser-Test
         util/Stemmer.cpp
         util/Tokenizer.cpp
         util/stringProcessing.cpp
+#        crawler/HouseKeeper.cpp
         indexer/Indexer.cpp)
 
 
@@ -166,11 +167,11 @@ add_executable(search-engine
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
+        ranker/Ranker.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         query/queryLanguage/QueryParser.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
@@ -260,12 +261,26 @@ add_executable(NestedAnd
         util/stringProcessing.cpp
         util/Stemmer.cpp
         query/queryLanguage/QueryParser.cpp
-        query/Ranker/Ranker.cpp
-        query/Ranker/Scorer.cpp
-        query/Ranker/Site.cpp
-
+        ranker/Ranker.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
         )
 
+add_executable(Scorer-tests
+        ranker/tests/ScorerTest.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Ranker.cpp
+        util/util.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        util/stringProcessing.cpp
+        indexer/Corpus.cpp
+        util/Stemmer.cpp
+        indexer/Chunk.cpp
+        parser/queryParser.cpp
+        util/Tokenizer.cpp
+        query/Query.cpp)
 
 add_executable(DataStructures-Vector-tests
         DataStructures/Vector/Vector.h
@@ -298,7 +313,6 @@ add_executable(MasterReader-tests
 
 
 add_executable(Corpus-tests
-
         indexer/tests/CorpusTests.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
@@ -310,36 +324,34 @@ add_executable(Corpus-tests
 
 
 add_executable(query-Ranker-tests
-        query/Ranker/tests/RankerTest.cpp
-        query/Ranker/Ranker.h
-        query/Ranker/Scorer.h
-        query/Ranker/Site.h
-        query/Ranker/Ranker.cpp
-        query/Ranker/Scorer.cpp
-        query/Ranker/Site.cpp
+        ranker/tests/RankerTest.cpp
+        ranker/Ranker.cpp
+        ranker/Scorer.cpp
+        ranker/Site.cpp
         util/util.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
-        util/Stemmer.cpp
         indexer/Corpus.cpp
+        util/Stemmer.cpp
         indexer/Chunk.cpp
-
+        parser/queryParser.cpp
+        util/Tokenizer.cpp
+        query/Query.cpp
         )
 
 add_executable(testISRQueryTuple
         query/queryLanguage/tests/queryIsrTest.cpp
         query/queryLanguage/QueryParser.cpp
-
         util/DataStructureLib/tuple.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Ranker.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
@@ -357,17 +369,22 @@ add_executable(server
         util/util.cpp
         constraintSolver/ISRContainer.cpp
         constraintSolver/ISR.h
-        query/Ranker/Ranker.cpp
+        ranker/Ranker.cpp
         indexer/Corpus.cpp
         indexer/Chunk.cpp
-        query/Ranker/Site.cpp
-        query/Ranker/Scorer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
         query/queryLanguage/QueryParser.cpp
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISROr.cpp
 
+        )
+
+add_executable(testQueryParser
+        parser/queryParser.cpp
+        util/Tokenizer.cpp
         )
 
 
@@ -399,6 +416,8 @@ find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
 
+target_link_libraries(query-Ranker-tests OpenSSL::SSL)
+
 target_link_libraries(ParserTest OpenSSL::SSL)
 
 target_link_libraries(isolated-integration OpenSSL::SSL pthread)
@@ -408,6 +427,7 @@ target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
 target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
+target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
 
 
 
