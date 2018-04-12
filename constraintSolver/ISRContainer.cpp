@@ -53,10 +53,10 @@ string ISRContainer::Solve( )
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		auto url = Contained->GetEndDocument()->getCurrentDoc().url;
-		cout << url << endl;
+		//cout << url << endl;
 		results += url + ",";
 		Location BeginningfDocument = Contained->GetISRToBeginningOfDocument( );
-		//PassToRanker( BeginningfDocument );
+		PassToRanker( BeginningfDocument );
 
 		//PassToRanker( BeginningfDocument );
 		Contained->NextDocument( );
@@ -64,7 +64,7 @@ string ISRContainer::Solve( )
 		}
 
 	cout << "RANKER" << endl;
-	//ranker.printRankedSites( );
+	ranker.printRankedSites( );
 	return results;
 
 
