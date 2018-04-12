@@ -36,17 +36,17 @@ public:
 
 	~Ranker( );
 
-	void addDoc( Location beggingOfDoc );
+	void addDoc( Location beggingOfDoc , Location EndDoc);
 	void printRankedSites();
 	string getResultsForSite( );
 	void orderResults( );
-	void addISR( vector<ISRWord> isr_in );
+	void addISR( vector<ISRWord*> isr_in );
 	double numberOfTotalResults;
 
 private:
 
 	void init( vector< ISRWord> query );
-	data getData( ISRWord isrWord );
+	data getData( ISRWord * isrWord );
 	void selectivelyAddDocs( Site * doc);
 
 
@@ -54,7 +54,7 @@ private:
 	//A min heap to store a running list of the least most valuable sites
 	priority_queue< Site * , vector< Site* > , Comp > runningRankedQueue;
 	vector< Site* > sortedDocs;
-	vector<ISRWord> isrListInput;
+	vector<ISRWord*> isrListInput;
 	unordered_map<string, Site * > Websites;
 	unordered_map< string , vector< unsigned long > > queryOffsets;
 

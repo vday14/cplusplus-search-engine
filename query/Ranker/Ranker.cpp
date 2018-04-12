@@ -15,40 +15,59 @@
  * Adds a new site for the doc given as isrListInput
  * @param isrListInput
  */
-void Ranker::addDoc( Location beggingOfDocument )
+void Ranker::addDoc( Location beggingOfDocument , Location endDoc )
 	{
 	Site *newSite = new Site( );
 	string url;
 
 	if ( isrListInput.size( ) != 0 )
-		url = isrListInput[ 0 ].DocumentEnd->getCurrentDoc( ).url;
+		url = isrListInput[ 0 ]->DocumentEnd->getCurrentDoc( ).url;
 
 	newSite->url = url;
 	//Websites[ url ] = newSite;
+	double runningtimeToSeek = 0;
 	for ( auto isrWord: isrListInput )
 		{
-		isrWord.Seek( beggingOfDocument );
-		string word = isrWord.term;
-		newSite->wordData[ word ] = getData( isrWord );
+		clock_t start = clock();
+		isrWord->Seek( beggingOfDocument );
+		clock_t end = clock();
+		double time = (end - start) / (double) CLOCKS_PER_SEC;
+		runningtimeToSeek += time;
+
+		if( isrWord->currentLocation  < endDoc )
+			{
+
+			string word = isrWord->term;
+
+			newSite->wordData[ word ] = getData( isrWord );
+
+			}
+
 		}
+
+
+
+	cout << "TIME TO GET SEEK FROM WORDS "<< to_string(runningtimeToSeek) << endl;
+
 
 	selectivelyAddDocs( newSite );
 
+
 	}
 
-data Ranker::getData( ISRWord isrWord )
+data Ranker::getData( ISRWord * isrWord )
 	{
-	ISREndDoc endDocs;
-	vector < DocumentEnding > docEnds;
+	//ISREndDoc endDocs;
+	//vector < DocumentEnding > docEnds;
 
 
 	unsigned long freq = 0;
 
 	//FixME just gets the word frequency, add more useful functions as we add heuristics
 
-	while ( isrWord.GetCurrentLocation( ) < isrWord.DocumentEnd->getCurrentDoc( ).docEndPosition )
+	while ( isrWord->GetCurrentLocation( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
 		{
-		isrWord.Next( );
+		isrWord->Next( );
 		++freq;
 		}
 
@@ -147,7 +166,7 @@ void Ranker::orderResults()
 		}
 	}
 
-void Ranker::addISR( vector<ISRWord> isr_in )
+void Ranker::addISR( vector<ISRWord*> isr_in )
 	{
 	isrListInput = isr_in;
 
