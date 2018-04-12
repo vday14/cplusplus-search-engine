@@ -31,6 +31,7 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 	public:
 		UrlFrontier( ) {
 				readBlackList();
+				readHosts( );
 		};
 
 		void Push ( ParsedUrl url ) override;
@@ -40,9 +41,11 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 
 		bool checkUrl(ParsedUrl url);
 		void readBlackList( );
+		void readHosts( );
 
 		void printAnchorTable( );
 		set < string > Blacklist ;
+		set < string > RestrictedHosts;
 
 		std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 

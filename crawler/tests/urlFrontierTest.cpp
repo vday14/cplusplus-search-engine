@@ -41,14 +41,18 @@ int main ( int argc, char *argv[] )
 
 	SSL_library_init( );
 	string url1 = "http://www.bostonglobe.com";
+	string dup = "http://www.bostonglobe.com";
+
 	string url2 = "https://www.wired.com/";
 	//string url2 = "https:";
 
 	//string bad_url = "http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />";
 	ParsedUrl url(url1);
 	ParsedUrl url_1(url2);
-
+	ParsedUrl duplicate(dup);
 	urlFrontier->Push(url);
+	urlFrontier->Push(duplicate);
+
 	urlFrontier->Push(url_1);
 
 	indexer.StartThread( );
@@ -56,7 +60,7 @@ int main ( int argc, char *argv[] )
 	Crawler crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
 	atomic_bool *alive = new atomic_bool(true);
 
-	crawler.SpawnSpiders( numberOfSpiders , alive );
+	crawler.SpawnSpiders( numberOfSpiders , alive, 10 );
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );

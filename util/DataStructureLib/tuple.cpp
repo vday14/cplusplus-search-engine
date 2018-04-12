@@ -4,6 +4,7 @@
 
 // Outline of query language from Prof. Nicole Hamilton, University of Michigan 03/15/2018
 //31 lines
+#pragma once
 #include<string>
 #include<vector>
 //#include "../../parser/Parser.h"
@@ -13,22 +14,22 @@ using namespace std;
 
 class Token
 	{
-public:
-	Token()
-			:text(""), end( true ), OR( false ), AND( false ){}
-	Token( string input )
-			:text( input ), end( false ), OR( false ), AND( false )
-		{
-		if(input ==  "-OR-" )
-			OR = true;
-		else if(input == "-AND-")
-			AND=true;
-		}
-	//TODO: This is for scaling to add more ISR types
-	string text;
-	bool OR;
-	bool AND;
-	bool end;
+	public:
+		Token()
+				:text(""), end( true ), OR( false ), AND( false ){}
+		Token( string input )
+				:text( input ), end( false ), OR( false ), AND( false )
+			{
+			if(input ==  "-OR-" )
+				OR = true;
+			else if(input == "-AND-")
+				AND=true;
+			}
+		//TODO: This is for scaling to add more ISR types
+		string text;
+		bool OR;
+		bool AND;
+		bool end;
 	};
 
 enum TupleType

@@ -12,47 +12,27 @@
 #include <set>
 
 /***
- * TODO: Finalize how we want this to work
- * Initializes the ranker with the Word ISRs from the query, will most likely scale to add more input,
- * could possibly pull the information, depends on how much control we want
+ * Adds a new site for the doc given as isrListInput
+ * @param isrListInput
  */
-void Ranker::init ( vector<ISRWord> isrListInput )
+void Ranker::addDoc( vector<ISRWord> isrListInput )
 	{
-	ISRList = isrListInput;
-	}
+	Site * newSite = new Site();
+	string url;
 
-/***
- * This will generate a map of the Site objects for each document
- * @return
- */
-void Ranker::generateSiteList( )
-	{
-	//Iterate through IsrWord vector and fill in Site information
-	for( auto isrWord = ISRList.begin(); isrWord < ISRList.end(); ++isrWord)
+	if( isrListInput.size( ) != 0 )
+		url = isrListInput[0].DocumentEnd->getCurrentDoc ( ).url;
+
+	newSite->url = url;
+	//Websites[ url ] = newSite;
+	for( auto isrWord: isrListInput)
 		{
-		addWordtoSites( *isrWord );
-		}
-	}
-
-//Create a new site with atttributes, or add word data to an existing site
-void Ranker::addWordtoSites ( ISRWord isrWord )
-	{
-
 		string word = isrWord.term;
-		auto url = isrWord.DocumentEnd->getCurrentDoc ( ).url;
-		if( Websites.find( url ) != Websites.end( ) )
-			{
-			Websites[ url ]->wordData[ word ] = getData( isrWord );
+		newSite->wordData[ word ] = getData( isrWord );
+		}
 
+	selectivelyAddDocs( newSite );
 
-			}
-		else
-			{
-			Site * newSite = new Site();
-			newSite->wordData[ word ] = getData( isrWord );
-			newSite->url = url;
-			Websites[ url ] = newSite;
-			}
 	}
 
 data Ranker::getData( ISRWord isrWord)
@@ -65,7 +45,7 @@ data Ranker::getData( ISRWord isrWord)
 
 	//FixME just gets the word frequency, add more useful functions as we add heuristics
 
-	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc().docEndPosition)
+	while ( isrWord.GetCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc().docEndPosition)
 		{
 		isrWord.Next();
 		++freq;
@@ -84,46 +64,44 @@ Ranker::~Ranker()
 		delete i->second;
 		}
 	}
-
 /***
- * Pushes all of the sites onto the priorityQueue, and scores then before pushing them on
- * which puts them in their ranked order
+ * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
  */
-void Ranker::rank()
+void Ranker::selectivelyAddDocs( Site * doc)
 	{
-	for( auto i = Websites.begin(); i != Websites.end( ); ++i)
+	double score;
+	score = doc->getScore( );
+
+	if( runningRankedQueue.size() < DOCS_TO_RETURN )
 		{
-		i->second->getScore();
-		WebsiteQueue.push( i->second );
+		runningRankedQueue.push(doc);
+		return;
 		}
+	else if( score <= runningRankedQueue.top( )->getScore ())
+		{
+		delete doc;
+		}
+	else
+		{
+		runningRankedQueue.pop();
+		runningRankedQueue.push(doc);
+		}
+
 	}
 
-void Ranker::printSites()
-	{
-	for( auto i = Websites.begin(); i != Websites.end(); ++i )
-		{
-		cout << "URL: " << i->second->url << std::endl;
-
-		for( auto j = Websites[ i->second->url ]->wordData.begin( ); j != Websites[ i->second->url ]->wordData.end( ); ++j)
-			{
-			cout << j->first << ": " << j->second.frequency << std::endl;
-			}
-		}
-	cout << "\n\n\n";
-	}
 
 void Ranker::printRankedSites()
 	{
 	cout << "----RANKED RESULTS----" << endl;
 
-	int size  = WebsiteQueue.size();
+	int size  = runningRankedQueue.size();
 	for( auto i = size; i > 0; --i )
 		{
-		Site * website = WebsiteQueue.top();
-		WebsiteQueue.pop();
+		Site * website = runningRankedQueue.top();
+		runningRankedQueue.pop();
 		cout << "URL: " << website->url << std::endl;
 
-		for( auto j = Websites[ website->url ]->wordData.begin( ); j != Websites[ website->url ]->wordData.end( ); ++j)
+		for( auto j = website->wordData.begin( ); j != website->wordData.end( ); ++j)
 			{
 			cout << j->first << ": " << j->second.frequency << std::endl;
 			}
