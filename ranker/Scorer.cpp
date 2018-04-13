@@ -152,9 +152,86 @@ double Scorer::proximityMatch ( Site inputSite )
 	{
 	double score = 0;
 
-	// find the smallest list of words and start there
+	std::vector< std::string > queryTokens = inputSite.getQuery( ).getQueryTokens( );
+
+	// find the rarest word in doc
+	std::string minWord = getMinFreq( &inputSite.wordData, &queryTokens );
+
+	//start of the rarest word
+	unsigned long start = inputSite.wordData[ minWord ].offsets[ 0 ];
+
+	// get offsets for other words to be as close as possible to the rarest word
+	// Get Min Delta ( start of relevant word matrix )
+	for ( int i = 0; i < queryTokens.size( ); ++i )
+		{
+			inputSite.wordData[ queryTokens [ i ] ].minDelta = getMinDelta( start, &(inputSite.wordData[ queryTokens [ i ] ].offsets) );
+		}
+
+	// get average span delta
+	unsigned long spanDelta = 0;
+
+	// for each word in query
+	for ( int i = 0; i < queryTokens.size( ); ++i )
+		{
+		for ( int j = i + 1; j < queryTokens.size( ); ++i )
+			{
+			spanDelta += inputSite.wordData[ queryTokens [ i ] ].offsets[ inputSite.wordData[ queryTokens [ i ] ].minDelta ];
+			//++minDelta
+			//Check if reached the end of one column
+			}
+		}
+
+
 
 
 
 	return score;
+	}
+
+/**
+ * Return index of the minum offset
+ * @param start
+ * @param offsets
+ * @return
+ */
+int Scorer::getMinDelta( unsigned long start, std::vector< size_t >* offsets )
+	{
+	long minSoFar = std::abs( long( ( *offsets )[ 0 ] - start ) );
+	long delta = 0;
+	int index = 0;
+	for ( int i = 0; i < offsets->size( ); ++i )
+		{
+		delta = std::abs( long( ( *offsets )[ i ] - start ) );
+		if ( delta < minSoFar )
+			{
+			minSoFar = delta;
+			index = i;
+			}
+		if ( delta >= minSoFar )
+			{
+			return index;
+			}
+		}
+	return index;
+	}
+
+
+/**
+ * Returns the word with the least frequency ( rarest )
+ * @param wordData
+ * @return
+ */
+std::string Scorer::getMinFreq( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens )
+	{
+	unordered_map< std::string, unsigned long > freqMap;
+
+	for (int i = 0; i < queryTokens->size( ); ++i )
+		{
+
+		freqMap[ ( *queryTokens )[ i ] ] = ( *wordData )[ ( *queryTokens )[ i ] ].frequency;
+		}
+
+	std::pair<std::string, unsigned long > min
+			= *min_element( freqMap.begin( ), freqMap.end( ), CompFreq( ) );
+	return min.first;
 	}

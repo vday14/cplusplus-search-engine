@@ -5,6 +5,19 @@
 #include "Site.h"
 #include <unordered_map>
 #include <string>
+#include <vector>
+
+/**
+ * Custom Comparator to find the minimum frequency
+ */
+typedef std::pair<std::string, unsigned long > MyPairType;
+struct CompFreq
+	{
+	bool operator()(const MyPairType& left, const MyPairType& right) const
+		{
+		return left.second < right.second;
+		}
+	};
 
 class Scorer
 	{
@@ -56,6 +69,15 @@ public:
 	 * @return double
 	 */
 	double proximityMatch ( Site inputSite );
+
+	/**
+	 * returns the word with the min frequency
+	 * @return
+	 */
+	std::string getMinFreq( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens );
+
+	int getMinDelta( unsigned long start, std::vector< size_t >* offsets );
+
 
 private:
 	const double STATIC_WEIGHT = 1.0;

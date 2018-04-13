@@ -115,6 +115,7 @@ data Ranker::getData( ISRWord* isrWord )
 		}
 	wordData.frequency = freq;
 	wordData.offsets = offsets;
+	wordData.minDelta = 0;
 	return wordData;
 	}
 
