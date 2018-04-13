@@ -177,12 +177,20 @@ void Indexer::save()
 		{
 		string title = "";
 		for(char letter : ending.title) {
-			if(letter != ',' && letter != ']' && letter != '[' && letter != '\n') {
+			if(letter != ',' && letter != ']' && letter != '[' && letter != '\n' && letter != '\"' && letter != '\\'
+					&& letter != '&' && letter != ':') {
 				title.push_back(letter);
 			}
 		}
+		string toDiskUrl = ending.url;
+
+		toDiskUrl.erase(std::remove_if(toDiskUrl.begin(),
+												 toDiskUrl.end(),
+													[](unsigned char x){return std::isspace(x);}),
+							 toDiskUrl.end());
+
 		string docEndString = "[" +
-                                 ending.url + ", " +
+												toDiskUrl + ", " +
                                  title + ", " +
                                  to_string( ending.docEndPosition ) + ", " +
                                  to_string( ending.docNumWords ) + "]\n";

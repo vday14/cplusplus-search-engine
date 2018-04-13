@@ -27,7 +27,7 @@ class Comp
 public:
 	bool operator()(Site* L, Site* R)
 		{
-		return L->getScore() < R->getScore();
+		return L->getScore() > R->getScore();
 		}
 	};
 

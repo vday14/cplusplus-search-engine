@@ -43,10 +43,18 @@ function get_request(){
 
             $("#results").empty();
             $(results).each(function(index, result) {
+                var score = result['score'];
+                var title = result['title'];
+                var url = result['site'];
+                var text = "Score: " + result['score'] + "    :  " + result['title'];
 
-                var text = "Score: " + result['score'] + "    :  " + result['site'];
+                var res = $("<li/>").html( $("<a>").attr("href", "https://" + url).attr("class", "result").attr( "target", "_blank").text( url ));
+                $("<div class = 'title'>").text("---" + title + "---").appendTo(res);
+                $("<div class= 'score'>").text("Scored by engine: " + score).appendTo(res);
 
-                $("<li/>").html($("<a>").attr("href", "https://" + result['site']).attr("class", "result").attr( "target", "_blank").text( text )).appendTo('#results');
+                res.appendTo('#results');
+
+
             });
             /*
 

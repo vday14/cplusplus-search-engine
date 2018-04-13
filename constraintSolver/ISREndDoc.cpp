@@ -60,7 +60,7 @@ DocumentEnding ISREndDoc::next() {
                 break;
         }
     }
-    currentDoc.title = currentDoc.title.substr(1, currentDoc.title.size());
+    //currentDoc.title = currentDoc.title.substr(1, currentDoc.title.size());
 
 
     return currentDoc;

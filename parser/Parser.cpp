@@ -295,6 +295,15 @@ string Parser::isLocal ( string url, ParsedUrl* currentUrl )
 		{
 		return url;
 		}
+	// buugy url "//www.bostonglobe.com/lifestyle/names/2018/04/11/who-rapper-meek-mill-and-why-robert-kraft-visiting-him-prison/k7NxDFRm1neS5LbLabfr3N/story.html?p1=BGMenu_Article"
+	else
+		{
+		if ( url[ 1 ] == '/' )
+			{
+			url.erase(0,2);
+			return isLocal(url, currentUrl);
+			}
+		}
 
 	if ( currentUrl->getCompleteUrl( ).back( ) == '/' )
 		{

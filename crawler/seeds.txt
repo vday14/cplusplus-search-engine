@@ -18,7 +18,6 @@ https://www.biography.com
 http://umich.edu
 http://www.boxofficemojo.com
 https://www.usnews.com
-https://www.forbes.com
 https://www.billboard.com
 https://www.usa.gov
 https://www.rottentomatoes.com

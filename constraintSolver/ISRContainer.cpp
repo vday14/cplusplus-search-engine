@@ -70,7 +70,6 @@ string ISRContainer::Solve( )
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		string url = Contained->GetEndDocument()->getCurrentDoc().url;
-
 		Location EndOfDoc = Contained->GetEndDocument()->getCurrentDoc().docEndPosition;
 		Location bofDoc = Contained->GetISRToBeginningOfDocument( );
 
@@ -95,7 +94,7 @@ string ISRContainer::Solve( )
 	cout << "Total number of results :: " << ranker.numberOfTotalResults << endl;
 	cout << "Total time to run :: " << to_string( time ) << endl;
 	results += "\"time\" : \" " + to_string(time)  + " \" ,  \"total_results\": \"" + to_string(ranker.numberOfTotalResults ) + "\" }" ;
-	cout << results << endl;
+	//cout << results << endl;
 	return results ;
 
 

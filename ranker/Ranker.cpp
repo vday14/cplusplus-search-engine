@@ -41,6 +41,7 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 	Query query( this->getQuery() );
 	Site *newSite = nullptr;
 	string url;
+	string title;
 
 	for ( auto isrWord: isrListInput )
 		{
@@ -52,7 +53,8 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 			if ( url == "" )
 				{
 				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
-				newSite = new Site( url, query );
+				title = isrWord->GetEndDocument()->getCurrentDoc().title;
+				newSite = new Site( url, query , title );
 				}
 			string word = isrWord->term;
 			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
@@ -63,9 +65,11 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 
 			}
 		}
-	assert(newSite != nullptr);
+	if(newSite != nullptr )
+		selectivelyAddDocs( newSite );
 
-	selectivelyAddDocs( newSite );
+	//assert(newSite != nullptr);
+
 
 	}
 
@@ -82,7 +86,7 @@ void Ranker::printRankedSites()
 		Site * website = runningRankedQueue.top();
 		runningRankedQueue.pop();
 		cout << "URL: " << website->getUrl( ) << std::endl;
-
+		cout << "Title: " << website->getTitle( ) << std::endl;
 		cout << "score: " << website->getScore( ) << std::endl;
 		}
 	}
@@ -170,7 +174,8 @@ string Ranker::getResultsForSiteJSON( )
 	for( int i = 0; i < sortedDocs.size( ) ; ++i )
 		{
 		Site * site = sortedDocs[ i ];
-		results += "{ \"site\": \"" + site->getUrl( ) + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\"}";
+		results += "{ \"site\": \"" + site->getUrl( )
+					  + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\" , \"title\" : \" "+ site->getTitle() + "\" }";
 		if(i != (sortedDocs.size( ) - 1) )
 			results += ",";
 

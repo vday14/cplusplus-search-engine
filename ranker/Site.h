@@ -25,6 +25,7 @@ class Site
 private:
 
 	std::string url;
+	std::string title;
 	Query query;
 	double score;
 	bool hasBeenScored;
@@ -38,7 +39,7 @@ public:
 	/**
 	 * Site cstor
 	 */
-	Site ( std::string url_in, Query query_in );
+	Site ( std::string url_in, Query query_in , std::string title);
 
 	/**
 	 * Site dstor
@@ -72,6 +73,14 @@ public:
 	 *
 	 * @return
 	 */
+	std::string getTitle( );
+
+	/**
+	 * Returns the Site's title
+	 *
+	 * @return
+	 */
+
 	Query getQuery( );
 
 	};
