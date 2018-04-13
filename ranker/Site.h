@@ -17,7 +17,7 @@ struct data
 	{
 	unsigned long frequency;
 	std::vector< size_t > offsets;
-	long minDelta;
+	int minDelta;
 	};
 
 class Site

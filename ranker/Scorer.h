@@ -19,6 +19,13 @@ struct CompFreq
 		}
 	};
 
+struct ScoreData
+	{
+	unsigned long avrgSpanDelta;
+	int numSpans;
+	int numPhrases;
+	};
+
 class Scorer
 	{
 public:
@@ -58,9 +65,9 @@ public:
 	 * @param inputSite
 	 * @return double
 	 */
-	double phraseMatch ( Site inputSite );
+//	double phraseMatch ( Site inputSite );
 
-	int phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
+//	int phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
 
 	/**
 	 * Calculates score for proximity matches
@@ -78,12 +85,18 @@ public:
 
 	int getMinDelta( unsigned long start, std::vector< size_t >* offsets );
 
+	std::pair< unsigned long, int > setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start );
+
+	ScoreData getScoreData ( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long minLength, int minLengthWord );
+
 
 private:
 	const double STATIC_WEIGHT = 1.0;
 	const double PHRASE_WEIGHT = 1.0;
 	const double PROXIMITY_WEIGHT = 1.0;
 	const double TFIDF_WEIGHT = 1.0;
+	const double ALPHA = 3;
+	const double APLPHA_PRIME = 10;
 
 	};
 #endif //EECS398_SEARCH_SCORER_H

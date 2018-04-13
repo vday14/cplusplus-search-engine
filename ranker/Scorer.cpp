@@ -1,6 +1,7 @@
 
 #include "Scorer.h"
 #include "Site.h"
+#include <utility>
 #include <cmath>
 #include <vector>
 #include "../shared/url.h"
@@ -25,10 +26,10 @@ double Scorer::getScore ( Site website)
 
 	//Repeat for each function
 	score += staticScore( website ) * STATIC_WEIGHT;
-	score += phraseMatch( website ) * PHRASE_WEIGHT;
+//	score += phraseMatch( website ) * PHRASE_WEIGHT;
 	score += proximityMatch( website ) * PROXIMITY_WEIGHT;
 
-	return score / (double)numberOfFunctions;
+	return score / ( double )numberOfFunctions;
 	}
 
 /**
@@ -73,81 +74,14 @@ std::string Scorer::getUrlDomain( std::string url )
 	}
 
 /**
- * Calculates score for exact phrase matches
- *
- * @param inputSite
- * @return double
- */
-double Scorer::phraseMatch ( Site inputSite )
-	{
-	double score = 0;
-	std::vector< std::string > queryTokens = inputSite.getQuery( ).getQueryTokens();
-
-	//if only one word, don't phrase match
-	if ( queryTokens.size(  ) <= 1 )
-		{
-		return score;
-		}
-
-	int i = 0;
-	int j = 1;
-	int numPhrases = 0;
-	while ( j < queryTokens.size( ) )
-		{
-		score = 1;
-		numPhrases = phraseMatchHelper( queryTokens[ i ], queryTokens[ j ], &inputSite.wordData );
-		while ( j < queryTokens.size( ) &&  numPhrases != 0 )
-			{
-			++i;
-			++j;
-			score += numPhrases;
-			}
-		++i;
-		++j;
-		}
-
-	// score == number of words in phrase match
-	return ( score == 1 ) ? 0 : score;
-	}
-
-/**
- * Helper for phrase matching
- * Returns true is the two words are adjacent in Site
- *
- * @param str1
- * @param str2
- * @param wordData
- * @return
- */
-int Scorer::phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData )
-	{
-	if ( wordData->find( str1 ) == wordData->end( ) || wordData->find( str2 ) == wordData->end( ) )
-		return false;
-
-	int i = 0;
-	int j = 0;
-	int numPhrases = 0;
-	while ( wordData->at( str1 ).offsets[ i ] < wordData->at( str2 ).offsets[ j ] && i < wordData->at( str1 ).offsets.size( ) && j < wordData->at( str2 ).offsets.size( ) )
-		{
-		if ( wordData->at( str1 ).offsets[ i ] + 1 ==  wordData->at( str2 ).offsets[ j ] )
-			{
-			++numPhrases;
-			}
-		++i;
-		++j;
-		}
-	return numPhrases;
-
-	}
-
-
-/**
  * Calculates score for proximity matches
  *
  * @param inputSite
+ * @param alpha
+ * @param alphaPrime
+ *
  * @return double
  */
-//FIXME trying her lecture way
 double Scorer::proximityMatch ( Site inputSite )
 	{
 	double score = 0;
@@ -162,34 +96,20 @@ double Scorer::proximityMatch ( Site inputSite )
 
 	// get offsets for other words to be as close as possible to the rarest word
 	// Get Min Delta ( start of relevant word matrix )
-	for ( int i = 0; i < queryTokens.size( ); ++i )
-		{
-			inputSite.wordData[ queryTokens [ i ] ].minDelta = getMinDelta( start, &(inputSite.wordData[ queryTokens [ i ] ].offsets) );
-		}
+	std::pair< unsigned long, int > pair = setMinDelta( &inputSite.wordData, &queryTokens, start );
+	unsigned long minLength = std::get< 0 >( pair );
+	int minLengthWord = std::get< 1 >( pair );
 
-	// get average span delta
-	unsigned long spanDelta = 0;
+	ScoreData data = getScoreData( &inputSite.wordData, & queryTokens, minLength, minLengthWord );
 
-	// for each word in query
-	for ( int i = 0; i < queryTokens.size( ); ++i )
-		{
-		for ( int j = i + 1; j < queryTokens.size( ); ++i )
-			{
-			spanDelta += inputSite.wordData[ queryTokens [ i ] ].offsets[ inputSite.wordData[ queryTokens [ i ] ].minDelta ];
-			//++minDelta
-			//Check if reached the end of one column
-			}
-		}
-
-
-
-
+	score = ALPHA * ( queryTokens.size( ) / ( data.avrgSpanDelta /= data.numSpans ) );
+	score += APLPHA_PRIME * ( data.numPhrases / data.numSpans );
 
 	return score;
 	}
 
 /**
- * Return index of the minum offset
+ * Return index of the minimum offset
  * @param start
  * @param offsets
  * @return
@@ -215,6 +135,73 @@ int Scorer::getMinDelta( unsigned long start, std::vector< size_t >* offsets )
 	return index;
 	}
 
+/**
+ * Updates the min deltas for the query tokens for Site's wordData
+ *
+ * @param wordData
+ * @param queryTokens
+ * @param start
+ * @return
+ */
+std::pair< unsigned long, int > Scorer::setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start )
+	{
+	unsigned long minLength = ( *wordData )[ ( *queryTokens )[ 0 ] ].offsets.size( );
+	int minLengthWord = 0;
+	for ( int i = 0; i < queryTokens->size( ); ++i )
+		{
+		std::string word = ( *queryTokens )[ i ];
+		( *wordData )[ word ].minDelta = getMinDelta( start, &( *wordData )[ word ].offsets );
+		if ( ( *wordData )[ word ].offsets.size( ) < minLength )
+			{
+			minLength = ( *wordData )[ word ].offsets.size( );
+			minLengthWord = i;
+			}
+		}
+	std::pair pair = { minLength, minLengthWord };
+	return pair;
+	}
+
+
+/**
+ * Gets the data need to compute the score
+ *
+ * @param wordData
+ * @param queryTokens
+ * @param minLength
+ * @param minLengthWord
+ * @return
+ */
+ScoreData Scorer::getScoreData ( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long minLength, int minLengthWord )
+	{
+	// get average span delta
+	unsigned long avrgSpanDelta = 0;
+	unsigned long spanDelta = 0;
+	int numPhrases = 0;
+	int numSpans = 0;
+
+	int row = 0;
+	//while the min delta for each word column has not reached the end of the row
+	while ( ( *wordData )[ ( *queryTokens )[ minLengthWord ] ].minDelta + row  < minLength )
+		{
+		//find the delta between each word in the query and the next
+		for ( int col = 0; col < queryTokens->size( ) - 1; ++col )
+			{
+			int indexA = ( *wordData )[ ( *queryTokens )[ col ] ].minDelta + row;
+			int indexB = ( *wordData )[ ( *queryTokens )[ col + 1 ] ].minDelta + row;
+			long delta = std::abs ( long ( ( *wordData )[ ( *queryTokens )[ col ] ].offsets[ indexA ] - ( *wordData )[ ( *queryTokens )[ col + 1 ] ].offsets[ indexB ] ) );
+			spanDelta += delta;
+			avrgSpanDelta += delta;
+			}
+		++numSpans;
+		++row;
+
+		// check if exact phrase match
+		if ( spanDelta == queryTokens->size( ) - 1 )
+			++numPhrases;
+
+		}
+	ScoreData data = { avrgSpanDelta, numSpans, numPhrases };
+	}
 
 /**
  * Returns the word with the least frequency ( rarest )
@@ -235,3 +222,72 @@ std::string Scorer::getMinFreq( std::unordered_map< std::string, data>* wordData
 			= *min_element( freqMap.begin( ), freqMap.end( ), CompFreq( ) );
 	return min.first;
 	}
+
+
+/**
+ * Calculates score for exact phrase matches
+ *
+ * @param inputSite
+ * @return double
+ */
+//double Scorer::phraseMatch ( Site inputSite )
+//	{
+//	double score = 0;
+//	std::vector< std::string > queryTokens = inputSite.getQuery( ).getQueryTokens();
+//
+//	//if only one word, don't phrase match
+//	if ( queryTokens.size(  ) <= 1 )
+//		{
+//		return score;
+//		}
+//
+//	int i = 0;
+//	int j = 1;
+//	int numPhrases = 0;
+//	while ( j < queryTokens.size( ) )
+//		{
+//		score = 1;
+//		numPhrases = phraseMatchHelper( queryTokens[ i ], queryTokens[ j ], &inputSite.wordData );
+//		while ( j < queryTokens.size( ) &&  numPhrases != 0 )
+//			{
+//			++i;
+//			++j;
+//			score += numPhrases;
+//			}
+//		++i;
+//		++j;
+//		}
+//
+//	// score == number of words in phrase match
+//	return ( score == 1 ) ? 0 : score;
+//	}
+//
+///**
+// * Helper for phrase matching
+// * Returns true is the two words are adjacent in Site
+// *
+// * @param str1
+// * @param str2
+// * @param wordData
+// * @return
+// */
+//int Scorer::phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData )
+//	{
+//	if ( wordData->find( str1 ) == wordData->end( ) || wordData->find( str2 ) == wordData->end( ) )
+//		return false;
+//
+//	int i = 0;
+//	int j = 0;
+//	int numPhrases = 0;
+//	while ( wordData->at( str1 ).offsets[ i ] < wordData->at( str2 ).offsets[ j ] && i < wordData->at( str1 ).offsets.size( ) && j < wordData->at( str2 ).offsets.size( ) )
+//		{
+//		if ( wordData->at( str1 ).offsets[ i ] + 1 ==  wordData->at( str2 ).offsets[ j ] )
+//			{
+//			++numPhrases;
+//			}
+//		++i;
+//		++j;
+//		}
+//	return numPhrases;
+//
+//	}
