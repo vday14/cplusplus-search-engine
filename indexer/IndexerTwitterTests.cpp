@@ -71,6 +71,7 @@ int main ( ) {
 				if (local->size() != 0) {
 					size_t id = j.at("id");
 					local->operator[]("=file " + to_string(i) + " tweet " + to_string(id)).push_back(0);
+					local->operator[]("=" + text).push_back(1);
 					tweetId++;
 				}
 			}

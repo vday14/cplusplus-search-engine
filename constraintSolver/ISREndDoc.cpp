@@ -15,6 +15,7 @@ DocumentEnding ISREndDoc::next() {
         openChunk(++currentChunk);
     }
     string currentOne;
+    bool inTitle = false;
     for(char* map = memMap; map < memMap + util::FileSize(currentFileHandle); map++) {
         if(*map == '\0') {
             currentChunk++;
@@ -38,18 +39,28 @@ DocumentEnding ISREndDoc::next() {
                 if(currentDoc.url == "") {
                     currentDoc.url = currentOne;
                     currentOne = "";
+                    inTitle = true;
+                } else if(currentDoc.title == "") {
+                    currentDoc.title = currentOne;
+                    currentOne = "";
+                    inTitle = false;
                 } else if(currentDoc.docEndPosition == 0) {
                     currentDoc.docEndPosition = stoll(currentOne);
                     currentOne = "";
                 }
                 break;
             case ' ':
+                if(inTitle) {
+                    currentOne += *map;
+                    break;
+                }
                 break;
             default:
                 currentOne += *map;
                 break;
         }
     }
+    currentDoc.title = currentDoc.title.substr(1, currentDoc.title.size());
 
 
     return currentDoc;

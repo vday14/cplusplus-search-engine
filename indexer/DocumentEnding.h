@@ -13,9 +13,11 @@ public:
 		docEndPosition = 0;
 		docNumWords = 0;
 		url = "";
+		title = "";
 		}
 
 	size_t docEndPosition;
 	size_t docNumWords;
 	string url;
+	string title;
 	};
