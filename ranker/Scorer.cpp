@@ -100,12 +100,14 @@ double Scorer::proximityMatch ( Site inputSite )
 	unsigned long minLength = std::get< 0 >( pair );
 	int minLengthWord = std::get< 1 >( pair );
 
-	ScoreData data = getScoreData( &inputSite.wordData, & queryTokens, minLength, minLengthWord );
+	ScoreData data( &inputSite.wordData, & queryTokens, minLength, minLengthWord );
 
-	score = ALPHA * ( queryTokens.size( ) / ( data.avrgSpanDelta /= data.numSpans ) );
-	score += APLPHA_PRIME * ( data.numPhrases / data.numSpans );
+	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
+	score += ALPHA_PRIME * ( data.numPhrases / data.numSpans );
 
-	return score;
+	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) -1 ) );
+	maxScore += ALPHA_PRIME;
+	return ( score / maxScore );
 	}
 
 /**
@@ -157,51 +159,11 @@ std::pair< unsigned long, int > Scorer::setMinDelta( std::unordered_map< std::st
 			minLengthWord = i;
 			}
 		}
-	std::pair pair = { minLength, minLengthWord };
+	std::pair< unsigned long, int > pair( minLength, minLengthWord );
 	return pair;
 	}
 
 
-/**
- * Gets the data need to compute the score
- *
- * @param wordData
- * @param queryTokens
- * @param minLength
- * @param minLengthWord
- * @return
- */
-ScoreData Scorer::getScoreData ( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long minLength, int minLengthWord )
-	{
-	// get average span delta
-	unsigned long avrgSpanDelta = 0;
-	unsigned long spanDelta = 0;
-	int numPhrases = 0;
-	int numSpans = 0;
-
-	int row = 0;
-	//while the min delta for each word column has not reached the end of the row
-	while ( ( *wordData )[ ( *queryTokens )[ minLengthWord ] ].minDelta + row  < minLength )
-		{
-		//find the delta between each word in the query and the next
-		for ( int col = 0; col < queryTokens->size( ) - 1; ++col )
-			{
-			int indexA = ( *wordData )[ ( *queryTokens )[ col ] ].minDelta + row;
-			int indexB = ( *wordData )[ ( *queryTokens )[ col + 1 ] ].minDelta + row;
-			long delta = std::abs ( long ( ( *wordData )[ ( *queryTokens )[ col ] ].offsets[ indexA ] - ( *wordData )[ ( *queryTokens )[ col + 1 ] ].offsets[ indexB ] ) );
-			spanDelta += delta;
-			avrgSpanDelta += delta;
-			}
-		++numSpans;
-		++row;
-
-		// check if exact phrase match
-		if ( spanDelta == queryTokens->size( ) - 1 )
-			++numPhrases;
-
-		}
-	ScoreData data = { avrgSpanDelta, numSpans, numPhrases };
-	}
 
 /**
  * Returns the word with the least frequency ( rarest )

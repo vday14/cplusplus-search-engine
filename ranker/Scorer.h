@@ -19,11 +19,59 @@ struct CompFreq
 		}
 	};
 
+/**
+ * Gets the data need to compute the score
+ *
+ * @param wordData
+ * @param queryTokens
+ * @param minLength
+ * @param minLengthWord
+ * @return
+ */
+
 struct ScoreData
 	{
 	unsigned long avrgSpanDelta;
 	int numSpans;
 	int numPhrases;
+
+	ScoreData( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long minLength, int minLengthWord )
+		{
+		// get average span delta
+		unsigned long avrgSpanDelta = 0;
+		unsigned long spanDelta = 0;
+		int numPhrases = 0;
+		int numSpans = 0;
+
+		int row = 0;
+		//while the min delta for each word column has not reached the end of the row
+		while ( ( *wordData )[ ( *queryTokens )[ minLengthWord ] ].minDelta + row  < minLength )
+			{
+			//find the delta between each word in the query and the next
+			for ( int col = 0; col < queryTokens->size( ) - 1; ++col )
+				{
+				int indexA = ( *wordData )[ ( *queryTokens )[ col ] ].minDelta + row;
+				int indexB = ( *wordData )[ ( *queryTokens )[ col + 1 ] ].minDelta + row;
+				long delta = std::abs ( long ( ( *wordData )[ ( *queryTokens )[ col ] ].offsets[ indexA ] - ( *wordData )[ ( *queryTokens )[ col + 1 ] ].offsets[ indexB ] ) );
+				spanDelta += delta;
+				avrgSpanDelta += delta;
+				}
+			++numSpans;
+			++row;
+
+			// check if exact phrase match
+			if ( spanDelta == queryTokens->size( ) - 1 )
+				++numPhrases;
+
+			}
+		avrgSpanDelta /= numSpans;
+
+		this->avrgSpanDelta = avrgSpanDelta;
+		this->numSpans = numSpans;
+		this->numPhrases = numPhrases;
+
+		}
+
 	};
 
 class Scorer
@@ -87,8 +135,6 @@ public:
 
 	std::pair< unsigned long, int > setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start );
 
-	ScoreData getScoreData ( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long minLength, int minLengthWord );
-
 
 private:
 	const double STATIC_WEIGHT = 1.0;
@@ -96,7 +142,7 @@ private:
 	const double PROXIMITY_WEIGHT = 1.0;
 	const double TFIDF_WEIGHT = 1.0;
 	const double ALPHA = 3;
-	const double APLPHA_PRIME = 10;
+	const double ALPHA_PRIME = 10;
 
 	};
 #endif //EECS398_SEARCH_SCORER_H

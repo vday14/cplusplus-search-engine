@@ -34,7 +34,7 @@ public:
 	/**
 	 * Maps words to their respective data structs
 	 */
-	std::unordered_map< std::string, data> wordData;
+	std::unordered_map< std::string, data > wordData;
 
 	/**
 	 * Site cstor
