@@ -35,6 +35,8 @@ public:
 	void seek(Location target);
 	DocumentEnding getCurrentDoc();
 	Location GetStartingPositionOfDoc( );
+	unsigned int GetNumWordsInDoc( );
+
 
 private:
 

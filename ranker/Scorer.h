@@ -9,6 +9,16 @@
 class Scorer
 	{
 public:
+	/***
+	 * 	defines the source of individual words
+	 */
+	enum wordLocType{
+		titleType,
+		bodyType,
+		anchorType,
+		URLType
+		};
+
 	/**
 	 * Scorer cstor
 	 */
@@ -40,6 +50,25 @@ public:
 	double staticScore ( Site inputSite );
 
 	/**
+	 * Calculates the score for whether the text was in the title, body, or url
+	 *
+	 * @param inputSite
+	 * @return double
+	 */
+	double wordLocationScore ( Site inputSite );
+
+
+	/***
+	 * Returns the type of word you pass in, whether it was in the title, url, or body etc
+	 * @param input
+	 * @return
+	 */
+	wordLocType matchType( string input );
+
+
+
+
+	/**
 	 * Calculates score for exact phrase matches
 	 *
 	 * @param inputSite
@@ -57,10 +86,28 @@ public:
 	 */
 	double proximityMatch ( Site inputSite );
 
+	/***
+	 * returns the number of words in a given URL
+	 */
+	int getNumWordsInURL ( string url );
+
+	/**
+	 * returns the number of words in a given title
+	 * @param title
+	 * @return
+	 */
+	int getNumWordsInTitle ( string title );
+
+
+
 private:
+	/**
+	 * Weights that each correspond to some function
+	 */
 	const double STATIC_WEIGHT = 1.0;
 	const double PHRASE_WEIGHT = 1.0;
 	const double PROXIMITY_WEIGHT = 1.0;
+	const double LOCATION_WEIGHT = 1.0;
 	const double TFIDF_WEIGHT = 1.0;
 
 	};

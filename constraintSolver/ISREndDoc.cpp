@@ -226,3 +226,8 @@ DocumentEnding ISREndDoc::getCurrentDoc() {
 Location ISREndDoc::GetStartingPositionOfDoc( ) {
     return currentDoc.docEndPosition - currentDoc.docNumWords - 1;
 }
+
+unsigned int ISREndDoc::GetNumWordsInDoc( )
+    {
+    return currentDoc.docNumWords;
+    }
