@@ -65,7 +65,7 @@ public:
 	 */
 	void printRankedSites();
 
-	string getResultsForSite( );
+	string getResultsForSiteJSON( );
 
 	void addISR( vector<ISRWord * > isr_in );
 

@@ -81,7 +81,6 @@ string ISRContainer::Solve( )
 		clock_t inner_end = clock();
 		double time = (inner_end - inner_start) / (double) CLOCKS_PER_SEC;
 		rankingTime += time;
-		//cout << "TIME TO RANK:: location " << to_string(BeginningofDocument) << " :: time :: " << time << endl;
 		Contained->NextDocument( );
 		ranker.numberOfTotalResults++ ;
 
@@ -91,10 +90,11 @@ string ISRContainer::Solve( )
 	double time = (end - start) / (double) CLOCKS_PER_SEC;
 
 
-	results = ranker.getResultsForSite( );
+	results = ranker.getResultsForSiteJSON( );
 	cout << "Results" << endl;
 	cout << "Total number of results :: " << ranker.numberOfTotalResults << endl;
 	cout << "Total time to run :: " << to_string( time ) << endl;
+	results += "\"time\" : \" " + to_string(time)  + " \" ,  \"total_results\": \"" + to_string(ranker.numberOfTotalResults ) + "\" }" ;
 	cout << results << endl;
 	return results ;
 

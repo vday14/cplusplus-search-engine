@@ -32,9 +32,17 @@ function get_request(){
             console.log("error");
             console.log(data.responseText);
             var dataReturned = data.responseText;
-            var returnedJSON = JSON.parse(data.responseText)['results'];
+            var returnedJSON = JSON.parse(data.responseText);
+            var results = returnedJSON['results'];
+            var total_results = returnedJSON['total_results'];
+            var time = returnedJSON['time'];
+
+            $("#timeToRun").text("Time to run : " +  time);
+            $("#totalResults").text("Total Results Found: "  + total_results);
+
+
             $("#results").empty();
-            $(returnedJSON).each(function(index, result) {
+            $(results).each(function(index, result) {
 
                 var text = "Score: " + result['score'] + "    :  " + result['site'];
 

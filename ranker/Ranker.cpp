@@ -160,7 +160,7 @@ Ranker::~Ranker()
 		}
 	}
 
-string Ranker::getResultsForSite( )
+string Ranker::getResultsForSiteJSON( )
 	{
 	orderResults( );
 	string results = " { \"results\" : [ ";
@@ -175,7 +175,7 @@ string Ranker::getResultsForSite( )
 			results += ",";
 
 		}
-	results += " ] } ";
+	results += " ]  , ";
 	return results;
 	}
 
