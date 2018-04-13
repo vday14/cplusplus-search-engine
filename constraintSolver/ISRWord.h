@@ -28,6 +28,9 @@ public:
     Location Seek ( Location target ) override;
     ISREndDoc * GetEndDocument ( ) override;
 
+	unsigned int GetNumWordsInCurrentDoc( );
+
+
 
     unsigned GetDocumentCount ( );
 

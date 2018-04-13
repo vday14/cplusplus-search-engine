@@ -15,6 +15,9 @@
  */
 struct data
 	{
+
+	data()
+			:frequency(0){}
 	unsigned long frequency;
 	std::vector< size_t > offsets;
 	};
