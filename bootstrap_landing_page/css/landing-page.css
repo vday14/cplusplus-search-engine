@@ -125,3 +125,20 @@ footer.footer {
   text-align: center;
 }
 
+
+#resultContainer{
+  width: 75%;
+  margin:0 auto;
+  position: relative;
+
+}
+
+
+#timeToRun{
+  position: relative;
+  text-align: center;
+}
+#totalResults{
+  position: relative;
+  text-align: center;
+}

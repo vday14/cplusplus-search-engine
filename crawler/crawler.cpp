@@ -119,7 +119,7 @@ void Crawler::passAnchorTextToIndex( )
 void Crawler::writeCrawlStats(double timeToCrawl , double numSpiders, Indexer* indexer )
 	{
 
-	string fileName = util::GetCurrentWorkingDir( ) + "/build/crawlerStats.txt";
+	string fileName = util::GetCurrentWorkingDir( ) + IndexerConstants::pathToIndex + "/crawlerStats.txt";
 
 	if ( remove( fileName.c_str( )) != 0 )
 		perror( "Error deleting file" );

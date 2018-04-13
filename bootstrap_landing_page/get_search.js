@@ -32,13 +32,29 @@ function get_request(){
             console.log("error");
             console.log(data.responseText);
             var dataReturned = data.responseText;
-            var returnedJSON = JSON.parse(data.responseText)['results'];
+            var returnedJSON = JSON.parse(data.responseText);
+            var results = returnedJSON['results'];
+            var total_results = returnedJSON['total_results'];
+            var time = returnedJSON['time'];
+
+            $("#timeToRun").text("Time to run : " +  time);
+            $("#totalResults").text("Total Results Found: "  + total_results);
+
+
             $("#results").empty();
-            $(returnedJSON).each(function(index, result) {
+            $(results).each(function(index, result) {
+                var score = result['score'];
+                var title = result['title'];
+                var url = result['site'];
+                var text = "Score: " + result['score'] + "    :  " + result['title'];
 
-                var text = "Score: " + result['score'] + "    :  " + result['site'];
+                var res = $("<li/>").html( $("<a>").attr("href", "https://" + url).attr("class", "result").attr( "target", "_blank").text( url ));
+                $("<div class = 'title'>").text("---" + title + "---").appendTo(res);
+                $("<div class= 'score'>").text("Scored by engine: " + score).appendTo(res);
 
-                $("<li/>").html($("<a>").attr("href", "https://" + result['site']).attr("class", "result").attr( "target", "_blank").text( text )).appendTo('#results');
+                res.appendTo('#results');
+
+
             });
             /*
 

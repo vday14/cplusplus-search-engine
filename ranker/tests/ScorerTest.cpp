@@ -88,7 +88,7 @@ void testProximityMatchSimple( )
 	Site newSite( url, query );
 
 	/// Banana Cream Pie
-	newSite.wordData[ "banana"].
+	newSite.wordData[ "banana"].ide
 	frequency = 1;
 	newSite.wordData[ "cream"].
 	frequency = 1;

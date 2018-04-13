@@ -32,35 +32,44 @@ void Ranker::addQuery( std::string query_in )
  *
  * @param isrListInput
  */
-void Ranker::addDoc( Location beggingOfDocument,  Location EndOfDocument)
+void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 	{
 
+	//cout << "B of location :: " << endl;
 	assert( isrListInput.size( ) != 0 );
 
 	Query query( this->getQuery() );
 	Site *newSite = nullptr;
 	string url;
+	string title;
 
 	for ( auto isrWord: isrListInput )
 		{
 
-		isrWord->Seek( beggingOfDocument);
-		if( url == "")
-			{
-			url = isrWord->DocumentEnd->getCurrentDoc( ).url;
-			newSite = new Site( url, query );
-			}
-		string word = isrWord->term;
-		if( isrWord->currentLocation  < EndOfDocument )
-			{
+		isrWord->Seek( BoFDoc);
 
-			newSite->wordData[ word ] = getData( isrWord );
-			}
+		if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
+			{
+			if ( url == "" )
+				{
+				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+				title = isrWord->GetEndDocument()->getCurrentDoc().title;
+				newSite = new Site( url, query , title );
+				}
+			string word = isrWord->term;
+			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+			//cout << "Ranker adding url :: " << url << endl;
+			//cout << "Current location " << isrWord->currentLocation << endl;
 
+			newSite->wordData[ word ] = getData( *isrWord );
+
+			}
 		}
-	assert(newSite != nullptr);
+	if(newSite != nullptr )
+		selectivelyAddDocs( newSite );
 
-	selectivelyAddDocs( newSite );
+	//assert(newSite != nullptr);
+
 
 	}
 
@@ -77,7 +86,7 @@ void Ranker::printRankedSites()
 		Site * website = runningRankedQueue.top();
 		runningRankedQueue.pop();
 		cout << "URL: " << website->getUrl( ) << std::endl;
-
+		cout << "Title: " << website->getTitle( ) << std::endl;
 		cout << "score: " << website->getScore( ) << std::endl;
 		}
 	}
@@ -98,7 +107,7 @@ Query Ranker::getQuery( )
  * @param isrWord
  * @return data
  */
-data Ranker::getData( ISRWord* isrWord )
+data Ranker::getData( ISRWord isrWord )
 	{
 
 	data wordData;
@@ -107,10 +116,10 @@ data Ranker::getData( ISRWord* isrWord )
 	vector<DocumentEnding> docEnds;
 
 	unsigned long freq = 0;
-	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
+	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc( ).docEndPosition )
 		{
-		offsets.push_back( isrWord->getCurrentLocation( ) );
-		isrWord->Next();
+		offsets.push_back( isrWord.getCurrentLocation( ) );
+		isrWord.Next();
 		++freq;
 		}
 	wordData.frequency = freq;
@@ -156,7 +165,7 @@ Ranker::~Ranker()
 		}
 	}
 
-string Ranker::getResultsForSite( )
+string Ranker::getResultsForSiteJSON( )
 	{
 	orderResults( );
 	string results = " { \"results\" : [ ";
@@ -166,12 +175,13 @@ string Ranker::getResultsForSite( )
 	for( int i = 0; i < sortedDocs.size( ) ; ++i )
 		{
 		Site * site = sortedDocs[ i ];
-		results += "{ \"site\": \"" + site->getUrl( ) + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\"}";
+		results += "{ \"site\": \"" + site->getUrl( )
+					  + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\" , \"title\" : \" "+ site->getTitle() + "\" }";
 		if(i != (sortedDocs.size( ) - 1) )
 			results += ",";
 
 		}
-	results += " ] } ";
+	results += " ]  , ";
 	return results;
 	}
 

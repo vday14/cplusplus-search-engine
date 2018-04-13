@@ -27,7 +27,7 @@ class Comp
 public:
 	bool operator()(Site* L, Site* R)
 		{
-		return L->getScore() < R->getScore();
+		return L->getScore() > R->getScore();
 		}
 	};
 
@@ -65,7 +65,7 @@ public:
 	 */
 	void printRankedSites();
 
-	string getResultsForSite( );
+	string getResultsForSiteJSON( );
 
 	void addISR( vector<ISRWord * > isr_in );
 
@@ -97,7 +97,7 @@ private:
 	 * @param isrWord
 	 * @return data
 	 */
-	data getData( ISRWord * isrWord );
+	data getData( ISRWord isrWord );
 
 	/**
 	 * Scores the document and only adds it to the returned list if it's score is greater than the smallest score

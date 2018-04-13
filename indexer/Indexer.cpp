@@ -33,16 +33,25 @@ void Indexer::run()
 				{
 				if ( word.first.at( 0 ) == '=' )
 					{
-					docEnd.url = word.first.substr( 1, word.first.length( ));
+                    if(word.second.front() == 0)
+                        docEnd.url = word.first.substr(1, word.first.length());
+                    else if(word.second.front() == 1)
+                        docEnd.title = word.first.substr(1, word.first.length());
 					continue;
 					}
-                chunkDictionary[word.first].docFrequency++;
+				string resized = word.first;
+				if(resized.size() > IndexerConstants::maxWordSize) {
+					resized.resize(IndexerConstants::maxWordSize);
+				}
+
+				chunkDictionary[resized].docFrequency++;
                 indexedCount += word.second.size( );
-					currentBlockNumberWords += word.second.size( );
+				currentBlockNumberWords += word.second.size( );
+				
 
 				for ( auto location : word.second )
 					{
-					masterDictionary[ word.first ].push_back( currentlyIndexed + location );
+					masterDictionary[ resized ].push_back( currentlyIndexed + location );
 					}
 				}
 
@@ -166,8 +175,23 @@ void Indexer::save()
 	int docEndSeekCounter = 0; // save seek every 100 doc ends in the chunk
 	for ( auto ending : docEndings )
 		{
+		string title = "";
+		for(char letter : ending.title) {
+			if(letter != ',' && letter != ']' && letter != '[' && letter != '\n' && letter != '\"' && letter != '\\'
+					&& letter != '&' && letter != ':') {
+				title.push_back(letter);
+			}
+		}
+		string toDiskUrl = ending.url;
+
+		toDiskUrl.erase(std::remove_if(toDiskUrl.begin(),
+												 toDiskUrl.end(),
+													[](unsigned char x){return std::isspace(x);}),
+							 toDiskUrl.end());
+
 		string docEndString = "[" +
-                                 ending.url + ", " +
+												toDiskUrl + ", " +
+                                 title + ", " +
                                  to_string( ending.docEndPosition ) + ", " +
                                  to_string( ending.docNumWords ) + "]\n";
 		write( file, docEndString.c_str( ), strlen( docEndString.c_str( )));
