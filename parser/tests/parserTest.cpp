@@ -387,22 +387,11 @@ void testTitleParsing( )
 		}
 
 	auto dictionary = parser.execute( &reader );
-//	printDictionary( *dictionary );
-
-	for ( auto it = dictionary->begin( ); it != dictionary->end( ); it++ )
-		{
-		if ( it->first[ 0 ] == '#' )
-			{
-			cout << it->first << ':';
-			for ( int i = 0; i < it->second.size( ); ++i )
-				{
-				cout << it->second[ i ] << " ";
-				}
-			cout << std::endl;
-			}
-		}
+	printDictionary( *dictionary );
 
 	assert ( dictionary != nullptr );
+	assert ( dictionary->find( "=Trump calls out Animal Assad for suspected chemical attack - The Boston Globe" ) != dictionary->end( ) );
+	assert ( dictionary->at( "=Trump calls out Animal Assad for suspected chemical attack - The Boston Globe" )[ 0 ] == 1 );
 	assert ( dictionary->find( "#boston" ) != dictionary->end( ) && dictionary->at( "#boston" ).size( ) == 5 );
 	assert ( dictionary->find( "#globe" ) != dictionary->end( ) && dictionary->at( "#globe" ).size( ) == 5 );
 	assert ( dictionary->find( "#trump" ) != dictionary->end( ) && dictionary->at( "#trump" ).size( ) == 2 );

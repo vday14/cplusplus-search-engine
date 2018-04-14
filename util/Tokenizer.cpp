@@ -48,6 +48,9 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 	// split by spaces
 	else
 		{
+
+		originalText = unEncodeHtml( originalText );
+
         if( decorator == Tokenizer::TITLE && !haveTitle )
 	        {
 	        ( *docIndex )[ Tokenizer::HOST + originalText ].push_back( 1 );
@@ -57,6 +60,26 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
 		}
 	}
+
+/**
+ * Removes weird html encodings
+ *
+ * @param originalText
+ * @return
+ */
+std::string Tokenizer::unEncodeHtml( std::string originalText )
+	{
+	for ( auto it = encodeSet.begin( ); it != encodeSet.end( ); ++it )
+		{
+		auto symbol = findStr( *it, originalText );
+		if ( symbol != originalText.size( ) )
+			{
+			originalText.erase( symbol, it->size( ) );
+			}
+		}
+	return originalText;
+	}
+
 
 /**
  * Tokenizes text (titles, body text)
