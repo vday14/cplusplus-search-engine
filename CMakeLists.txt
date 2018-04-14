@@ -424,7 +424,7 @@ find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
 
-target_link_libraries(query-Ranker-tests OpenSSL::SSL)
+target_link_libraries(rankerTests OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 
