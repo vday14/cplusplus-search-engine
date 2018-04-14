@@ -12,6 +12,7 @@ using namespace std;
 Tokenizer::Tokenizer ( )
 	{
 	docIndex = new unordered_map< string, vector< unsigned long > >;
+	haveTitle = false;
 	}
 
 /**
@@ -40,15 +41,19 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 		set< char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
 		                      '(', ')', '*', '+', ',', ';', '=' };
 
-        ( *docIndex )[ Tokenizer::HOST + originalText ].push_back(0);
+        ( *docIndex )[ Tokenizer::HOST + originalText ].push_back( 0 );
 		return tokenize( splitStr( originalText, split, true ), offset, decorator );
 
 		}
 	// split by spaces
 	else
 		{
-        if( decorator == Tokenizer::TITLE )
-            ( *docIndex )[ Tokenizer::HOST + originalText ].push_back(1);
+        if( decorator == Tokenizer::TITLE && !haveTitle )
+	        {
+	        ( *docIndex )[ Tokenizer::HOST + originalText ].push_back( 1 );
+	        haveTitle = true;
+	        }
+
 		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
 		}
 	}
