@@ -47,12 +47,13 @@ function get_request(){
                 var title = result['title'];
                 var url = result['site'];
                 var text = "Score: " + result['score'] + "    :  " + result['title'];
+                var title_div = $("<h3 class = 'title'>").text(title);
+                var link = $("<div>").html( $("<a>").attr("href", "https://" + url).attr("class", "result").attr( "target", "_blank").text( url ));
+                var score = $("<h6 class = 'score'>").text("Scored by engine: " + score);
 
-                var res = $("<li/>").html( $("<a>").attr("href", "https://" + url).attr("class", "result").attr( "target", "_blank").text( url ));
-                $("<div class = 'title'>").text("---" + title + "---").appendTo(res);
-                $("<div class= 'score'>").text("Scored by engine: " + score).appendTo(res);
-
-                res.appendTo('#results');
+                link.appendTo(title_div);
+                score.appendTo(title_div);
+                title_div.appendTo('#results');
 
 
             });

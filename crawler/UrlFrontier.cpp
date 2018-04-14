@@ -102,6 +102,7 @@ void UrlFrontier::Push( ParsedUrl url )
 
 			auto currentQ = RestrictedHosts[ url.getHost ( ) ];
 			currentQ->push( url );
+			cout << "PUSHING " << url.getCompleteUrl( ) << endl;
 
 			if ( currentQ->size( ) == 1 )
 				{
@@ -133,13 +134,15 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 		if(retval != 0){
 			fprintf(stderr, "pthread_cond_timedwait %s\n",
 					strerror(retval));
-			cout << "Error connecting to host " << result.getHost()  << endl;
+			cout << "Error connecting to host " << result.getCompleteUrl()  << endl;
 			pthread_mutex_unlock(&m);
 			return false;
 		}
 	}
 
 	result = std::move(currentQ->top());
+	cout << "Popping " << result.getCompleteUrl( ) << endl;
+
 	currentQ->pop();
 
 	pthread_mutex_unlock(&m);
