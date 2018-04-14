@@ -88,6 +88,9 @@ double Scorer::proximityMatch ( Site inputSite )
 
 	std::vector< std::string > queryTokens = inputSite.getQuery( ).getQueryTokens( );
 
+	if ( queryTokens.size( ) <= 1 )
+		return score;
+
 	// find the rarest word in doc
 	std::string minWord = getMinFreq( &inputSite.wordData, &queryTokens );
 
@@ -103,7 +106,7 @@ double Scorer::proximityMatch ( Site inputSite )
 	ScoreData data( &inputSite.wordData, & queryTokens, minLength, minLengthWord );
 
 	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
-	score += ALPHA_PRIME * ( data.numPhrases / data.numSpans );
+	score += ALPHA_PRIME * ( double( data.numPhrases) / data.numSpans );
 
 	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) -1 ) );
 	maxScore += ALPHA_PRIME;

@@ -47,6 +47,7 @@ struct ScoreData
 		//while the min delta for each word column has not reached the end of the row
 		while ( ( *wordData )[ ( *queryTokens )[ minLengthWord ] ].minDelta + row  < minLength )
 			{
+			spanDelta = 0;
 			//find the delta between each word in the query and the next
 			for ( int col = 0; col < queryTokens->size( ) - 1; ++col )
 				{
