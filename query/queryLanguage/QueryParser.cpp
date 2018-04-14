@@ -444,10 +444,13 @@ void QueryParser::stemQuery(string input )
 	vector<string> seperatedWords = splitStr (input, ' ', false);
 	string stemmedQuery;
 
-	for( auto word: seperatedWords)
+	for( int i = 0; i < seperatedWords.size() ; ++i)
 		{
+		string word = seperatedWords[ i ];
 		string stemmed = stemWord( word );
-		stemmedQuery += stemmed + " ";
+		stemmedQuery += stemmed;
+		if( (i + 1) != seperatedWords.size())
+			stemmedQuery += " ";
 		}
 	query = stemmedQuery;
 	}

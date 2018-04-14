@@ -326,7 +326,7 @@ add_executable(Corpus-tests
         )
 
 
-add_executable(query-Ranker-tests
+add_executable(rankerTests
         ranker/tests/RankerTest.cpp
         ranker/Ranker.cpp
         ranker/Scorer.cpp

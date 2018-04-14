@@ -122,6 +122,7 @@ data Ranker::getData( ISRWord isrWord )
 		isrWord.Next();
 		++freq;
 		}
+
 	wordData.frequency = freq;
 	wordData.offsets = offsets;
 	wordData.minDelta = 0;
