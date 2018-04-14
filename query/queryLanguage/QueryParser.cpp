@@ -21,7 +21,7 @@
  */
 void QueryParser::parse( string input )
 	{
-	query = stemWord(input);
+	stemQuery(input);
 	preprocess();
 	Token current;
 	queryTree = Constraint ( query );
@@ -437,4 +437,20 @@ Tuple * QueryParser::getDecoratedWord( string input )
 void QueryParser::toggleDecorator()
 	{
 	decorate = !decorate;
+	}
+
+void QueryParser::stemQuery(string input )
+	{
+	vector<string> seperatedWords = splitStr (input, ' ', false);
+	string stemmedQuery;
+
+	for( int i = 0; i < seperatedWords.size() ; ++i)
+		{
+		string word = seperatedWords[ i ];
+		string stemmed = stemWord( word );
+		stemmedQuery += stemmed;
+		if( (i + 1) != seperatedWords.size())
+			stemmedQuery += " ";
+		}
+	query = stemmedQuery;
 	}
