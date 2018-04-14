@@ -28,13 +28,20 @@ struct CompFreq
  * @param minLengthWord
  * @return
  */
-
 struct ScoreData
 	{
 	unsigned long avrgSpanDelta;
 	int numSpans;
 	int numPhrases;
 
+	/**
+	 * Constructor to set the relevant data for the prox match score
+	 *
+	 * @param wordData
+	 * @param queryTokens
+	 * @param minLength
+	 * @param minLengthWord
+	 */
 	ScoreData( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long minLength, int minLengthWord )
 		{
 		// get average span delta
@@ -78,6 +85,15 @@ struct ScoreData
 class Scorer
 	{
 public:
+
+	/**
+	 * Map of domain TLDs to weights
+	 *
+	 * https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains
+	 */
+	std::unordered_map< std::string, double > domainMap =
+			{ { ".gov", 0.9 }, { ".com", 0.6 }, { ".net", 0.4 }, { ".org", 1.0 }, { ".edu", 0.9 }, { ".us", 0.1 } };
+
 	/**
 	 * Scorer cstor
 	 */
@@ -91,16 +107,6 @@ public:
 	double getScore( Site );
 
 	/**
-	 * Map of domain TLDs to weights
-	 *
-	 * https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains
-	 */
-	std::unordered_map< std::string, double > domainMap =
-			{ { ".gov", 0.9 }, { ".com", 0.6 }, { ".net", 0.4 }, { ".org", 1.0 }, { ".edu", 0.9 }, { ".us", 0.1 } };
-
-	std::string getUrlDomain( std::string url );
-
-	/**
 	 * Static ranker
 	 *
 	 * @param inputSite
@@ -109,14 +115,12 @@ public:
 	double staticScore ( Site inputSite );
 
 	/**
-	 * Calculates score for exact phrase matches
+	 * Returns the TLD of the url
 	 *
-	 * @param inputSite
-	 * @return double
+	 * @param url
+	 * @return
 	 */
-//	double phraseMatch ( Site inputSite );
-
-//	int phraseMatchHelper ( std::string str1, std::string str2, std::unordered_map< std::string, data > *wordData );
+	std::string getUrlDomain( std::string url );
 
 	/**
 	 * Calculates score for proximity matches
@@ -127,19 +131,32 @@ public:
 	double proximityMatch ( Site inputSite );
 
 	/**
+	 * Return index of the minimum offset
+	 *
+	 * @param start
+	 * @param offsets
+	 * @return
+	 */
+	int getMinDelta( unsigned long start, std::vector< size_t >* offsets );
+
+	/**
+	 * Updates the min deltas for the query tokens for Site's wordData
+	 *
+	 * @param wordData
+	 * @param queryTokens
+	 * @param start
+	 * @return
+	 */
+	std::pair< unsigned long, int > setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start );
+
+	/**
 	 * returns the word with the min frequency
 	 * @return
 	 */
 	std::string getMinFreq( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens );
 
-	int getMinDelta( unsigned long start, std::vector< size_t >* offsets );
-
-	std::pair< unsigned long, int > setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start );
-
-
 private:
 	const double STATIC_WEIGHT = 1.0;
-	const double PHRASE_WEIGHT = 1.0;
 	const double PROXIMITY_WEIGHT = 1.0;
 	const double TFIDF_WEIGHT = 1.0;
 	const double ALPHA = 3;
