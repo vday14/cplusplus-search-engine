@@ -1,6 +1,7 @@
 #pragma once
 
 namespace IndexerConstants {
+
 	 const string pathToIndex = "/build6000/";
 	//const string pathToIndex = "/constraintSolver/index-test-files/twitter/";
 
