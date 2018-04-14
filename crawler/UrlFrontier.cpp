@@ -81,15 +81,13 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 		(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ] = 1;
 		pthread_mutex_unlock( &m );
 
-		pthread_mutex_lock( &m );
-		RestrictedHosts[ url.getHost ( ) ]->push( url );
-		pthread_mutex_unlock( &m );
+
 
 		return true;
 		}
 	}
 
-/*
+
 void UrlFrontier::Push( ParsedUrl url )
 	{
 	//if the url has been seen? if so, dont add it
@@ -102,9 +100,10 @@ void UrlFrontier::Push( ParsedUrl url )
 
 			pthread_mutex_lock( &m );
 
-			queue.push( url );
+			auto currentQ = RestrictedHosts[ url.getHost ( ) ];
+			currentQ->push( url );
 
-			if ( queue.size( ) == 1 )
+			if ( currentQ->size( ) == 1 )
 				{
 				pthread_cond_broadcast( &consumer_cv );
 				}
@@ -113,13 +112,13 @@ void UrlFrontier::Push( ParsedUrl url )
 			}
 		}
 	}
-*/
+
 
 bool UrlFrontier::try_pop( ParsedUrl& result )
 	{
 
 	gettimeofday(&now, NULL);
-	timeToWait.tv_sec = now.tv_sec + 5;
+	timeToWait.tv_sec = now.tv_sec + 2;
 	timeToWait.tv_nsec = (now.tv_usec+1000UL*100)*1000UL;
 
 	int retval;
@@ -134,6 +133,7 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 		if(retval != 0){
 			fprintf(stderr, "pthread_cond_timedwait %s\n",
 					strerror(retval));
+			cout << "Error connecting to host " << result.getHost()  << endl;
 			pthread_mutex_unlock(&m);
 			return false;
 		}
@@ -206,14 +206,14 @@ void UrlFrontier::writeDataToDisk()
 
 	pthread_mutex_lock( &m );
 
-	for(auto host : RestrictedHosts )
+	for(auto host : RoundRobinHosts )
 		{
+		priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass>* currentQ = RestrictedHosts[ host ];
 
-
-		while ( !RestrictedHosts[ host ]->empty( ))
+		while ( !currentQ->empty( ))
 			{
-			ParsedUrl url = RestrictedHosts[ host ]->top( );
-			RestrictedHosts[ host ]->pop( );
+			ParsedUrl url = currentQ->top( );
+			currentQ->pop( );
 			string url_disk = url.getCompleteUrl() + "\n";
 			write( file, url_disk.c_str( ), strlen( url_disk.c_str( )  ));
 
