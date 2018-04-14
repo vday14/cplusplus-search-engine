@@ -48,6 +48,8 @@ private:
 
     unordered_map< string, vector< unsigned long > > *docIndex;
     Stemmer stem;
+	 bool haveTitle;
+
 
     /**
      * Tokenizes text (titles, body text)
