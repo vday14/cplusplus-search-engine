@@ -16,7 +16,7 @@ int main()
 void testSimple()
 	{
 	//Initialize Ran
-	string query = "brazil";
+	string query = "trump";
 	ISRWord queryWord(query);
 	set<string> urls;
 	clock_t start = clock();
