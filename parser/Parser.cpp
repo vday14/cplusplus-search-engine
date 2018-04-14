@@ -271,7 +271,7 @@ string Parser::extractTitle ( string html )
 	unsigned long endPos = findNext ( ">", pos, html );
 	pos = endPos + 1;
 
-	while ( !isAlpha( html[ pos ] ) && !isNum( html[ pos ] ) )
+	while ( pos < html.size() && !isAlpha( html[ pos ] ) && !isNum( html[ pos ] ) )
 		++pos;
 
 	if ( pos < html.size( ) )

@@ -58,5 +58,8 @@ namespace util
 
 
 		string GetCurrentWorkingDir ( void );
+
+		string  removeAllStr(string in, string toRemove);
+
 	}
 
