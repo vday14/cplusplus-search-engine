@@ -20,6 +20,7 @@ struct data
 			:frequency(0){}
 	unsigned long frequency;
 	std::vector< size_t > offsets;
+	int minDelta;
 	};
 
 class Site
@@ -37,7 +38,7 @@ public:
 	/**
 	 * Maps words to their respective data structs
 	 */
-	std::unordered_map< std::string, data> wordData;
+	std::unordered_map< std::string, data > wordData;
 
 	/**
 	 * Site cstor

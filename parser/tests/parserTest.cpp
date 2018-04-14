@@ -22,10 +22,11 @@ void testBody ( );
 void testExtractBody ( );
 void testAnchorText ( );
 void testHttps ( );
-void testParseParagraph();
-
+void testParseParagraph( );
+void testTitleParsing( );
 
 void printDictionary ( unordered_map< string, vector< unsigned long > > dictionary );
+
 
 int main ( )
 	{
@@ -40,6 +41,8 @@ int main ( )
 	//FIXME assert(ctx) is failing
 //	testHttps( );
 	testParseParagraph();
+	testTitleParsing( );
+
 
 	cout << "Parser Tests Passed! :D" << endl;
 	}
@@ -79,7 +82,7 @@ void testSimple ( )
 	printDictionary( *dictionary );
 
 	assert ( dictionary != nullptr );
-	assert ( dictionary->size( ) == 13 );
+	assert ( dictionary->size( ) == 14 );
 	assert ( dictionary->at( "%goodby" ).size( ) == 1 && dictionary->at( "%goodby" )[ 0 ] == 12 );
 	assert ( dictionary->at( "%battl" ).size( ) && dictionary->at( "%battl" )[ 0 ] == 7 );
 	assert ( dictionary->at( "%bottl" ).size( ) == 2 && dictionary->at( "%bottl" )[ 0 ] == 9 && dictionary->at( "%bottl" )[ 1 ] == 10 );
@@ -196,7 +199,7 @@ void testBody ( )
 	printDictionary( *dictionary );
 
 	assert ( dictionary != nullptr );
-	assert ( dictionary->size( ) == 16 );
+	assert ( dictionary->size( ) == 17 );
 
 	assert ( dictionary->at( "=www.testingBody.edu/" ).size( ) == 1 && dictionary->at( "=www.testingBody.edu/" )[ 0 ] == 0 );
 	assert ( dictionary->at( "$edu" ).size( ) == 1 && dictionary->at( "$edu" )[ 0 ] == 1 );
@@ -246,7 +249,7 @@ void testExtractBody ( )
 	printDictionary( *dictionary );
 
 	assert( dictionary != nullptr);
-	assert( dictionary->size( ) == 15 );
+	assert( dictionary->size( ) == 16 );
 
 	assert( dictionary->at( "=developer.mozilla.org/en-US/docs/Learn" )[ 0 ] == 0 );
 	assert( dictionary->at( "$develop" )[ 0 ] == 0 );
@@ -308,7 +311,6 @@ void testAnchorText ( )
 	}
 
 
-
 void testHttps ( )
 	{
 	cout << "Testing HTTPS: " << endl;
@@ -365,4 +367,38 @@ void testParseParagraph( )
 	delete dictionary;
 	dictionary = nullptr;
 
+	}
+
+void testTitleParsing( )
+	{
+	cout << "Testing Title Parsing: " << endl;
+	UrlFrontier urlFrontierTest;
+	Parser parser( &urlFrontierTest );
+	ParsedUrl fake_url = ParsedUrl( "http://www.testingTitle.edu" );
+	string filepath = util::GetCurrentWorkingDir( ) + "/tests/testTitleParsing.html";
+
+	LocalReader reader( filepath );
+	reader.setUrl( &fake_url );
+	auto success = reader.request( );
+	if ( !success )
+		{
+		cerr << "Couldn't open file\n";
+		exit( 1 );
+		}
+
+	auto dictionary = parser.execute( &reader );
+	printDictionary( *dictionary );
+
+	assert ( dictionary != nullptr );
+	assert ( dictionary->find( "=Trump calls out Animal Assad for suspected chemical attack - The Boston Globe" ) != dictionary->end( ) );
+	assert ( dictionary->at( "=Trump calls out Animal Assad for suspected chemical attack - The Boston Globe" )[ 0 ] == 1 );
+	assert ( dictionary->find( "#boston" ) != dictionary->end( ) && dictionary->at( "#boston" ).size( ) == 5 );
+	assert ( dictionary->find( "#globe" ) != dictionary->end( ) && dictionary->at( "#globe" ).size( ) == 5 );
+	assert ( dictionary->find( "#trump" ) != dictionary->end( ) && dictionary->at( "#trump" ).size( ) == 2 );
+	assert ( dictionary->find( "#search" ) != dictionary->end( ) && dictionary->at( "#search" ).size( ) == 2 );
+
+	delete dictionary;
+
+	dictionary = nullptr;
+	cout << "Title Parsing Test Passed!" << endl << endl;
 	}

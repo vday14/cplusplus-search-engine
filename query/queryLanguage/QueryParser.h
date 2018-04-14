@@ -56,6 +56,7 @@ public:
 	string query;
 private:
 	bool decorate;
+	void stemQuery(string input );
 	void preprocess( );
 	void traverse(deque< Tuple*> queue, deque< int> levels, string &output);
 	void delete_children( Tuple* node );

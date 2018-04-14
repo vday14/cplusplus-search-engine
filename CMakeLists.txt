@@ -337,7 +337,7 @@ add_executable(Corpus-tests
         )
 
 
-add_executable(query-Ranker-tests
+add_executable(rankerTests
         ranker/tests/RankerTest.cpp
         ranker/Ranker.cpp
         ranker/Scorer.cpp
@@ -435,7 +435,7 @@ find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
 
-target_link_libraries(query-Ranker-tests OpenSSL::SSL)
+target_link_libraries(rankerTests OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 

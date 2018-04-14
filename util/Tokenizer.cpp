@@ -12,6 +12,7 @@ using namespace std;
 Tokenizer::Tokenizer ( )
 	{
 	docIndex = new unordered_map< string, vector< unsigned long > >;
+	haveTitle = false;
 	}
 
 /**
@@ -40,18 +41,45 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 		set< char > split = { '.', ':', '/', '\\', '_', '?', '-', '~', '#', '[', ']', '@', '!', '$', '&', '\'',
 		                      '(', ')', '*', '+', ',', ';', '=' };
 
-        ( *docIndex )[ Tokenizer::HOST + originalText ].push_back(0);
+        ( *docIndex )[ Tokenizer::HOST + originalText ].push_back( 0 );
 		return tokenize( splitStr( originalText, split, true ), offset, decorator );
 
 		}
 	// split by spaces
 	else
 		{
-        if( decorator == Tokenizer::TITLE )
-            ( *docIndex )[ Tokenizer::HOST + originalText ].push_back(1);
+
+		originalText = unEncodeHtml( originalText );
+
+        if( decorator == Tokenizer::TITLE && !haveTitle )
+	        {
+	        ( *docIndex )[ Tokenizer::HOST + originalText ].push_back( 1 );
+	        haveTitle = true;
+	        }
+
 		return tokenize( splitStr( originalText, ' ', true ), offset, decorator );
 		}
 	}
+
+/**
+ * Removes weird html encodings
+ *
+ * @param originalText
+ * @return
+ */
+std::string Tokenizer::unEncodeHtml( std::string originalText )
+	{
+	for ( auto it = encodeSet.begin( ); it != encodeSet.end( ); ++it )
+		{
+		auto symbol = findStr( *it, originalText );
+		if ( symbol != originalText.size( ) )
+			{
+			originalText.erase( symbol, it->size( ) );
+			}
+		}
+	return originalText;
+	}
+
 
 /**
  * Tokenizes text (titles, body text)
