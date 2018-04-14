@@ -25,8 +25,7 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )
 		return false;
 
-	if( RestrictedHosts[ url.getHost ( ) ] > 1000 )
-		return false;
+
 
 
 
@@ -83,14 +82,14 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 		pthread_mutex_unlock( &m );
 
 		pthread_mutex_lock( &m );
-		RestrictedHosts[ url.getHost ( ) ]++;
+		RestrictedHosts[ url.getHost ( ) ]->push( url );
 		pthread_mutex_unlock( &m );
 
 		return true;
 		}
 	}
 
-
+/*
 void UrlFrontier::Push( ParsedUrl url )
 	{
 	//if the url has been seen? if so, dont add it
@@ -114,6 +113,7 @@ void UrlFrontier::Push( ParsedUrl url )
 			}
 		}
 	}
+*/
 
 bool UrlFrontier::try_pop( ParsedUrl& result )
 	{
@@ -123,10 +123,13 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 	timeToWait.tv_nsec = (now.tv_usec+1000UL*100)*1000UL;
 
 	int retval;
+	string currentHost = RoundRobinHosts[ (GlobalCounter++) % numHost];
+
+	priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass>* currentQ = RestrictedHosts[ currentHost ];
 
 	pthread_mutex_lock(&m);
 
-	while(queue.empty()){
+	while(currentQ->empty()){
 		retval = pthread_cond_timedwait(&consumer_cv, &m, &timeToWait);
 		if(retval != 0){
 			fprintf(stderr, "pthread_cond_timedwait %s\n",
@@ -136,14 +139,14 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 		}
 	}
 
-	result = std::move(queue.top());
-	queue.pop();
+	result = std::move(currentQ->top());
+	currentQ->pop();
 
 	pthread_mutex_unlock(&m);
 	return true;
 	}
 
-
+/*
 ParsedUrl UrlFrontier::Pop()
 	{
 
@@ -170,6 +173,7 @@ size_t UrlFrontier::Size()
 	pthread_mutex_unlock( &m );
 	return size;
 	}
+ */
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 const std::string currentDateTime()
@@ -202,17 +206,22 @@ void UrlFrontier::writeDataToDisk()
 
 	pthread_mutex_lock( &m );
 
-
-	while ( !queue.empty( ))
+	for(auto host : RestrictedHosts )
 		{
-		ParsedUrl url = queue.top( );
-		queue.pop( );
-		string url_disk = url.getCompleteUrl() + "\n";
-		write( file, url_disk.c_str( ), strlen( url_disk.c_str( )  ));
+
+
+		while ( !RestrictedHosts[ host ]->empty( ))
+			{
+			ParsedUrl url = RestrictedHosts[ host ]->top( );
+			RestrictedHosts[ host ]->pop( );
+			string url_disk = url.getCompleteUrl() + "\n";
+			write( file, url_disk.c_str( ), strlen( url_disk.c_str( )  ));
+
+			}
+		pthread_mutex_unlock( &m );
+
 
 		}
-	pthread_mutex_unlock( &m );
-
 	close( file );
 
 
@@ -283,7 +292,10 @@ void UrlFrontier::readHosts()
 		if ( *hosts == '\n' )
 			{
 			ParsedUrl url  = ParsedUrl( toRestrict );
-			RestrictedHosts[ url.getHost( ) ] = 0;
+			RoundRobinHosts.push_back(url.getHost());
+
+			RestrictedHosts[ url.getHost( ) ] = new priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass>;
+			//RestrictedHosts[ url.getHost( ) ]->push( url );
 			toRestrict = "";
 			}
 		else
@@ -291,6 +303,8 @@ void UrlFrontier::readHosts()
 
 		++hosts;
 		}
+
+	numHost = RoundRobinHosts.size( );
 	}
 
 
