@@ -94,6 +94,16 @@ public:
 	std::unordered_map< std::string, double > domainMap =
 			{ { ".gov", 0.9 }, { ".com", 0.6 }, { ".net", 0.4 }, { ".org", 1.0 }, { ".edu", 0.9 }, { ".us", 0.1 } };
 
+/***
+	 * 	defines the source of individual words
+	 */
+	enum wordLocType{
+		titleType,
+		bodyType,
+		anchorType,
+		URLType
+		};
+
 	/**
 	 * Scorer cstor
 	 */
@@ -115,7 +125,22 @@ public:
 	double staticScore ( Site inputSite );
 
 	/**
-	 * Returns the TLD of the url
+	 * Calculates the score for whether the text was in the title, body, or url
+	 *
+	 * @param inputSite
+	 * @return double
+	 */
+	double wordLocationScore ( Site inputSite );
+
+	/***
+	 * Returns the type of word you pass in, whether it was in the title, url, or body etc
+	 * @param input
+	 * @return
+	 */
+	wordLocType matchType( string input );
+
+	/**
+	 * Get TLD for url
 	 *
 	 * @param url
 	 * @return
@@ -155,9 +180,25 @@ public:
 	 */
 	std::string getMinFreq( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens );
 
+	/***
+	 * returns the number of words in a given URL
+	 */
+	int getNumWordsInURL ( string url );
+
+	/**
+	 * returns the number of words in a given title
+	 * @param title
+	 * @return
+	 */
+	int getNumWordsInTitle ( string title );
+
 private:
+	/**
+	 * Weights that each correspond to some function
+	 */
 	const double STATIC_WEIGHT = 1.0;
 	const double PROXIMITY_WEIGHT = 1.0;
+	const double LOCATION_WEIGHT = 1.0;
 	const double TFIDF_WEIGHT = 1.0;
 	const double ALPHA = 3;
 	const double ALPHA_PRIME = 10;

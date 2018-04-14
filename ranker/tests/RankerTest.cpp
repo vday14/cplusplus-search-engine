@@ -16,7 +16,7 @@ int main()
 void testSimple()
 	{
 	//Initialize Ran
-	string query = "%trump";
+	string query = "brazil";
 	ISRWord queryWord(query);
 	set<string> urls;
 	clock_t start = clock();
@@ -46,8 +46,6 @@ void testSimple()
 
 	while(doc.getCurrentLocation() != MAX_Location)
 		{
-		//vector< ISRWord > docvec;
-		//docvec.push_back ( doc );
 
 		rankeyboi.addDoc ( doc.getCurrentLocation() , doc.GetEndDocument()->getCurrentDoc().docEndPosition);
 		doc.NextDocument ( );

@@ -10,6 +10,10 @@ void testProximityMatchSimple( );
 void testProximityMatchOneWord ( );
 void testPhraseMatchSymbols ( );
 void testProxMultipleOffsets ( );
+void testPhraseMatchMultipleOffsets ( );
+void testWordLocationScore( );
+void testMatchType();
+
 
 int main( )
 	{
@@ -20,6 +24,8 @@ int main( )
 	testProximityMatchOneWord( );
 	testPhraseMatchSymbols ( );
 	testProxMultipleOffsets( );
+	testMatchType ();
+	testWordLocationScore();
 
 	cout << "------Passed All Scorer Tests--- :)" << endl;
 	}
@@ -33,7 +39,7 @@ void testStaticScore( )
 	Site newSite( url, query, "TITLE" );
 
 	//.com
-	Scorer scorer = Scorer();
+	Scorer scorer = Scorer( );
 	auto score = scorer.staticScore( newSite );
 	cout << "Score: " << score << endl;
 	assert( score == 0.6 );
@@ -74,8 +80,8 @@ void testStaticScore( )
 	assert( score == 0.0 );
 
 	cout << "Static Score Passed!" << endl << endl;
-	}
 
+	}
 
 void testProximityMatchSimple( )
 	{
@@ -111,18 +117,22 @@ void testProximityMatchSimple( )
 	cout << "Score: " << score << endl;
 	assert( score == ( 3 / 14.5) );
 
-	/// Banana Strawberry Cream Cake Pie
-	newSite.wordData[ "cake"].frequency = 1;
+	Query query2( "strawberry milkshake recipe" );
+	std::string url2( "https://www.tasteofhome.com/recipes/favorite-banana-cream-pie" );
+	Site newSite2( url2, query2, "TITLE" );
 
-	newSite.wordData[ "cake"].offsets.push_back( 3 );
-	newSite.wordData[ "pie"].offsets[ 0 ] = 4;
+	/// Cake Pie
+	newSite2.wordData[ "cake"].frequency = 3;
+	newSite2.wordData[ "pie"].frequency = 2;
 
-	score = scorer.proximityMatch( newSite );
+	newSite2.wordData[ "cake"].offsets = { 0, 4, 8 };
+	newSite2.wordData[ "pie"].offsets = { 2, 6 };
+
+	score = scorer.proximityMatch( newSite2 );
 	cout << "Score: " << score << endl;
-	assert( score == ( 2.25 / 14.5 ) );
+	assert( score == 0 );
 
-	cout << "Proximity Match Passed!" << endl << endl;
-
+	cout << "PASSED Proximity Matching Simple :)\n";
 	}
 
 void testProximityMatchOneWord ( )
@@ -156,7 +166,6 @@ void testProximityMatchOneWord ( )
 void testPhraseMatchSymbols ( )
 	{
 	cout << "Testing Proximity Match Symbols....." << endl;
-
 	Query query( "$Cream@ Pie!" );
 	std::string url( "https://www.tasteofhome.com/recipes/favorite-banana-cream-pie" );
 	Site newSite( url, query, "TITLE" );
@@ -180,11 +189,12 @@ void testPhraseMatchSymbols ( )
 
 	cout << "Proximity Match Symbols Passed!" << endl << endl;
 
+	cout << "PASSED Phrase Matching with Symbols :)\n";
+
 	}
 
 void testProxMultipleOffsets ( )
 	{
-
 	cout << "Testing Proximity Match Mult Offsets....." << endl;
 
 	Query query( "Banana Cream Pie" );
@@ -223,6 +233,68 @@ void testProxMultipleOffsets ( )
 	assert( score == math );
 
 	cout << "Proximity Match Mult Offsets Passed!" << endl << endl;
-
 	}
 
+void testMatchType()
+	{
+
+	cout << "Testing Word Type...\n";
+
+	string body = "%banana";
+	string url = "$banana";
+	string title = "#banana";
+	string plain = "banana";
+	string anchor = "@banana";
+
+	Scorer scorer;
+
+	assert( scorer.matchType( body ) == Scorer::bodyType);
+	assert( scorer.matchType( url ) == Scorer::URLType);
+	assert( scorer.matchType( title ) == Scorer::titleType);
+	assert( scorer.matchType( plain ) == Scorer::bodyType );
+
+	//TODO: change this when we add the anchor text
+
+	assert( scorer.matchType ( anchor ) == Scorer::bodyType );
+
+	cout << "PASSED the type test :)\n";
+	}
+
+
+void testWordLocationScore()
+	{
+
+	cout << "Testing wordLocation score...\n";
+	Query query( "Banana Cream Pie" );
+	ParsedUrl url( "https://www.tasteofhome.com/recipes/favorite-banana-cream-pie/cream-pie-recipes/pie" );
+	Site newSite( url.getCompleteUrl(), query, "Banana Cream Pie recipe for the best pie thats banana banana" );
+
+	Scorer scorer;
+
+	/// Banana Banana Cream Cream Pie Pie
+	newSite.wordData[ "#banana"].frequency = 1;
+	newSite.wordData[ "#cream"].frequency = 2;
+	newSite.wordData[ "#pie"].frequency = 3;
+	newSite.wordData[ "%banana"].frequency = 3;
+	newSite.wordData[ "%cream"].frequency = 1;
+	newSite.wordData[ "%pie"].frequency = 2;
+	newSite.wordData[ "$banana"].frequency = 1;
+	newSite.wordData[ "$cream"].frequency = 2;
+	newSite.wordData[ "$pie"].frequency = 3;
+
+	newSite.wordData[ "#banana"].offsets = { 0, 1 };
+	newSite.wordData[ "#cream"].offsets = { 2, 3 };
+	newSite.wordData[ "#pie"].offsets = { 4, 5 };
+	newSite.wordData[ "%banana"].offsets = { 0, 1 };
+	newSite.wordData[ "%cream"].offsets = { 2, 3 };
+	newSite.wordData[ "%pie"].offsets = { 4, 5 };
+	newSite.wordData[ "$banana"].offsets = { 0, 1 };
+	newSite.wordData[ "$cream"].offsets = { 2, 3 };
+	newSite.wordData[ "$pie"].offsets = { 4, 5 };
+
+	double manualScore = 0.737179;
+	assert(scorer.wordLocationScore ( newSite ) <= manualScore + 0.001 && scorer.wordLocationScore ( newSite ) >= manualScore - 0.001);
+
+	cout << "PASSED Location Score :)\n";
+
+	}
