@@ -118,7 +118,7 @@ double Scorer::proximityMatch ( Site inputSite )
 	score += ALPHA_PRIME * ( double( data.numPhrases) / data.numSpans );
 
 	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) -1 ) );
-	maxScore += ALPHA_PRIME;
+	maxScore += ALPHA_PRIME( PERFECT_DOC );
 	return ( score / maxScore );
 	}
 

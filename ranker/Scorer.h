@@ -202,6 +202,9 @@ private:
 	const double TFIDF_WEIGHT = 1.0;
 	const double ALPHA = 3;
 	const double ALPHA_PRIME = 10;
+	// average percentage of exact phrases in a document
+	// calculated in goldStandardDoc.py
+	const double PERFECT_DOC = 0.000606342178009;
 
 	};
 #endif //EECS398_SEARCH_SCORER_H
