@@ -330,8 +330,8 @@ std::unordered_map< std::string, double > Scorer::tfIdf( Site inputSite )
 
          if ( queryWeights.find( begin->first ) != queryWeights.end( ) )
             {
-
-            int queryTf = ( *queryTokens )[ begin->first ];
+            auto find = (*queryTokens).find( begin->first );
+            int queryTf = (*find).second.size( );
             tfIdf = queryTf * log(idf);
             queryWeights[begin->first] = tfIdf;
 
