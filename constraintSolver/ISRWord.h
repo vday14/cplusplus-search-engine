@@ -44,6 +44,7 @@ public:
     string term;
     vector< WordSeek > wordSeekLookupTable;
     int currentIndex;
+    int currentDocWordFreq;
     char *currentMemMap;
 
     //set member variables to all of the chunks that occur, update current chunk
@@ -59,7 +60,6 @@ private:
 
 	bool justSwitched;
 	WordInfo info;
-	int currentDocWordFreq;
 	Corpus corpus = Corpus::getInstance();
 
 
