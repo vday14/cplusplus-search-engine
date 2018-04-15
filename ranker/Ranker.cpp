@@ -8,7 +8,7 @@
 #include <queue>
 #include <string>
 #include <set>
-
+//const Location MAX_Location = std::numeric_limits<unsigned>::max();
 
 Ranker::Ranker( )
 	{ }
@@ -17,11 +17,13 @@ Ranker::Ranker( )
  *
  * @param query_in
  */
-Ranker::Ranker( std::string query_in ) : query ( Query( query_in ) )
+Ranker::Ranker( std::string query_in  ) : query ( Query( query_in )  )
 	{
 	sortedDocs.resize(DOCS_TO_RETURN);
 	};
 
+
+Ranker::Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueue_in ) : MatchQueue( MatchQueue_in) { }
 
 void Ranker::addQuery( std::string query_in )
 	{
@@ -216,12 +218,23 @@ void Ranker::addISR( vector<ISRWord*> isr_in )
 
 	}
 
-//	vector<size_t> locations;
-//	set<string> urls;
-// urls.insert ( url );
 
 
-//	vector<size_t> locations;
-//	set<string> urls;
-// urls.insert ( url );
+void Ranker::run()
+	{
+	while ( true )
+		{
+		pair<Location, Location> match = MatchQueue->Pop( );
 
+		if( match.first == MAX_Location  || match.second == MAX_Location)
+			return;
+		else
+			{
+			//cout << "MATCHING " << endl;
+			addDoc(match.first, match.second);
+			numberOfTotalResults++;
+			}
+
+		}
+
+	}

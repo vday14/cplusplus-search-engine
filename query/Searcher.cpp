@@ -33,8 +33,20 @@ void Searcher::search ( )
 		//queryParser.toggleDecorator( );
 		//clock_t start = clock( )
 		queryParser.parse(CompleteQuery);
-		ISRContainer container = ISRContainer( queryParser.queryTree, CompleteQuery );
-		Results = container.Solve( );
+
+		ProducerConsumerQueue< pair< Location, Location> > *MatchQueue = new ProducerConsumerQueue< pair< Location, Location>  >( );
+		Ranker * ranker = new Ranker( MatchQueue );
+		ISRContainer container = ISRContainer( queryParser.queryTree , MatchQueue );
+		ranker->addISR( container.toRanker );
+		ranker->StartThread( );
+		clock_t start = clock();
+		container.Solve( );
+		ranker->WaitForFinish( );
+		clock_t end = clock();
+		double time = (end - start) / (double) CLOCKS_PER_SEC;
+		Results = ranker->getResultsForSiteJSON( );
+		Results += "\"time\" : \" " + to_string(time)  + " \" ,  \"total_results\": \"" + to_string(ranker->numberOfTotalResults ) + "\" }" ;
+
 
 		}
 
