@@ -27,7 +27,7 @@ class Comp
 public:
 	bool operator()(Site* L, Site* R)
 		{
-		return L->getScore() < R->getScore();
+		return L->getScore() > R->getScore();
 		}
 	};
 
@@ -35,6 +35,11 @@ class Ranker
 	{
 public:
 
+	double numberOfTotalResults;
+
+	Ranker( );
+
+	void addQuery( std::string query_in );
 	/**
 	 * Ranker cstor
 	 *
@@ -48,17 +53,23 @@ public:
 	~Ranker( );
 
 	/**
-	 * Adds a new site for the doc given as isrListInput
+	 * Adds a new site for the doc given as beginning and end of document
 	 *
-	 * @param isrListInput
+	 * @param
 	 */
-	void addDoc( vector<ISRWord> isrListInput );
+	void addDoc( Location beggingOfDocument, Location EndOfDoc );
 
 	/**
 	 * Outputs the ranked sites to stout
 	 *
 	 */
 	void printRankedSites();
+
+	string getResultsForSiteJSON( );
+
+	void addISR( vector<ISRWord * > isr_in );
+
+	void orderResults( );
 
 	/**
 	 * Returns the query
@@ -75,9 +86,9 @@ private:
 	 * A min heap to store a running list of the least most valuable sites
 	 */
 	priority_queue< Site * , vector< Site* > , Comp > runningRankedQueue;
-
-	Query query;
 	vector< Site* > sortedDocs;
+	vector<ISRWord* > isrListInput;
+	Query query;
 	unordered_map<string, Site * > Websites;
 
 	/**
@@ -89,26 +100,12 @@ private:
 	data getData( ISRWord isrWord );
 
 	/**
-	 * Gets the frequency of a certain word
-	 *
-	 * @param isrWord
-	 * @return
-	 */
-	unsigned long getFrequency ( ISRWord* isrWord );
-
-	/**
-	 * Returns the offsets of the word
-	 *
-	 * @return
-	 */
-	std::vector < size_t > getOffsets( ISRWord* isrWord );
-
-	/**
 	 * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
 	 *
 	 * @param doc
 	 */
 	void selectivelyAddDocs( Site * doc);
+
 
 
 	};

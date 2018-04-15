@@ -34,8 +34,8 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 
 		void Push ( ParsedUrl url ) override;
 		bool try_pop( ParsedUrl& result ) override;
-		ParsedUrl Pop ( ) override ;
-		size_t Size() override;
+		//ParsedUrl Pop ( ) override ;
+		//size_t Size() override;
 
 		bool checkUrl(ParsedUrl url);
 		void readBlackList( );
@@ -43,9 +43,11 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 
 		void printAnchorTable( );
 		set < string > Blacklist ;
-		set < string > RestrictedHosts;
-
-		std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
+		unordered_map<string, priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> *> RestrictedHosts;
+		vector<string> RoundRobinHosts;
+		size_t numHost;
+		atomic_ulong GlobalCounter;
+		//std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk
 		void writeDataToDisk( );

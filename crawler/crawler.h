@@ -6,6 +6,9 @@
 #include "../shared/ProducerConsumerQueue.h"
 #include <unordered_map>
 #include "UrlFrontier.h"
+#include "../indexer/Indexer.h"
+#include "../indexer/Corpus.h"
+#include "../indexer/Chunk.h"
 //#include "CrawlerStatistics.h"
 /*
  *
@@ -31,13 +34,15 @@ public:
 	//spawns a number of works
 	void SpawnSpiders ( size_t num_spiders, atomic_bool* alive, int numdocs );
 
-
+	void readSeeds(string mode, bool restart);
 
 	void passAnchorTextToIndex( );
 
 	void KillAllSpiders ( );
 
 	void WaitOnAllSpiders ( );
+	void writeCrawlStats ( double timeToCrawl , double numSpiders, Indexer* indexer );
+
 	UrlFrontier  *urlFrontier;
 
 

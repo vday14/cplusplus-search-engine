@@ -13,10 +13,11 @@ using namespace std;
 int main ( )
 	{
 
-	string RB = "($china or #china) AND ($trump OR #trump ) ";
+	//string RB = "($china or #china) AND ($trump OR #trump ) ";
+	string RB = "$trump AND $china";
 	QueryParser RBParser;
 	RBParser.toggleDecorator( );
-	RBParser.parse( RB );
+	RBParser.parse( RB )y;
 	ISRContainer container( RBParser.queryTree );
 	container.Solve( );
 

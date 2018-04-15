@@ -32,12 +32,30 @@ function get_request(){
             console.log("error");
             console.log(data.responseText);
             var dataReturned = data.responseText;
-            var returnedJSON = JSON.parse(data.responseText)['results'];
-            $("#results").empty();
-            $(returnedJSON).each(function(index, result) {
+            var returnedJSON = JSON.parse(data.responseText);
+            var results = returnedJSON['results'];
+            var total_results = returnedJSON['total_results'];
+            var time = returnedJSON['time'];
 
-                var text = "Score: " + result['score'] + "    :  " + result['site'];
-                $("<li/>").html($("<a>").attr("href",result['site']).attr("class", "result").text( text )).appendTo('#results');
+            $("#timeToRun").text("Time to run : " +  time);
+            $("#totalResults").text("Total Results Found: "  + total_results);
+
+
+            $("#results").empty();
+            $(results).each(function(index, result) {
+                var score = result['score'];
+                var title = result['title'];
+                var url = result['site'];
+                var text = "Score: " + result['score'] + "    :  " + result['title'];
+                var title_div = $("<h3 class = 'title'>").text(title);
+                var link = $("<div>").html( $("<a>").attr("href", "https://" + url).attr("class", "result").attr( "target", "_blank").text( url ));
+                var score = $("<h6 class = 'score'>").text("Scored by engine: " + score);
+
+                link.appendTo(title_div);
+                score.appendTo(title_div);
+                title_div.appendTo('#results');
+
+
             });
             /*
 

@@ -1,3 +1,4 @@
+
 #include "Ranker.h"
 #include "Site.h"
 #include "../constraintSolver/ISRWord.h"
@@ -8,6 +9,9 @@
 #include <string>
 #include <set>
 
+
+Ranker::Ranker( )
+	{ }
 /**
  * Ranker cstor
  *
@@ -19,34 +23,56 @@ Ranker::Ranker( std::string query_in ) : query ( Query( query_in ) )
 	};
 
 
-/**
+void Ranker::addQuery( std::string query_in )
+	{
+	this->query = Query( query_in );
+	}
+
+/***
  * Adds a new site for the doc given as isrListInput
  *
  * @param isrListInput
  */
-void Ranker::addDoc( vector<ISRWord> isrListInput )
-	{
+void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
+{
+
+	//cout << "B of location :: " << endl;
 	assert( isrListInput.size( ) != 0 );
-	std::string urlStr = isrListInput[ 0 ].DocumentEnd->getCurrentDoc ( ).url;
-
-	if ( findStr("http://", urlStr) == urlStr.size( ) )
-		urlStr = "http://" + urlStr;
-
-	ParsedUrl url( urlStr );
 
 	Query query( this->getQuery() );
-	Site * newSite = new Site( url, query );
+	Site *newSite = nullptr;
+	string url;
+	string title;
 
-	//Websites[ url ] = newSite;
-	for( auto isrWord: isrListInput)
+	for ( auto isrWord: isrListInput )
+	{
+
+		isrWord->Seek( BoFDoc);
+
+		if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
 		{
-        //add .getDocFrequency
-		string word = isrWord.term;
-		newSite->wordData[ word ] = getData( isrWord );
-		}
+			if ( url == "" )
+			{
+				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+				title = isrWord->GetEndDocument()->getCurrentDoc().title;
+				newSite = new Site( url, query , title );
+			}
+			string word = isrWord->term;
+			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+			//cout << "Ranker adding url :: " << url << endl;
+			//cout << "Current location " << isrWord->currentLocation << endl;
 
-	selectivelyAddDocs( newSite );
+			newSite->wordData[ word ] = getData( *isrWord );
+
+		}
 	}
+	if(newSite != nullptr )
+		selectivelyAddDocs( newSite );
+
+	//assert(newSite != nullptr);
+
+
+}
 
 /**
  * Outputs the ranked sites to stout
@@ -60,8 +86,8 @@ void Ranker::printRankedSites()
 		{
 		Site * website = runningRankedQueue.top();
 		runningRankedQueue.pop();
-		cout << "URL: " << website->getUrl( ).getCompleteUrl() << std::endl;
-
+		cout << "URL: " << website->getUrl( ) << std::endl;
+		cout << "Title: " << website->getTitle( ) << std::endl;
 		cout << "score: " << website->getScore( ) << std::endl;
 		}
 	}
@@ -76,6 +102,7 @@ Query Ranker::getQuery( )
 	return this->query;
 	}
 
+
 /**
  * Sets the data for each word
  *
@@ -83,53 +110,27 @@ Query Ranker::getQuery( )
  * @return data
  */
 data Ranker::getData( ISRWord isrWord )
-	{
-
+{
+	Corpus corpus = Corpus::getInstance();
 	data wordData;
-    wordData.docFrequency = isrWord.getDocFrequency();
-	wordData.frequency = getFrequency( &isrWord );
-	wordData.offsets = getOffsets( &isrWord );
-
-
-	return wordData;
-	}
-
-/**
- * Gets the frequency of a certain word
- *
- * @param isrWord
- * @return
- */
-unsigned long Ranker::getFrequency ( ISRWord* isrWord )
-	{
 	ISREndDoc endDocs;
+	std::vector < size_t > offsets;
 	vector<DocumentEnding> docEnds;
 
 	unsigned long freq = 0;
-	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
-		{
-		isrWord->Next();
-		++freq;
-		}
-	return freq;
-	}
-
-/**
- * Returns the offsets of the word
- *
- * @return
- */
-std::vector < size_t > Ranker::getOffsets( ISRWord* isrWord )
+	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc( ).docEndPosition )
 	{
-	std::vector < size_t > offsets;
-	while ( isrWord->getCurrentLocation ( ) < isrWord->DocumentEnd->getCurrentDoc( ).docEndPosition )
-		{
-		offsets.push_back( isrWord->getCurrentLocation( ) );
-		isrWord->Next();
-		}
-	return offsets;
+		offsets.push_back( isrWord.getCurrentLocation( ) );
+		isrWord.Next();
+		++freq;
 	}
 
+	wordData.docFrequency = corpus.getWordInfo(isrWord.term).docFrequency;
+	wordData.frequency = freq;
+	wordData.offsets = offsets;
+	wordData.minDelta = 0;
+	return wordData;
+}
 
 /**
  * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
@@ -167,6 +168,53 @@ Ranker::~Ranker()
 		delete i->second;
 		}
 	}
+
+string Ranker::getResultsForSiteJSON( )
+	{
+	orderResults( );
+	string results = " { \"results\" : [ ";
+
+
+
+	for( int i = 0; i < sortedDocs.size( ) ; ++i )
+		{
+		Site * site = sortedDocs[ i ];
+		results += "{ \"site\": \"" + site->getUrl( )
+					  + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\" , \"title\" : \" "+ site->getTitle() + "\" }";
+		if(i != (sortedDocs.size( ) - 1) )
+			results += ",";
+
+		}
+	results += " ]  , ";
+	return results;
+	}
+
+
+void Ranker::orderResults()
+	{
+	deque < Site * > stack;
+	while ( !runningRankedQueue.empty( ))
+		{
+		stack.push_back( runningRankedQueue.top( ));
+		runningRankedQueue.pop( );
+		}
+
+	while ( !stack.empty( ))
+		{
+		sortedDocs.push_back( stack.back( ));
+		stack.pop_back( );
+		}
+	}
+
+void Ranker::addISR( vector<ISRWord*> isr_in )
+	{
+	isrListInput = isr_in;
+
+	}
+
+//	vector<size_t> locations;
+//	set<string> urls;
+// urls.insert ( url );
 
 
 //	vector<size_t> locations;

@@ -19,6 +19,9 @@ using namespace std;
 #define MIL   ".mil"
 #define INT   ".int"
 
+
+
+
 class ParsedUrl
 	{
 private:
@@ -123,11 +126,30 @@ public:
 
 					CompleteUrl = string(temp_CompleteUrl, strlen(temp_CompleteUrl));
 					//remove question marks
-					size_t found = CompleteUrl.find("?");
-					if(found < CompleteUrl.size( ) )
-						CompleteUrl.erase(found, CompleteUrl.size( ));
 
-					Service = string(temp_Service, strlen(temp_Service));
+
+			CompleteUrl.erase(std::remove_if(CompleteUrl.begin(),
+														CompleteUrl.end(),
+														[](unsigned char x){return std::isspace(x);}),
+									CompleteUrl.end());
+
+			CompleteUrl = util::removeAllStr(CompleteUrl, "?");
+
+
+
+					//size_t newLine = CompleteUrl.find("\\n");
+					//remove newline chars and white space
+
+
+
+
+
+
+
+
+
+
+			Service = string(temp_Service, strlen(temp_Service));
 					Host = string(temp_Host, strlen(temp_Host));
 
 			if(Service == "http" || Service == "https")
@@ -136,6 +158,7 @@ public:
 						Domain = string(temp_Domain, strlen(temp_Domain));
 
 					Path = string(temp_Path, strlen(temp_Path));
+					Path = util::removeAllStr(Path, "?");
 
 					//vector<string> noquestionmakr =	splitStr(Path, '?', false);
 					AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
@@ -171,6 +194,11 @@ public:
 
 
 		}
+
+
+
+
+
 
 	void setScore()
 		{

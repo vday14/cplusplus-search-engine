@@ -145,7 +145,18 @@ add_executable(ParserTest
         crawler/Readers/StreamReader.h
         crawler/Readers/LocalReader.cpp
         crawler/Readers/HttpReader.cpp
-        crawler/Readers/HttpsReader.cpp)
+        crawler/Readers/HttpsReader.cpp
+        ranker/Ranker.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
+        query/queryLanguage/QueryParser.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp
+        )
 
 add_executable(SharedTableTest
         shared/SharedHashMapTest.cpp )
@@ -176,7 +187,9 @@ add_executable(search-engine
         constraintSolver/ISREndDoc.cpp
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
-        constraintSolver/ISROr.cpp)
+        constraintSolver/ISROr.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp)
 
 
 add_executable(ISRWord-tests
@@ -219,6 +232,7 @@ add_executable(ISRAnd-tests
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp )
+
 add_executable(ISRWord-Multi-Test
         constraintSolver/tests/ISRWordMultiTest.cpp
         util/util.cpp
@@ -278,7 +292,7 @@ add_executable(Scorer-tests
         indexer/Corpus.cpp
         util/Stemmer.cpp
         indexer/Chunk.cpp
-        parser/queryParser.cpp
+        parser/queryTokenizer.cpp
         util/Tokenizer.cpp
         query/Query.cpp)
 
@@ -323,7 +337,7 @@ add_executable(Corpus-tests
         )
 
 
-add_executable(query-Ranker-tests
+add_executable(rankerTests
         ranker/tests/RankerTest.cpp
         ranker/Ranker.cpp
         ranker/Scorer.cpp
@@ -335,9 +349,10 @@ add_executable(query-Ranker-tests
         indexer/Corpus.cpp
         util/Stemmer.cpp
         indexer/Chunk.cpp
-        parser/queryParser.cpp
+        parser/queryTokenizer.cpp
         util/Tokenizer.cpp
         query/Query.cpp
+
         )
 
 add_executable(testISRQueryTuple
@@ -361,7 +376,8 @@ add_executable(testISRQueryTuple
 
 add_executable(server
         site/LinuxTinyServer.cpp
-
+        query/Query.cpp
+        parser/queryTokenizer.cpp
         query/Searcher.cpp
         util/DataStructureLib/tuple.cpp
         util/stringProcessing.cpp
@@ -383,8 +399,11 @@ add_executable(server
         )
 
 add_executable(testQueryParser
-        parser/queryParser.cpp
+        query/queryLanguage/tests/testQueryParser.cpp
+        query/queryLanguage/QueryParser.cpp
         util/Tokenizer.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
         )
 
 
@@ -416,7 +435,7 @@ find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
 
-target_link_libraries(query-Ranker-tests OpenSSL::SSL)
+target_link_libraries(rankerTests OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 
@@ -428,7 +447,9 @@ target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
 
 target_link_libraries(QueueTest pthread)
 target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
+target_link_libraries(search-engine OpenSSL::SSL pthread)
 
+target_link_libraries(server OpenSSL::SSL pthread)
 
 
 

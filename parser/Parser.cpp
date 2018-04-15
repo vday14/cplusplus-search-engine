@@ -54,9 +54,6 @@ void Parser::parse ( StreamReader *reader, Tokenizer *tokenizer )
 		// if open bracket
 		if ( html[ htmlIt ] == '<' )
 			{
-			auto x = html[ htmlIt ];
-			auto y = html[ htmlIt + 1];
-			auto z = html[ htmlIt +2];
 
 			if ( isInvalidTag(  html, htmlIt ) )
 				{
@@ -223,6 +220,10 @@ bool Parser::isInvalidTag( string html, unsigned long htmlIt )
 		if ( html[ htmlIt + 1 ] == 'p' && html[ htmlIt + 2 ] == 'a' && html[ htmlIt + 3 ] == 'r'
 		     && html[ htmlIt + 4 ] == 'a' && html[ htmlIt + 5 ] == 'm' )
 			return true;
+		// input
+		if ( html[ htmlIt + 1 ] == 'i' && html[ htmlIt + 2 ] == 'n' && html[ htmlIt + 3 ] == 'p'
+		     && html[ htmlIt + 4 ] == 'u' && html[ htmlIt + 5 ] == 't' )
+			return true;
 		}
 	return false;
 	}
@@ -266,13 +267,19 @@ string Parser::extractTitle ( string html )
 	{
 	string title = "";
 	char end = '<';
-	auto pos = findStr( "<title", html );
+	unsigned long pos = findStr( "<title", html );
+	unsigned long endPos = findNext ( ">", pos, html );
+	pos = endPos + 1;
+
+	while ( pos < html.size() && !isAlpha( html[ pos ] ) && !isNum( html[ pos ] ) )
+		++pos;
+
 	if ( pos < html.size( ) )
 		{
-		pos += 7;
 		while ( html[ pos ] != end && pos < html.size( ) )
 			{
-			title += html[ pos ];
+			if ( html[ pos ] != '\n' )
+				title += html[ pos ];
 			++pos;
 			}
 		}
@@ -295,16 +302,25 @@ string Parser::isLocal ( string url, ParsedUrl* currentUrl )
 		{
 		return url;
 		}
+	// buugy url "//www.bostonglobe.com/lifestyle/names/2018/04/11/who-rapper-meek-mill-and-why-robert-kraft-visiting-him-prison/k7NxDFRm1neS5LbLabfr3N/story.html?p1=BGMenu_Article"
+	else
+		{
+		if ( url[ 1 ] == '/' )
+			{
+			url.erase(0,2);
+			return isLocal(url, currentUrl);
+			}
+		}
 
 	if ( currentUrl->getCompleteUrl( ).back( ) == '/' )
 		{
-		string temp = currentUrl->getDomain( );
+		string temp = currentUrl->getService() + "://" + currentUrl->getHost( );
 		temp.pop_back();
 		url = temp + url;
 		}
 	else
 		{
-		url = currentUrl->getDomain( ) + url;
+		url = currentUrl->getService() + "://" +currentUrl->getHost( ) + url;
 		}
 	return url;
 	}

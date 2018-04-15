@@ -152,41 +152,7 @@ int main ( int argc, char *argv[] )
 	ProducerConsumerQueue< unordered_map<string , DocIndex * >  > *AnchorQueue = new ProducerConsumerQueue< unordered_map<string , DocIndex * >  >( );
 
 
-	char *seeds;
-	if ( mode == "local" )
-		seeds = util::getFileMap( "/tests/localSeed.txt" );
-	else
-		{
-		seeds = util::getFileMap( "/tests/webSeed.txt" );
-		SSL_library_init( );
-		}
 
-	if(restart == false)
-		{
-		string testFile;
-		while ( *seeds )
-			{
-			if ( *seeds == '\n' )
-				{
-
-				ParsedUrl url(testFile);
-				cout << "Pushing: " << testFile << " to queue\n";
-				urlFrontier->Push( url );
-				testFile = "";
-				}
-			else
-				testFile.push_back( *seeds );
-			++seeds;
-			}
-		if ( testFile != "" )
-			{
-			cout << "Pushing: " << testFile << " to queue\n";
-			ParsedUrl url1(testFile);
-			urlFrontier->Push( url1 );
-			}
-		}
-	else
-		urlFrontier->readDataFromDisk();
 
 
 
@@ -195,6 +161,7 @@ int main ( int argc, char *argv[] )
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
+	crawler->readSeeds(mode, restart );
 
 	//atomic_bool *alive = new atomic_bool(true);
 	crawler->SpawnSpiders( numberOfSpiders , alive, DocsToCrawl);
@@ -212,13 +179,16 @@ int main ( int argc, char *argv[] )
 		crawler->passAnchorTextToIndex( );
 		indexer.Kill();
 		indexer.WaitForFinish( );
-		urlFrontier->writeDataToDisk();
+		//urlFrontier->writeDataToDisk();
+		clock_t end = clock();
+		double time = (end - start) / (double) CLOCKS_PER_SEC ;
+		cout << "Time to complete build: " << time;
+		crawler->writeCrawlStats( time, numberOfSpiders, &indexer );
 		delete urlFrontier;
 		delete IndexerQueue;
 
 		cout << "Indexer has finished running " << endl;
-		clock_t end = clock();
-		cout << "Time to complete build: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
+
 
 		return 0;
 

@@ -67,8 +67,8 @@ int main ( int argc, char *argv[] )
 	string bad_url2 ="http-equiv=Content-Type";
 	string bad_url3 = "http-equiv=refresh content=1;url=/2.73.0/static/unsupp.html /><![endif]--><!--[if gt IE 9><!--><!--<![endif]--><title>White House says Trump continues to deny Stormy Daniels affair - CNNPolitics</title>";
 	//ParsedUrl url = ParsedUrl(bad_url);
-	ParsedUrl * url1 = new ParsedUrl(bad_url3);
-	ParsedUrl * url2 = new ParsedUrl(bad_url2);
+	ParsedUrl url1 =  ParsedUrl(bad_url3);
+	ParsedUrl url2 =  ParsedUrl(bad_url2);
 	urlFrontier->Push(url1);
 
 	urlFrontier->Push(url2);
@@ -77,7 +77,7 @@ int main ( int argc, char *argv[] )
 	Crawler crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
 	atomic_bool *alive = new atomic_bool(true);
 
-	crawler.SpawnSpiders( numberOfSpiders , alive);
+	crawler.SpawnSpiders( numberOfSpiders , alive, 10);
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );

@@ -113,3 +113,74 @@ void Crawler::passAnchorTextToIndex( )
 	cout << "Crawler has sent the anchor text" << endl;
 	return;
 	}
+
+
+
+void Crawler::writeCrawlStats(double timeToCrawl , double numSpiders, Indexer* indexer )
+	{
+
+	string fileName = util::GetCurrentWorkingDir( ) + IndexerConstants::pathToIndex + "/crawlerStats.txt";
+
+	if ( remove( fileName.c_str( )) != 0 )
+		perror( "Error deleting file" );
+	else
+		puts( "File successfully deleted" );
+
+	//Corpus corpus = Corpus.getInstance();
+	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
+	string stats = "Time to crawl:  " + to_string( timeToCrawl ) + "\n"
+						+"Number of spiders: " + to_string(numSpiders) + "\n"
+						+"Number of docs indexed " + to_string(indexer->numberDocsIndexed);
+
+
+
+
+
+	write( file, stats.c_str( ), strlen( stats.c_str( )  ));
+
+
+	close( file );
+
+
+
+	}
+
+void  Crawler::readSeeds( string mode, bool restart )
+	{
+	char *seeds;
+	if ( mode == "local" )
+		seeds = util::getFileMap( "/crawler/localSeed.txt" );
+	else
+		{
+		seeds = util::getFileMap( "/crawler/seeds.txt" );
+		SSL_library_init( );
+		}
+
+	if(restart == false)
+		{
+		string testFile;
+		while ( *seeds )
+			{
+			if ( *seeds == '\n' )
+				{
+
+				ParsedUrl url(testFile);
+				cout << "Pushing: " << testFile << " to queue\n";
+				urlFrontier->Push( url );
+				testFile = "";
+				}
+			else
+				testFile.push_back( *seeds );
+			++seeds;
+			}
+		if ( testFile != "" )
+			{
+			cout << "Pushing: " << testFile << " to queue\n";
+			ParsedUrl url1(testFile);
+			urlFrontier->Push( url1 );
+			}
+		}
+	else
+		urlFrontier->readDataFromDisk();
+	}
+

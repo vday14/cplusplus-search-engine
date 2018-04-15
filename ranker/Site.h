@@ -15,9 +15,13 @@
  */
 struct data
 	{
+
+	data()
+			:frequency(0){}
 	unsigned long frequency;
 	std::vector< size_t > offsets;
 	size_t docFrequency;
+	int minDelta;
 	};
 
 class Site
@@ -25,7 +29,8 @@ class Site
 
 private:
 
-	ParsedUrl url;
+	std::string url;
+	std::string title;
 	Query query;
 	double score;
 	bool hasBeenScored;
@@ -34,12 +39,12 @@ public:
 	/**
 	 * Maps words to their respective data structs
 	 */
-	std::unordered_map< std::string, data> wordData;
+	std::unordered_map< std::string, data > wordData;
 
 	/**
 	 * Site cstor
 	 */
-	Site ( ParsedUrl url_in, Query query_in );
+	Site ( std::string url_in, Query query_in , std::string title);
 
 	/**
 	 * Site dstor
@@ -66,13 +71,21 @@ public:
 	 *
 	 * @return
 	 */
-	ParsedUrl getUrl( );
+	std::string getUrl( );
 
 	/**
 	 * Returns the Site's url
 	 *
 	 * @return
 	 */
+	std::string getTitle( );
+
+	/**
+	 * Returns the Site's title
+	 *
+	 * @return
+	 */
+
 	Query getQuery( );
 
 	};

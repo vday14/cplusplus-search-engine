@@ -224,3 +224,7 @@ string ISRWord::GetTerm()
 	return string(this->term);
 	}
 
+unsigned int ISRWord::GetNumWordsInCurrentDoc ( )
+	{
+	return DocumentEnd->GetNumWordsInDoc();
+	}

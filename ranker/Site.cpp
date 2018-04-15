@@ -8,8 +8,8 @@
 /**
  * Site cstor
  */
-Site::Site ( ParsedUrl url_in, Query query_in )
-	: url ( url_in ), query ( query_in ), score ( 0 ), hasBeenScored ( false )
+Site::Site ( std::string url_in, Query query_in, std::string title_in )
+	: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false )
 	{ }
 
 /**
@@ -51,9 +51,21 @@ double Site::getScore ( )
  *
  * @return
  */
-ParsedUrl Site::getUrl( )
+std::string Site::getUrl( )
 	{
 	return this->url;
+	}
+
+
+
+/**
+ * Returns the Site's title
+ *
+ * @return
+ */
+std::string Site::getTitle( )
+	{
+	return this->title;
 	}
 
 /**
