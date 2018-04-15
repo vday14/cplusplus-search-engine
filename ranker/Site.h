@@ -40,7 +40,12 @@ private:
 
 public:
 
-	Site( Site &copy )
+	bool hasAnchor;
+	bool hasUrl;
+	bool hasTitle;
+	bool hasBody;
+
+	Site( Site &copy ) : url(copy.url), title(copy.title), query(copy.query), score(copy.score), hasBeenScored(copy.hasBeenScored), hasAnchor(copy.hasAnchor), hasUrl(copy.hasUrl), hasTitle(copy.hasTitle), hasBody(copy.hasBody)
 		{
 		this->wordData.clear( );
 		for ( auto it = copy.wordData.begin( ); it != copy.wordData.end( ); ++it )

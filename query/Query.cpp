@@ -43,13 +43,15 @@ std::vector< std::string > Query::getQueryTokens ( )
  * @return
  */
 std::vector< std::string > Query::getQueryAnchor ( )
-	{
-	std::vector< std::string > tempQueryTokens;
+    {
+	if ( !this->queryTokensAnchor.empty( ) )
+		return this->queryTokensAnchor;
+
 	for ( int i = 0; i < this->queryTokens.size( ); ++i )
 		{
-		tempQueryTokens.push_back( Tokenizer::ANCHOR + this->queryTokens[ i ] );
+		this->queryTokensAnchor.push_back( Tokenizer::ANCHOR + this->queryTokens[ i ] );
 		}
-	return tempQueryTokens;
+	return this->queryTokensAnchor;
 	}
 
 /**
@@ -58,12 +60,14 @@ std::vector< std::string > Query::getQueryAnchor ( )
  */
 std::vector< std::string > Query::getQueryUrl ( )
 	{
-	std::vector< std::string > tempQueryTokens;
+	if ( !this->queryTokensUrl.empty( ) )
+		return this->queryTokensUrl;
+
 	for ( int i = 0; i < this->queryTokens.size( ); ++i )
 		{
-		tempQueryTokens.push_back( Tokenizer::URL + this->queryTokens[ i ] );
+		this->queryTokensUrl.push_back( Tokenizer::URL + this->queryTokens[ i ] );
 		}
-	return tempQueryTokens;
+	return this->queryTokensUrl;
 	}
 /**
  * Returns the Query decorated with Title '#'
@@ -71,12 +75,14 @@ std::vector< std::string > Query::getQueryUrl ( )
  */
 std::vector< std::string > Query::getQueryTitle ( )
 	{
-	std::vector< std::string > tempQueryTokens;
+	if ( !this->queryTokensTitle.empty( ) )
+		return this->queryTokensTitle;
+
 	for ( int i = 0; i < this->queryTokens.size( ); ++i )
 		{
-		tempQueryTokens.push_back( Tokenizer::TITLE + this->queryTokens[ i ] );
+		this->queryTokensTitle.push_back( Tokenizer::TITLE + this->queryTokens[ i ] );
 		}
-	return tempQueryTokens;
+	return this->queryTokensTitle;
 	}
 
 /**
@@ -85,12 +91,14 @@ std::vector< std::string > Query::getQueryTitle ( )
  */
 std::vector< std::string > Query::getQueryBody ( )
 	{
-	std::vector< std::string > tempQueryTokens;
+	if ( !this->queryTokensBody.empty( ) )
+		return this->queryTokensBody;
+
 	for ( int i = 0; i < this->queryTokens.size( ); ++i )
 		{
-		tempQueryTokens.push_back( Tokenizer::BODY + this->queryTokens[ i ] );
+		this->queryTokensBody.push_back( Tokenizer::BODY + this->queryTokens[ i ] );
 		}
-	return tempQueryTokens;
+	return this->queryTokensBody;
 	}
 
 /**

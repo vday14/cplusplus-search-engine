@@ -61,6 +61,15 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 			//cout << "Ranker adding url :: " << url << endl;
 			//cout << "Current location " << isrWord->currentLocation << endl;
 
+			if ( word[ 0 ] == Tokenizer::ANCHOR )
+				newSite->hasAnchor = true;
+			if ( word[ 0 ] == Tokenizer::URL )
+				newSite->hasUrl = true;
+			if ( word[ 0 ] == Tokenizer::TITLE )
+				newSite->hasTitle = true;
+			if ( word[ 0 ] == Tokenizer::BODY )
+				newSite->hasBody = true;
+
 			newSite->wordData[ word ] = getData( *isrWord );
 			}
 		}

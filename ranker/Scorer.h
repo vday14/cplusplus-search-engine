@@ -58,11 +58,15 @@ struct ScoreData
 			//find the delta between each word in the query and the next
 			for ( int col = 0; col < queryTokens->size( ) - 1; ++col )
 				{
-				int indexA = ( *wordData )[ ( *queryTokens )[ col ] ].minDelta + row;
-				int indexB = ( *wordData )[ ( *queryTokens )[ col + 1 ] ].minDelta + row;
-				long delta = std::abs ( long ( ( *wordData )[ ( *queryTokens )[ col ] ].offsets[ indexA ] - ( *wordData )[ ( *queryTokens )[ col + 1 ] ].offsets[ indexB ] ) );
-				spanDelta += delta;
-				avrgSpanDelta += delta;
+				if ( wordData->find( ( *queryTokens )[ col ] ) != wordData->end( ) && wordData->find( ( *queryTokens )[ col + 1 ] ) != wordData->end( ) )
+					{
+					int indexA = (*wordData)[ (*queryTokens)[ col ] ].minDelta + row;
+					int indexB = (*wordData)[ (*queryTokens)[ col + 1 ] ].minDelta + row;
+					long delta = std::abs ( long ((*wordData)[ (*queryTokens)[ col ] ].offsets[ indexA ] -
+					                              (*wordData)[ (*queryTokens)[ col + 1 ] ].offsets[ indexB ] ));
+					spanDelta += delta;
+					avrgSpanDelta += delta;
+					}
 				}
 			++numSpans;
 			++row;

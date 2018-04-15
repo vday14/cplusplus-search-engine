@@ -7,6 +7,7 @@
 #include "../shared/url.h"
 #include "../parser/queryTokenizer.h"
 #include <cassert>
+#include <limits>
 
 /**
  * Scorer cstor
@@ -23,12 +24,19 @@ double Scorer::getScore ( Site website)
 	{
 	double score = 0.0;
 
-	score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
-	score += proximityMatch( website, website.getQuery( ).getQueryAnchor( ) ) * PROXIMITY_WEIGHT;
-	score += proximityMatch( website, website.getQuery( ).getQueryUrl( ) ) * PROXIMITY_WEIGHT;
-	score += proximityMatch( website, website.getQuery( ).getQueryTitle( ) ) * PROXIMITY_WEIGHT;
-//	score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
-	cout << score << endl;
+	// check to see if decorate query tokens are in wordData map
+	if ( website.hasAnchor )
+		score += proximityMatch( website, website.getQuery( ).getQueryAnchor( ) ) * PROXIMITY_WEIGHT;
+
+	if ( website.hasUrl )
+		score += proximityMatch( website, website.getQuery( ).getQueryUrl( ) ) * PROXIMITY_WEIGHT;
+
+	if ( website.hasTitle )
+		score += proximityMatch( website, website.getQuery( ).getQueryTitle( ) ) * PROXIMITY_WEIGHT;
+
+	if ( website.hasBody )
+		score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
+
 	score += staticScore( website ) * STATIC_WEIGHT;
 	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
 
@@ -111,9 +119,12 @@ double Scorer::proximityMatch ( Site inputSite, std::vector< std::string > query
 
 	// get offsets for other words to be as close as possible to the rarest word
 	// Get Min Delta ( start of relevant word matrix )
+
 	std::pair< unsigned long, int > pair = setMinDelta( &inputSite.wordData, &queryTokens, start );
+
 	unsigned long minLength = std::get< 0 >( pair );
 	int minLengthWord = std::get< 1 >( pair );
+
 
 	ScoreData data( &inputSite.wordData, & queryTokens, minLength, minLengthWord );
 
@@ -121,7 +132,16 @@ double Scorer::proximityMatch ( Site inputSite, std::vector< std::string > query
 	if ( percentExactPhrases > PERFECT_DOC )
 		percentExactPhrases = PERFECT_DOC;
 
-	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
+	if ( data.avrgSpanDelta != 0 )
+		{
+		score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
+		}
+	else
+	{
+		score = 0;
+	}
+
+//	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
 	score += ALPHA_PRIME * ( percentExactPhrases );
 
 	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) - 1 ) );
@@ -168,18 +188,35 @@ int Scorer::getMinDelta( unsigned long start, std::vector< size_t >* offsets )
  */
 std::pair< unsigned long, int > Scorer::setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start )
 	{
-	unsigned long minLength = ( *wordData )[ ( *queryTokens )[ 0 ] ].offsets.size( );
+	//minLength starts out as inf
+	unsigned long minLength = 0;
 	int minLengthWord = 0;
+	bool first = true;
+
 	for ( int i = 0; i < queryTokens->size( ); ++i )
 		{
 		std::string word = ( *queryTokens )[ i ];
-		( *wordData )[ word ].minDelta = getMinDelta( start, &( *wordData )[ word ].offsets );
-		if ( ( *wordData )[ word ].offsets.size( ) < minLength )
+		// make sure word is in wordData
+		if ( wordData->find( word ) != wordData->end( ) )
 			{
-			minLength = ( *wordData )[ word ].offsets.size( );
-			minLengthWord = i;
+			(*wordData)[ word ].minDelta = getMinDelta ( start, &(*wordData)[ word ].offsets );
+
+			// first time thru loop
+			if ( first )
+				{
+				minLength = (*wordData)[ word ].offsets.size ( );
+				minLengthWord = i;
+				first = false;
+				}
+
+			if ( (*wordData)[ word ].offsets.size ( ) < minLength )
+				{
+				minLength = (*wordData)[ word ].offsets.size ( );
+				minLengthWord = i;
+				}
 			}
 		}
+
 	std::pair< unsigned long, int > pair( minLength, minLengthWord );
 	return pair;
 	}
