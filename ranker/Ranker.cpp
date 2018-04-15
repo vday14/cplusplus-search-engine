@@ -56,20 +56,18 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 				title = isrWord->GetEndDocument()->getCurrentDoc().title;
 				newSite = new Site( url, query , title );
 				}
-			string word = isrWord->term;
+			std::string word = isrWord->term;
 			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
 			//cout << "Ranker adding url :: " << url << endl;
 			//cout << "Current location " << isrWord->currentLocation << endl;
 
 			newSite->wordData[ word ] = getData( *isrWord );
-
 			}
 		}
 	if(newSite != nullptr )
 		selectivelyAddDocs( newSite );
 
 	//assert(newSite != nullptr);
-
 
 	}
 

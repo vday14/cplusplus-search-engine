@@ -151,9 +151,10 @@ public:
 	 * Calculates score for proximity matches
 	 *
 	 * @param inputSite
+	 * @param queryTokens
 	 * @return double
 	 */
-	double proximityMatch ( Site inputSite );
+	double proximityMatch ( Site inputSite, std::vector< std::string > queryTokens );
 
 	/**
 	 * Return index of the minimum offset

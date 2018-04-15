@@ -101,7 +101,7 @@ void testProximityMatchSimple( )
 	newSite.wordData[ "pie"].offsets.push_back( 2 );
 
 	Scorer scorer = Scorer( );
-	auto score = scorer.proximityMatch( newSite );
+	auto score = scorer.proximityMatch( newSite, newSite.getQuery( ).getQueryTokens( ) );
 	cout << "Score: " << score << endl;
 	assert( score == 1 );
 
@@ -113,7 +113,7 @@ void testProximityMatchSimple( )
 	newSite.wordData[ "cream"].offsets[ 0 ] = 2;
 	newSite.wordData[ "pie"].offsets[ 0 ] = 3;
 
-	score = scorer.proximityMatch( newSite );
+	score = scorer.proximityMatch( newSite, newSite.getQuery( ).getQueryTokens( ) );
 	cout << "Score: " << score << endl;
 	assert( score == 0.66576959070293562 );
 
@@ -128,7 +128,7 @@ void testProximityMatchSimple( )
 	newSite2.wordData[ "cake"].offsets = { 0, 4, 8 };
 	newSite2.wordData[ "pie"].offsets = { 2, 6 };
 
-	score = scorer.proximityMatch( newSite2 );
+	score = scorer.proximityMatch( newSite2, newSite2.getQuery( ).getQueryTokens( ) );
 	cout << "Score: " << score << endl;
 	assert( score == 0 );
 
@@ -154,7 +154,7 @@ void testProximityMatchOneWord ( )
 	newSite.wordData[ "cake"].offsets.push_back( 2 );
 
 	Scorer scorer = Scorer();
-	auto score = scorer.proximityMatch( newSite );
+	auto score = scorer.proximityMatch( newSite, newSite.getQuery( ).getQueryTokens( ) );
 
 	cout << "Score: " << score << endl;
 	assert( score == 0 );
@@ -182,7 +182,7 @@ void testPhraseMatchSymbols ( )
 	newSite.wordData[ "cake"].offsets.push_back( 3 );
 
 	Scorer scorer = Scorer();
-	auto score = scorer.proximityMatch( newSite );
+	auto score = scorer.proximityMatch( newSite, newSite.getQuery( ).getQueryTokens( ) );
 
 	cout << "Score: " << score << endl;
 	assert( score == 1 );
@@ -211,7 +211,7 @@ void testProxMultipleOffsets ( )
 	newSite.wordData[ "pie"].offsets = { 4, 5 };
 
 	Scorer scorer = Scorer();
-	auto score = scorer.proximityMatch( newSite );
+	auto score = scorer.proximityMatch( newSite, newSite.getQuery( ).getQueryTokens( ) );
 
 	cout << "Score: " << score << endl;
 	assert( score == 0.49932719302720169 );
@@ -226,7 +226,7 @@ void testProxMultipleOffsets ( )
 	newSite.wordData[ "cream"].offsets = { 2, 4, 9, 13 };
 	newSite.wordData[ "pie"].offsets = { 1, 5, 6, 20, 24, 25, 26 };
 
-	score = scorer.proximityMatch( newSite );
+	score = scorer.proximityMatch( newSite, newSite.getQuery( ).getQueryTokens( ) );
 
 	cout << "Score: " << score << endl;
 	assert( score == 0.66711520464853225 );

@@ -16,8 +16,12 @@
 struct data
 	{
 
-	data()
-			:frequency(0){}
+	data( ) : frequency( 0 ), minDelta( 0 )
+		{ }
+
+	data( const data &copy ) : frequency( copy.frequency ), offsets( copy.offsets ), minDelta( copy.minDelta )
+		{ }
+
 	unsigned long frequency;
 	std::vector< size_t > offsets;
 	int minDelta;
@@ -35,6 +39,16 @@ private:
 	bool hasBeenScored;
 
 public:
+
+	Site( Site &copy )
+		{
+		this->wordData.clear( );
+		for ( auto it = copy.wordData.begin( ); it != copy.wordData.end( ); ++it )
+			{
+			this->wordData[ it->first ] = it->second;
+			}
+		}
+
 	/**
 	 * Maps words to their respective data structs
 	 */

@@ -42,6 +42,30 @@ public:
 	std::vector< std::string > getQueryTokens ( );
 
 	/**
+	 * Returns the Query decorated with Anchor '@'
+	 * @return
+	 */
+	std::vector< std::string > getQueryAnchor ( );
+
+	/**
+	 * Returns the Query decorated with Url '$'
+	 * @return
+	 */
+	std::vector< std::string > getQueryUrl ( );
+
+	/**
+	 * Returns the Query decorated with Title '#'
+	 * @return
+	 */
+	std::vector< std::string > getQueryTitle ( );
+
+	/**
+	 * Returns the Query decorated with Body '%'
+	 * @return
+	 */
+	std::vector< std::string > getQueryBody ( );
+
+	/**
 	 * Sorts the query's tokens by value
 	 * Returns in a vector of correct order
 	 *

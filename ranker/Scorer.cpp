@@ -23,11 +23,16 @@ double Scorer::getScore ( Site website)
 	{
 	double score = 0.0;
 
+	score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
+	score += proximityMatch( website, website.getQuery( ).getQueryAnchor( ) ) * PROXIMITY_WEIGHT;
+	score += proximityMatch( website, website.getQuery( ).getQueryUrl( ) ) * PROXIMITY_WEIGHT;
+	score += proximityMatch( website, website.getQuery( ).getQueryTitle( ) ) * PROXIMITY_WEIGHT;
+//	score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
+	cout << score << endl;
 	score += staticScore( website ) * STATIC_WEIGHT;
-	score += proximityMatch( website ) * PROXIMITY_WEIGHT;
-	score += wordLocationScore (website) * LOCATION_WEIGHT;
+	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
 
-	score /= ( STATIC_WEIGHT + PROXIMITY_WEIGHT + LOCATION_WEIGHT );
+	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT );
 	assert ( score <= 1.0);
 	return score;
 	}
@@ -87,11 +92,9 @@ std::string Scorer::getUrlDomain( std::string url )
  *
  * @return double
  */
-double Scorer::proximityMatch ( Site inputSite )
+double Scorer::proximityMatch ( Site inputSite, std::vector< std::string > queryTokens )
 	{
 	double score = 0;
-
-	std::vector< std::string > queryTokens = inputSite.getQuery( ).getQueryTokens( );
 
 	if ( queryTokens.size( ) <= 1 )
 		return score;

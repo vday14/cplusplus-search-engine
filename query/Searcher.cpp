@@ -33,7 +33,7 @@ void Searcher::search ( )
 		//queryParser.toggleDecorator( );
 		//clock_t start = clock( )
 		queryParser.parse(CompleteQuery);
-		ISRContainer container = ISRContainer( queryParser.queryTree );
+		ISRContainer container = ISRContainer( queryParser.queryTree, CompleteQuery );
 		Results = container.Solve( );
 
 		}
