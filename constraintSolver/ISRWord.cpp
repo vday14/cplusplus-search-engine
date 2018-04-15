@@ -19,6 +19,7 @@ ISRWord::ISRWord ( string word )
 	currentIndex = 0;
 	justSwitched = false;
 	openChunk( currentIndex );
+	currentDocWordFreq = 0;
 	DocumentEnd->seek( currentLocation );
     }
 
