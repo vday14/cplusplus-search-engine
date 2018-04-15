@@ -42,6 +42,12 @@ public:
 	std::vector< std::string > getQueryTokens ( );
 
 	/**
+	 * Returns query string
+	 * @return
+	 */
+	std::string getQueryString( );
+
+	/**
 	 * Sorts the query's tokens by value
 	 * Returns in a vector of correct order
 	 *

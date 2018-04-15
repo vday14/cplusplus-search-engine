@@ -5,6 +5,7 @@
 #include "Site.h"
 #include <unordered_map>
 #include <string>
+#include "../indexer/Corpus.h"
 
 class Scorer
 	{
@@ -55,7 +56,28 @@ public:
 	 */
 	double proximityMatch ( Site inputSite );
 
+    /**
+     * Calculates tifidf weight vector for query and input site (doc)
+     * @param inputSite
+     * @return
+     */
+    unordered_map< string, double > tfIdf( Site inputSite );
+
+    /**
+     * Map of word to frequencies for query tokens
+     * @param queryTokens, inputSite
+     * @return
+     */
+    std::unordered_map< std::string, int >getQueryFreqs( std::vector< std::string > queryTokens, Site &inputSite );
+
+    /**
+     * Get total corpus doc count
+     * @return
+     */
+    size_t getDocCount( Corpus corpus );
+
 private:
+    std::unordered_map< std::string, double > queryWeights;
 	const double STATIC_WEIGHT = 1.0;
 	const double PHRASE_WEIGHT = 1.0;
 	const double PROXIMITY_WEIGHT = 1.0;

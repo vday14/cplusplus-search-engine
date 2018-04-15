@@ -38,6 +38,11 @@ std::vector< std::string > Query::getQueryTokens ( )
 	return this->queryTokens;
 	}
 
+std::string Query::getQueryString( )
+	{
+	return queryStr;
+	}
+
 /**
  * Query dstor will destroy the query tokens
  *

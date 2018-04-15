@@ -6,12 +6,18 @@
 #include "../shared/url.h"
 #include "../parser/Parser.h"
 #include "../parser/queryParser.h"
+#include "../constraintSolver/ISRWord.h"
+#include "../indexer/Corpus.h"
+#include "../query/Query.h"
+//numberDocuments
+//getWordInfo(string word).docFrequency
 
 /**
  * Scorer cstor
  */
 Scorer::Scorer ( )
 	{ }
+
 
 /**
  * Calculate the score for some site, Normalize the score to 1.0
@@ -128,3 +134,53 @@ double Scorer::proximityMatch ( Site inputSite )
 	//TODO Logic
 	return score;
 	}
+
+/**
+* Get total corpus doc count
+* @return
+*/
+size_t Scorer::getDocCount( Corpus corpus )
+    {
+	return corpus.numberDocuments;
+    }
+
+/**
+* Calculates tifidf weight vector for query and input site (doc)
+* @param inputSite
+* @return
+*/
+std::unordered_map< std::string, double > Scorer::tfIdf( Site inputSite )
+    {
+	Corpus corpus = Corpus::getInstance( );
+    unsigned totalNumDocs = getDocCount(  corpus );
+    Query query = inputSite.getQuery( );
+    string queryString = query.getQueryString( );
+	QueryParser parsedQuery( queryString );
+    const unordered_map< string, vector< unsigned long > > *queryTokens = parsedQuery.executeQueryOffsets( );
+
+
+    //calculate weight vector for this specific site/document
+    unordered_map< string, double > docWeights;
+    auto begin = inputSite.wordData.begin( );
+    auto end = inputSite.wordData.end( );
+    while ( begin != end )
+        {
+         unsigned long tf = begin->second.frequency;
+         size_t docFreq = corpus.getWordInfo( begin->first ).docFrequency;
+         double idf = totalNumDocs / docFreq;
+         double tfIdf = tf * log( idf );
+         docWeights[ begin->first ] = tfIdf;
+
+         if ( queryWeights.find( begin->first ) != queryWeights.end( ) )
+            {
+
+            int queryTf = ( *queryTokens )[ begin->first ];
+            tfIdf = queryTf * log(idf);
+            queryWeights[begin->first] = tfIdf;
+
+            }
+        }
+    return docWeights;
+    }
+
+

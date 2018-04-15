@@ -40,6 +40,7 @@ void Ranker::addDoc( vector<ISRWord> isrListInput )
 	//Websites[ url ] = newSite;
 	for( auto isrWord: isrListInput)
 		{
+        //add .getDocFrequency
 		string word = isrWord.term;
 		newSite->wordData[ word ] = getData( isrWord );
 		}
@@ -85,6 +86,7 @@ data Ranker::getData( ISRWord isrWord )
 	{
 
 	data wordData;
+    wordData.docFrequency = isrWord.getDocFrequency();
 	wordData.frequency = getFrequency( &isrWord );
 	wordData.offsets = getOffsets( &isrWord );
 
