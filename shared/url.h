@@ -133,7 +133,7 @@ public:
 														[](unsigned char x){return std::isspace(x);}),
 									CompleteUrl.end());
 
-			CompleteUrl = removeAllStr(CompleteUrl, "?");
+			CompleteUrl = util::removeAllStr(CompleteUrl, "?");
 
 
 
@@ -158,7 +158,7 @@ public:
 						Domain = string(temp_Domain, strlen(temp_Domain));
 
 					Path = string(temp_Path, strlen(temp_Path));
-					Path = removeAllStr(Path, "?");
+					Path = util::removeAllStr(Path, "?");
 
 					//vector<string> noquestionmakr =	splitStr(Path, '?', false);
 					AnchorText = string(temp_AnchorText, strlen(temp_AnchorText));
@@ -196,16 +196,7 @@ public:
 		}
 
 
-	string removeAllStr(string in, string toRemove)
-		{
 
-		size_t found = in.find( toRemove );
-		if(found < in.size( ) )
-			{
-			in.erase(in.begin() + found, in.end( ));
-			}
-		return in;
-		}
 
 
 

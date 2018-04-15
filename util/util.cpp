@@ -98,4 +98,16 @@ namespace util
 
 			return ( getenv( "PWD" ) );
 			}
+
+
+		string removeAllStr(string in, string toRemove)
+			{
+
+			size_t found = in.find( toRemove );
+			if(found < in.size( ) )
+				{
+				in.erase(in.begin() + found, in.end( ));
+				}
+			return in;
+			}
 	}

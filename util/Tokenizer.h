@@ -61,8 +61,25 @@ private:
     unsigned long tokenize ( vector< string > splitText, unsigned long offset, char decorator );
 
 	/**
+	 * Removes weird html encodings
+	 *
+	 * @param originalText
+	 * @return
+	 */
+	std::string unEncodeHtml( std::string originalText );
+
+	/**
 	 * Anchor text that should not be included in index
 	 */
 	set< string > anchorsToRemove = {"click", "here", "here!"};
 
+	/**
+	 * html encoded mapped to correct char
+	 */
+	set < std::string > encodeSet =
+			{ "&lsquo;", "&rsquo;", "&cent;", "&pound;", "&sect;", "&copy;", "&laquo", "&raquo;",
+			  "&quot;", "&reg;", "&deg;", "&plusmn;", "&para;", "&middot;", "&frac12;", "&ndash;",
+			  "&mdash;", "&rsquo;", "&sbquo;", "&ldquo;", "&rdquo;", "&bdquo;", "&dagger;", "&Dagger;",
+			  "&bull;", "&hellip;", "&prime;", "&Prime;", "&apos;", "&euro;", "&trade;", "&asymp;", "&ne;",
+			  "&le;", "&ge;", "&lt;", "&gt;", "ldquo" };
 };

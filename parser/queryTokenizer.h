@@ -1,7 +1,5 @@
 
-#ifndef EECS398_SEARCH_QUERYPARSER_H
-#define EECS398_SEARCH_QUERYPARSER_H
-
+#pragma once
 #include <string>
 #include <vector>
 #include "../util/stringProcessing.h"
@@ -32,4 +30,3 @@ private:
 	};
 
 
-#endif //EECS398_SEARCH_QUERYPARSER_H

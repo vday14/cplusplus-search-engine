@@ -145,7 +145,18 @@ add_executable(ParserTest
         crawler/Readers/StreamReader.h
         crawler/Readers/LocalReader.cpp
         crawler/Readers/HttpReader.cpp
-        crawler/Readers/HttpsReader.cpp)
+        crawler/Readers/HttpsReader.cpp
+        ranker/Ranker.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
+        query/queryLanguage/QueryParser.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISREndDoc.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp
+        )
 
 add_executable(SharedTableTest
         shared/SharedHashMapTest.cpp )

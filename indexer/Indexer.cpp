@@ -188,6 +188,7 @@ void Indexer::save()
 												 toDiskUrl.end(),
 													[](unsigned char x){return std::isspace(x);}),
 							 toDiskUrl.end());
+		toDiskUrl = util::removeAllStr(toDiskUrl, "\\");
 
 		string docEndString = "[" +
 												toDiskUrl + ", " +
