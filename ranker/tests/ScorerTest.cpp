@@ -115,7 +115,7 @@ void testProximityMatchSimple( )
 
 	score = scorer.proximityMatch( newSite );
 	cout << "Score: " << score << endl;
-	assert( score == ( 3 / 14.5) );
+	assert( score == 0.66576959070293562 );
 
 	Query query2( "strawberry milkshake recipe" );
 	std::string url2( "https://www.tasteofhome.com/recipes/favorite-banana-cream-pie" );
@@ -214,7 +214,7 @@ void testProxMultipleOffsets ( )
 	auto score = scorer.proximityMatch( newSite );
 
 	cout << "Score: " << score << endl;
-	assert( score == ( 2.25 / 14.5 ) );
+	assert( score == 0.49932719302720169 );
 
 	/// Banana Pie Cream Banana Cream Pie Pie Random Random Cream Banana Random Random Cream Random Pie
 	///   0     1     2     3     4     5  6    7      8     9     10       11    12    13    14-19  20-26
@@ -229,8 +229,7 @@ void testProxMultipleOffsets ( )
 	score = scorer.proximityMatch( newSite );
 
 	cout << "Score: " << score << endl;
-	auto math = ( ( 6.0 + ( 1.0 / 3.0 ) ) / 14.5 ) ;
-	assert( score == math );
+	assert( score == 0.66711520464853225 );
 
 	cout << "Proximity Match Mult Offsets Passed!" << endl << endl;
 	}

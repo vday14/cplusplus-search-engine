@@ -114,11 +114,16 @@ double Scorer::proximityMatch ( Site inputSite )
 
 	ScoreData data( &inputSite.wordData, & queryTokens, minLength, minLengthWord );
 
-	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
-	score += ALPHA_PRIME * ( double( data.numPhrases) / data.numSpans );
+	double percentExactPhrases = double( data.numPhrases) / data.numSpans;
+	if ( percentExactPhrases > PERFECT_DOC )
+		percentExactPhrases = PERFECT_DOC;
 
-	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) -1 ) );
-	maxScore += ALPHA_PRIME( PERFECT_DOC );
+	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
+	score += ALPHA_PRIME * ( percentExactPhrases );
+
+	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) - 1 ) );
+	maxScore += ALPHA_PRIME * PERFECT_DOC;
+
 	return ( score / maxScore );
 	}
 
