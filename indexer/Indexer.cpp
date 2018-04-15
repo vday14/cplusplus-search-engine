@@ -47,7 +47,7 @@ void Indexer::run()
 				chunkDictionary[resized].docFrequency++;
                 indexedCount += word.second.size( );
 				currentBlockNumberWords += word.second.size( );
-				
+				wordInDocFreq[resized].push_back( word.second.size( ) );
 
 				for ( auto location : word.second )
 					{
@@ -130,8 +130,11 @@ void Indexer::save()
 		chunkDictionary[ word.first ].chunks.push_back( currentFile );
 
 		bool firstPost = true;
+		bool printFreq = false;
 		size_t lastOne = 0;
 		int numIndexed = 0;
+		int currentFreq = 0;
+		int currentIndex = 0;
 		for ( auto location : word.second )
 			{
 			if(chunkEnd < location) {
@@ -141,13 +144,22 @@ void Indexer::save()
 			numIndexed++;
 			if ( firstPost )
 				{
+				string freq = "[" + to_string(wordInDocFreq[word.first][currentIndex]) + "] ";
+				write(file, freq.c_str(), strlen(freq.c_str()));
 				string locationSpace = to_string( location ) + " ";
 				write( file, locationSpace.c_str( ), strlen( locationSpace.c_str( )));
 				seekOffset += strlen( locationSpace.c_str( ));
+				seekOffset += strlen( freq.c_str( ));
 				firstPost = false;
 				}
 			else
 				{
+                if(printFreq) {
+                    string freq = "[" + to_string(wordInDocFreq[word.first][currentIndex]) + "] ";
+                    write(file, freq.c_str(), strlen(freq.c_str()));
+                    seekOffset += strlen( freq.c_str( ));
+                    printFreq = false;
+                }
 				size_t delta = location - lastOne;
 				string deltaSpace = to_string( delta ) + " ";
 				write( file, deltaSpace.c_str( ), strlen( deltaSpace.c_str( )));
@@ -162,7 +174,14 @@ void Indexer::save()
 				numIndexed = 0;
 			    }
 				lastOne = location;
-			}
+            currentFreq++;
+            if(currentFreq == wordInDocFreq[word.first][currentIndex])
+                {
+                    currentIndex++;
+                    currentFreq = 0;
+                    printFreq = true;
+                }
+            }
 		chunkDictionary[ word.first ].lastLocation = lastOne;
 		write( file, "\n", 1 );
 		seekOffset += 1;

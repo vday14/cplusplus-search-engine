@@ -58,6 +58,7 @@ private:
 	vector<size_t> chunkEndLocation;
 
 	unordered_map< string, vector< size_t > > masterDictionary;
+	unordered_map< string, vector< size_t > > wordInDocFreq;
 	unordered_map< string, vector< SeekEntry > > seekDictionary;
 	vector< DocumentEnding > docEndings;
 
