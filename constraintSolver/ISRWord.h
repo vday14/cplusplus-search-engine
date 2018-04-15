@@ -59,6 +59,7 @@ private:
 
 	bool justSwitched;
 	WordInfo info;
+	int currentDocWordFreq;
 	Corpus corpus = Corpus::getInstance();
 
 

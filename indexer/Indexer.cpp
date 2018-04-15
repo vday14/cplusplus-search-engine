@@ -131,6 +131,7 @@ void Indexer::save()
 
 		bool firstPost = true;
 		bool printFreq = false;
+		bool saveEntry = false;
 		size_t lastOne = 0;
 		int numIndexed = 0;
 		int currentFreq = 0;
@@ -167,20 +168,24 @@ void Indexer::save()
 				}
 			if ( numIndexed == IndexerConstants::saveEveryXEntries )
 			    {
-				SeekEntry entry = SeekEntry( );
-				entry.offset = seekOffset;
-				entry.realLocation = location;
-				seekDictionary[ word.first ].push_back( entry );
-				numIndexed = 0;
+				saveEntry = true;
 			    }
-				lastOne = location;
+			lastOne = location;
             currentFreq++;
             if(currentFreq == wordInDocFreq[word.first][currentIndex])
                 {
                     currentIndex++;
                     currentFreq = 0;
                     printFreq = true;
-                }
+                    if(saveEntry) {
+						SeekEntry entry = SeekEntry();
+						entry.offset = seekOffset;
+						entry.realLocation = location;
+						seekDictionary[word.first].push_back(entry);
+						numIndexed = 0;
+						saveEntry = false;
+					}
+				}
             }
 		chunkDictionary[ word.first ].lastLocation = lastOne;
 		write( file, "\n", 1 );
@@ -299,6 +304,7 @@ void Indexer::reset()
 	{
 	masterDictionary.clear( );
 	docEndings.clear( );
+	wordInDocFreq.clear( );
 	seekDictionary.clear();
 	currentBlockNumberWords = 0;
 	currentBlockNumberDocs = 0;

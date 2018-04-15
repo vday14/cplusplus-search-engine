@@ -17,6 +17,7 @@ ISRWord::ISRWord ( string word )
         }
 
 	currentIndex = 0;
+	justSwitched = false;
 	openChunk( currentIndex );
 	DocumentEnd->seek( currentLocation );
     }
@@ -41,17 +42,17 @@ Location ISRWord::openChunk (int index)
     currentMemMap = corpus.chunks[ info.chunks [ currentIndex ] ].getChunkMap( );
 	currentMemMap += stoll(loc);
 
-    string firstLoc = "";
-	while ( *currentMemMap != ' ' )
-        {
-		firstLoc += *currentMemMap;
-		currentMemMap++;
-        }
-
-	currentMemMap++;
+//    string firstLoc = "";
+//	while ( *currentMemMap != ' ' )
+//        {
+//		firstLoc += *currentMemMap;
+//		currentMemMap++;
+//        }
+//
+//	currentMemMap++;
 	wordSeekLookupTable.clear();
 	getWordSeek( );
-	currentLocation = stoll( firstLoc );
+	Next();
     DocumentEnd->openChunk( info.chunks[currentIndex] );
     justSwitched = true;
 	return currentLocation;
@@ -80,6 +81,17 @@ Location ISRWord::Next ( )
         }
 	else
 		{
+		string termDocFreq = "";
+		if(*currentMemMap == '[') {
+			currentMemMap++;
+			currentDocWordFreq = 0;
+			while(*currentMemMap != ']') {
+				termDocFreq += *currentMemMap;
+				currentMemMap++;
+			}
+			currentDocWordFreq = stoi(termDocFreq);
+			currentMemMap += 2;
+		}
 		string delta = "";
 		while ( *currentMemMap != ' ' && *currentMemMap != '\0' )
 			{
