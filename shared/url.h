@@ -207,7 +207,7 @@ public:
 			isValid = false;
 
 
-		Score +=  1/ ( lengthOfUrl ) / 10;
+		 Score +=  lengthOfUrl/ 100;
 
 		if(lengthOfUrl > 4)
 		{
