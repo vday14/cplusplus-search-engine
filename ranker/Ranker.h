@@ -70,6 +70,12 @@ public:
 	 */
 	void printRankedSites();
 
+	/***
+	 * Outputs the ranked sites and the individual scores for each category
+	 */
+	void printRankedSitesVerbose();
+
+
 	string getResultsForSiteJSON( );
 
 	void addISR( vector<ISRWord * > isr_in );

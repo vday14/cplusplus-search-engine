@@ -86,3 +86,35 @@ Query Site::getQuery( )
 	return this->query;
 	}
 
+/**
+	 * Returns the static score of some site
+	 *
+	 * @return
+	 */
+double Site::getStaticScore ( )
+	{
+	Scorer scoreFactory;
+	return scoreFactory.staticScore( *this );
+	}
+
+/**
+	 * Returns the phrase matching score of some site
+	 *
+	 * @return
+	 */
+double Site::getPhraseScore ( )
+	{
+	Scorer scoreFactory;
+	return scoreFactory.proximityMatch( *this );
+	}
+
+/**
+	 * Returns the word location score of some site
+	 *
+	 * @return
+	 */
+double Site::getLocationScore ( )
+	{
+	Scorer scoreFactory;
+	return scoreFactory.wordLocationScore( *this );
+	}

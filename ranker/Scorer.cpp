@@ -13,7 +13,17 @@
  * Scorer cstor
  */
 Scorer::Scorer ( )
-	{ }
+		:STATIC_WEIGHT( 1.0 ), PROXIMITY_WEIGHT( 1.0 ), LOCATION_WEIGHT( 1.0 ),
+		 TFIDF_WEIGHT( 1.0 ), ALPHA( 3.0 ), ALPHA_PRIME( 10.0 ) { }
+
+
+/**
+	 * Scorer cstor that sets function weights
+	 */
+Scorer::Scorer( double stat, double prox, double loc )
+		:STATIC_WEIGHT( stat ), PROXIMITY_WEIGHT( prox ), LOCATION_WEIGHT( loc ),
+		 TFIDF_WEIGHT( 1.0 ), ALPHA( 3.0 ), ALPHA_PRIME( 10.0 ) { }
+
 
 /**
  * Calculate the score for some site, Normalize the score to 1.0

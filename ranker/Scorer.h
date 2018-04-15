@@ -113,6 +113,11 @@ public:
 	 */
 	Scorer( );
 
+	/**
+	 * Scorer cstor that sets function weights
+	 */
+	Scorer(double stat, double prox, double loc );
+
 	/***
 	 * Calculate the score for some site, Normalize the score to 1.0
 	 *

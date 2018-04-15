@@ -86,16 +86,26 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
  */
 void Ranker::printRankedSites()
 	{
+	deque< Site * > temporaryQueue;
 	cout << "----RANKED RESULTS----" << endl;
 	unsigned long size  = runningRankedQueue.size();
+
+	for( auto i = size; i > 0; --i)
+		{
+		temporaryQueue.push_back ( runningRankedQueue.top ( ) );
+		runningRankedQueue.pop( );
+		}
+
 	for( auto i = size; i > 0; --i )
 		{
-		Site * website = runningRankedQueue.top();
-		runningRankedQueue.pop();
+		Site * website = temporaryQueue.back();
+		runningRankedQueue.push( website );
+		temporaryQueue.pop_back();
 		cout << "URL: " << website->getUrl( ) << std::endl;
 		cout << "Title: " << website->getTitle( ) << std::endl;
 		cout << "score: " << website->getScore( ) << std::endl;
 		}
+
 	}
 
 /**
@@ -246,4 +256,36 @@ void Ranker::run()
 
 		}
 
+	}
+
+/**
+ * Outputs the ranked sites to stout
+ * Also outputs the score for each scoring function in the ranker from the scorer
+ *
+ */
+void Ranker::printRankedSitesVerbose()
+	{
+
+	deque< Site * > temporaryQueue;
+	cout << "----RANKED RESULTS----" << endl;
+	unsigned long size  = runningRankedQueue.size();
+
+	for( auto i = size; i > 0; --i)
+		{
+		temporaryQueue.push_back ( runningRankedQueue.top ( ) );
+		runningRankedQueue.pop( );
+		}
+
+	for( auto i = size; i > 0; --i )
+		{
+		Site * website = temporaryQueue.back();
+		runningRankedQueue.push( website );
+		temporaryQueue.pop_back();
+		cout << "URL: " << website->getUrl( ) << std::endl;
+		cout << "Title: " << website->getTitle( ) << std::endl;
+		cout << "score: " << website->getScore( ) << std::endl;
+		cout << "Static: " << website->getStaticScore( ) << std::endl;
+		cout << "Location: " << website->getLocationScore( ) << std::endl;
+		cout << "Phrase: " << website->getPhraseScore( ) << std::endl;
+		}
 	}
