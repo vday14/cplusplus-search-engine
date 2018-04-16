@@ -10,6 +10,32 @@ $(function () {
 
 function feeling_lucky(){
 //open first link
+    $query = $("#query").val();
+    console.log("Making a query: ");
+    console.log($query);
+
+    $.ajax({
+        url: "/search",
+        type: 'GET',
+        contentType: "text/plain",
+        data: $query,
+        dataType: 'text/plain',
+        success: function (data) {
+
+        },
+        error: function (data) {
+            console.log("error");
+            console.log(data.responseText);
+            var dataReturned = data.responseText;
+            var returnedJSON = JSON.parse(data.responseText);
+            var results = returnedJSON['results'];
+            var topResultUrl = results[0]['site'];
+            console.log("Top URL: " + topResultUrl);
+            window.open("https://" + topResultUrl, '_blank');
+
+        }
+    });
+
 }
 
 
@@ -26,11 +52,6 @@ function get_request(){
         data:  $query,
         dataType: 'text/plain',
         success: function (data) {
-
-
-            console.log("Pass");
-            console.log("Data")
-
 
         },
         error: function (data) {
