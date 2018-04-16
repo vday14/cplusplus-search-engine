@@ -1,11 +1,16 @@
 $(function () {
 
     $("#search").click(get_request);
+    $("#lucky").click(feeling_lucky);
 
 
 
 });
 
+
+function feeling_lucky(){
+//open first link
+}
 
 
 
