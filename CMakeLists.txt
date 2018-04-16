@@ -193,6 +193,28 @@ add_executable(search-engine
         parser/queryTokenizer.cpp)
 
 
+add_executable(querySpeedTest
+        query/querySpeedTest.cpp
+        query/Searcher.cpp
+        util/DataStructureLib/tuple.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        util/util.cpp
+        constraintSolver/ISRContainer.cpp
+        constraintSolver/ISR.h
+        ranker/Ranker.cpp
+        indexer/Corpus.cpp
+        indexer/Chunk.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
+        query/queryLanguage/QueryParser.cpp
+        constraintSolver/ISREndDoc.cpp
+        constraintSolver/ISRWord.cpp
+        constraintSolver/ISRAnd.cpp
+        constraintSolver/ISROr.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp)
+
 add_executable(ISRWord-tests
         util/util.cpp
         constraintSolver/ISRWord.cpp

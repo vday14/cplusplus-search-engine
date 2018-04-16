@@ -35,7 +35,7 @@ private:
 	std::string url;
 	std::string title;
 	Query query;
-	double score;
+
 	bool hasBeenScored;
 
 public:
@@ -54,6 +54,7 @@ public:
 			}
 		}
 
+	double score;
 	/**
 	 * Maps words to their respective data structs
 	 */

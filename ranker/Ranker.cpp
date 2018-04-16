@@ -60,8 +60,6 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 				}
 			std::string word = isrWord->term;
 			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
-			//cout << "Ranker adding url :: " << url << endl;
-			//cout << "Current location " << isrWord->currentLocation << endl;
 
 			if ( word[ 0 ] == Tokenizer::ANCHOR )
 				newSite->hasAnchor = true;
@@ -120,9 +118,9 @@ data Ranker::getData( ISRWord isrWord )
 	{
 
 	data wordData;
-	ISREndDoc endDocs;
+	//ISREndDoc endDocs;
 	std::vector < size_t > offsets;
-	vector<DocumentEnding> docEnds;
+	//vector<DocumentEnding> docEnds;
 
 	unsigned long freq = 0;
 	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc( ).docEndPosition )
@@ -135,6 +133,7 @@ data Ranker::getData( ISRWord isrWord )
 	wordData.frequency = freq;
 	wordData.offsets = offsets;
 	wordData.minDelta = 0;
+
 	return wordData;
 	}
 
@@ -222,16 +221,26 @@ void Ranker::addISR( vector<ISRWord*> isr_in )
 
 void Ranker::run()
 	{
+	clock_t start = clock( );
 	while ( true )
 		{
 		pair<Location, Location> match = MatchQueue->Pop( );
 
 		if( match.first == MAX_Location  || match.second == MAX_Location)
+			{
+			clock_t end = clock( );
+			double time = (end - start) / (double) CLOCKS_PER_SEC;
+			cout << "TOTAL RANKING TIME" << endl;
+			cout << time << endl;
 			return;
+			}
+
 		else
 			{
-			//cout << "MATCHING " << endl;
+			//clock_t start = clock();
 			addDoc(match.first, match.second);
+			//clock_t end = clock( );
+			//cout << (end - start) / (double) CLOCKS_PER_SEC << endl;
 			numberOfTotalResults++;
 			}
 
