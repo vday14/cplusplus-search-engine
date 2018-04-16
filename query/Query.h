@@ -42,6 +42,12 @@ public:
 	std::vector< std::string > getQueryTokens ( );
 
 	/**
+	 * Returns query string
+	 * @return
+	 */
+	std::string getQueryString( );
+
+	/**
 	 * Returns the Query decorated with Anchor '@'
 	 * @return
 	 */
@@ -64,7 +70,6 @@ public:
 	 * @return
 	 */
 	std::vector< std::string > getQueryBody ( );
-
 
 	/**
 	 * Query dstor will destroy the query tokens

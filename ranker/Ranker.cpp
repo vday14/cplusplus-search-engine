@@ -27,13 +27,14 @@ void Ranker::addQuery( std::string query_in )
 	{
 	this->query = Query( query_in );
 	}
+
 /***
  * Adds a new site for the doc given as isrListInput
  *
  * @param isrListInput
  */
 void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
-	{
+{
 
 	//cout << "B of location :: " << endl;
 	assert( isrListInput.size( ) != 0 );
@@ -44,19 +45,19 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 	string title;
 
 	for ( auto isrWord: isrListInput )
-		{
+	{
 
 		isrWord->Seek( BoFDoc);
 
 		if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
-			{
+		{
 			if ( url == "" )
-				{
-				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
-				title = isrWord->GetEndDocument()->getCurrentDoc().title;
-				newSite = new Site( url, query , title );
-				}
-			std::string word = isrWord->term;
+                {
+                url = isrWord->GetEndDocument()->getCurrentDoc().url;
+                title = isrWord->GetEndDocument()->getCurrentDoc().title;
+                newSite = new Site(url, query, title);
+                }
+			string word = isrWord->term;
 			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
 			//cout << "Ranker adding url :: " << url << endl;
 			//cout << "Current location " << isrWord->currentLocation << endl;
@@ -70,15 +71,68 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 			if ( word[ 0 ] == Tokenizer::BODY )
 				newSite->hasBody = true;
 
+<<<<<<< HEAD
+=======
 			newSite->wordData[ word ] = getData( *isrWord );
 			}
+>>>>>>> 113b07de46b1fc6ff1fa1d6512de2573411260c7
 		}
+	}
 	if(newSite != nullptr )
 		selectivelyAddDocs( newSite );
 
 	//assert(newSite != nullptr);
 
+<<<<<<< HEAD
+
+}
+=======
 	}
+>>>>>>> 113b07de46b1fc6ff1fa1d6512de2573411260c7/***
+ * Adds a new site for the doc given as isrListInput
+ *
+ * @param isrListInput
+ */
+void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
+{
+
+    //cout << "B of location :: " << endl;
+    assert( isrListInput.size( ) != 0 );
+
+    Query query( this->getQuery() );
+    Site *newSite = nullptr;
+    string url;
+    string title;
+
+    for ( auto isrWord: isrListInput )
+    {
+
+        isrWord->Seek( BoFDoc);
+
+        if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
+        {
+            if ( url == "" )
+            {
+                url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+                title = isrWord->GetEndDocument()->getCurrentDoc().title;
+                newSite = new Site( url, query , title );
+            }
+            string word = isrWord->term;
+            url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+            //cout << "Ranker adding url :: " << url << endl;
+            //cout << "Current location " << isrWord->currentLocation << endl;
+
+            newSite->wordData[ word ] = getData( *isrWord );
+
+        }
+    }
+    if(newSite != nullptr )
+        selectivelyAddDocs( newSite );
+
+    //assert(newSite != nullptr);
+
+
+}
 
 /**
  * Outputs the ranked sites to stout
@@ -108,6 +162,7 @@ Query Ranker::getQuery( )
 	return this->query;
 	}
 
+
 /**
  * Sets the data for each word
  *
@@ -115,8 +170,8 @@ Query Ranker::getQuery( )
  * @return data
  */
 data Ranker::getData( ISRWord isrWord )
-	{
-
+{
+	Corpus corpus = Corpus::getInstance();
 	data wordData;
 	ISREndDoc endDocs;
 	std::vector < size_t > offsets;
@@ -124,17 +179,18 @@ data Ranker::getData( ISRWord isrWord )
 
 	unsigned long freq = 0;
 	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc( ).docEndPosition )
-		{
+	{
 		offsets.push_back( isrWord.getCurrentLocation( ) );
 		isrWord.Next();
 		++freq;
-		}
+	}
 
+	wordData.docFrequency = corpus.getWordInfo(isrWord.term).docFrequency;
 	wordData.frequency = freq;
 	wordData.offsets = offsets;
 	wordData.minDelta = 0;
 	return wordData;
-	}
+}
 
 /**
  * Scores the document and only adds it to the returned list if it's score is greater than the smallest score

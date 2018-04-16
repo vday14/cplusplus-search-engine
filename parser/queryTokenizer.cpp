@@ -30,5 +30,27 @@ std::vector< std::string > QueryTokenizer::execute( )
 	}
 
 
+/**
+ * Parser for query string that returns dictionary in index format
+ * @return
+ */
+const unordered_map< string, vector< unsigned long > > * QueryParser::executeQueryOffsets (  )
+    {
+    Tokenizer tokenizer;
+    parseQuery( &tokenizer );
+    return tokenizer.get( );
+    }
+/**
+	 * Sends query to tokenizer
+	 * @param tokenizer
+	 */
+void QueryParser::parseQuery (  Tokenizer *tokenizer )
+    {
+    tokenizer->execute( query, 0, '\0' );
+    }
+
+
+
+
 
 

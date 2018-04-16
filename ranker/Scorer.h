@@ -5,6 +5,7 @@
 #include "Site.h"
 #include <unordered_map>
 #include <string>
+#include "../indexer/Corpus.h"
 #include <vector>
 
 /**
@@ -86,6 +87,12 @@ struct ScoreData
 
 	};
 
+struct TfIdf {
+	unsigned long tf;
+	double totalDocFreq;
+	double tfIdf;
+};
+
 class Scorer
 	{
 public:
@@ -106,7 +113,7 @@ public:
 		bodyType,
 		anchorType,
 		URLType
-		};
+	};
 
 	/**
 	 * Scorer cstor
@@ -197,10 +204,40 @@ public:
 	 */
 	int getNumWordsInTitle ( string title );
 
-private:
+
+
 	/**
-	 * Weights that each correspond to some function
+     * Calculates tifidf weight vector for query and input site (doc)
+     * @param inputSite
+     * @return
+     */
+    unordered_map< std::string, TfIdf > calcTfIdf( Site inputSite );
+
+	/**
+	 * Calculate total difference between doc weights and query weights
+	 * @param docWeights
+	 * @return
 	 */
+	double compareTfIdf( unordered_map< string, TfIdf > *docWeights );
+
+
+    /**
+     * Get total corpus doc count
+     * @return
+     */
+    size_t getDocCount( Corpus corpus );
+
+	/**
+	 * Executes tfidf weight calculation and returns rough similarity score
+	 * @param inputSite
+	 * @return
+	 */
+	double executeTfIdf( Site inputSite );
+
+private:
+
+    std::unordered_map< std::string, double > queryWeights;
+
 	const double STATIC_WEIGHT = 1.0;
 	const double PROXIMITY_WEIGHT = 1.0;
 	const double LOCATION_WEIGHT = 1.0;
@@ -211,5 +248,6 @@ private:
 	// calculated in goldStandardDoc.py
 	const double PERFECT_DOC = 0.000606342178009;
 
-	};
+
+
 #endif //EECS398_SEARCH_SCORER_H
