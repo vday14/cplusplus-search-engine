@@ -8,20 +8,44 @@
 #include <vector>
 #include <string>
 #include "../util/util.h"
+#include <queue>
+#include "../ranker/Site.h"
 
-using namespace std;
+
 
 struct doc
 	{
+
+	doc()
+			:score(0.0), url(""), id(0){};
 	vector< double > featureVec;
+	double score;
 	string url;
 	int id;
 	};
 
+
+
+using namespace std;
+
+
+
 class SVM
 	{
 public:
+/***
+ * Custom Comparator for the priority queue that keeps the websites in their correct order.
+ */
+	class Comp
+		{
 
+	public:
+
+		bool operator()(doc L, doc R)
+			{
+			return L.score < R.score;
+			}
+		};
 	SVM();
 
 	~SVM ( );
@@ -29,7 +53,7 @@ public:
 	/***
 	 * Trains the classifier on some training file
 	 */
-	void Train( string trainingFile );
+	void Train( );
 
 	/***
 	 * Generate Ranking matrix given a training file, assign to member RankingMatrix
@@ -41,13 +65,17 @@ public:
 	 * on the Ranking Matrix
 	 * @return double
 	 */
-	double getKendallTauScore(  vector< vector < bool > > &);
+	double getKendallTauScore(  vector< vector < bool > > );
 	/***
 	 * Ranking matrix, value of 1 means i is ranked above j given some ranking method R;
 	 * This is the reference method for this class, that all other matrices will compare to
 	 */
 	vector< vector <  bool > > RankingMatrix;
 
+	void scoreDocs( vector < double > weights);
+
+
+	void printWeights( vector< double> weights );
 private:
 
 
@@ -55,12 +83,15 @@ private:
 
 	string getUnrankedSitesFileName( int number );
 
+	vector< vector < bool > > generateRankingFromList(  priority_queue< doc, vector<doc>, Comp > SortedList );
 
 	const int NUMBER_OF_FEATURES = 3;
 
 	const int NUMBER_OF_DOCS = 10;
 
-	vector < doc *> corpus;
+	unordered_map < string , int > urlToIDMap;
+
+	vector <  doc * > corpus;
 	};
 
 
