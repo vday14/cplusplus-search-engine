@@ -41,7 +41,7 @@ public:
 
 // ISR *GetDocumentISR( );
 
-    std::string term;
+    string term;
     vector< WordSeek > wordSeekLookupTable;
     int currentIndex;
     char *currentMemMap;

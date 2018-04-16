@@ -58,15 +58,11 @@ struct ScoreData
 			//find the delta between each word in the query and the next
 			for ( int col = 0; col < queryTokens->size( ) - 1; ++col )
 				{
-				if ( wordData->find( ( *queryTokens )[ col ] ) != wordData->end( ) && wordData->find( ( *queryTokens )[ col + 1 ] ) != wordData->end( ) )
-					{
-					int indexA = (*wordData)[ (*queryTokens)[ col ] ].minDelta + row;
-					int indexB = (*wordData)[ (*queryTokens)[ col + 1 ] ].minDelta + row;
-					long delta = std::abs ( long ((*wordData)[ (*queryTokens)[ col ] ].offsets[ indexA ] -
-					                              (*wordData)[ (*queryTokens)[ col + 1 ] ].offsets[ indexB ] ));
-					spanDelta += delta;
-					avrgSpanDelta += delta;
-					}
+				int indexA = ( *wordData )[ ( *queryTokens )[ col ] ].minDelta + row;
+				int indexB = ( *wordData )[ ( *queryTokens )[ col + 1 ] ].minDelta + row;
+				long delta = std::abs ( long ( ( *wordData )[ ( *queryTokens )[ col ] ].offsets[ indexA ] - ( *wordData )[ ( *queryTokens )[ col + 1 ] ].offsets[ indexB ] ) );
+				spanDelta += delta;
+				avrgSpanDelta += delta;
 				}
 			++numSpans;
 			++row;
@@ -155,10 +151,9 @@ public:
 	 * Calculates score for proximity matches
 	 *
 	 * @param inputSite
-	 * @param queryTokens
 	 * @return double
 	 */
-	double proximityMatch ( Site inputSite, std::vector< std::string > queryTokens );
+	double proximityMatch ( Site inputSite );
 
 	/**
 	 * Return index of the minimum offset
@@ -207,9 +202,6 @@ private:
 	const double TFIDF_WEIGHT = 1.0;
 	const double ALPHA = 3;
 	const double ALPHA_PRIME = 10;
-	// average percentage of exact phrases in a document
-	// calculated in goldStandardDoc.py
-	const double PERFECT_DOC = 0.000606342178009;
 
 	};
 #endif //EECS398_SEARCH_SCORER_H

@@ -5,7 +5,7 @@
 #include "ISRContainer.h"
 
 
-ISRContainer::ISRContainer( Tuple * top, std::string CompleteQuery )  : root( top )
+ISRContainer::ISRContainer( Tuple * top )  : root( top )
 	{
 
 	compile( );
@@ -19,7 +19,6 @@ ISRContainer::ISRContainer( Tuple * top, std::string CompleteQuery )  : root( to
 
 		}
 	ranker.addISR( toRanker );
-	ranker.addQuery( CompleteQuery );
 	}
 
 
