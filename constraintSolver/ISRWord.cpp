@@ -194,9 +194,12 @@ Location ISRWord::Seek ( Location target )
                     else
                         break;
                     }
-                currentMemMap = corpus.chunks[ info.chunks[ currentIndex ] ].getChunkMap( );
-                currentMemMap += best.realLocation;
-                currentLocation = best.seekOffset;
+				if(currentLocation < best.seekOffset)
+					{
+					currentMemMap = corpus.chunks[info.chunks[currentIndex]].getChunkMap();
+					currentMemMap += best.realLocation;
+					currentLocation = best.seekOffset;
+					}
                 }
 		}
 
