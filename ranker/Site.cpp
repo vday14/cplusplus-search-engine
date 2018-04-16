@@ -9,7 +9,8 @@
  * Site cstor
  */
 Site::Site ( std::string url_in, Query query_in, std::string title_in )
-	: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false )
+	: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false ), hasAnchor(false),
+	  hasUrl(false), hasTitle(false), hasBody(false)
 	{ }
 
 /**

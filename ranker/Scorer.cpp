@@ -7,6 +7,7 @@
 #include "../shared/url.h"
 #include "../parser/queryTokenizer.h"
 #include <cassert>
+#include <limits>
 
 /**
  * Scorer cstor
@@ -23,11 +24,23 @@ double Scorer::getScore ( Site website)
 	{
 	double score = 0.0;
 
-	score += staticScore( website ) * STATIC_WEIGHT;
-	score += proximityMatch( website ) * PROXIMITY_WEIGHT;
-	score += wordLocationScore (website) * LOCATION_WEIGHT;
+	// check to see if decorate query tokens are in wordData map
+	if ( website.hasAnchor )
+		score += proximityMatch( website, website.getQuery( ).getQueryAnchor( ) ) * PROXIMITY_WEIGHT;
 
-	score /= ( STATIC_WEIGHT + PROXIMITY_WEIGHT + LOCATION_WEIGHT );
+	if ( website.hasUrl )
+		score += proximityMatch( website, website.getQuery( ).getQueryUrl( ) ) * PROXIMITY_WEIGHT;
+
+	if ( website.hasTitle )
+		score += proximityMatch( website, website.getQuery( ).getQueryTitle( ) ) * PROXIMITY_WEIGHT;
+
+	if ( website.hasBody )
+		score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
+
+	score += staticScore( website ) * STATIC_WEIGHT;
+	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
+
+	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT );
 	assert ( score <= 1.0);
 	return score;
 	}
@@ -87,11 +100,9 @@ std::string Scorer::getUrlDomain( std::string url )
  *
  * @return double
  */
-double Scorer::proximityMatch ( Site inputSite )
+double Scorer::proximityMatch ( Site inputSite, std::vector< std::string > queryTokens )
 	{
 	double score = 0;
-
-	std::vector< std::string > queryTokens = inputSite.getQuery( ).getQueryTokens( );
 
 	if ( queryTokens.size( ) <= 1 )
 		return score;
@@ -108,17 +119,34 @@ double Scorer::proximityMatch ( Site inputSite )
 
 	// get offsets for other words to be as close as possible to the rarest word
 	// Get Min Delta ( start of relevant word matrix )
+
 	std::pair< unsigned long, int > pair = setMinDelta( &inputSite.wordData, &queryTokens, start );
+
 	unsigned long minLength = std::get< 0 >( pair );
 	int minLengthWord = std::get< 1 >( pair );
 
+
 	ScoreData data( &inputSite.wordData, & queryTokens, minLength, minLengthWord );
 
-	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
-	score += ALPHA_PRIME * ( double( data.numPhrases) / data.numSpans );
+	double percentExactPhrases = double( data.numPhrases) / data.numSpans;
+	if ( percentExactPhrases > PERFECT_DOC )
+		percentExactPhrases = PERFECT_DOC;
 
-	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) -1 ) );
-	maxScore += ALPHA_PRIME;
+	if ( data.avrgSpanDelta != 0 )
+		{
+		score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
+		}
+	else
+	{
+		score = 0;
+	}
+
+//	score = ( ALPHA * ( double( queryTokens.size( ) ) / ( data.avrgSpanDelta ) ) );
+	score += ALPHA_PRIME * ( percentExactPhrases );
+
+	double maxScore = ALPHA * ( double( queryTokens.size( ) ) / double( queryTokens.size( ) - 1 ) );
+	maxScore += ALPHA_PRIME * PERFECT_DOC;
+
 	return ( score / maxScore );
 	}
 
@@ -160,18 +188,35 @@ int Scorer::getMinDelta( unsigned long start, std::vector< size_t >* offsets )
  */
 std::pair< unsigned long, int > Scorer::setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start )
 	{
-	unsigned long minLength = ( *wordData )[ ( *queryTokens )[ 0 ] ].offsets.size( );
+	//minLength starts out as inf
+	unsigned long minLength = 0;
 	int minLengthWord = 0;
+	bool first = true;
+
 	for ( int i = 0; i < queryTokens->size( ); ++i )
 		{
 		std::string word = ( *queryTokens )[ i ];
-		( *wordData )[ word ].minDelta = getMinDelta( start, &( *wordData )[ word ].offsets );
-		if ( ( *wordData )[ word ].offsets.size( ) < minLength )
+		// make sure word is in wordData
+		if ( wordData->find( word ) != wordData->end( ) )
 			{
-			minLength = ( *wordData )[ word ].offsets.size( );
-			minLengthWord = i;
+			(*wordData)[ word ].minDelta = getMinDelta ( start, &(*wordData)[ word ].offsets );
+
+			// first time thru loop
+			if ( first )
+				{
+				minLength = (*wordData)[ word ].offsets.size ( );
+				minLengthWord = i;
+				first = false;
+				}
+
+			if ( (*wordData)[ word ].offsets.size ( ) < minLength )
+				{
+				minLength = (*wordData)[ word ].offsets.size ( );
+				minLengthWord = i;
+				}
 			}
 		}
+
 	std::pair< unsigned long, int > pair( minLength, minLengthWord );
 	return pair;
 	}
