@@ -52,24 +52,84 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 		if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
 		{
 			if ( url == "" )
-			{
-				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
-				title = isrWord->GetEndDocument()->getCurrentDoc().title;
-				newSite = new Site( url, query , title );
-			}
+                {
+                url = isrWord->GetEndDocument()->getCurrentDoc().url;
+                title = isrWord->GetEndDocument()->getCurrentDoc().title;
+                newSite = new Site(url, query, title);
+                }
 			string word = isrWord->term;
 			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
 			//cout << "Ranker adding url :: " << url << endl;
 			//cout << "Current location " << isrWord->currentLocation << endl;
 
-			newSite->wordData[ word ] = getData( *isrWord );
+			if ( word[ 0 ] == Tokenizer::ANCHOR )
+				newSite->hasAnchor = true;
+			if ( word[ 0 ] == Tokenizer::URL )
+				newSite->hasUrl = true;
+			if ( word[ 0 ] == Tokenizer::TITLE )
+				newSite->hasTitle = true;
+			if ( word[ 0 ] == Tokenizer::BODY )
+				newSite->hasBody = true;
 
+<<<<<<< HEAD
+=======
+			newSite->wordData[ word ] = getData( *isrWord );
+			}
+>>>>>>> 113b07de46b1fc6ff1fa1d6512de2573411260c7
 		}
 	}
 	if(newSite != nullptr )
 		selectivelyAddDocs( newSite );
 
 	//assert(newSite != nullptr);
+
+<<<<<<< HEAD
+
+}
+=======
+	}
+>>>>>>> 113b07de46b1fc6ff1fa1d6512de2573411260c7/***
+ * Adds a new site for the doc given as isrListInput
+ *
+ * @param isrListInput
+ */
+void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
+{
+
+    //cout << "B of location :: " << endl;
+    assert( isrListInput.size( ) != 0 );
+
+    Query query( this->getQuery() );
+    Site *newSite = nullptr;
+    string url;
+    string title;
+
+    for ( auto isrWord: isrListInput )
+    {
+
+        isrWord->Seek( BoFDoc);
+
+        if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
+        {
+            if ( url == "" )
+            {
+                url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+                title = isrWord->GetEndDocument()->getCurrentDoc().title;
+                newSite = new Site( url, query , title );
+            }
+            string word = isrWord->term;
+            url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+            //cout << "Ranker adding url :: " << url << endl;
+            //cout << "Current location " << isrWord->currentLocation << endl;
+
+            newSite->wordData[ word ] = getData( *isrWord );
+
+        }
+    }
+    if(newSite != nullptr )
+        selectivelyAddDocs( newSite );
+
+    //assert(newSite != nullptr);
 
 
 }

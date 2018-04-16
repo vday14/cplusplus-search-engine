@@ -48,12 +48,28 @@ public:
 	std::string getQueryString( );
 
 	/**
-	 * Sorts the query's tokens by value
-	 * Returns in a vector of correct order
-	 *
+	 * Returns the Query decorated with Anchor '@'
 	 * @return
 	 */
-	vector< string > sortQueryTokens( );
+	std::vector< std::string > getQueryAnchor ( );
+
+	/**
+	 * Returns the Query decorated with Url '$'
+	 * @return
+	 */
+	std::vector< std::string > getQueryUrl ( );
+
+	/**
+	 * Returns the Query decorated with Title '#'
+	 * @return
+	 */
+	std::vector< std::string > getQueryTitle ( );
+
+	/**
+	 * Returns the Query decorated with Body '%'
+	 * @return
+	 */
+	std::vector< std::string > getQueryBody ( );
 
 	/**
 	 * Query dstor will destroy the query tokens
@@ -62,10 +78,31 @@ public:
 	~Query ( );
 
 private:
+
 	/**
 	 * Query tokens
 	 */
 	 std::vector< std::string > queryTokens;
+
+    /**
+    * Query tokens + '@'
+    */
+    std::vector< std::string > queryTokensAnchor;
+
+    /**
+     * Query tokens + '$'
+     */
+    std::vector< std::string > queryTokensUrl;
+
+    /**
+     * Query tokens + '#'
+     */
+    std::vector< std::string > queryTokensTitle;
+
+    /**
+     * Query tokens + '%'
+     */
+    std::vector< std::string > queryTokensBody;
 
 	std::string queryStr;
 

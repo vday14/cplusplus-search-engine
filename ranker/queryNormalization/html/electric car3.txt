@@ -1,0 +1,1036 @@
+electric car - wikipedia
+electric car
+from wikipedia, the free encyclopedia
+jump to:					navigation, 					search
+this article is about battery electric cars. for the more general category of electric drive for all type of vehicles, see electric vehicle. for cars with electric motors and internal combustion engines, see hybrid electric vehicle. for fuel cell cars, see fuel cell vehicle.
+a fully-electric tesla model s charging.
+a battery electric car is a plug-in electric automobile that is propelled by one or more electric motors, using energy typically stored in rechargeable batteries.
+since 2008, a renaissance in electric vehicle manufacturing occurred due to advances in batteries, concerns about increasing oil prices, and the desire to reduce greenhouse gas emissions.[1][2] several national and local governments have established tax credits, subsidies, and other incentives to promote the introduction and now adoption in the mass market of new electric vehicles depending on battery size and their all-electric range. the current maximum tax credit allowed by the us government is $7,500 per car.[3] compared with cars with internal combustion (ic) engines, electric cars are quieter and have no tailpipe emissions. when recharged by low-emission electrical power sources, electric vehicles can reduce greenhouse gas emissions compared to ic engines. where oil is imported, use of electric vehicles can reduce imports. however, a proper analysis of the overall benefit/efficiency of an electric vehicle must include what type of source was used to charge the battery, the energy required to make the battery, and the energy expended in disposing of it, in an environmentally sound manner.
+recharging can take up to an hour, with some prototype cars as low as 30 minutes, however this amount of time is being reduced as the technology improves. a major limiting factor is that currently (2017) there is inadequate recharging infrastructure for long routes in many countries, though many owners use home charging stations instead of commercial infrastructure, in part due to the convenience of rarely having to access public charging stations. battery cost limits range and increases purchase cost over ic vehicles, however this may change as battery costs are rapidly decreasing. drivers can also sometimes suffer from range anxiety – the fear that the batteries will be depleted before reaching their destination.[1][2] – though, in 2018, ranges over 160 km (100 mi) are typical of new models; and some makers (tesla; general motors) offer models with real-world ranges over 480 km (300 mi), which is comparable to the range of a gasoline-fueled car.
+as of december 2015[update], there were over 30 models of highway legal all-electric passenger cars and utility vans available. cumulative global sales of highway-capable light-duty pure electric vehicles passed one million units in total, globally, in september 2016.[4][5] the nissan leaf is the world's all-time best-selling highway-capable electric car in history, with over 300,000 units sold globally by january 2018.[6] ranking second is the tesla model s with almost 213,000 units sold worldwide through december 2017.[7]
+contents
+1 terminology
+2 history
+3 economics
+3.1 purchase cost
+3.1.1 battery first cost
+3.2 maintenance
+3.3 electricity cost
+3.4 battery depreciation
+3.5 total cost of ownership
+3.6 dealership reluctance to sell
+4 environmental aspects
+5 performance
+5.1 acceleration and drivetrain design
+6 energy efficiency
+6.1 cabin heating and cooling
+7 safety
+7.1 risk of fire
+7.2 vehicle safety
+7.3 hazard to pedestrians
+8 electrical interference
+9 controls
+10 batteries
+10.1 range
+10.2 charging
+10.2.1 home charging
+10.2.2 rapid charging
+10.2.3 charging time
+10.2.4 battery swapping
+10.2.5 range extension
+10.3 lifespan
+10.4 future
+11 electric vehicle charging patents
+12 infrastructure
+12.1 charging station
+12.1.1 us charging standards
+12.1.2 connectors
+12.2 vehicle-to-grid: uploading and grid buffering
+13 politics
+14 currently available electric cars
+14.1 highway capable
+14.2 electric cars by country
+15 government subsidy
+16 see also
+17 references
+18 external links
+terminology[edit]
+nasa's lunar roving vehicles were battery-driven.
+electric cars are a variety of electric vehicle (ev). the term "electric vehicle" refers to any vehicle that uses electric motors for propulsion, while "electric car" generally refers to highway-capable automobiles powered by electricity. low-speed electric vehicles, classified as neighborhood electric vehicles (nevs) in the united states,[8] and as electric motorised quadricycles in europe,[9] are plug-in electric-powered microcars or city cars with limitations in terms of weight, power and maximum speed that are allowed to travel on public roads and city streets up to a certain posted speed limit, which varies by country.
+while an electric car's power source is not explicitly an on-board battery, electric cars with motors powered by other energy sources are generally referred to by a different name. an electric car carrying solar panels to power it is a solar car, and an electric car powered by a gasoline generator is a form of hybrid car. thus, an electric car that derives its power from an on-board battery pack is a form of battery electric vehicle (bev). most often, the term "electric car" is used to refer to battery electric vehicles.[citation needed]
+history[edit]
+main article: history of the electric vehicle
+early electric car, built by thomas parker, photo from 1895[10]
+flocken elektrowagen, 1888 (reconstruction, 2011)
+the general motors ev1, one of the cars introduced due to the california air resources board mandate, had a range of 160 mi (260 km) with nimh batteries in 1999.
+thomas parker built the first practical production electric car in london in 1884, using his own specially designed high-capacity rechargeable batteries.[11][12][13] the flocken elektrowagen of 1888 was designed by german inventor andreas flocken.[14] electric cars were among the preferred methods for automobile propulsion in the late 19th century and early 20th century, providing a level of comfort and ease of operation that could not be achieved by the gasoline cars of the time.[15] the electric vehicle stock peaked at approximately 30,000 vehicles at the turn of the 20th century.[16]
+in 1897, electric cars found their first commercial use in the usa. based on the design of the electrobat ii, a fleet of twelve hansom cabs and one brougham were used in new york city as part of a project funded in part by the electric storage battery company of philadelphia.[17] during the 20th century, the main manufacturers of electric vehicles in the us were anthony electric, baker, columbia, anderson, edison, riker, milburn, bailey electric and others. unlike gasoline-powered vehicles, the electric ones were less fast and less noisy, and did not require gear changes. [18]
+advances in internal combustion engines in the first decade of the 20th century lessened the relative advantages of the electric car. the greater range of gasoline cars, and their much quicker refueling times, made them more popular and encouraged a rapid expansion of petroleum infrastructure, making gasoline easy to find, but what proved decisive was the introduction in 1912 of the electric starter motor which replaced other, often laborious, methods of starting the ice, such as hand-cranking.
+six electric cars held the land speed record.[19] the last of them was the rocket-shaped la jamais contente, driven by camille jenatzy, which broke the 100 km/h (62 mph) speed barrier by reaching a top speed of 105.88 km/h (65.79 mph) on 29 april 1899.
+in the early 1990s, the california air resources board (carb) began a push for more fuel-efficient, lower-emissions vehicles, with the ultimate goal being a move to zero-emissions vehicles such as electric vehicles.[1][20] in response, automakers developed electric models, including the chrysler tevan, ford ranger ev pickup truck, gm ev1, and s10 ev pickup, honda ev plus hatchback, nissan altra ev miniwagon, and toyota rav4 ev. both us electricar and solectria produced 3-phase ac geo-bodied electric cars with the support of gm, hughes, and delco. these early cars were eventually withdrawn from the u.s. market.[21]
+california electric automaker tesla motors began development in 2004 on what would become the tesla roadster (2008), which was first delivered to customers in 2008. the roadster was the first highway legal serial production all-electric car to use lithium-ion battery cells, and the first production all-electric car to travel more than 320 km (200 miles) per charge.[22] models released to the market between 2010 and december 2016 include the mitsubishi i-miev, nissan leaf, ford focus electric, tesla model s, bmw activee, coda, renault fluence z.e., honda fit ev, toyota rav4 ev, renault zoe, roewe e50, mahindra e2o, chevrolet spark ev, fiat 500e, volkswagen e-up!, bmw i3, bmw brilliance zinoro 1e, kia soul ev, volkswagen e-golf, mercedes-benz b-class electric drive, venucia e30, baic e150 ev, denza ev, zotye zhidou e20, byd e5, tesla model x, detroit electric sp.01, byd qin ev300, hyundai ioniq electric and chevrolet bolt ev.
+cumulative global sales of the nissan leaf, currently the top selling electric car, passed 200,000 units in december 2015, five years after its introduction.[23][24] the same month, the renault-nissan alliance, the top selling all-electric vehicle manufacturer, passed the milestone of 300,000 electric vehicles sold worldwide.[24] the tesla model 3 was unveiled on march 31, 2016 and more than 325,000 reservations were made during the first week since bookings opened, each customer paying a refundable us$1,000 deposit to reserve the car.[25] cumulative global sales of all-electric cars and vans passed the 1 million unit milestone in september 2016.[4] global tesla model s sales achieved the 150,000 unit milestone in november 2016.[26] norway achieved the milestone of 100,000 all-electric vehicles registered in december 2016.[27]
+tesla global sales passed 250,000 units in september 2017.[28][29] the renault–nissan–mitsubishi alliance achieved the milestone of 500,000 units electric vehicles sold in october 2017.[30] tesla sold its 200,000th model s in the fourth quarter of 2017.[7] global leaf sales passed 300,000 units in january 2018, keeping its record as the world's top selling plug-in electric car ever.[6]
+economics[edit]
+this section may contain an excessive amount of intricate detail that may only interest a specific audience. specifically, about repetition of the same basic argument several times. it's clear the author is trying to argue with the reader, pushing the belief that electric cars are affordable, rather than just summarizing facts. even so, it beats a dead horse. one or two current, specific examples are sufficient, rather than pounding away over and over. please help by spinning off or relocating any relevant information, and removing excessive detail that may be against wikipedia's inclusion policy. (july 2017) (learn how and when to remove this template message)
+purchase cost[edit]
+electric vehicles range and price, until 2011.
+ev range and price, until 2012.
+ev range and price, until 2015.
+ev range and price, until early 2017.
+as of 2013[update], electric cars are significantly more expensive than conventional internal combustion engine vehicles and hybrid electric vehicles due to the cost of their battery pack.[31] however, battery prices are coming down about 8% per annum with mass production, and are expected to drop further[32][33][34] as competition increases.[35][36]
+according to a 2010 survey, around three quarters of american and british car buyers have or would consider buying an electric car, but they are unwilling to pay more for an electric car.[37] several national and local governments have established tax credits, subsidies, and other incentives to reduce the net purchase price of electric cars and other plug-ins.[38][39][40][41]
+car manufacturers choose different strategies for evs. for low production, converting existing platforms is the cheapest as development cost is low. for higher production, a dedicated platform may be preferred to optimize design.[42]
+almost 80% of electric vehicles in the u.s. are leased, while the lease rate for the country's entire fleet is about 30%.[43] in early 2018, electric compact cars of 2014 are worth 23 percent of their original sticker price, as comparable cars with combustion engines worth 41 percent.[43]
+battery first cost[edit]
+tesla motors uses laptop-size cells for a cost of about $200 per kilowatt hour.[44][45][46] based on the three battery size options offered for the tesla model s, the new york times estimated the cost of automotive battery packs between us$400 to us$500 per kilowatt-hour.[47]
+a 2013 study reported that battery costs came down from us$1,300 per kilowatt hour in 2007 to us$500 per kilowatt hour in 2012. the u.s. department of energy has set cost targets for its sponsored battery research of us$300 per kilowatt hour in 2015 and us$125 per kilowatt hour by 2022, and current solutions are on track to meet or exceed that goal. in 2017, general motors was reported to be paying us$145 per kilowatt hour of battery capacity for the bolt ev.[48] as of january 2018, replacement bolt battery packs have a list price from gm that is equivalent to us$262 per kilowatt hour.[49] further expected reductions of battery cost and higher production volumes will allow plug-in electric vehicles to be more competitive with conventional internal combustion engine vehicles.[50]
+a 2016 study by bloomberg new energy finance (bnef) says battery prices fell 65% since 2010, and 35% just in 2015, reaching us$350 per kwh. the study predicts electric car battery costs to be below us$120 per kwh by 2030, and to fall further thereafter as new chemistries become available.[51][52] mckinsey estimates that electric cars are competitive at a battery pack cost of $100/kwh (around 2030), and expects pack costs to be $190/kwh by 2020.[53]
+maintenance[edit]
+li-ion battery-powered bmw i3 showing the carbon fibre structure and the electric motor
+the documentary who killed the electric car? shows a comparison between the parts that require replacement in gasoline-powered cars and ev1s, with the garages stating that they bring the electric cars in every 5,000 mi (8,000 km), rotate the tires, fill the windshield washer fluid and send them back out again.[needs update][54] other advantages of electric cars are that they do not need to be driven to petrol stations and there are often fewer fluids which need to be changed.
+electricity cost[edit]
+the cost of charging the battery depends on the cost of electricity. as of november 2012, a nissan leaf driving 500 miles (800 km) per week is estimated to cost us$600 per year in charging costs in illinois, u.s.,[55] as compared to us$2,300 per year in fuel costs for an average new car using regular gasoline.[56][57] charging is more cost effective where cheaper off-peak electricity is available. for example, according to nissan, the operating electricity cost of the leaf in the uk is 1.75 pence per mile (1.09 p/km) when charging at an off-peak electricity rate, while a conventional petrol-powered car costs more than 10 pence per mile (6.21 p/km).[58]
+battery depreciation[edit]
+much of the mileage-related cost of an electric vehicle is depreciation of the battery pack.[59] to calculate the cost per kilometer of an electric vehicle it is therefore necessary to assign a monetary value to the wear incurred on the battery.
+the tesla roadster's battery pack is expected to last seven years with typical driving and costs us$12,000 when pre-purchased today.[60][61] driving 40 miles (64 km) per day for seven years or 102,200 miles (164,500 km) leads to a battery consumption cost of us$0.1174 per 1 mile (1.6 km) or us$4.70 per 40 miles (64 km).
+total cost of ownership[edit]
+a 2010 report, by j.d. power and associates states that it is not entirely clear to consumers the total cost of ownership of battery electric vehicles over the life of the vehicle, and "there is still much confusion about how long one would have to own such a vehicle to realize cost savings on fuel, compared with a vehicle powered by a conventional internal combustion engine (ice). the resale value of hevs and bevs, as well as the cost of replacing depleted battery packs, are other financial considerations that weigh heavily on consumers' minds."[62]
+a 2011 study found that the gasoline costs savings of plug-in electric cars over their lifetimes do not offset their higher purchase prices.[63][64][63]
+the chinese auto manufacturer byd calculated on its website in 2015 that a byd e6 taxi over five years would give a saving of about $74,000 over the equivalent petrol consumption.[65]
+in 2018 the australian federal government’s advisory firm on vehicle emissions estimated the tco for electric cars was 5 to 10 thousand dollars more per year than a roughly equivalent petrol powered car.[66] representatives of the electric car industry responded by claiming that more subsidies were necessary.
+dealership reluctance to sell[edit]
+almost all new cars in the united states are sold through dealerships, so they play a crucial role in the sales of electric vehicles, and negative attitudes can hinder early adoption of plug-in electric vehicles.[67][68] dealers decide which cars they want to stock, and a salesperson can have a big impact on how someone feels about a prospective purchase. sales people have ample knowledge of internal combustion cars while they do not have time to learn about a technology that represents a fraction of overall sales.[67] retailers are central to ensuring that buyers have the information and support they need to gain the full benefits of adopting this new technology.[68]
+there are several reasons for the reluctance of some dealers to sell plug-in electric vehicles. pevs do not offer car dealers the same profits as gasoline-powered car. plug-in electric vehicles take more time to sell because of the explaining required, which hurts overall sales and sales people commissions. electric vehicles also may require less maintenance, resulting in loss of service revenue, and thus undermining the biggest source of dealer profits, their service departments. according to the national automobile dealers association (nada), dealers on average make three times as much profit from service as they do from new car sales. however, a nada spokesman said there was not sufficient data to prove that electric cars would require less maintenance.[67] according to the new york times, bmw and nissan are among the companies whose dealers tend to be more enthusiastic and informed, but only about 10% of dealers are knowledgeable on the new technology.[67]
+car dealerships play a crucial role in the sales of plug-in electric vehicles
+a 2014 study found many car dealers are not enthusiastic about selling plug-in vehicles.[68] surveys of buyers of plug-in electric vehicles showed they were significantly less satisfied and rated the dealer purchase experience much lower than buyers of non-premium conventional cars. plug-in buyers expect more from dealers than conventional buyers, including product knowledge and support that extends beyond traditional offerings.[68] in 2014 consumer reports reported that not all sales people seemed enthusiastic about making pev sales, and many seemed not to have a good understanding of electric-car incentives or of charging needs and costs. at 35 of the 85 dealerships visited, the secret shoppers said sales people recommended buying a gasoline-powered car instead.[69]
+the its-davis study also found that a small but influential minority of dealers have introduced new approaches to better meet the needs of plug-in customers. examples include marketing carpool lane stickers, enrolling buyers in charging networks, and preparing incentive paperwork for customers. some dealers assign seasoned sales people as plug-in experts, many of whom drive plug-ins themselves to learn and be familiar with the technology and relate the car's benefits to potential buyers. the study concluded also that carmakers could do much more to support dealers selling pevs.[68]
+environmental aspects[edit]
+main article: environmental aspects of the electric car
+electric cars have several benefits over conventional internal combustion engine automobiles, including a significant reduction of local air pollution, especially in cities, as they do not emit harmful tailpipe pollutants such as particulates (soot), volatile organic compounds, hydrocarbons, carbon monoxide, ozone, lead, and various oxides of nitrogen.[70][71][72] the clean air benefit may only be local because, depending on the source of the electricity used to recharge the batteries, air pollutant emissions may be shifted to the location of the generation plants.[1] this is referred to as the long tailpipe of electric vehicles. the amount of carbon dioxide emitted depends on the emission intensity of the power sources used to charge the vehicle, the efficiency of the said vehicle and the energy wasted in the charging process. for mains electricity the emission intensity varies significantly per country and within a particular country, and on the demand, the availability of renewable sources and the efficiency of the fossil fuel-based generation used at a given time.[73][74][75]
+electric cars usually also show significantly reduced greenhouse gas emissions, depending on the method used for electricity generation to charge the batteries.[1][2] for example, some battery electric vehicles do not produce co2 emissions at all, but only if their energy is obtained from sources such as solar, wind, nuclear, or hydropower.[76]
+even when the power is generated using fossil fuels, electric vehicles usually, compared to gasoline vehicles, show significant reductions in overall well-wheel global carbon emissions due to the highly carbon-intensive production in mining, pumping, refining, transportation and the efficiencies obtained with gasoline.[77]
+performance[edit]
+acceleration and drivetrain design[edit]
+rimac concept one, electric supercar, since 2013. 0 to 100 km/h (62 mph) in 2.5 seconds, 1224 hp[78]
+electric motors can provide high power-to-weight ratios, and batteries can be designed to supply the large currents to support these motors. electric motors have very flat torque curves down to zero speed. for simplicity and reliability, many electric cars use fixed-ratio gearboxes and have no clutch.
+although some electric vehicles have very small motors, 15 kw (20 hp) or less and therefore have modest acceleration, many electric cars have large motors and brisk acceleration. in addition, the relatively constant torque of an electric motor, even at very low speeds tends to increase the acceleration performance of an electric vehicle relative to that of the same rated motor power internal combustion engine.
+electric vehicles can also use a direct motor-to-wheel configuration which increases the amount of available power. having multiple motors connected directly to the wheels allows for each of the wheels to be used for both propulsion and as braking systems, thereby increasing traction.[79][80][81] when not fitted with an axle, differential, or transmission, electric vehicles have less drivetrain rotational inertia.
+for example, the venturi fetish delivers supercar acceleration despite a relatively modest 220 kw (300 hp), and top speed of around 160 km/h (100 mph). some dc-motor-equipped drag racer evs have simple two-speed manual transmissions to improve top speed.[82] the tesla roadster (2008) 2.5 sport can accelerate from 0 to 97 km/h (0 to 60 mph) in 3.7 seconds with a motor rated at 215 kw (288 hp).[83] tesla model s p100d (performance / 100kwh / 4-wheel drive) is capable of 2.28 seconds for 0–60 mph at a price of $140,000 [1]. as of may 2017[update], the p100d is the second fastest production car ever built, slower by a mere 0.08[clarification needed] only to a $847,975 porsche 918 spyder.[84] the wrightspeed x1 prototype created by wrightspeed inc was in 2009 the worlds fastest street legal electric car to accelerate from 0 to 97 km/h (0 to 60 mph), which it does in 2.9 seconds.[85][86] the electric supercar rimac concept one can go from 0–100 km/h (0–62 mph) in 2.8 seconds using 811 kw (1,088 hp).
+energy efficiency[edit]
+internal combustion engines have thermodynamic limits on efficiency, expressed as fraction of energy used to propel the vehicle compared to energy produced by burning fuel. gasoline engines effectively use only 15% of the fuel energy content to move the vehicle or to power accessories, and diesel engines can reach on-board efficiency of 20%, while electric vehicles have on-board efficiency of over 90%, when counted against stored chemical energy, or around 80%, when counted against required energy to recharge.[87]
+electric motors are more efficient than internal combustion engines in converting stored energy into driving a vehicle. electric cars do not idle. regenerative braking can recover as much as one fifth of the energy normally lost during braking.[1][87]
+production and conversion electric cars typically use 10 to 23 kw·h/100 km (0.17 to 0.37 kw·h/mi).[88][89] approximately 20% of this power consumption is due to inefficiencies in charging the batteries. tesla motors indicates that the vehicle efficiency (including charging inefficiencies) of their lithium-ion battery powered vehicle is 12.7 kw·h/100 km (0.21 kw·h/mi) and the well-to-wheels efficiency (assuming the electricity is generated from natural gas) is 24.4 kw·h/100 km (0.39 kw·h/mi).[90]
+cabin heating and cooling[edit]
+electric vehicles generate very little waste heat. supplemental heat may have to be used to heat the interior of the vehicle if heat generated from battery charging/discharging cannot be used to heat the interior. while heating can be provided with an electric resistance heater, higher efficiency and integral cooling can be obtained with a reversible heat pump. positive temperature coefficient (ptc) junction cooling[91] is also attractive for its simplicity — this kind of system is used for example in the tesla roadster (2008).
+to avoid draining the battery and thus reducing the range, some models allow the cabin to be heated while the car is plugged in. for example, the nissan leaf, the mitsubishi i-miev and the tesla model s can be pre-heated while the vehicle is plugged in.[92][93][94]
+some electric cars, for example the citroën berlingo electrique, use an auxiliary heating system (for example gasoline-fueled units manufactured by webasto or eberspächer) but sacrifice "green" and "zero emissions" credentials. cabin cooling can be augmented with solar power, or by automatically allowing outside air to flow through the car when parked. two models of the 2010 toyota prius include this feature as an option.[95]
+safety[edit]
+the safety issues of bevs are largely dealt with by the international standard iso 6469. this document is divided in three parts dealing with specific issues:
+on-board electrical energy storage, i.e. the battery
+functional safety means and protection against failures
+protection of persons against electrical hazards.
+risk of fire[edit]
+main article: plug-in electric vehicle fire incidents
+frontal crash test of a volvo c30 drive electric to assess the safety of the battery pack
+lithium-ion batteries may suffer thermal runaway and cell rupture if overheated or overcharged, and in extreme cases this can lead to combustion.[96] several plug-in electric vehicle fire incidents have taken place since the introduction of mass-production plug-in electric vehicles in 2008. most of them have been thermal runaway incidents related to their lithium-ion battery packs, and have involved the zotye m300 ev, chevrolet volt, fisker karma, byd e6, dodge ram 1500 plug-in hybrid, toyota prius plug-in hybrid, mitsubishi i-miev and outlander p-hev. as of november 2013[update], four post-crash fires associated with the batteries of all-electric cars—involving one byd e6 and three tesla model s cars—have been reported.[citation needed]
+the first modern crash-related fire was reported in china in may 2012, after a high-speed car crashed into a byd e6 taxi in shenzhen.[97] the second reported incident occurred in the united states on october 1, 2013, when a tesla model s caught fire over ten minutes after the electric car hit metal debris on a highway in kent, washington state, and the debris punctured one of 16 modules within the battery pack.[98][99] a second reported fire occurred on october 18, 2013 in merida, mexico. in this case the vehicle was being driven at high speed through a roundabout and crashed through a wall and into a tree. the fire broke out many minutes after the driver exited the vehicle. on november 6, 2013, a tesla model s being driven on interstate 24 near murfreesboro, tennessee caught fire after it struck a tow hitch on the roadway, causing damage beneath the vehicle.[100]
+in the united states, general motors ran in several cities a training program for firefighters and first responders to demonstrate the sequence of tasks required to safely disable the chevrolet volt’s powertrain and its 12 volt electrical system, which controls its high-voltage components, and then proceed to extricate injured occupants. the volt's high-voltage system is designed to shut down automatically in the event of an airbag deployment, and to detect a loss of communication from an airbag control module.[101][102] gm also made available an emergency response guide for the 2011 volt for use by emergency responders. the guide also describes methods of disabling the high voltage system and identifies cut zone information.[103] nissan also published a guide for first responders that details procedures for handling a damaged 2011 leaf at the scene of an accident, including a manual high-voltage system shutdown, rather than the automatic process built-in the car's safety systems.[104][105]
+vehicle safety[edit]
+great effort is taken to keep the mass of an electric vehicle as low as possible to improve its range and endurance. however, the weight and bulk of the batteries themselves usually makes an ev heavier than a comparable gasoline vehicle, reducing range and leading to longer braking distances. however, in a collision, the occupants of a heavy vehicle will, on average, suffer fewer and less serious injuries than the occupants of a lighter vehicle; therefore, the additional weight brings safety benefits[106] despite having a negative effect on the car's performance.[107] they also use up interior space if packaged ineffectively. if stored under the passenger cell, not only is this not the case, they also lower the vehicles's center of gravity, increasing driving stability, thereby lowering the risk of an accident through loss of control. an accident in a 2,000 lb (900 kg) vehicle will on average cause about 50% more injuries to its occupants than a 3,000 lb (1,400 kg) vehicle.[108] in a single car accident,[citation needed] and for the other car in a two car accident, the increased mass causes an increase in accelerations and hence an increase in the severity of the accident.
+some electric cars use low rolling resistance tires, which typically offer less grip than normal tires.[109][110][111] many electric cars have a small, light and fragile body, though, and therefore offer inadequate safety protection[citation needed]. the insurance institute for highway safety in america had condemned the use of low speed vehicles and "mini trucks," referred to as neighborhood electric vehicles (nevs) when powered by electric motors, on public roads.[112] mindful of this, several companies (tesla motors, bmw, uniti) have succeeded in keeping the body light, while making it very strong.[113]
+hazard to pedestrians[edit]
+see also: electric vehicle warning sounds
+at low speeds, electric cars produced less roadway noise as compared to vehicles propelled by internal combustion engines. blind people or the visually impaired consider the noise of combustion engines a helpful aid while crossing streets, hence electric cars and hybrids could pose an unexpected hazard.[114][115] tests have shown that this is a valid concern, as vehicles operating in electric mode can be particularly hard to hear below 20 mph (30 km/h) for all types of road users and not only the visually impaired. at higher speeds, the sound created by tire friction and the air displaced by the vehicle start to make sufficient audible noise.[115]
+the government of japan, the u.s. congress, and the european parliament passed legislation to regulate the minimum level of sound for hybrids and plug-in electric vehicles when operating in electric mode, so that blind people and other pedestrians and cyclists can hear them coming and detect from which direction they are approaching.[115][116][117][118] the nissan leaf was the first electric car to use nissan's vehicle sound for pedestrians system, which includes one sound for forward motion and another for reverse.[119][120] as of january 2014[update], most of the hybrids and plug-in electric and hybrids available in the united states, japan and europe make warning noises using a speaker system. the tesla model s is one of the few electric cars without warning sounds, because tesla motors will wait until regulations are enacted.[121] volkswagen and bmw also decided to add artificial sounds to their electric drive cars only when required by regulation.[122]
+several anti-noise and electric car advocates have opposed the introduction of artificial sounds as warning for pedestrians, as they argue that the proposed system will only increase noise pollution.[citation needed]. added to this, such an introduction is based on vehicle type and not actual noise level, a concern regarding ice vehicles which themselves are becoming quieter.
+electrical interference[edit]
+on-board electrical systems generate enough interference that some manufacturers have removed am radios from their vehicles due to poor reception.[123]
+controls[edit]
+presently most ev manufacturers do their best to emulate the driving experience as closely as possible to that of a car with a conventional automatic transmission that motorists in some countries are familiar with. most models therefore have a prndl selector traditionally found in cars with automatic transmission despite the underlying mechanical differences. push buttons are the easiest to implement as all modes are implemented through software on the vehicle's controller.
+even though the motor may be permanently connected to the wheels through a fixed-ratio gear and no parking pawl may be present the modes "p" and "n" will still be provided on the selector. in this case the motor is disabled in "n" and an electrically actuated hand brake provides the "p" mode.
+in some cars the motor will spin slowly to provide a small amount of creep in "d", similar to a traditional automatic.[124]
+when the foot is lifted from the accelerator of an ice, engine braking causes the car to slow. an ev would coast under these conditions, but applying mild regenerative braking instead provides a more familiar response and recharges the battery somewhat. selecting the l mode will increase this effect for sustained downhill driving, analogous to selecting a lower gear. these features also reduce the use of the conventional brakes, significantly reducing wear and tear and maintenance costs as well as improving vehicle range.
+batteries[edit]
+prototypes of 50 watt-hour/kilogram lithium-ion polymer battery. newer lithium-ion cells can provide up to 130 w·h/kg and last through thousands of charging cycles.
+main article: electric vehicle battery
+while most current highway-speed electric vehicle designs focus on lithium-ion and other lithium-based variants a variety of alternative batteries can also be used. lithium-based batteries are often chosen for their high power and energy density but have a limited shelf life and cycle lifetime which can significantly increase the running costs of the vehicle. variants such as lithium iron phosphate and lithium-titanate attempt to solve the durability issues of traditional lithium-ion batteries.
+other battery types include lead acid batteries which are still the most used form of power for most of the electric vehicles used today. the initial construction costs are significantly lower than for other battery types, but the power to weight ratio is poorer than other designs,[125] nickel metal hydride (nimh) which are somewhat heavier and less efficient than lithium ion, but also cheaper. several other battery chemistries are in development such as zinc-air battery which could be much lighter, and liquid batteries that might be rapidly refilled, rather than recharged, are also under development.
+range[edit]
+further information: list of electric cars currently available
+external image
+list of ranges for electric cars in norway as of 2014
+the range of an electric car depends on the number and type of batteries used. the weight and type of vehicle, and the performance demands of the driver, also have an impact just as they do on the range of traditional vehicles.[126] range may also significantly be reduced in cold weather.
+summary of nissan leaf results using epa l4 test cycle
+operating the 2011 leaf under different real-world scenarios[127][128]
+driving
+condition
+speed
+temperature
+total drive
+duration
+range
+air
+conditioner
+mph
+km/h
+°f
+°c
+mi
+km
+cruising (ideal condition)
+38
+61
+68
+20
+3 hr 38 min
+138
+222
+off
+city traffic
+24
+39
+77
+25
+4 hr 23 min
+105
+169
+off
+highway
+55
+89
+95
+35
+1 hr 16 min
+70
+110
+in use
+winter, stop-and-go traffic
+15
+24
+14
+−10
+4 hr 08 min
+62
+100
+heater on
+heavy stop-and-go traffic
+6
+10
+86
+30
+7 hr 50 min
+47
+76
+in use
+epa five-cycle tests[129]
+n.a.
+73
+117
+varying
+comparison of epa-rated range for model year 2016 and 2017 electric cars rated up until july 2017. tesla vehicles shown correspond to the variants with the longest and shortest range for each model.[130][131]
+the range of current production electric vehicles ranges anywhere from 62 mi (100 km) (renault twizy) to 315–335 mi (510–540 km) (tesla model s)
+electric cars are virtually universally fitted with an expected range display. this may take into account many factors, including battery charge, the recent average power use, the ambient temperature, driving style, air conditioning system, route topography etc. to come up with an estimated driving range. however, since factors can vary over the route, the estimate can vary from the actual achieved range. people can thus be concerned that they would run out of energy from their battery before reaching their destination, a worry known as range anxiety. the display allows the driver able to make informed choices about driving speed and whether to, perhaps briefly, stop at a charging point en route to ensure that they have enough charge that they arrive at their destination successfully. some roadside assistance organizations offer charge trucks to reload empty electric cars.[132]
+a study in 2016 stated that 87% of us vehicle-days can be met by current affordable electric cars.[133][134]
+charging[edit]
+electric cars typically have less maximum range on one charge than do fossil fueled cars, and can take considerable time to recharge. however, they can be charged at home overnight, which fossil fueled cars cannot. 71% of all car drivers in america drive less than 40 miles (64 km) per day, and require only a relatively quick topping up.[135]
+in the united states, most commercially-sold models of electric car use a single standardized plug interface, sae j1772, which includes provision for direct communication between the car's electronics and external charging equipment. other regions (notably europe and china) have adopted similar charging standards albeit with different plug interfaces. this means that, within each major region of the world, electric car charging stations are essentially universal across car and charger brands, and simply plugging in a charger into an electric car will charge the car at the fastest rate that both car and charger can support. a notable exception are the tesla line of cars, which use a proprietary charging standard that is electrically similar to sae j1772 but uses a different physical plug; tesla cars can use standard charging equipment but require an adapter to do so.
+although batteries work with d.c. electricity, cars with the sae j1772 and similar charging inlets can accept a.c. electricity directly from a local electrical grid. standards exist for very rapid d.c. charging as well. in rapid d.c. chargers, a.c. grid electricity is converted to direct current in the charging station, avoiding the need for the car to carry heavy and expensive very-high-power charging circuits.
+home charging[edit]
+as examples of on-board chargers, the nissan leaf at launch had a 3.3 kw charger,[136] and the tesla roadster can accept up to 16.8 kw (240 v at 70 a) from the high power wall connector.[137]
+rapid charging[edit]
+panoramic view of tesla supercharger rapid charging station in tejon ranch, california
+however, most vehicles also support much faster charging, where a suitable power supply is available. therefore, for long distance travel, in the us and elsewhere, there has been the installation of fast charging stations with high-speed charging capability from three-phase industrial outlets so that consumers can recharge the battery of their electric vehicle to 80 percent in about 30 minutes (for example nissan leaf, tesla model s, renault zoe, bmw i3 etc.).[138][139][140] although charging at these stations is still relatively time consuming compared to refueling, in practice it often meshes well with a normal driving pattern, where driving is usually done for a few hours before stopping and resting and drinking or eating; this gives the car a chance to be charged.[141]
+as of december 2013[update], estonia is the first and only country that had deployed an ev charging network with nationwide coverage, with fast chargers available along highways at a minimum distance of between 40 to 60 km (25 to 37 mi), and a higher density in urban areas.[142][143][144] dc fast chargers are going to be installed at 45 bp and arco locations and will be made available to the public as early as march 2011.[145] the ev project will deploy charge infrastructure in 16 cities and major metropolitan areas in six states.[146][147] nissan has announced that 200 of its dealers in japan will install fast chargers for the december 2010 launch of its leaf ev, with the goal of having fast chargers everywhere in japan within a 25-mile radius.[148]
+charging time[edit]
+byd e6 taxi. recharging in 15 minutes to 80 percent
+electric cars generally require more time to recharge than internal combustion engines take to refuel. the time varies greatly depending on the charging technology, and principally depends on the amount of electric power available at the charger. charging times can vary from minutes to days for the same car, depending on the capacity of the charging equipment being used, with home charging typically being slower than rapid charging, with home charging typically being done when the car is not in
+many electric cars can be recharged to 80 percent in about 30 minutes (for example nissan leaf, tesla model s, renault zoe, bmw i3 etc.), using dc rapid-charging technology. at least three major standards exist for this technology: sae combo (based on sae j1772), chademo (the major standard in japan and also widely used in the u.s.), and tesla supercharger. the first two are attempts at a universal standard high-speed plug; tesla model cars use a proprietary standard that is not directly compatible with the others.
+the porsche mission e will be able to charge to 80 percent within 15 minutes, making it the fastest-charging electric vehicle available.[149] according to tesla, the tesla model s and tesla model x can be charged from a proprietary dc quick-charging station that provides up to 135 kw of power, giving 85 kwh vehicles 290 km (180 mi) of range in about 30 minutes.
+according to the manufacturer byd the lithium iron phosphate battery of the electric car e6 is charged at a fast charging station within 15 minutes to 80%, after 40 minutes at 100%.[150]
+instead of giving the charging rate in kilowatts, the charge speed is sometimes expressed as "miles range per hour" (mrph), as it may be easier to understand, and cars have different consumption.[151][152]
+battery swapping[edit]
+further information: battery swapping
+the battery swap process on a zotye m300 ev.
+another way to extend the limited range of electric vehicles is by battery swapping. an ev can go to a battery switch station and swap a depleted battery with a fully charged one in a few minutes. in 2011, better place deployed the first modern commercial application of the battery switching model, but due to financial difficulties, the company filed for bankruptcy in may 2013.[153][154][155][156]
+tesla motors designed its model s to allow fast battery swapping.[157] in june 2013, tesla announced their goal to deploy a battery swapping station in each of its supercharging stations. at a demonstration event tesla showed that a battery swap operation with the model s takes just over 90 seconds, about half the time it takes to refill a gasoline-powered car.[158][159] the first stations are planned to be deployed along interstate 5 in california where, according to tesla, a large number of model s sedans make the san francisco-los angeles trip regularly. these will be followed by the washington, dc to boston corridor. each swapping station will cost us$500,000 and will have about 50 batteries available without requiring reservations. the service would be offered for the price of about 15 us gallons (57 l; 12 imp gal) of gasoline at the current local rate, around us$60 to us$80 at june 2013 prices.[158]
+range extension[edit]
+the bmw i3 has an optional gasoline-powered range extender engine
+a similar idea is that of the range-extension trailer which is attached only when going on long trips. the trailers can either be owned or rented only when necessary.[160]
+bmw i is offering a built-in gasoline-powered range extender engine as an option for its bmw i3 all-electric car.[161] the range-extender option will cost an additional us$3,850 in the united states,[162] an additional €4,710 (~ us$6,300) in france,[163] and €4,490 (~ us$6,000) in the netherlands.[164]
+lifespan[edit]
+main article: rechargeable battery § lifespan and cycle stability
+battery life should be considered when calculating the extended cost of ownership, as all batteries eventually wear out and must be replaced. the rate at which they expire depends on the type of battery and how they are used — many types of batteries are damaged by depleting them beyond a certain level. lithium-ion batteries degrade faster when stored at higher temperatures, when they are rapidly charged, and when they are fully charged. many users set their cars to charge to 80% for their daily charging; which is usually enough for daily mileage, only charging them to 100% for longer journeys.[citation needed]
+although there are times when batteries do fail the electric vehicles' batteries are designed to last for the expected life of the vehicle. the failure rate of some electric vehicles batteries already on the road is as low as 0.003%. there are also high mileage warranties on electric vehicle batteries. several manufactures offer up to eight year and one hundred thousand mile warranties on the batteries alone.[165]
+a full replacement battery is relatively costly. with technological advances there are now recycle options available ("maintenance and safety of electric vehicles"), and a battery that is no longer capable of delivering sufficient range nevertheless has significant trade-in value.[citation needed]
+nissan stated in 2015 that thus far only 0.01 percent of batteries had to be replaced because of failures or problems and then only because of externally inflicted damage. there are few vehicles that have already covered more than 200,000 km (124,274 mi) anyway. these have no problems with the battery.[166]
+future[edit]
+dynamic electric vehicle charging (devc)
+dynamic electric vehicle charging (devc) is based on the concept of charging an ev while it is in motion. dynamic charging can take place in a parking lot, at a bus stop during passenger disembarkation, along a highway or near traffic lights.[167]
+autonomous park-and-charge
+volkswagen, in collaboration with six partners, is developing v-charge – an eu research project that is focused on automating the parking and charging of electric vehicles. the objective of this project is to develop a smart car system that allows for autonomous driving in designated areas (e.g. valet parking, park and ride) and can offer advanced driver support in urban environments.[168]
+lithium availability
+the salar de uyuni in bolivia is one of the largest known lithium reserves in the world.[169][170]
+see also: rare-earth metals availability and supply security
+many electric cars use a lithium-ion battery and an electric motor which uses rare-earth elements. the demand for lithium, heavy metals, and other specific elements (such as neodymium, boron and cobalt) required for the batteries and powertrain is expected to grow significantly due to the future sales increase of plug-in electric vehicles in the mid and long term.[171][172] some of the largest world reserves of lithium and other rare metals are located in countries with strong resource nationalism, unstable governments or hostility to u.s. interests, raising concerns about the risk of replacing dependence on foreign oil with a new dependence on hostile countries to supply strategic materials.[169][171][172][173] it is estimated that there are sufficient lithium reserves to power 4 billion electric cars.[174][175]
+other methods of energy storage
+experimental supercapacitors and flywheel energy storage devices offer comparable storage capacity, faster charging, and lower volatility. they have the potential to overtake batteries as the preferred rechargeable storage for evs.[176][177] the fia included their use in its sporting regulations of energy systems for formula one race vehicles in 2007 (for supercapacitors) and 2009 (for flywheel energy storage devices).
+solar cars
+main article: solar vehicle
+solar cars are electric vehicles powered completely or significantly by direct solar energy, usually, through photovoltaic (pv) cells contained in solar panels that convert the sun's energy directly into electric energy.
+electrified road
+in march 2016 toyohashi university of technology and taisei corp of japan unveiled the first electrical car in the world that would be able to run without a battery. the electric car receives its charge from an electrified road. the test was made on electrified road in toyohashi, in the aichi prefecture.[178]
+electric vehicle charging patents[edit]
+qualcomm, hyundai, ford, and mitsubishi are the top patent holders of the close to 800 electric vehicle charging patents filed between 2014 and 2017[179]. a majority of patents on electric vehicle charging were filed in japan between 2014 and 2017. it is followed by the us and then by china.[180]
+infrastructure[edit]
+charging station[edit]
+charging station at rio de janeiro, brazil. this station is run by petrobras and uses solar energy.
+main article: charging station
+batteries in bevs must be periodically recharged (see also replacing, above). unlike vehicles powered directly by fossil fuels, bevs are most commonly and conveniently charged from the power grid overnight at home, without the inconvenience of having to go to a filling station. charging can also be done using a street, garage or shop charging station. the electricity on the grid is in turn generated from a variety of sources; such as coal, hydroelectricity, nuclear and others. power sources such as photovoltaic solar cell panels, micro hydro or wind may also be used and are promoted because of concerns regarding global warming.
+more electrical power to the car reduces charging time. power is limited by the capacity of the grid connection, and, for level 1 and 2 charging, by the power rating of the car's on-board charger. a normal household outlet is between 1.5 kw (in the us, canada, japan, and other countries with 110 volt supply) to 3 kw (in countries with 230 v supply). the main connection to a house may sustain 10, 15 or even 20 kw in addition to "normal" domestic loads—although, it would be unwise to use all the apparent capability—and special wiring can be installed to use this.
+a charging station reserved for two cars in a supermarket in lagos, portugal.
+main article: charging station
+as part of its commitment to environmental sustainability, the dutch government initiated a plan to establish over 200 recharging stations for electric vehicles across the country by 2015. the rollout was undertaken by switzerland-based power and automation company abb and dutch startup fastned, and aims to provide at least one station every 50 kilometres (31 miles) for the netherlands' 16 million residents.[181]
+there are several types of charging machines. the japanese-developed chademo standard is favored by nissan, mitsubishi, and toyota, while the society of automotive engineers’ (sae) international j1772 combo standard is backed by gm, ford, volkswagen, and bmw. both are direct-current quick-charging systems designed to charge the battery of an electric vehicle to 80 percent in approximately 20 minutes, but the two systems are incompatible. unless the two companies cooperate, experts have warned that the momentum of the electric vehicle market will be restricted.[182][183] richard martin, editorial director for clean technology marketing and consultant firm navigant research, stated:
+fast charging, however and whenever it gets built out, is going to be key for the development of a mainstream market for plug-in electric vehicles. the broader conflict between the chademo and sae combo connectors, we see that as a hindrance to the market over the next several years that needs to be worked out.[183]
+research continues on ways of reducing the charging times for electric cars. the bmw i3 for example, can charge 0–80% of the battery in under 30 minutes in rapid charging mode.[184] the superchargers developed by tesla motors provided up to 130 kw of charging, allowing a 50% charge in 20 minutes. considering the size of the battery, that translated to approx. 212 km of range.[citation needed]
+us charging standards[edit]
+around 1998 the california air resources board classified levels of charging power that have been codified in title 13 of the california code of regulations, the u.s. 1999 national electrical code section 625 and sae international standards.[citation needed] four standards were developed, termed ac level 1, ac level 2, ac level 3 charging, and combo charging system (ccs).
+level
+original definition[185]
+chargepoint's definition[186]
+connectors
+ac level 1
+ac energy to the vehicle's on-board charger; from the most common u.s. grounded household receptacle, commonly referred to as a 120 volt outlet.
+120 v ac; 16 a (= 1.92 kw)
+sae j1772 (16.8 kw),
+nema 5–15
+ac level 2
+ac energy to the vehicle's on-board charger; 208–240 v, single phase. the maximum current specified is 32 a (continuous) with a branch circuit breaker rated at 40 a. maximum continuous input power is specified as 7.68 kw (= 240 v × 32 a*).
+208–240 v ac;
+12 a – 80 a (= 2.5–19.2 kw)
+sae j1772 (16.8 kw),
+iec 62196 (44 kw),
+magne charge (obsolete),
+avcon,
+iec 60309 16 a (3.8 kw)
+iec 62198-2 type 2 same as vde-ar-e 2623-2-2, colloquially known as the "mennekes connector" (43.5 kw)
+iec 62198-2 type 3 colloquially known as "scame"
+ac level 3
+ac energy to the vehicle's on-board charger; 208–240 v, single phase. the maximum power of 96 kw (continuous).
+208–240 v ac;
+11.6 to 96 kw
+sae j1772 standard pending
+combo charging system (ccs)
+dc energy from an off-board charger; with additional pins to accommodate fast dc charging at 200–450 v dc and up to 90 kw. this will also use power line carrier technology to communicate between the vehicle, off-board charger, and smart grid.
+200–450 volts dc and up to 90 kw
+sae j1772 combo coupler
+* or potentially 208 v × 37 a, out of the strict specification but within circuit breaker and connector/cable power limits. alternatively, this voltage would impose a lower power rating of 6.7 kw at 32 a.
+more recently the term "level 3" has also been used by the sae j1772 standard committee for a possible future higher-power ac fast charging standard.[187] to distinguish from level 3 dc fast charging, this would-be standard is written as "level 3 ac". sae has not yet approved standards for either ac or dc level 3 charging.[188]
+as of june 2012[update], some electric cars provide charging options that do not fit within the older california "level 1, 2, and 3 charging" standard, with its top charging rate of 40 a. for example, the tesla roadster may be charged at a rate up to 70 a (16.8 kw) with a wall-mounted charger.[137]
+for comparison, in europe the iec 61851-1 charging modes are used to classify charging equipment. the provisions of iec 62196 charging modes for conductive charging of electric vehicles include mode 1 (max. 16 a / max. 250 v ac. or 480 v three-phase), mode 2 (max. 32 a / max. 250 v ac or 480 v three-phase), mode 3 (max. 63 a (70 a u.s.) / max. 690 v ac or three-phase) and mode 4 (max. 400 a / max. 600 v dc).[189]
+connectors[edit]
+most electric cars have used conductive coupling to supply electricity for recharging after the california air resources board settled on the sae j1772-2001 standard[190] as the charging interface for electric vehicles in california in june 2001.[191] in europe, the acea has decided to use the type 2 connector from the range of iec_62196 plug types for conductive charging of electric vehicles in the european union as the type 1 connector (sae j1772-2009) does not provide for three-phase charging.[192]
+another approach is inductive charging using a non-conducting "paddle" inserted into a slot in the car. delco electronics developed the magne charge inductive charging system around 1998 for the general motors ev1 and it was also used for the chevrolet s-10 ev and toyota rav4 ev vehicles.
+vehicle-to-grid: uploading and grid buffering[edit]
+main article: vehicle-to-grid
+during peak load periods, when the cost of generation can be very high, electric vehicles could contribute energy to the grid. these vehicles can then be recharged during off-peak hours at cheaper rates while helping to absorb excess night time generation. here the batteries in the vehicles serve as a distributed storage system to buffer power.
+politics[edit]
+electric vehicles provide for less dependence on foreign oil, which for the united states and other developed or emerging countries is cause for concern about vulnerability to oil price volatility and supply disruption.[1][193][194] also for many developing countries, and particularly for the poorest in africa, high oil prices have an adverse impact on their balance of payments, hindering their economic growth.[195][196] in the united states, presidential candidate obama proposed in 2008 "1 million plug-in and electric" cars by 2015.[197] at the end of 2015 about 550 thousand plugin-in vehicles had been sold in the usa.[198]
+currently available electric cars[edit]
+main article: list of electric cars currently available
+highway capable[edit]
+main article: list of production battery electric vehicles
+see also: plug-in electric vehicle and list of modern production plug-in electric vehicles
+the nissan leaf is the world's all-time top selling highway legal plug-in electric car. global sales passed the 300,000 unit milestone in january 2018.[6]
+as of december 2015[update], there were over 30 models of highway-capable all-electric passenger cars and utility vans available in the market for retail sales. the global stock of light-duty all-electric vehicles totaled 739,810 units, out of a global stock of 1.257 million light-duty plug-in electric vehicles on the road at the end of 2015.[199] the global ratio between all-electrics (bevs) and plug-in hybrids (phevs) has consistently been 60:40 between 2014 and the first half of 2016, mainly due to the large all-electric market in china. in the u.s. and europe, the ratio is approaching a 50:50 split.[200] cumulative global sales of all-electric cars and vans passed the 1 million unit milestone in september 2016.[4]
+the renault–nissan–mitsubishi alliance is the world's leading all-electric vehicle manufacturer. the alliance reached sales of 500,000 all-electric vehicles delivered globally in october 2017, including those manufactured by mitsubishi motors, now part of the alliance.[30] the alliance, including mitsubishi motors i-miev series, sold globally 94,265 all-electric vehicles in 2016.[201] nissan global electric vehicle sales passed 275,000 units in december 2016.[202] the nissan leaf was the world's top selling plug-in car in 2013 and 2014.[203] renault global electric vehicle sales passed the 100,000 unit milestone in september 2016.[204] in december 2014, nissan announced that leaf owners have accumulated together 1 billion kilometers (620 million miles) driven. this amount of electric miles translates into saving 180 million kilograms of co2 emissions by driving an electric car in comparison to travelling with a gasoline-powered car.[205] in december 2016, nissan reported that leaf owners worldwide achieved the milestone of 3 billion kilometers (1.9 billion miles) driven collectively through november 2016.[202]
+as of september 2017[update], tesla, inc. ranked as the all-time second best-selling all-electric vehicle manufacturer with more than 250,000 electric cars worldwide since delivery of its first tesla roadster in 2008.[28][29] its model s was the world's best selling plug-in electric car for two years in a row, 2015 and 2016.[203][206][207][7] in early october 2016, tesla reported that combined miles driven by its three models have accumulated 3 billion electric miles (4.8 billion km) traveled. the first billion mark was recorded in june 2015 and the second billion in april 2016.[208] bmw is the third best selling all-electric vehicle manufacturer with more than 65,000 i3s sold through december 2016, including the rex variant.[203][209]
+the world's all-time top selling highway legal electric car is the nissan leaf, released in december 2010, with global sales of more than 300,000 units through january 2018.[6] the tesla model s ranks second with global sales of 212,874 cars delivered as of december 2017[update].[7] the renault kangoo z.e. utility van is the leader of the light-duty all-electric segment with global sales of 25,205 units through december 2016.[210] the following table list the best-selling highway-capable all-electric cars with cumulative global sales of around or more than 20,000 units since their inception through december 2016:
+top selling highway-capable electric cars and light
+utility vehicles produced between 2008 and december 2016(1)
+model
+market
+launch
+global
+sales
+sales
+through
+nissan leaf[211]
+dec 2010
++ 250,000
+dec 2016
+tesla model s[211]
+jun 2012
++ 158,000
+dec 2016
+bmw i3[203]
+nov 2013
+~ 65,500(2)
+dec 2016
+renault zoe[210]
+dec 2012
+61,205
+dec 2016
+baic ev series[212][213][214][215]
+2012
+42,646(3)
+dec 2016
+mitsubishi i-miev family[216]
+jul 2009
+~ 37,600
+jun 2016
+byd e6[212][213][217][218][215]
+oct 2011
+34,862(3)
+dec 2016
+tesla model x[203]
+sep 2015
+25,524
+dec 2016
+renault kangoo z.e.[210]
+oct 2011
+25,205
+dec 2016
+volkswagen e-golf[219][220][221][222][223]
+may 2014
+24,498(4)
+jun 2016
+jac j3/iev family[212][213][214][224][225][226]
+2010
+23,241(3)
+jun 2016
+notes:
+(1) vehicles are considered highway-capable if able to achieve at least a top speed of
+100 km/h (62 mph). several models, such as the chery qq3 ev/eq ev, kandi ev and
+the zotye zhidou e20, are highway legal in china but do not meet this requirement.
+(2) bmw i3 sales includes the rex variant.
+(3) sales in main china only. (4) sales in europe and the u.s. only.
+electric cars by country[edit]
+main article: electric car use by country
+see also: plug-in electric vehicles in the united states, new energy vehicles in china, plug-in electric vehicles in japan, plug-in electric vehicles in europe, and plug-in electric vehicles in norway
+see also: plug-in electric vehicles in france, plug-in electric vehicles in germany, plug-in electric vehicles in canada, plug-in electric vehicles in the united kingdom, and plug-in electric vehicles in sweden
+annual sales of light-duty plug-in electric vehicles in the world's top markets between 2011 and 2017[227][228][229]
+as of december 2016[update], more than two million highway legal plug-in electric passenger cars and light utility vehicles (pevs) have been sold worldwide.[230] the stock of plug-in electric cars represented 0.15% of the 1.4 billion motor vehicles on the world's roads by the end of 2016, up from 0.1% in 2015.[230][51][231] the three million milestone was achieved in november 2017.[232]
+sales of plug-in electric vehicles achieved the one million milestone in september 2015, almost twice as fast as hybrid electric vehicles (hev). while it took four years and 10 months for the pev segment to reach one-million sales, it took more than around nine years and a few months for hevs to reach its first million sales.[233][234] cumulative global sales of highway-capable light-duty pure electric vehicles passed one million units in total, globally, in september 2016.[4][5] when global sales are broken down by type of powertrain, all-electric cars have oversold plug-in hybrids, with pure electrics capturing 61% of the global stock of two million light-duty plug-ins on the world's roads by the end of 2016.[235]
+government subsidy[edit]
+see also: government incentives for plug-in electric vehicles
+several countries have established grants and tax credits for the purchase of new electric cars depending on battery size. the u.s. offers a federal income tax credit up to us$7,500,[41] and several states have additional incentives.[236] the uk offers a plug-in car grant up to a maximum of gb£4,500 (us$5,929).[237] the u.s. government also pledged us$2.4 billion in federal grants for the development of advanced technologies for electric cars and batteries,[238] despite the fact that overall sales aren't increasing at the expected speed.[239]
+as of april 2011, 15 european union member states provide economic incentives for the purchase of new electrically chargeable vehicles, which consist of tax reductions and exemptions, as well as of bonus payments for buyers of all-electric and plug-in hybrid vehicles, hybrid electric vehicles, and some alternative fuel vehicles.[240][241]
+see also[edit]
+part of a series about
+sustainable energy
+energy conservation
+cogeneration
+efficient energy use
+green building
+heat pump
+low-carbon power
+microgeneration
+passive solar building design
+renewable energy
+anaerobic digestion
+biofuel
+geothermal
+hydroelectricity
+solar
+tidal
+wave
+wind
+sustainable transport
+carbon-neutral fuel
+electric vehicle
+fossil fuel phase-out
+green vehicle
+plug-in hybrid
+sustainable development portal
+renewable energy portal
+environment portal
+v
+t
+e
+sustainable development portal
+battery electric vehicle
+electric boat
+electric bus
+electric car energy efficiency
+electric motorcycles and scooters
+electric motorsport
+electric vehicle
+electric vehicle conversion
+plug-in electric vehicle
+list of electric cars currently available
+references[edit]
+^ a b c d e f g sperling, daniel; gordon, deborah (2009). two billion cars: driving toward sustainability. oxford university press. pp. 22–26. isbn 978-0-19-537664-7.
+^ a b c david b. sandalow, ed. (2009). plug-in electric vehicles: what role for washington? (1st. ed.). the brookings institution. pp. 1–6. isbn 978-0-8157-0305-1. see introduction
+^ "electric vehicles: tax credits and other incentives". department of energy. us. retrieved 2018-02-08.
+^ a b c d shahan, zachary (2016-11-22). "1 million pure evs worldwide: ev revolution begins!". clean technica. retrieved 2016-11-23.
+^ a b "publication: global ev outlook 2017". www.iea.org. retrieved 2017-06-08.
+^ a b c d "nissan delivers 300,000th nissan leaf" (press release). yokohama: nissan. 2018-01-08. retrieved 2018-01-14.
+^ a b c d cobb, jeff (2018-01-22). "tesla quietly sold 200,000th model s last year". hybridcars.com. retrieved 2018-01-23.  "tesla sold its 200,000 model s in the fourth quarter of 2017, in october or early november, becoming the second plug-in car to cross this sales threshold after the nissan leaf (300,000 units by early 2017). as of december 2017[update], tesla reported global sales of 212,874 model s cars."
+^ "us department of transportation national highway traffic safety administration 49 cfr part 571 federal motor vehicle safety standards". retrieved 2009-08-06.
+^ summary eu proposal for a regulation on l-category vehicles (two- or three-wheel vehicles and quadricycles)[permanent dead link]
+^ "elwell-parker, limited". retrieved 2016-02-17.
+^ guarnieri, m. (2012). "looking back to electric cars". proc. histelcon 2012 – 3rd region-8 ieee history of electro – technology conference: the origins of electrotechnologies: #6487583. doi:10.1109/histelcon.2012.6487583. isbn 978-1-4673-3078-7.
+^ "electric car history". archived from the original on 2014-01-05. retrieved 2012-12-17.
+^ "world's first electric car built by victorian inventor in 1884". the daily telegraph. london. 2009-04-24. retrieved 2009-07-14.
+^ neue presse coburg: elektroauto in coburg erfunden (german)
+^ "electric automobile". encyclopædia britannica (online). retrieved 2014-05-02.
+^ justin gerdes (2012-05-11). "the global electric vehicle movement: best practices from 16 cities". forbes. retrieved 2014-10-20.
+^ handy, galen (2014). "history of electric cars". us: the edison tech center. retrieved 2017-09-07.
+^ "some facts about electric vehicles". 2012-02-25. retrieved 2017-08-25.
+^ cub scout car show (pdf), january 2008, retrieved 2009-04-12
+^ boschert, sherry (2006). plug-in hybrids: the cars that will recharge america. new society publishers. pp. 15–28. isbn 978-0-86571-571-4.
+^ see who killed the electric car? (2006)
+^ shahan, zachary (2015-04-26). "electric car evolution". clean technica. retrieved 2016-09-08.  2008: the tesla roadster becomes the first production electric vehicle to use lithium-ion battery cells as well as the first production electric vehicle to have a range of over 200 miles on a single charge.
+^ jeff cobb (2015-12-08). "nissan sells 200,000th leaf just before its fifth anniversary". hybricars.com. retrieved 2015-12-08.
+^ a b "renault-nissan alliance sells 8.5 million vehicles in 2015" (press release). paris: renault-nissan alliance. 2016-02-04. archived from the original on 2016-02-05. retrieved 2016-02-05.
+^ hull, dana (2016-04-07). "tesla says it received more than 325,000 model 3 reservations". bloomberg news. retrieved 2016-04-07.
+^ cobb, jeff (2016-12-05). "tesla model s is second plug-in car to cross 150,000 sales milestone". hybridcars.com. retrieved 2016-12-05.  the volt/ampera family of vehicles is the world's all-time third best selling plug-in electric car after the nissan leaf (240,000), and the tesla model s (over 150,000), with 130,500 vehicles sold globally through november 2016.
+^ frydenlund, ståle (2016-12-13). "norway now has 100,000 electric cars". norsk elbilforening (norwegian electric vehicle association). retrieved 2016-12-13.
+^ a b kane, mark (2017-10-04). "tesla has delivered more than 250,000 evs, ~55% in the u.s." insideevs.com. retrieved 2017-10-06.
+^ a b "_update_letter_2017-3q.pdf tesla third quarter 2017 update". tesla. 2017-11-01. retrieved 2018-01-10.
+^ a b caroline sasia (2017-10-17). "renault-nissan-mitsubishi sponsors women's forum global meeting". alliance renault-nissan-mitsubishi. retrieved 2018-01-23. during the global meeting, the alliance, which recently reached the historic milestone of aggregate sales of 500,000 electric vehicles worldwide (renault-nissan-mitsubishi).
+^ national research council (2010). "transitions to alternative transportation technologies—plug-in hybrid electric vehicles". the national academies press. retrieved 2010-03-03.
+^ loveday, eric (2011-07-06). "mitsubishi i-miev lineup expands for 2012 with cheaper "m" and extended-range "g" — autoblog green". autoblog.com. retrieved 2011-07-21.
+^ nature:rapidly falling costs of battery packs for electric vehicles
+^ hummel, patrick; et al. (2017-05-18). "ubs evidence lab electric car teardown". ubs. pp. 83, 85–86. archived from the original on 2017-06-21. retrieved 2017-07-25. cs1 maint: explicit use of et al. (link)
+^ randall, tom (2017-07-31). "driving tesla's model 3 changes everything". bloomberg. retrieved 2017-08-03 – via www.bloomberg.com. each year the battle for cheap range gets a little bit more intense, as this chart shows:
+^ battle for the cheapest range. bloomberg. archived from the original on 2017-08-03. retrieved 2017-08-03.
+^ john reed (2010-09-19). "buyers loath to pay more for electric cars". financial times. retrieved 2012-06-26.
+^ "fact sheet – japanese government incentives for the purchase of environmentally friendly vehicles" (pdf). japan automobile manufacturers association. archived from the original (pdf) on 2010-12-26. retrieved 2010-12-24.
+^ motavalli, jim (2010-06-02). "china to start pilot program, providing subsidies for electric cars and hybrids". the new york times. retrieved 2010-06-02.
+^ "growing number of eu countries levying co2 taxes on cars and incentivizing plug-ins". green car congress. 2010-04-21. retrieved 2010-04-23.
+^ a b "notice 2009–89: new qualified plug-in electric drive motor vehicle credit". internal revenue service. 2009-11-30. retrieved 2010-04-01.
+^ ward, jonathan (2017-04-28). "ev supply chains: shifting currents". automotive logistics. archived from the original on 2017-08-03. retrieved 2017-05-13.
+^ a b stock, kyle (2018-01-03). "why early ev adopters prefer leasing — by far". the automotive news. retrieved 2018-02-05.
+^ "toyota sees tesla ev battery cost at ⅓". reuters. 2011-01-11.
+^ "toyota adopts tesla laptop strategy for electric cars". 2010-12-08. archived from the original on 2010-12-13.
+^ "tesla says model s will be profitable thanks to cheaper batteries".
+^ paul stenquist (2012-06-25). "tesla model s offers a lesson in electric-vehicle economics". the new york times. retrieved 2012-06-25.
+^ cole, jay (2015-10-02). "gm: chevrolet bolt arrives in 2016, $145/kwh cell cost, volt margin improves $3,500". inside evs. retrieved 2018-02-08.
+^ green car reports
+^ siddiq khan; martin kushler (june 2013). "plug-in electric vehicles: challenges and opportunities" (pdf). american council for an energy-efficient economy. retrieved 2013-07-09.  aceee report number t133.
+^ a b randall, tom (2016-02-25). "here's how electric cars will cause the next oil crisis". bloomberg news. retrieved 2016-02-26.  see embedded video.
+^ bloomberg new energy finance (2016-02-25). "here's how electric cars will cause the next oil crisis" (press release). london and new york: pr newswire. retrieved 2016-02-26.
+^ lambert, fred (2017-01-30). "electric vehicle battery cost dropped 80% in 6 years down to $227/kwh – tesla claims to be below $190/kwh". electrek. retrieved 2017-01-30.
+^ erickson, glenn (2009-01-10). "dvd savant review: who killed the electric car?". dvdtalk.com. retrieved 2009-11-17.  see main article who killed the electric car
+^ "the cost to charge an electric car". verde sustainable solutions, l3c. 2012-11-07. archived from the original on 2013-05-09.
+^ "model year 2014 fuel economy guide – electric vehicles" (pdf). fueleconomy.gov. united states environmental protection agency and u.s. department of energy. 2014-09-10. retrieved 2014-09-12.  pp. 33–36.
+^ "comparison side-by-side −2013 chrysler 200, 2013 ford taurus fwd, 2013 toyota venza, and 2013 hyundai santa fe sport 2wd". fueleconomy.gov. u. s. environmental protection agency and u.s. department of energy. 2012-11-30. retrieved 2012-12-09.
+^ nissan (2012-06-23). "nissan launches leaf "taxi" campaign in london". green car congress. retrieved 2012-06-25.
+^ think marks earth day 2010 with the release of ceo richard canny's 'top 10 myths about electric vehicles – busted!, archived from the original on 2011-10-05, retrieved 2013-04-22
+^ "tesla motors club forum – faq". teslamotorsclub.com. 2007-06-23. archived from the original on 2010-07-02. retrieved 2010-07-16.
+^ abuelsamid, sam (2009-01-17). "tesla offers laundry list of new options, $12k prepaid battery replacement". autoblog.com. retrieved 2010-07-16.
+^ j.d. power and associates (2010-10-27). "future global market demand for hybrid and battery electric vehicles may be over-hyped; wild card is china". retrieved 2012-06-26.
+^ a b henry lee; grant lovellette (july 2011). "will electric cars transform the u.s. vehicle market?". belfer center for science and international affairs, kennedy school of government. retrieved 2011-08-07.
+^ henry lee; grant lovellette (july 2011). "willelectriccars transform the u.s. vehicle market?" (pdf). belfer center for science and international affairs, kennedy school of government. retrieved 2011-08-07.  discussion paper #2011-08.
+^ "highlights of byd e-taxi in public transportation: energy saving& low cost". byd-auto.net. archived from the original on 2016-03-19. retrieved 2016-02-17.
+^ "high charge shock to ground electric cars". the australian. australia. the abmarc cost comparison puts all-up costs for the battery-powered nissan leaf at $14,513 a year, compared with $9211 a year for a standard toyota corolla.the electric bmw i3s costs $19,220 a year, compared with $12,479 for a bmw 118i with a petrol engine.the figures take into account purchase price, fuel or recharging costs, finance, registration and servicing over a five-year period, travelling 15,000km a year.
+^ a b c d matt ritchel (2015-11-24). "a car dealers won't sell: it's electric". the new york times. retrieved 2015-11-28.
+^ a b c d e eric cahill; dan sperling (2014-11-03). "the future of electric vehicles part 1: car dealers hold the key". institute of transportation studies (its), at the university of california, davis. retrieved 2015-11-28.
+^ eric evarts (2014-04-22). "dealers not always plugged in about electric cars, consumer reports' study reveals". consumer reports. retrieved 2015-11-29.
+^ "should pollution factor into electric car rollout plans?". earth2tech.com. 2010-03-17. retrieved 2010-04-18.
+^ "electro automotive: faq on electric car efficiency & pollution". electroauto.com. retrieved 2010-04-18.
+^ raut, anil k. "role of electric vehicles in reducing air pollution: a case of katmandu, nepal". the clean air initiative. archived from the original on 2016-09-14. retrieved 2011-01-04.
+^ "co2 intensity". eirgrid. archived from the original on 2011-05-04. retrieved 2010-12-12.
+^ buekers, j; van holderbeke, m; bierkens, j; int panis, l (2014). "health and environmental benefits related to electric vehicle introduction in eu countries". transportation research part d transport and environment. 33: 26–38. doi:10.1016/j.trd.2014.09.002.
+^ clark, duncan (2009-07-17). "real-time "co2 intensity" site makes the case for midnight dishwashing". london: guardian. retrieved 2010-12-12.
+^ doucette, reed; mcculloch, malcolm (2011). "modeling the co2 emissions from battery electric vehicles given the power generation mixes of different countries". energy policy. 39: 803–811. doi:10.1016/j.enpol.2010.10.054 – via science direct.
+^ "well-to-wheels greenhouse gas emissions and petroleum use for mid-size light-duty vehicles" (pdf). department of energy united states of america. 2010-10-25. archived from the original (pdf) on 2013-04-23. retrieved 2013-08-02.
+^ "concept one – the supercar of the future. today". rimac. rimac. retrieved 2017-06-24.
+^ contact wes siler: comment email facebook twitter (2010-04-13). "helsinki metropolia university's raceabout". jalopnik.com. retrieved 2011-12-06.
+^ contact mike spinelli: comment (2007-10-05). "nissan pivo 2". jalopnik.com. retrieved 2011-12-06.
+^ "charles perry's plug-in hybrid retrofit kit". gizmag.com. retrieved 2011-12-06.
+^ hedlund, r. (november 2008). "the roger hedlund 100 mph club". national electric drag racing association. retrieved 2009-04-25.
+^ "roadster sport 2.5 specifications". tesla. archived from the original on 2013-02-12. retrieved 2013-02-01.
+^ gall, jared (december 2013). "2015 porsche 918 spyder". car and driver. us. retrieved 2017-05-11.
+^ "x1". wrightspeed. archived from the original on 2013-01-09. retrieved 2013-02-01.
+^ simanaitis, dennis (2009-01-23). "eclectic electrics: wrightspeed x1". road & track. retrieved 2013-02-01.
+^ a b shah, saurin d. (2009). "2". plug-in electric vehicles: what role for washington? (1st ed.). the brookings institution. pp. 29, 37 and 43. isbn 978-0-8157-0305-1.
+^ "performance statistics – 1999 general motors ev1 w/nimh" (pdf). united states department of energy, office of energy efficiency and renewable energy. 1999. retrieved 2009-04-25.
+^ "advanced vehicle testing activity". full size electric vehicles (report). idaho national laboratory. 2006-05-30. archived from the original on 2009-03-18. retrieved 2009-04-25.
+^ "energy efficiency of tesla electric vehicles". tesla motors. retrieved 2009-04-25.
+^ us, "electrical ptc heating device", published 30 march 1999
+^ nativeenergy (2012-09-07). "3 electric car myths that will leave you out in the cold". recyclebank. retrieved 2013-07-21.
+^ piotrowski, ed (2013-01-03). "how i survived the cold weather". the daily drive – consumer guide automotive. retrieved 2013-07-21.
+^ "effects of winter on tesla battery range and regen". teslarati.com. 2014-11-24. retrieved 2015-02-21.
+^ "2010 options and packages". toyota prius. toyota. retrieved 2009-07-09.
+^ spotnitz, r.; franklin, j. (2003). "abuse behavior of high-power, lithium-ion cells". journal of power sources. 113: 81. doi:10.1016/s0378-7753(02)00488-3.
+^ china autoweb (2012-05-28). "initial details on fiery crash involving byd e6 that killed 3". green car congress. retrieved 2012-08-13.
+^ christopher jensen (2013-10-02). "tesla says car fire started in battery". the new york times. retrieved 2013-10-05.
+^ steven russolillo (2013-10-04). "musk explains why tesla model s caught on fire". the wall street journal. retrieved 2013-10-05.
+^ jaclyn trop (2013-11-07). "another fire raises questions for tesla". the new york times. retrieved 2013-11-10.
+^ general motors (2011-01-19). "detroit first responders get electric vehicle safety training". general motors news. retrieved 2011-11-12.
+^ "general motors kicks off national electric vehicle training tour for first responders". green car congress. 2010-08-27. retrieved 2011-11-11.
+^ general motors (2011-03-31). "first responder vehicle guides". u.s. fire administration. archived from the original on 2011-10-19. retrieved 2011-11-12.
+^ aol autos (2011-12-16). "chevy volt unplugged: when to depower your ev after a crash". translogic. retrieved 2011-12-20.
+^ nissan (2010). "2011 leaf first responder's guide" (pdf). nissan north america. retrieved 2011-12-20.
+^ national research council; transportation research board; division on engineering and physical sciences; board on energy and environmental systems; committee on the effectiveness and impact of corporate average fuel economy (cafe) standards (2002). effectiveness and impact of corporate average fuel economy (cafe) standards. national academies press. p. 71. isbn 978-0-309-07601-2.
+^ mehrdad ehsani; yimin gao; sebastien e. gay; ali emadi (2004). modern electric, hybrid electric, and fuel cell vehicles: fundamentals, theory, and design. taylor & francis. p. 22. isbn 978-0-8493-3154-1.
+^ "vehicle weight, fatality risk and crash compatibility of model year 1991–99 passenger cars and light trucks" (pdf). national highway traffic safety administration. october 2003. retrieved 2009-04-25.
+^ "low-rolling-resistance tires". consumer reports. november 2007. archived from the original on 2009-04-19. retrieved 2009-04-25.  (subscription required for full access)
+^ crowe, paul (2008-07-21). "low rolling resistance tires save gas". horsepower sports. retrieved 2009-04-25.
+^ "planned eu requirements for tires would reduce road traffic safety". continental ag. 2007-11-12. retrieved 2011-12-07.
+^ shunk, chris (2010-05-21). "iihs condemns use of mini trucks and low-speed vehicles on public roads". autoblog.com. retrieved 2010-10-15.
+^ "inside uniti's plan to build the iphone of evs". greenmotor.co.uk. retrieved 2017-06-26.
+^ nuckols, ben (2007-03-03). "blind people: hybrid cars pose hazard". usa today. retrieved 2009-05-08.
+^ a b c "electric cars and noise: the sound of silence". economist. 2009-05-07. retrieved 2009-05-08.
+^ david shepardson (2011-01-04). "obama signs law to require 'quiet' cars to get noisier". the detroit news. retrieved 2011-01-05. [dead link]
+^ "tmc to sell approaching vehicle audible system for 'prius'". toyota motor company news release. 2010-08-24. retrieved 2010-08-25.
+^ european commission press release (2014-04-02). "commission welcomes parliament vote on decreasing vehicle noise". european commission. retrieved 2014-04-03.
+^ jim motavalli (2010-06-17). "blind advocates 'disappointed' in nissan e.v. sounds for pedestrians". new york times. retrieved 2010-06-19.  the article includes a sample of the two sounds.
+^ jim motavalli (2010-06-01). "electric car warning sounds: don't expect ring tones". new york times. retrieved 2010-06-02.
+^ gabe nelson (2013-03-01). "louder evs may turn off drivers, automakers say". automotive news. retrieved 2013-03-21.
+^ dorothee tschampa (2013-12-30). "daimler electrics get fake vroom to thwart silent threat: cars". bloomberg. retrieved 2014-01-01.
+^ neal, meghan (5 february 2015). "why electric cars are ditching am radio". vice news. retrieved 5 february 2016.
+^ "ford focus bev – road test". autocar.co.uk. retrieved 2011-01-03.
+^ ian clifford, ceo of zenn motors, in discovery channel's green wheels episode 1
+^ liasi, sahand ghaseminejad, and masoud aliakbar golkar. "electric vehicles connection to microgrid effects on peak demand with and without demand response." in electrical engineering (icee), 2017 iranian conference on, pp. 1272–1277. ieee, 2017.
+^ joann muler (2010-06-11). "electric car warning: actual mileage may vary". forbes. retrieved 2010-10-21.
+^ eric loveday (2010-06-14). "nissan pegs leaf range between 47 and 138 miles, individual results may vary". autoblog.com. retrieved 2010-10-21.
+^ nick bunkley (2010-11-22). "nissan says its electric leaf gets equivalent of 99 m.p.g." the new york times. retrieved 2010-11-23.
+^ energy efficiency & renewable energy, u.s. department of energy and u. s. environmental protection agency and (2017-03-24). "find a car – years: 2016–2017 – vehicle type: electric". fueleconomy.gov. retrieved 2017-03-26.
+^ krok, andrew (2017-07-29). "by the numbers: tesla model 3 vs. chevrolet bolt ev". cnet. retrieved 2017-07-29.
+^ "aaa says that its emergency electric vehicle charging trucks served "thousands" of evs without power". electrek. retrieved 6 september 2016.
+^ ferris, robert (2016-08-17). "electric cars good enough for 90 percent of trips". cnbc. retrieved 2016-08-17.
+^ needell, zachary a.; mcnerney, james; chang, michael t.; trancik, jessika e. (2015-12-31). "potential for widespread electrification of personal vehicle travel in the united states : nature energy". nature. doi:10.1038/nenergy.2016.112.
+^ uc davis mini-e consumer study -june 2011
+^ nick chambers (2010-05-27). "nissan leaf will include fast charge capability and emergency charging cable at launch". gas2.org. retrieved 2010-06-13.
+^ a b "electric vehicle charging solutions". tesla motors. retrieved 2012-06-10.
+^ "dc fast charger" (pdf). archived from the original (pdf) on 2010-10-27.
+^ "13 key questions and answers about nissan leaf battery pack and ordering". archived from the original on 2010-05-30.
+^ speedy charging driving a global boom in electric cars
+^ elon musk: the mind behind tesla, spacex, solarcity ...
+^ adam palin (2013-11-19). "infrastructure: shortage of electric points puts the brake on sales". financial times. retrieved 2013-12-28.
+^ kredex (2013-02-20). "estonia becomes the first in the world to open a nationwide electric vehicle fast-charging network". estonian world. retrieved 2013-12-28.
+^ adam vaughan (2013-02-20). "estonia launches national electric car charging network". the guardian. retrieved 2013-12-28.
+^ "bp and arco to install 45 electric car fast charging stations as part of ev project".
+^ "ecotality scores $10m from abb; will use funds for ev project". autoblog.com.
+^ "the ev project".
+^ "nissan announces 49 kw quick charger for evs".
+^ stevens, tim (march 8, 2017). "porsche's trackday-friendly ev will recharge in 15 minutes". road show. retrieved 2017-05-05.
+^ "byd auto, build your dreams!". byd. archived from the original on 2016-02-06. retrieved 2016-02-18.
+^ "u.s. charging options". plug in america. retrieved 2017-06-22. charging speed: 10–25 miles of driving range per hour charging.
+^ "calculating effective trip speed – fast charging cars more valuable". greentransportation.info. retrieved 2017-06-22. it boils down to a measure, range gained per hour of charging. 50 kilowatt dc fast charge: gains 160–200 miles range per hour of charging
+^ "better place. the renault fluence ze". better place. 2010-10-22. archived from the original on 2010-09-12. retrieved 2010-10-22.
+^ david mccowen (2013-02-18). "the rise and fall of better place". drive.com.au. archived from the original on 2013-09-30. retrieved 2013-04-14.
+^ john voelcker (2013-05-26). "better place electric-car service files for bankruptcy". green car reports. retrieved 2013-05-26.
+^ dan primack (2012-04-12). "exclusive: better place to file for bankruptcy". fortune. retrieved 2013-05-26.
+^ sebastian blanco (2009-09-27). "report: tesla model s was designed with battery swaps in mind". autoblog.com. retrieved 2013-06-22.
+^ a b mark rogowsky (2013-06-21). "tesla 90-second battery swap tech coming this year". forbes. retrieved 2013-06-22.
+^ "tesla motors demonstrates battery swap in the model s". green car congress. 2013-06-21. retrieved 2013-06-22.
+^ gordon-bloomfield, nikki (2012-09-20). "forget better place, hook your electric car to a battery trailer". retrieved 2012-12-24.
+^ viknesh vijayenthiran (2010-07-20). "first major outing for bmw megacity vehicle at 2012 london olympic games". motor authority. retrieved 2010-07-23.
+^ benjamin preston (2013-07-29). "bmw unveils i3 electric car". the new york times. retrieved 2013-07-29.
+^ michaël torregrossa (2013-07-30). "voiture électrique – la bmw i3 officiellement révélée" [electric car – the bmw i3 officially revealed] (in french). association pour l'avenir du véhicule electrique méditerranéen (avem). retrieved 2013-07-31.
+^ eric loveday (2013-07-22). "official: bmw i3 range extender option adds 4,490 euros ($5,919 us) to price tag in netherlands". insideevs.com. retrieved 2013-07-29.
+^ "maintenance and safety of hybrid and plug-in electric vehicles". u.s. department of energy – energy efficiency and renewable energy alternative fuels data center. 2013-09-24. retrieved 2014-11-18.
+^ „zeit.de: batterie-upgrade? unwahrscheinlich!“; retrieved, 22 february 2016.
+^ "electric vehicle charging technology insights | patent landscape". netscribes. 2018-03-06. retrieved 2018-03-06.
+^ "vcharge". oxford robotics institute. retrieved 2018-03-06.
+^ a b simon romero (2009-02-02). "in bolivia, untapped bounty meets nationalism". new york times. retrieved 2010-02-28.
+^ "página sobre el salar (spanish)". evaporiticosbolivia.org. archived from the original on 2011-03-23. retrieved 2010-11-27.
+^ a b irving mintzer (2009). david b. sandalow, ed. chapter 6: look before you leap: exploring the implications of advanced vehicles for import dependence and passerger safety (pdf). the brookings institution. pp. 107–126. isbn 978-0-8157-0305-1.  in "plug-in electric vehicles: what role for washington?"
+^ a b clifford krauss (2009-03-09). "the lithium chase". new york times. retrieved 2010-03-10.
+^ jerry garret (2010-04-15). "a case for and against electric cars". new york times. retrieved 2010-04-17.
+^ "learn about lithium – in 10 bullet points". electrovelocity. 2010-12-13. retrieved 2011-01-03.
+^ smith, michael (2009-12-07). "lithium for 4.8 billion electric cars lets bolivia upset market". bloomberg. retrieved 2011-01-03.
+^ hively, will (august 1996), "reinventing the wheel – a flywheel may be the key to a car that's both powerful and efficient", discover, retrieved 2009-04-24
+^ schindall, joel (november 2007). "the charge of the ultra – capacitors nanotechnology takes energy storage beyond batteries". ieee spectrum. retrieved 2010-08-12.
+^ taguchi, norihisa (2016-03-20). "japan unveils first electric car without a battery". mikado shimbun. japan. archived from the original on 2016-04-03. retrieved 2016-03-23.
+^ "electric vehicle charging technology insights | patent landscape". netscribes. 2018-03-06. retrieved 2018-03-06.
+^ "the future of electric vehicle charging | netscribes". www.netscribes.com. retrieved 2018-03-06.
+^ toor, amar (2013-07-10). "every dutch citizen will live within 31 miles of an electric vehicle charging station by 2015". the verge. vox media, inc. retrieved 2013-07-11.
+^ upton, john (2013-07-26). "ev market threatened by spat over charger standards". grist.org. grist magazine, inc. retrieved 2013-07-29.
+^ a b pyper, juliet (2013-07-24). "charger standards fight confuses electric vehicle buyers, puts car company investments at risk". climatewire. e&e publishing, ll. retrieved 2013-07-29.
+^ "charging time for the bmw i3". uk: bmw. archived from the original on 2013-09-21. retrieved 2013-09-12.
+^ "public hearing to consider proposed amendments to the california zero emission vehicle regulations regarding treatment of majority owned small or intermediate volume manufacturers and infrastructure standardization" (pdf). california air resources board. 2001-06-26. retrieved 2010-05-23.
+^ "faq: standards – chargepoint network". chargepoint network. coulomb technologies. archived from the original on 2010-04-17. retrieved 2010-05-23.
+^ david herron (2010-07-30). "electric vehicle charging standards". visforvoltage.org. retrieved 2010-08-19.
+^ gartner, john (2010-08-03). "fast vehicle charging goes by many names". plugincars.com. retrieved 2010-08-19.
+^ "iec61851 part 1: charging of electric vehicles up to 250 a ac and 400 a dc" (pdf) (1st ed.). iec. 2003. p. 7. archived from the original (pdf) on 2011-07-06.
+^ "rulemaking: 2001-06-26 updated and informative digest zev infrastructure and standardization" (pdf). title 13, california code of regulations. california air resources board. 2002-05-13. retrieved 2010-05-23. standardization of charging systems
+^ "arb amends zev rule: standardizes chargers & addresses automaker mergers" (press release). california air resources board. 2001-06-28. retrieved 2010-05-23. the arb approved the staff proposal to select the conductive charging system used by ford, honda and several other manufacturers
+^ "acea position and recommendations for the standardization of the charging of electrically chargeable vehicles" (pdf). acea brussels. 2010-06-14. archived from the original (pdf) on 2011-07-06.
+^ mitchell, william j.; borroni-bird, christopher; burns, lawrence d. (2010). reinventing the automobile: personal urban mobility for the 21st century (1st. ed.). the mit press. pp. 85–95. isbn 978-0-262-01382-6. retrieved 2013-07-21.  see chapter 5: clean smart energy supply.
+^ r. james woolsey and chelsea sexton (2009). david b. sandalow, ed. chapter 1: geopolitical implications of plug-in vehicles (1st ed.). the brookings institution. pp. 11–21. isbn 978-0-8157-0305-1.  in "plug-in electric vehicles: what role for washington?"
+^ "high oil prices disastrous for developing countries". mongabay. 2007-09-12. retrieved 2010-07-20.
+^ "impact of high oil prices on african economies" (pdf). african development bank. 2009-07-29. retrieved 2010-07-20.
+^ "obama calls for 1 million plug-in hybrids by 2015". hybrid cars. canada. 2008-08-05. retrieved 2017-04-09.
+^ "electric drive sales". electricdrive.org. 2017. retrieved 2017-04-09.
+^ international energy agency (iea), clean energy ministerial, and electric vehicles initiative (evi) (may 2016). "global ev outlook 2016: beyond one million electric cars" (pdf). iea publications. retrieved 2016-08-31. cs1 maint: multiple names: authors list (link) see pp. 4–5, and 24–25 and statistical annex, pp. 34–37.
+^ "the electric vehicle world sales database: stable 60:40 ratio". ev-volumes. archived from the original on 2016-10-17. retrieved 2016-10-17.
+^ "renault-nissan alliance delivers significant growth in 2016, extends electric vehicle sales record". nissan news. 2017-02-08. retrieved 2017-02-11.
+^ a b "new nissan electric café opens in paris as the brand celebrates three billion ev kilometres worldwide" (press release). paris: nissan newsroom europe. 2016-12-16. retrieved 2016-12-17.
+^ a b c d e cobb, jeff (2017-01-26). "tesla model s is world's best-selling plug-in car for second year in a row". hybridcars.com. retrieved 2017-01-26.  see also detailed 2016 sales and cumulative global sales in the two graphs.
+^ "renault hands over the key to its 100,000th electric vehicle" (press release). oslo: groupe renault. 2016-09-09. retrieved 2016-09-11.
+^ richardson, jake (2014-12-10). "1 billion kilometers driven by nissan leafs". clean technica. retrieved 2016-10-15.
+^ sharan, zachary (2017-02-04). "tesla model s & nissan leaf clocked as world's best-selling electric cars in 2016". ev volumes. cleantechnica.com. retrieved 2017-02-04.
+^ cobb, jeff (2016-01-12). "tesla model s was world's best-selling plug-in car in 2015". hybridcars.com. retrieved 2016-01-23.
+^ loveday, eric (2016-10-07). "global tesla fleet surpasses 3 billion collective miles driven". electrek. insideevs.com. retrieved 2016-10-15.
+^ "three years since the market launch of bmw i. 100,000 electrified bmw on the road" (press release). munich: bmw group press club global. 2016-11-03. retrieved 2016-11-03.  three year after the market launch of the bmw i3, the bmw group has delivered more than 100,000 purely electric-powered cars and plug-in hybrids to customers worldwide. the bmw i3 alone has reached more than 60,000 units, making it the most successful electric vehicle in the premium compact segment. the bmw i8 ranks first among electrified sports cars, with more than 10,000 delivered since the middle of 2014. additionally, there are the approximately 30,000 iperformance plug-in hybrids sold.
+^ a b c groupe renault (january 2017). "ventes mensuelles" [monthly sales] (in french). renault.com. retrieved 2017-01-18.  includes passenger and light utility variants. click on "(décembre 2016)" to download the file "xlsx – 239 ko" for cytd sales in 2016, and open the tab "sales by model". click on "+ voir plus" (see more) to download the files "ventes mensuelles du groupe (décembre 2011) (xls, 183 ko)" "ventes mensuelles (décembre 2012) (xls, 289 ko)" – ventes mensuelles (décembre 2013) (xlsx, 227 ko)" – "xlsx – 220 ko ventes mensuelles (décembre 2014)" – "ventes mensuelles (décembre 2015)" to download the file "xlsx – 227 ko" for 2011, 2012, 2013, 2014 and 2015 sales. sales figures for 2013 were revised in the 2014 report
+^ a b cobb, jeff (2017-01-09). "nissan's quarter-millionth leaf means it's the best-selling plug-in car in history". hybridcars.com. retrieved 2017-01-10.  as of december 2016[update], the nissan leaf is the world's best-selling plug-in car in history with more than 250,000 units delivered, followed by the tesla model s with over 158,000 sales, the volt/ampera family of vehicles with 134,500 vehicles sold, and the mitsubishi outlander phev with about 116,500 units sold through november 2016. these are the only plug-in electric cars so far with over 100,000 global sales.
+^ a b c staff (2016-01-14). "sales ranking of china-made pure-electric cars in 2015". china auto web. retrieved 2016-08-16.  a total of 16,488 baic e-series evs, and over 9,000 jac ievs were sold in china in 2015.
+^ a b c staff (2015-01-14). "2014 ev sales ranking". china auto web. retrieved 2016-02-07.  a total of 5,234 e150 evs (ev200), and about 1,000 j3 evs were sold in china in 2014.
+^ a b henry lee; sabrina howell; adam heal (june 2014). "leapfrogging or stalling out? electric vehicles in china". belfer center, harvard kennedy school. retrieved 2016-08-16.  download evs in china (full report). see table 2: chinas's ev sales by brand, 2011–2013, p. 19. baic e150 evs sales totaled 644 units in 2012 and 1,466 in 2013. jac j3 ev sales totaled 2,485 units in 2012 and 1,309 in 2013
+^ a b staff (2017-01-19). "best-selling china-made evs in 2016". china auto web. retrieved 2017-01-26.  three byd auto models topped the chinese ranking of best-selling new energy passenger cars in 2016. the byd tang suv was the top selling plug-in electric car in china in 2016 with 31,405 units sold, followed by the byd qin with 21,868 units sold, and ranking third overall in 2016 was the byd e6 with 20,605 units.
+^ cobb, jeff (2016-08-10). "global 10 best-selling plug-in cars are accelerating forward". hybridcars.com. retrieved 2016-08-13.  as of june 2016[update], cumulative global sales of the top selling plug-in electric cars were led by the nissan leaf (over 228,000), followed by the tesla model s (129,393), votl/ampera family (about 117,300), mitsubishi outlander phev (about 107,400), toyota prius phv (over 75,400), byd qin (56,191), renault zoe (51,193), bmw i3 (around 49,500), mitsubishi i-miev family (about 37,600) and byd tang (37,509).
+^ mat gasnier (2013-01-14). "china full year 2012: ford focus triumphs". best selling car blog. retrieved 2013-01-22.
+^ mat gasnier (2014-01-14). "china december 2013: focus on the all-new models". best selling cars blog. retrieved 2014-01-16.
+^ cobb, jeff (2016-07-05). "june 2016 dashboard". hybridcars.com and baum & associates. retrieved 2016-08-15.
+^ jeff cobb (2016-01-06). "december 2015 dashboard". hybridcars.com and baum & associates. retrieved 2016-01-23.
+^ edelstein, stephen (2016-08-16). "european electric and plug-in hybrid sales for jan–june 2016". green car reports. retrieved 2016-08-16.  during the first half of 2016 european vw e-golf sales totaled 3,912 units and vw golf gte sales totaled 5,692 units.
+^ pontes, jose (2016-01-30). "europe december 2015". evsales.com. retrieved 2016-02-07.  european vw e-golf sales totaled 11,214 units in 2015.
+^ pontes, jose (2015-01-31). "europe december 2014". evsales.com. retrieved 2016-02-07.  european vw e-golf sales totaled 3,328 units in 2014.
+^ jose, pontes (2016-07-17). "china june 2016". evsales.com. retrieved 2016-08-15.  a total of 9,977 baic e-series, and 7,862 jac ievs were sold in china during the first half of 2016.
+^ china auto web (2012-09-30). "jac delivers 500 j3 evs ("ievs")". china auto web. retrieved 2013-04-19.  a total of 1,585 of the first and second generation jac j3 models were sold during 2010 and 2011.
+^ china auto web (2013-03-25). "chinese ev sales ranking for 2012". china auto web. retrieved 2013-04-19.  a total of 2,485 jac j3 evs were sold in 2012.
+^ argonne national laboratory, united states department of energy (2016-03-28). "fact #918: march 28, 2016 – global plug-in light vehicles sales increased by about 80% in 2015". office of energy efficiency & renewable energy. retrieved 2016-03-29.
+^ cobb, jeff (2017-01-17). "top 10 plug-in vehicle adopting countries of 2016". hybridcars.com. retrieved 2017-01-23.
+^ international energy agency (iea), clean energy ministerial, and electric vehicles initiative (evi) (june 2017). "global ev outlook 2017: two million and counting" (pdf). iea publications. retrieved 2018-02-01. cs1 maint: multiple names: authors list (link) see pp. 5–7, 12–22, 27–28, and statistical annex, pp. 49–51.
+^ a b cobb, jeff (2017-01-18). "the world just bought its two-millionth plug-in car". hybridcars.com. retrieved 2017-01-17.  an estimated 2,032,000 highway-legal plug-in passenger cars and vans have been sold worldwide at the end of 2016. the top selling markets are china (645,708 new energy cars, including imports), europe (638,000 plug-in cars and vans), and the united states (570,187 plug-in cars). the top european country markets are norway (135,276), the netherlands (113,636), france (108,065), and the uk (91,000). total chinese sales of domestically produced new energy vehicles, including buses and truck, totaled 951,447 vehicles. china was the top selling plug-in car market in 2016, and also has the world's largest stock of plug-in electric cars.
+^ bloomberg new energy finance (2016-02-25). "here's how electric cars will cause the next oil crisis" (press release). london and new york: pr newswire. retrieved 2016-02-25.
+^ vaughan, adam (2017-12-25). "electric and plug-in hybrid cars whiz past 3m mark worldwide". the guardian. retrieved 2018-01-20.  "the number of fully electric and plug-in hybrid cars on the world’s roads passed the 3 million mark in november 2017."
+^ jeff cobb (2015-09-16). "one million global plug-in sales milestone reached". hybridcars.com. retrieved 2015-09-16.  cumulative global sales totaled about 1,004,000 highway legal plug-in electric passenger cars and light-duty vehicles by mid-september 2015, of which, 62% are all-electric cars and vans, and 38% plug-in hybrids.
+^ nic lutsey (2015-09-29). "global milestone: the first million electric vehicles". international council on clean transportation (icct). retrieved 2015-10-10.
+^ staff (february 2017). "global plug-in sales for 2016". ev-volumes.com. retrieved 2017-02-05.
+^ "state and federal incentives for evs, phevs and charge stations". plug in america. retrieved 2010-05-29.
+^ "electric car grant: the lowdown on the changes for 2016". london: go ultra low. 2016-03-02. retrieved 2016-03-02.
+^ woodyard, chris (2010-07-14). "obama pushes electric cars, battery power this week". usa today.
+^ swann, albert (2017-10-28). "on the future of electric cars – far from a sure thing?". motorward.
+^ paul hockenos (2011-07-29). "europe's incentive plans for spurring e.v. sales". the new york times. retrieved 2011-07-31.
+^ "overview of purchase and tax incentives for electric vehicles in the eu" (pdf). european automobile manufacturers association. 2011-03-14. archived from the original (pdf) on 2011-09-27. retrieved 2011-07-31.
+external links[edit]
+wikimedia commons has media related to electrically powered automobiles.
+wikibooks has a book on the topic of: electric vehicle conversion/technologies
+look up electric car in wiktionary, the free dictionary.
+how an electric car works
+v
+t
+e
+alternative fuel vehicles
+compressed-air engine
+compressed air car
+compressed-air vehicle
+tesla turbine
+electric motor
+battery-electric locomotive
+battery electric vehicle
+cater metrotrolley
+electric aircraft
+electric bicycle
+pedelec
+electric boat
+electric bus
+battery electric bus
+electric car
+electric truck
+electric platform truck
+electric vehicle
+electric motorcycles and scooters
+electric kick scooter
+gyro flywheel locomotive
+hybrid electric vehicle
+hybrid train
+motorized bicycle
+neighborhood electric vehicle
+plug-in electric vehicle
+plug-in hybrid electric vehicle
+solar vehicle
+solar car
+solar bus
+biofuel ice
+alcohol fuel
+biodiesel
+biogas
+butanol fuel
+common ethanol fuel mixtures
+e85
+ethanol fuel
+flexible-fuel vehicle
+methanol economy
+methanol fuel
+wood gas
+hydrogen
+fuel cell vehicle
+hydrogen economy
+hydrogen vehicle
+hydrogen internal combustion engine vehicle
+others
+autogas
+hybrid electric vehicle
+liquid nitrogen vehicle
+natural gas vehicle
+propane
+steam car
+multiple-fuel
+bi-fuel vehicle
+flexible-fuel vehicle
+hybrid vehicle
+multifuel
+plug-in hybrid
+documentaries
+who killed the electric car?
+what is the electric car?
+revenge of the electric car
+see also
+wind-powered vehicle
+zero-emissions vehicle
+v
+t
+e
+car design
+car classification
+by size
+microcar
+city car
+kei
+subcompact
+supermini
+family car
+compact
+mid-size
+full-size
+custom
+hot rod
+lead sled
+lowrider
+street rod
+t-bucket
+luxury
+compact executive
+executive
+personal luxury car
+(mpv)
+compact mpv
+mini mpv
+(suv)
+compact suv
+crossover suv
+mini suv
+sports
+grand tourer
+hot hatch
+muscle
+pony
+sport compact
+supercar
+antique
+classic
+economy
+leisure activity vehicle
+ute
+van
+voiturette
+body styles
+2+2
+baquet
+barchetta
+berlinetta
+brougham
+cabrio coach
+cabriolet / convertible
+coupé
+coupé de ville
+coupé utility
+drophead coupe (convertible)
+fastback
+hardtop
+hatchback
+landaulet
+liftback
+limousine
+multi-stop truck
+notchback
+panel van
+phaeton
+pickup truck
+quad coupé
+retractable hardtop
+roadster
+runabout
+saloon / sedan
+sedan delivery
+sedanca de ville (coupé de ville)
+shooting-brake
+spider / spyder (roadster)
+station wagon
+targa top
+torpedo
+touring car
+town car (coupé de ville)
+t-top
+vis-à-vis
+specialized vehicles
+amphibious
+driverless (autonomous)
+hearse
+gyrocar
+roadable aircraft
+taxicab
+tow truck
+propulsion
+alternative fuel
+autogas
+biodiesel
+diesel
+electric (battery
+nev)
+ethanol (e85)
+fuel cell
+gasoline / petrol (direct injection)
+homogeneous charge compression ignition
+hybrid (plug-in)
+hydrogen
+internal combustion
+liquid nitrogen
+steam
+drive wheels
+front-wheel
+rear-wheel
+two-wheel
+four-wheel
+six-wheel
+eight-wheel
+twelve-wheel
+engine position
+front
+mid
+rear
+layout (engine / drive)
+front / front
+front mid / front
+rear / front
+front / rear
+rear mid / rear
+rear / rear
+front / four-wheel
+mid / four-wheel
+rear / four-wheel
+engine configuration
+(internal combustion)
+boxer
+flat
+four-stroke
+h-block
+reciprocating
+single-cylinder
+straight
+two-stroke
+v (vee)
+w engine
+wankel
+portal
+category
+v
+t
+e
+renewable energy by country
+africa
+ethiopia
+kenya
+morocco
+seychelles
+south africa
+asia
+afghanistan
+armenia
+bangladesh
+bhutan
+china
+india
+kazakhstan
+nepal
+pakistan
+palestine
+philippines
+taiwan
+thailand
+vietnam
+europe
+european union
+czech republic
+denmark
+finland
+france
+germany
+greece
+hungary
+ireland
+italy
+lithuania
+luxembourg
+malta
+netherlands
+poland
+portugal
+spain
+sweden
+united kingdom
+other
+albania
+iceland
+norway
+russia
+turkey
+north america
+canada
+costa rica
+honduras
+mexico
+united states
+oceania
+australia
+new zealand
+tuvalu
+south america
+argentina
+brazil
+chile
+colombia
+category
+portals:
+energy
+renewable energy
+sustainable development
+authority control
+gnd: 4151795-7
+ndl: 00561380
+retrieved from "https://en.wikipedia.org/w/index.php?title=electric_car&oldid=835455665"
+categories: electric carsautomotive technologiesbattery electric vehiclessustainable technologies1884 introductionshidden categories: articles containing potentially dated statements from december 2017all articles containing potentially dated statementsall articles with dead external linksarticles with dead external links from january 2017articles with permanently dead external linkscs1 maint: explicit use of et al.articles with dead external links from january 2012cs1 french-language sources (fr)cs1 maint: multiple names: authors listarticles containing potentially dated statements from december 2016articles containing potentially dated statements from june 2016articles containing potentially dated statements from december 2015all articles with unsourced statementsarticles with unsourced statements from january 2017wikipedia articles needing style editing from july 2017all articles needing style editingarticles containing potentially dated statements from 2013wikipedia articles in need of updating from july 2017articles containing potentially dated statements from may 2017wikipedia articles needing clarification from may 2017articles containing potentially dated statements from november 2013articles with unsourced statements from november 2013articles with unsourced statements from september 2010articles with unsourced statements from january 2018articles containing potentially dated statements from january 2014articles with unsourced statements from february 2015articles containing potentially dated statements from december 2013articles with unsourced statements from may 2016articles with unsourced statements from october 2014articles with unsourced statements from june 2012articles containing potentially dated statements from june 2012articles containing potentially dated statements from september 2017wikipedia articles with gnd identifiersarticles containing video clips
+navigation menu
+personal tools
+not logged intalkcontributionscreate accountlog in
+namespaces
+articletalk
+variants
+views
+readeditview history
+more
+search
+navigation
+main pagecontentsfeatured contentcurrent eventsrandom articledonate to wikipediawikipedia store
+interaction
+helpabout wikipediacommunity portalrecent changescontact page
+tools
+what links hererelated changesupload filespecial pagespermanent linkpage informationwikidata itemcite this page
+print/export
+create a bookdownload as pdfprintable version
+in other projects
+wikimedia commons
+languages
+العربيةazərbaycancaБеларускаяБеларуская (тарашкевіца)‎БългарскиcatalàČeštinacymraegdanskdeutscheestiΕλληνικάespañolesperantoeuskaraفارسیfrançaisgaeilgeگیلکی한국어हिन्दीhrvatskiidobahasa indonesiaÍslenskaitalianoಕನ್ನಡქართულიҚазақшаລາວlatviešulietuviųmagyarМакедонскиbahasa melayuမြန်မာဘာသာnederlands日本語norsknorsk nynorskoʻzbekcha/ўзбекчаromânăРусскийscotsslovenčinaslovenščinasuomisvenskaதமிழ்తెలుగుไทยtürkçeУкраїнськаاردوtiếng việt中文
+edit links
+this page was last edited on 8 april 2018, at 20:29.
+text is available under the creative commons attribution-sharealike license;
+additional terms may apply.
+by using this site, you agree to the terms of use and privacy policy. wikipedia® is a registered trademark of the wikimedia foundation, inc., a non-profit organization.
+privacy policy
+about wikipedia
+disclaimers
+contact wikipedia
+developers
+cookie statement
+mobile view

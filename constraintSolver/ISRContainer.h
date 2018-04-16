@@ -10,6 +10,7 @@
 #include "ISROr.h"
 #include "../ranker/Ranker.h"
 #include "../util/DataStructureLib/tuple.cpp"
+#include <string>
 
 //Find occurrences of contained ISRs in a single document not containing any excluded ISRs.
 
@@ -21,7 +22,7 @@ public:
 	vector<string> terms;
 	Tuple* root;
 
-	ISRContainer( Tuple * tuple_in );
+	ISRContainer( Tuple * tuple_in, std::string CompleteQuery );
 	ISR * recurviseCompile( Tuple * root );
 
 	unsigned CountContained,
