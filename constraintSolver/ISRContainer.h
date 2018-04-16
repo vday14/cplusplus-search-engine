@@ -57,8 +57,7 @@ public:
  * GetEndDocument
  *
  */
-	string Solve( );
-	void PassToRanker ( Location BeginningfDocument );
+	void Solve( );
 	vector < ISRWord * > toRanker;
 	~ISRContainer ( );
 
