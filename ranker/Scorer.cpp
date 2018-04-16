@@ -12,6 +12,7 @@
 
 #include "../parser/queryTokenizer.h"
 #include <cassert>
+#include <cmath>
 
 
 /**
@@ -26,14 +27,14 @@ Scorer::Scorer ( )
  *
  * @return
  */
-double Scorer::getScore ( Site website)
+double Scorer::getScore ( Site website )
 	{
 	double score = 0.0;
 
 	score += staticScore( website ) * STATIC_WEIGHT;
 	score += proximityMatch( website ) * PROXIMITY_WEIGHT;
 	score += wordLocationScore (website) * LOCATION_WEIGHT;
-
+    score += executeTfIdf( website ) * TFIDF_WEIGHT;
 	score /= ( STATIC_WEIGHT + PROXIMITY_WEIGHT + LOCATION_WEIGHT );
 	assert ( score <= 1.0);
 	return score;
@@ -306,7 +307,7 @@ size_t Scorer::getDocCount( Corpus corpus )
 * @param inputSite
 * @return
 */
-std::unordered_map< std::string, double > Scorer::tfIdf( Site inputSite )
+std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
     {
 	Corpus corpus = Corpus::getInstance( );
     unsigned totalNumDocs = getDocCount(  corpus );
@@ -315,29 +316,77 @@ std::unordered_map< std::string, double > Scorer::tfIdf( Site inputSite )
 	QueryTokenizer parsedQuery( queryString );
     const unordered_map< string, vector< unsigned long > > *queryTokens = parsedQuery.executeQueryOffsets( );
 
-
     //calculate weight vector for this specific site/document
-    unordered_map< string, double > docWeights;
+    unordered_map< string, TfIdf > docWeights;
     auto begin = inputSite.wordData.begin( );
     auto end = inputSite.wordData.end( );
     while ( begin != end )
         {
-         unsigned long tf = begin->second.frequency;
-         size_t docFreq = corpus.getWordInfo( begin->first ).docFrequency;
-         double idf = totalNumDocs / docFreq;
-         double tfIdf = tf * log( idf );
-         docWeights[ begin->first ] = tfIdf;
-
-         if ( queryWeights.find( begin->first ) != queryWeights.end( ) )
+        string currTerm = begin->first;
+        string term = removeDecorator( currTerm );
+        if ( queryTokens->find( term ) != queryTokens->end( ) )
             {
-            auto find = (*queryTokens).find( begin->first );
-            int queryTf = (*find).second.size( );
-            tfIdf = queryTf * log(idf);
-            queryWeights[begin->first] = tfIdf;
-
+            if ( docWeights.find( term ) != docWeights.end( ) )
+                {
+                docWeights[ currTerm ].tf += begin->second.frequency;
+                docWeights[ currTerm ].totalDocFreq += corpus.getWordInfo( begin->first ).docFrequency;
+                }
+            else
+                {
+                TfIdf ti;
+                ti.tf = begin->second.frequency;
+                ti.totalDocFreq = corpus.getWordInfo( begin->first ).docFrequency;
+                docWeights[ currTerm ] = ti;
+                }
             }
+            ++begin;
+        }
+    auto beginDocWeights = docWeights.begin( );
+    auto endDocWeights = docWeights.end( );
+    while ( beginDocWeights != endDocWeights )
+        {
+        unsigned long tf = beginDocWeights->second.tf;
+        double totalDocFrequency = beginDocWeights->second.totalDocFreq;
+        beginDocWeights->second.tfIdf = tf + log(totalNumDocs / totalDocFrequency);
+
+        if (queryTokens->find(beginDocWeights->first) != queryTokens->end())
+            {
+            queryWeights[beginDocWeights->first] = beginDocWeights->second.tfIdf;
+            }
+        ++beginDocWeights;
         }
     return docWeights;
+    }
+/**
+* Calculate total difference between doc weights and query weights
+* @param docWeights
+* @return
+*/
+double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
+    {
+    auto begin_weights = docWeights->begin( );
+    auto end_weights = docWeights->end( );
+    double difference = 0;
+    while ( begin_weights != end_weights )
+        {
+        double docWeight = begin_weights->second.tfIdf;
+        double queryWeight = queryWeights.find( begin_weights->first )->second;
+        difference += abs( docWeight - queryWeight );
+        }
+    difference = 1 / difference;
+    return difference;
+    }
+
+/**
+* Executes tfidf weight calculation and returns rough similarity score
+* @param inputSite
+* @return
+*/
+double Scorer::executeTfIdf( Site inputSite )
+    {
+    unordered_map< string, TfIdf > docWeights = calcTfIdf( inputSite );
+    double tfIdfScore = compareTfIdf( &docWeights );
+    return tfIdfScore;
     }
 
 int Scorer::getNumWordsInURL ( string url )

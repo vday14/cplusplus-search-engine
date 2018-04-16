@@ -452,3 +452,21 @@ string lastN ( string input, int n )
 	unsigned long inputSize = input.size( );
 	return ( n > 0 && inputSize > n ) ? input.substr( inputSize - n ) : "";
 	}
+
+/**
+ * Remove first char in word - used in ranker to remove decorator
+ * @param input
+ * @return
+ */
+string removeDecorator( string input)
+	{
+	string no_decorator = "";
+	string::iterator str_start = input.begin(  );
+	string::iterator str_end = input.end( );
+	++str_start;
+	while ( str_start != str_end )
+		{
+		no_decorator += *str_start;
+		}
+	return no_decorator;
+	}

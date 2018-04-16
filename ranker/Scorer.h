@@ -83,6 +83,12 @@ struct ScoreData
 
 	};
 
+struct TfIdf {
+	unsigned long tf;
+	double totalDocFreq;
+	double tfIdf;
+};
+
 class Scorer
 	{
 public:
@@ -200,7 +206,14 @@ public:
      * @param inputSite
      * @return
      */
-    unordered_map< string, double > tfIdf( Site inputSite );
+    unordered_map< std::string, TfIdf > calcTfIdf( Site inputSite );
+
+	/**
+	 * Calculate total difference between doc weights and query weights
+	 * @param docWeights
+	 * @return
+	 */
+	double compareTfIdf( unordered_map< string, TfIdf > *docWeights );
 
 
     /**
@@ -209,7 +222,15 @@ public:
      */
     size_t getDocCount( Corpus corpus );
 
+	/**
+	 * Executes tfidf weight calculation and returns rough similarity score
+	 * @param inputSite
+	 * @return
+	 */
+	double executeTfIdf( Site inputSite );
+
 private:
+
     std::unordered_map< std::string, double > queryWeights;
 
 	const double STATIC_WEIGHT = 1.0;
