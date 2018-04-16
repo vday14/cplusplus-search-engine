@@ -354,11 +354,13 @@ size_t Scorer::getDocCount( Corpus corpus )
 */
 std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
     {
+    //need corpus to get total document count and doc frequencies
 	Corpus corpus = Corpus::getInstance( );
     unsigned totalNumDocs = getDocCount(  corpus );
     Query query = inputSite.getQuery( );
     string queryString = query.getQueryString( );
 	QueryTokenizer parsedQuery( queryString );
+    //returns word->vector of offsets query map
     const unordered_map< string, vector< unsigned long > > *queryTokens = parsedQuery.executeQueryOffsets( );
 
     //calculate weight vector for this specific site/document
@@ -368,16 +370,21 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
     while ( begin != end )
         {
         string currTerm = begin->first;
+        //"normalized" term with out decorator
         string term = removeDecorator( currTerm );
+        //check if term is in query, otherwise weight doesn't need to be calculated
         if ( queryTokens->find( term ) != queryTokens->end( ) )
             {
+            //check if this word has been seen already (with a different decorator)
             if ( docWeights.find( term ) != docWeights.end( ) )
                 {
+                //add to tf and idf accordingly
                 docWeights[ currTerm ].tf += begin->second.frequency;
                 docWeights[ currTerm ].totalDocFreq += corpus.getWordInfo( begin->first ).docFrequency;
                 }
             else
                 {
+                //if normalized term hasn't been seen before, create new instance in docWeight map
                 TfIdf ti;
                 ti.tf = begin->second.frequency;
                 ti.totalDocFreq = corpus.getWordInfo( begin->first ).docFrequency;
@@ -388,15 +395,17 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
         }
     auto beginDocWeights = docWeights.begin( );
     auto endDocWeights = docWeights.end( );
+    //calculate tfIdf values for doc and query values
     while ( beginDocWeights != endDocWeights )
         {
         unsigned long tf = beginDocWeights->second.tf;
         double totalDocFrequency = beginDocWeights->second.totalDocFreq;
         beginDocWeights->second.tfIdf = tf + log(totalNumDocs / totalDocFrequency);
 
+        //only need to consider words from the query that are in the document
         if (queryTokens->find(beginDocWeights->first) != queryTokens->end())
             {
-            queryWeights[beginDocWeights->first] = beginDocWeights->second.tfIdf;
+            queryWeights[ beginDocWeights->first ] = beginDocWeights->second.tfIdf;
             }
         ++beginDocWeights;
         }
@@ -418,6 +427,7 @@ double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
         double queryWeight = queryWeights.find( begin_weights->first )->second;
         difference += abs( docWeight - queryWeight );
         }
+    //smaller difference = better doc
     difference = 1 / difference;
     return difference;
     }
