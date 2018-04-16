@@ -128,8 +128,11 @@ void ISREndDoc::seek(Location target) {
                 }
                 last = seekTable[i];
             }
-            memMap = corpus.chunks[chunk].getChunkMap();
-            memMap += last.seekOffset;
+            if(currentDoc.docEndPosition < last.realLocation)
+                {
+                memMap = corpus.chunks[chunk].getChunkMap();
+                memMap += last.seekOffset;
+                }
         }
     }
     while(target > (next().docEndPosition - 1));
