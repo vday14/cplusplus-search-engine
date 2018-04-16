@@ -28,9 +28,11 @@ for data_p in graph:
 
 
 
+totals.reverse( )
+times.reverse( )
 
-
-
+print(totals)
+print(times)
 plt.plot(totals , times )
 plt.ylabel('Time To Get Results (seconds)')
 plt.xlabel('Total Number of Hits')

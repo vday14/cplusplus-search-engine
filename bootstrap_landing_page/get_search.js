@@ -63,14 +63,14 @@ function get_request(){
             var total_results = returnedJSON['total_results'];
             var time = returnedJSON['time'];
 
-            $("#timeToRun").text("Time to run : " +  time);
-            $("#totalResults").text("Total Results Found: "  + total_results);
+            $("#timeToRun").text("Time to run :     " +  time);
+            $("#totalResults").text("Total Results Found:     "  + total_results);
 
 
             $("#results").empty();
             $(results).each(function(index, result) {
                 var score = result['score'];
-                var title = result['title'];
+                var title = result['title'].replace('#x27;s', ' ');
                 var url = result['site'];
                 var text = "Score: " + result['score'] + "    :  " + result['title'];
                 var title_div = $("<h3 class = 'title'>").text(title);
@@ -83,16 +83,6 @@ function get_request(){
 
 
             });
-            /*
-
-            for(count in results)
-            {
-                var result = $( "< a href='"+ results[count]   +"' class='result'" + count + " >" + results[count] + "</a>" );
-
-                $("#results").append(result);
-
-            }
-            */
 
 
         }
