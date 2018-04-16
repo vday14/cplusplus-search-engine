@@ -47,7 +47,7 @@ double Scorer::getScore ( Site website )
     score += executeTfIdf( website ) * TFIDF_WEIGHT;
 
 	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
-	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT );
+	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT + TFIDF_WEIGHT);
 
 	assert ( score <= 1.0);
 	return score;
