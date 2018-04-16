@@ -1,7 +1,7 @@
 #pragma once
 
 namespace IndexerConstants {
-	 const string pathToIndex = "/buildBig/";
+	 const string pathToIndex = "/buildStable/";
 //	const string pathToIndex = "/constraintSolver/index-test-files/twitter/";
 
 	const size_t maxWordSize = 28;

@@ -29,9 +29,6 @@ void Searcher::search ( )
 	else
 		{
 
-		//This will toggle decoration off to test things lile '$russia $trump or #hillary'
-		//queryParser.toggleDecorator( );
-		//clock_t start = clock( )
 		queryParser.parse(CompleteQuery);
 
 		ProducerConsumerQueue< pair< Location, Location> > *MatchQueue = new ProducerConsumerQueue< pair< Location, Location>  >( );
