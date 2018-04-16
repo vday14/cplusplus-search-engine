@@ -35,6 +35,7 @@ int main() {
 }
 
 void run(int file) {
+    clock_t start = clock();
     ofstream integrityFile(util::GetCurrentWorkingDir() + IndexerConstants::pathToIndex + "integrity" + to_string(file) + ".txt");
     double bestTime = numeric_limits<double>().max();
     double worstTime = numeric_limits<double>().min();
@@ -117,9 +118,11 @@ void run(int file) {
         }
     }
     cout << "Read " << file << endl;
+    clock_t end = clock();
     integrityFile << "Percentage correct: " << (double) correct / number << endl;
     integrityFile << "\tNumber correct: " << correct << endl;
     integrityFile << "\tNumber queries: " << number << endl;
     integrityFile << "Worst lookup time: " << worstTime << endl;
     integrityFile << "Best lookup time: " << bestTime << endl;
+    integrityFile << "Time to establish integrity: " << (end - start) / CLOCKS_PER_SEC << " seconds" << endl;
 }

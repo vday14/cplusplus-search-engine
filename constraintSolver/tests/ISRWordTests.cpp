@@ -23,17 +23,16 @@ int main ( ) {
 	decorators.push_back("@");
 	decorators.push_back("$");
 
-	Stemmer stem;
-	/*
+//	Stemmer stem;
 	for(auto dec : decorators)
 		{
 
-		ISRWord queryWord( dec + stem.execute("world") ) ;
+		ISRWord queryWord( dec + "trump" ) ;
 		queries.push_back(queryWord);
 		}
-*/
-	ISRWord queryWord( "spiritual" ) ;
-	queries.push_back(queryWord);
+
+//	ISRWord queryWord( "spiritual" ) ;
+//	queries.push_back(queryWord);
 	vector<size_t> locations;
 	set<string> urls;
 

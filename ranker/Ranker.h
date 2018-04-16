@@ -107,7 +107,6 @@ private:
 	void selectivelyAddDocs( Site * doc);
 
 
-
 	};
 
 
