@@ -38,9 +38,6 @@ private:
 
 	bool hasBeenScored;
 
-	const double STAT_WEIGHT;
-	const double LOC_WEIGHT;
-	const double PROX_WEIGHT;
 
 public:
 
@@ -69,7 +66,6 @@ public:
 	 */
 	Site ( std::string url_in, Query query_in , std::string title);
 
-	Site( std::string url_in, Query query_in, std::string title, double stat_in, double prox_in, double loc_in);
 	/**
 	 * Site dstor
 	 */

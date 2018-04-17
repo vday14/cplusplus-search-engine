@@ -25,11 +25,6 @@ Ranker::Ranker( std::string query_in )
 	sortedDocs.resize(DOCS_TO_RETURN);
 	};
 
-Ranker::Ranker(string query_in, double stat_in, double prox_in, double loc_in )
-	:query(Query(query_in)), stat( stat_in), prox( prox_in ), loc( loc_in )
-	{
-	sortedDocs.resize( DOCS_TO_RETURN);
-	};
 
 
 Ranker::Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueue_in )
