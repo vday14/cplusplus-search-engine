@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    Corpus corpus = Corpus();
+    Corpus corpus = Corpus::getInstance();
 
     cout << "Number chunks: " << corpus.numberChunks << endl;
     cout << "Number documents: " << corpus.numberDocuments << endl;

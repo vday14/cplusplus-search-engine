@@ -13,6 +13,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <fcntl.h>
 #include <unistd.h>

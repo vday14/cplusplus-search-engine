@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <string>
 #include <unistd.h>
+#include <cstring>
 #include <cmath>
 #include <sys/types.h>
 #include <sys/stat.h>
