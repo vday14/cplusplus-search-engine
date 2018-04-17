@@ -47,7 +47,6 @@ add_executable(crawler-parser-Test
         util/Stemmer.cpp
         util/Tokenizer.cpp
         util/stringProcessing.cpp
-#        crawler/HouseKeeper.cpp
         indexer/Indexer.cpp)
 
 
