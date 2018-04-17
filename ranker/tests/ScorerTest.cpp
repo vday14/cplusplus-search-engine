@@ -305,7 +305,7 @@ void testWordLocationScore()
 void testTfIdf ( )
 	{
 
-	cout << "Testing wordLocation score...\n";
+	cout << "Testing tf-idf score...\n";
 	Query query( "trump is president FBI" );
 	ParsedUrl url( "https://www.politico.com/story/2018/04/16/james-comey-interview-trump-white-house-response-526281" );
 	Site newSite( url.getCompleteUrl(), query, "Trump office president FBI white house trump fbi white white trump house" );
@@ -342,7 +342,7 @@ void testTfIdf ( )
 
     double score = scorer.executeTfIdf( newSite );
     cout << score << endl;
-    assert( score == difference );     
+    assert( score == difference );
 
 
 

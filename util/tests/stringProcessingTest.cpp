@@ -42,10 +42,10 @@ int main ( )
 //	testFindStr( original );
 //	testFindNext( );
 //	testFindPrev( );
-	testSplitStr( original );
+//	testSplitStr( original );
 //	testIsStopWord( );
 //	testToLower( );
-//	testStemWord( );
+	testStemWord( );
 //	testSubStr( );
 //	testStripStr( );
 //	testIsAlpha( );
@@ -203,12 +203,23 @@ void testStemWord ( )
 	cout << "Testing stemWord..." << endl;
 	Stemmer stem;
 
-	assert ( stem.execute( "cats" ) == "cat" );
+	/*assert ( stem.execute( "cats" ) == "cat" );
 	assert ( stem.execute( "wilde" ) == "wild" );
 	assert( stem.execute( "zoo" ) == "zoo" );
 	assert( stem.execute( "troublesome" ) == "troublesom" );
 
-	cout << "testStemWord passed" << endl << endl;
+	cout << "testStemWord passed" << endl << endl;*/
+
+	    cout << stem.execute("white") << endl;
+		cout << stem.execute("house") << endl;
+		cout << stem.execute("trump") << endl;
+		cout << stem.execute("office") << endl;
+		cout << stem.execute("president") << endl;
+		cout << stem.execute("james") << endl;
+		cout << stem.execute("comey") << endl;
+		cout << stem.execute("corrupt") << endl;
+		cout << stem.execute("fbi") << endl;
+
 	}
 
 void testSubStr ( )

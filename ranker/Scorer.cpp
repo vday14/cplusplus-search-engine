@@ -432,6 +432,7 @@ double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
         double docWeight = begin_weights->second.tfIdf;
         double queryWeight = queryWeights.find( begin_weights->first )->second;
         difference += abs( docWeight - queryWeight );
+        ++begin_weights;
         }
     //smaller difference = better doc
     difference = 1 / difference;
