@@ -4,11 +4,13 @@
 #pragma  once
 #include "../shared/ProducerConsumerQueue.h"
 //#include "../shared/SharedHashMap.h"
-#include "../shared/url.h"
+#include <algorithm>
+#include "../shared/ParsedUrl.h"
 #include <time.h>
 #include <unordered_map>
 #include <set>
 #include <iostream>
+#include <atomic>
 using namespace std;
 
 
@@ -46,7 +48,8 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 		unordered_map<string, priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> *> RestrictedHosts;
 		vector<string> RoundRobinHosts;
 		size_t numHost;
-		atomic_ulong GlobalCounter;
+		//atomic_ulong GlobalCounter;
+		std::atomic<u_long> GlobalCounter;
 		//std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk
@@ -57,7 +60,7 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 		urlMap *duplicateUrlMap =  new urlMap;
 	private:
 		//urlMap *duplicateUrlMap =  new urlMap;
-		unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
+		//unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
 
 	};
 

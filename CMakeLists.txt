@@ -11,8 +11,8 @@ add_executable(QueueTest
 add_executable(TryPopTest
         shared/TryPopTest.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
-        shared/url.h
+        shared/ThreadClass.cpp
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -31,9 +31,9 @@ add_executable(TryPopTest
 
 add_executable(crawler-parser-Test
         main.cpp
-        shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
-        shared/url.h
+        shared/ProducerConsumerQueue.cpp
+        shared/ThreadClass.cpp
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -47,15 +47,14 @@ add_executable(crawler-parser-Test
         util/Stemmer.cpp
         util/Tokenizer.cpp
         util/stringProcessing.cpp
-#        crawler/HouseKeeper.cpp
         indexer/Indexer.cpp)
 
 
 add_executable(crawler-parser-indexer-Test
         main.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
-        shared/url.h
+        shared/ThreadClass.cpp
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -76,9 +75,9 @@ add_executable(crawler-parser-indexer-Test
 add_executable(isolated-integration
         crawler/tests/crawlerTest.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
+        shared/ThreadClass.cpp
         crawler/UrlFrontier.cpp
-        shared/url.h
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
@@ -99,8 +98,8 @@ add_executable(isolated-integration
 add_executable(url-frontier-test
         crawler/tests/urlFrontierTest.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
-        shared/url.h
+        shared/ThreadClass.cpp
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -135,7 +134,7 @@ add_executable(StemmerTest
 add_executable(ParserTest
         parser/Parser.cpp
         shared/Document.cpp
-        shared/url.h
+        shared/ParsedUrl.cpp
         util/util.cpp
         util/Tokenizer.cpp
         shared/ProducerConsumerQueue.h
@@ -163,7 +162,7 @@ add_executable(SharedTableTest
         shared/SharedHashMapTest.cpp )
 
 add_executable(URLTEST
-        shared/url.h
+        shared/ParsedUrl.cpp
         shared/urlTest.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
@@ -190,7 +189,8 @@ add_executable(search-engine
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISROr.cpp
         query/Query.cpp
-        parser/queryTokenizer.cpp)
+        parser/queryTokenizer.cpp
+        shared/ThreadClass.cpp)
 
 
 add_executable(querySpeedTest
@@ -418,6 +418,7 @@ add_executable(server
         constraintSolver/ISRWord.cpp
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISROr.cpp
+        shared/ThreadClass.cpp
 
         )
 

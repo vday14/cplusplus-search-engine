@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "../util/util.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 #include "WordInfo.h"

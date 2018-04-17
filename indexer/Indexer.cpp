@@ -22,8 +22,9 @@ void Indexer::run()
 			{
 
 			DocIndex *dictionary = pointerToDictionaries->Pop( );
-			numberDocsIndexed++;
-			cout << "Number of documents indexed :: " << to_string(numberDocsIndexed) << endl;
+			//numberDocsIndexed++;
+			if( (numberDocsIndexed++) % 100 == 0 )
+				cout << "Number of documents indexed :: " << to_string(numberDocsIndexed) << endl;
 
 			DocumentEnding docEnd = DocumentEnding( );
 			size_t indexedCount = 0;

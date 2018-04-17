@@ -119,7 +119,7 @@ void Spider::run ( )
 				if (reader) {
 					bool success = reader->request();
 					if (success) {
-						cout << "Parsing " << currentUrl.getCompleteUrl();
+						//cout << "Parsing " << currentUrl.getCompleteUrl();
 						DocIndex *dict = parser.execute(reader);
 						IndexerQueue->Push(dict);
 
