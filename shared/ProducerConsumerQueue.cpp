@@ -77,10 +77,3 @@ size_t ProducerConsumerQueue< T >::Size ( )
 	pthread_mutex_unlock( &m );
 	return size;
 	}
-
-void TemporaryFunction()
-	{
-	ProducerConsumerQueue<ParsedUrl> temp1;
-	ProducerConsumerQueue<const unordered_map< string, vector< unsigned long > > *> temp2;
-	ProducerConsumerQueue< unordered_map<string , const unordered_map< string, vector< unsigned long > > * >  > temp3;
-	}

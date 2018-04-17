@@ -52,7 +52,7 @@ add_executable(crawler-parser-Test
 
 add_executable(crawler-parser-indexer-Test
         main.cpp
-        shared/ProducerConsumerQueue.cpp
+        shared/ProducerConsumerQueue.h
         shared/ThreadClass.cpp
         shared/ParsedUrl.cpp
         crawler/crawler.cpp
