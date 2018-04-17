@@ -400,6 +400,7 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
         {
         unsigned long tf = beginDocWeights->second.tf;
         double totalDocFrequency = beginDocWeights->second.totalDocFreq;
+
         if ( totalDocFrequency == 0 )
             {
             beginDocWeights->second.tfIdf = 0;
@@ -414,8 +415,14 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
         auto queryEnd = queryTokens->end( );
 	    if ( findQuery != queryEnd )
             {
-            queryWeights[ beginDocWeights->first ] = findQuery->second.size( )  * log10(totalNumDocs / beginDocWeights->second.totalDocFreq);
-            double test = findQuery->second.size( ) * log( totalNumDocs / beginDocWeights->second.totalDocFreq );
+		    if ( totalDocFrequency == 0 )
+			    {
+			    queryWeights[ beginDocWeights->first ] = findQuery->second.size ( ) * log10 ( totalNumDocs / totalDocFrequency );
+			    }
+		    else
+		    	{
+			    queryWeights[ beginDocWeights->first ] = 0;
+		    	}
             }
         ++beginDocWeights;
         }
