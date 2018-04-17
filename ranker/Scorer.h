@@ -234,6 +234,13 @@ public:
 	 */
 	double executeTfIdf( Site inputSite );
 
+	/**
+	 * Returns summed doc frequency of term with all decorators
+	 * @param stripped_term
+	 * @return
+	 */
+	static double getTotalDocFreq( string stripped_term, Corpus &corpus );
+
 private:
 
     std::unordered_map< std::string, double > queryWeights;

@@ -157,3 +157,5 @@ string lastN ( string input, int n );
  * @return
  */
 std::string removeDecorator( std::string input);
+
+string addDecorator ( string input, string decorator );

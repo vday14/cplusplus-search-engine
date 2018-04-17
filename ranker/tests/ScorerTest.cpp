@@ -1,6 +1,7 @@
 
 #include "../Scorer.h"
 #include "../Site.h"
+#include "../../indexer/Corpus.h"
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -13,6 +14,8 @@ void testProxMultipleOffsets ( );
 void testPhraseMatchMultipleOffsets ( );
 void testWordLocationScore( );
 void testMatchType();
+void testTfIdf( );
+
 
 
 int main( )
@@ -25,7 +28,8 @@ int main( )
 	testPhraseMatchSymbols ( );
 	testProxMultipleOffsets( );
 	testMatchType ();
-	testWordLocationScore();
+	testWordLocationScore( );
+	testTfIdf( );
 
 	cout << "------Passed All Scorer Tests--- :)" << endl;
 	}
@@ -295,5 +299,51 @@ void testWordLocationScore()
 	assert(scorer.wordLocationScore ( newSite ) <= manualScore + 0.001 && scorer.wordLocationScore ( newSite ) >= manualScore - 0.001);
 
 	cout << "PASSED Location Score :)\n";
+
+	}
+
+void testTfIdf ( )
+	{
+
+	cout << "Testing wordLocation score...\n";
+	Query query( "trump is president FBI" );
+	ParsedUrl url( "https://www.politico.com/story/2018/04/16/james-comey-interview-trump-white-house-response-526281" );
+	Site newSite( url.getCompleteUrl(), query, "Trump office president FBI white house trump fbi white white trump house" );
+
+    Corpus corpus = Corpus::getInstance( );
+    size_t totalDocs = corpus.numberDocuments;
+    double trumpDocFreq = Scorer::getTotalDocFreq( "trump", corpus );
+    double presDocFreq = Scorer::getTotalDocFreq( "presid", corpus );
+    double fbiDocFreq = Scorer::getTotalDocFreq( "fbi", corpus );
+
+    double trumpIdf = log( totalDocs / trumpDocFreq );
+    double presIdf = log( totalDocs / presDocFreq );
+    double fbiIdf = log( totalDocs / fbiDocFreq );
+
+    //7 = trump doc tf, 4 = pres doc tf, 2 = fbi doc tf
+    double difference = abs( ( 7 * trumpIdf ) - ( 1 * trumpIdf ) )  + abs( ( 4 * presIdf ) - ( 1 * presIdf ) ) + abs( ( 2 * fbiIdf ) - ( 1 * fbiIdf) );
+
+    Scorer scorer;
+	newSite.wordData[ "#trump"].frequency = 3;
+	newSite.wordData[ "#offic"].frequency = 1;
+	newSite.wordData[ "#presid"].frequency = 4;
+	newSite.wordData[ "#white" ].frequency = 3;
+	newSite.wordData[ "#hous" ].frequency = 2;
+	newSite.wordData[ "#fbi" ].frequency = 2;
+	newSite.wordData[ "%trump" ].frequency = 3;
+	newSite.wordData[ "%comei" ].frequency = 1;
+	newSite.wordData[ "%white" ].frequency = 2;
+	newSite.wordData[ "%hous" ].frequency = 1;
+	newSite.wordData[ "%hous" ].frequency = 1;
+	newSite.wordData[ "%corrupt" ].frequency = 5;
+	newSite.wordData[ "$jame"].frequency = 1;
+	newSite.wordData[ "$comei"].frequency = 2;
+	newSite.wordData[ "$trump"].frequency = 1;
+
+    double score = scorer.executeTfIdf( newSite );
+    cout << score << endl;
+    assert( score == difference );     
+
+
 
 	}
