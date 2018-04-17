@@ -35,8 +35,9 @@ bool ProducerConsumerQueue< T >::try_pop(T &result)
 	while(queue_.empty()){
 		retval = pthread_cond_timedwait(&consumer_cv, &m, &timeToWait);
 		if(retval != 0){
-			fprintf(stderr, "pthread_cond_timedwait %s\n",
-					strerror(retval));
+			//fprintf(stderr, "pthread_cond_timedwait %s\n",
+			//		strerror(retval));
+			cerr << "error popping" << endl;
 			pthread_mutex_unlock(&m);
 			return false;
 		}
