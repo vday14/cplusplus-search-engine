@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
 #include "../util/util.h"
 #include "IndexerConstants.h"
