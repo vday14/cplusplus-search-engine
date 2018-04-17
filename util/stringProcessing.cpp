@@ -17,8 +17,8 @@ using namespace std;
 std::string unEncodeHtml( std::string originalText )
 	{
 	// don't check if at least one of these symbols doesnt occure
-	if ( findStr( "#", originalText ) == originalText.size( ) || findStr( ";", originalText ) == originalText.size( )
-	     || findStr( "&", originalText ) == originalText.size( ) )
+	if ( findStr( "#", originalText ) == originalText.size( ) && findStr( ";", originalText ) == originalText.size( )
+	     && findStr( "&", originalText ) == originalText.size( ) )
 		{
 		return originalText;
 		}
