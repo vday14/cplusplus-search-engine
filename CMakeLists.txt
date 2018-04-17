@@ -317,7 +317,9 @@ add_executable(Scorer-tests
         indexer/Chunk.cpp
         parser/queryTokenizer.cpp
         util/Tokenizer.cpp
-        query/Query.cpp)
+        query/Query.cpp
+        shared/ThreadClass.cpp
+        shared/ParsedUrl.cpp)
 
 add_executable(DataStructures-Vector-tests
         DataStructures/Vector/Vector.h
