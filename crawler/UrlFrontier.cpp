@@ -102,7 +102,7 @@ void UrlFrontier::Push( ParsedUrl url )
 
 			auto currentQ = RestrictedHosts[ url.getHost ( ) ];
 			currentQ->push( url );
-			//cout << "PUSHING " << url.getCompleteUrl( ) << endl;
+			cout << "PUSHING " << url.getCompleteUrl( ) << endl;
 
 			if ( currentQ->size( ) == 1 )
 				{
@@ -285,7 +285,7 @@ void UrlFrontier::readBlackList()
 void UrlFrontier::readHosts()
 	{
 
-	string hostsFile = "/crawler/seeds.txt";
+	string hostsFile = "/crawler/wiki.txt";
 	char *hosts = util::getFileMap( hostsFile );
 
 	string toRestrict;
