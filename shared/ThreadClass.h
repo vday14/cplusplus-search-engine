@@ -31,5 +31,3 @@ private:
 	pthread_t thread;
 	};
 
-
-#endif //EECS398_SEARCH_THREADCLASS_H
