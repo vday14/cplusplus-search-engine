@@ -19,7 +19,7 @@ class ComparisonClass {
 public:
 	bool operator() (ParsedUrl lhs , ParsedUrl rhs) {
 		//comparison code here
-		return lhs.getScore() > rhs.getScore();
+		return lhs.getScore() < rhs.getScore();
 		}
 	};
 

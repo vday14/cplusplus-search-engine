@@ -134,10 +134,13 @@ public:
 									CompleteUrl.end());
 
 			CompleteUrl = util::removeAllStr(CompleteUrl, "?");
+			CompleteUrl = util::removeAllStr(CompleteUrl, "#");
 
 
 
-					//size_t newLine = CompleteUrl.find("\\n");
+
+
+			//size_t newLine = CompleteUrl.find("\\n");
 					//remove newline chars and white space
 
 
@@ -207,7 +210,7 @@ public:
 			isValid = false;
 
 
-		Score +=  1/ ( lengthOfUrl ) / 10;
+		 Score +=  lengthOfUrl/ 100;
 
 		if(lengthOfUrl > 4)
 		{

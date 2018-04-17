@@ -22,7 +22,8 @@ public:
 	vector<string> terms;
 	Tuple* root;
 
-	ISRContainer( Tuple * tuple_in, std::string CompleteQuery );
+
+	ISRContainer( Tuple * tuple_in , ProducerConsumerQueue< pair<Location, Location> > * MatchQueueIn );
 	ISR * recurviseCompile( Tuple * root );
 
 	unsigned CountContained,
@@ -56,14 +57,15 @@ public:
  * GetEndDocument
  *
  */
-	string Solve( );
-	void PassToRanker ( Location BeginningfDocument );
-
+	void Solve( );
+	vector < ISRWord * > toRanker;
 	~ISRContainer ( );
 
 
 private:
 	unsigned nearestTerm, farthestTerm;
 	Location nearestStartLocation, nearestEndLocation;
-	Ranker ranker;
+	ProducerConsumerQueue< pair<Location, Location> > * MatchQueue;
+
+	//Ranker ranker;
 	};
