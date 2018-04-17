@@ -6,6 +6,8 @@
 #pragma once
 #include "../query/queryLanguage/QueryParser.h"
 #include "../constraintSolver/ISRContainer.h"
+#include "../ranker/Ranker.h"
+#include "../shared/ProducerConsumerQueue.h"
 using namespace std;
 
 class Searcher
@@ -24,6 +26,7 @@ public:
 	void printResults ( );
 
 	string GetResults( );
+
 
 private:
 	string CompleteQuery;
