@@ -23,7 +23,7 @@ public:
 		{ };
 
 
-	virtual void test();
+	void test();
 
 	virtual bool request ( ) = 0;
 
