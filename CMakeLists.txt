@@ -473,27 +473,27 @@ add_executable(testSVM
 
         )
 
-#find_package(OpenSSL REQUIRED)
-#
-#target_link_libraries(TryPopTest OpenSSL::SSL)
-#
-#target_link_libraries(query-Ranker-tests OpenSSL::SSL)
-#
-#target_link_libraries(ParserTest OpenSSL::SSL)
-#
-#target_link_libraries(isolated-integration OpenSSL::SSL pthread)
-#target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
-#
-#target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
-#target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
-#
-#target_link_libraries(QueueTest pthread)
-#target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
-#target_link_libraries(search-engine OpenSSL::SSL pthread)
-#
-#target_link_libraries(server OpenSSL::SSL pthread)
-#
-#
-#
-#
+find_package(OpenSSL REQUIRED)
+
+target_link_libraries(TryPopTest OpenSSL::SSL)
+
+target_link_libraries(query-Ranker-tests OpenSSL::SSL)
+
+target_link_libraries(ParserTest OpenSSL::SSL)
+
+target_link_libraries(isolated-integration OpenSSL::SSL pthread)
+target_link_libraries(url-frontier-test OpenSSL::SSL pthread)
+
+target_link_libraries(crawler-parser-Test OpenSSL::SSL pthread)
+target_link_libraries(crawler-parser-indexer-Test OpenSSL::SSL pthread)
+
+target_link_libraries(QueueTest pthread)
+target_link_libraries(Scorer-tests OpenSSL::SSL pthread)
+target_link_libraries(search-engine OpenSSL::SSL pthread)
+
+target_link_libraries(server OpenSSL::SSL pthread)
+
+
+
+
 
