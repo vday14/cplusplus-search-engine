@@ -11,19 +11,29 @@
 //const Location MAX_Location = std::numeric_limits<unsigned>::max();
 
 Ranker::Ranker( )
-	{ }
+	:query( Query ( "" ) ), stat(1.0), prox(1.0), loc(1.0)
+	{ };
+
 /**
  * Ranker cstor
  *
  * @param query_in
  */
-Ranker::Ranker( std::string query_in  ) : query ( Query( query_in )  )
+Ranker::Ranker( std::string query_in )
+		: query ( Query( query_in ) ),stat(1.0), prox(1.0),loc(1.0)
 	{
 	sortedDocs.resize(DOCS_TO_RETURN);
 	};
 
+Ranker::Ranker(string query_in, double stat_in, double prox_in, double loc_in )
+	:query(Query(query_in)), stat( stat_in), prox( prox_in ), loc( loc_in )
+	{
+	sortedDocs.resize( DOCS_TO_RETURN);
+	};
 
-Ranker::Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueue_in ) : MatchQueue( MatchQueue_in) { }
+
+Ranker::Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueue_in )
+		:stat(1.0), prox(1.0),loc(1.0), MatchQueue( MatchQueue_in) { }
 
 void Ranker::addQuery( std::string query_in )
 	{

@@ -9,9 +9,12 @@
  * Site cstor
  */
 Site::Site ( std::string url_in, Query query_in, std::string title_in )
-	: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false ), hasAnchor(false),
-	  hasUrl(false), hasTitle(false), hasBody(false)
+		: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false ), STAT_WEIGHT( 1.0 ), PROX_WEIGHT( 1.0 ), LOC_WEIGHT( 1.0 )
 	{ }
+
+Site::Site( std::string url_in, Query query_in, std::string title_in, double stat_in, double prox_in, double loc_in)
+		: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false ), STAT_WEIGHT( stat_in ), PROX_WEIGHT( prox_in ), LOC_WEIGHT( loc_in )
+	{};
 
 /**
  * Site dstor
@@ -45,7 +48,7 @@ double Site::getScore ( )
 		}
 
 	hasBeenScored = true;
-	Scorer rank = Scorer();
+	Scorer rank = Scorer(STAT_WEIGHT, PROX_WEIGHT, LOC_WEIGHT);
 	score = rank.getScore (*this);
 
 

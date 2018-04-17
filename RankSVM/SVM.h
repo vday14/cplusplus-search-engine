@@ -43,6 +43,9 @@ public:
 
 		bool operator()(doc L, doc R)
 			{
+			if(L.score ==0 && R.score == 0)
+				return L.id > R.id;
+
 			return L.score < R.score;
 			}
 		};

@@ -26,6 +26,7 @@ void SVM::generateRankingMatrix( int trainingFile )
 
 	if( filePtr != nullptr )
 		{
+		corpus.resize(NUMBER_OF_DOCS);
 
 		for( int i = 0; i < NUMBER_OF_DOCS; ++i )
 			{
@@ -43,17 +44,19 @@ void SVM::generateRankingMatrix( int trainingFile )
 				}
 
 			char url[150];
+			fscanf (filePtr, "%s", url);
+
 			string urlString(url);
+
 
 			doc * currentDoc = new doc();
 			currentDoc->url = urlString;
 			currentDoc->featureVec = featureVec;
 			currentDoc->id = id;
-			fscanf (filePtr, "%s", url);
 
-			corpus.push_back(currentDoc);
+			corpus[id] = (currentDoc);
 
-			urlToIDMap[urlString] = i;
+			urlToIDMap[urlString] = id;
 
 			}
 		}
@@ -98,7 +101,7 @@ void SVM::generateRankingMatrix( int trainingFile )
 
 	if(filePtr != nullptr)
 		{
-		for( int i = 0; i < 10; ++i )
+		for( int i = 0; i < NUMBER_OF_DOCS; ++i )
 			{
 			int id;
 			fscanf ( filePtr, "%d", &id );
@@ -107,13 +110,13 @@ void SVM::generateRankingMatrix( int trainingFile )
 		}
 
 	//number of documents that have been hand sorted
-	assert( sortedID.size( ) == 10);
+	assert( sortedID.size( ) == NUMBER_OF_DOCS);
 
-	for( int i = 0 ; i < 10 ; ++i )
+	for( int i = 0 ; i < NUMBER_OF_DOCS ; ++i )
 		{
 
 		int currentID = sortedID[ i ];
-		for( int j = 0; j < 10 ; ++ j)
+		for( int j = 0; j < NUMBER_OF_DOCS ; ++ j)
 			{
 			int testID = sortedID[ j ];
 			if( j >= i)
@@ -147,10 +150,10 @@ string SVM::getRankedSitesFileName( int number )
 SVM::SVM()
 	{
 
-	RankingMatrix.resize( 10 );
-	for(int i = 0; i < 10; ++i )
+	RankingMatrix.resize( NUMBER_OF_DOCS );
+	for(int i = 0; i < NUMBER_OF_DOCS; ++i )
 		{
-		RankingMatrix[ i ].resize( 10 );
+		RankingMatrix[ i ].resize( NUMBER_OF_DOCS );
 		}
 	}
 
@@ -165,9 +168,9 @@ SVM::~SVM()
 double SVM::getKendallTauScore(  vector< vector < bool > >  newRankVector)
 	{
 	//concordant pairs
-	double P = 0.0;
+	int P = 0.0;
 	//inversion pairs
-	double Q = 0.0;
+	int Q = 0.0;
 	for( int i = 0; i < NUMBER_OF_DOCS; ++i )
 		{
 		for( int j = 0; j  <NUMBER_OF_DOCS; ++j)
@@ -181,7 +184,7 @@ double SVM::getKendallTauScore(  vector< vector < bool > >  newRankVector)
 			}
 		}
 
-	return - ( 2 * Q ) / ( P + Q );
+	return 1 - ( 2 * (double)Q ) / ( ((double)P + (double) Q)  );
 	}
 
 /***
@@ -202,15 +205,16 @@ vector< vector < bool > > SVM::generateRankingFromList(  priority_queue< doc, ve
 
 	while( SortedList.empty() == false )
 		{
-		sortedVec.push_back( urlToIDMap[ SortedList.top().url ] );
+		int id = SortedList.top().id;
+		sortedVec.push_back( id ); //urlToIDMap[ SortedList.top().url ]
 		SortedList.pop();
 		}
 
-	for( int i = 0 ; i < 10 ; ++i )
+	for( int i = 0 ; i < NUMBER_OF_DOCS ; ++i )
 		{
 
 		int currentID = sortedVec[ i ];
-		for( int j = 0; j < 10 ; ++ j)
+		for( int j = 0; j < NUMBER_OF_DOCS ; ++ j)
 			{
 			int testID = sortedVec[ j ];
 			if( j >= i)
@@ -246,49 +250,95 @@ void SVM::Train()
 
 	vector< vector < bool > > testingMatrix = generateRankingFromList ( rankedDocs );
 	double prev_score = getKendallTauScore ( testingMatrix );
-	cout << "Kendall Tau: " << prev_score;
+
+	for( int i = 0; i < NUMBER_OF_DOCS; ++i)
+		{
+		rankedDocs.pop();
+		}
+	cout << "Kendall Tau: " << prev_score<<endl;
 
 	//TODO increase
-	double alpha = 1;
-	for( int i = 0; i < 20; ++ i)
+	double alpha = .01;
+
+	double best_error = 1 - prev_score;
+
+	int min_error_feature = 0;
+	int converge = 0;
+	for( int i = 0; i < 200; ++ i)
 		{
 
-		double min_error = 0;
-		int min_error_feature = 0;
+		double min_error = 1;
+
+
 		vector<double> testWeights = weights;
-		double bestScore = 0;
+		double bestScore = prev_score;
+		double delta = 1.0;
+		vector<double> confirmedWeights = weights;
+		int converge = 0;
+		double prev_test;
+
 
 		for( int j = 0; j < NUMBER_OF_FEATURES; ++j)
 			{
 			testWeights = weights;
-			testWeights[j]+= alpha;
-			scoreDocs (testWeights);
-			for( int i = 0; i < NUMBER_OF_DOCS; ++i)
+			testWeights[ j ] += alpha;
+			scoreDocs ( testWeights );
+			for ( int i = 0; i < NUMBER_OF_DOCS; ++i )
 				{
-				rankedDocs.push( *corpus[i]);
+				rankedDocs.push ( *corpus[ i ] );
 				}
 			testingMatrix = generateRankingFromList ( rankedDocs );
-			double testScore = getKendallTauScore (testingMatrix);
-			double delta = testScore - prev_score;
-			cout << "\ndelta: "<<delta<<endl;
-			if (delta > min_error && delta > -0.99999)
-				{
-				min_error = delta;
-				min_error_feature = j;
-				bestScore = testScore;
-				}
-			}
-		prev_score = bestScore;
+			double testScore = getKendallTauScore ( testingMatrix );
 
-		weights[min_error_feature] +=alpha;
-		scoreDocs (weights);
-		for( int i = 0; i < NUMBER_OF_DOCS; ++i)
-			{
-			rankedDocs.pop();
+			if( j == 1)
+				prev_test = testScore;
+
+			if(prev_test == testScore)
+				++converge;
+
+			double error = ( 1 - testScore );
+			cout << "kendall:" << testScore << "\n";
+			if ( testScore > prev_score )
+				{
+				delta = (testScore - prev_score) / NUMBER_OF_DOCS;
+				min_error = error;
+				confirmedWeights[ j ] +=delta*alpha;
+
+				if(testScore > bestScore)
+					bestScore = testScore;
+				}
+			for( int i = 0; i < NUMBER_OF_DOCS; ++i)
+				{
+				rankedDocs.pop();
+				}
+
+
 			}
+		weights = confirmedWeights;
+
+
+		if( min_error < best_error)
+			{
+			best_error = min_error;
+			}
+
+		if( converge == 3)
+			{
+			break;
+			}
+
+		cout << "\nerror: "<<min_error<<endl;
+		cout << "delta: "<<delta<<endl;
+		cout << "best score: "<<bestScore<<endl<<endl;
+
+		printWeights(weights);
+
+
+		scoreDocs (weights);
+
 		}
 
-	printWeights(weights);
+
 
 	}
 
@@ -301,7 +351,7 @@ void SVM::scoreDocs( vector< double > weights )
 	{
 	for( int i = 0; i < NUMBER_OF_DOCS; ++i )
 		{
-		double score = 0.0;
+		double score = 1.0;
 		for( int j = 0; j < NUMBER_OF_FEATURES; ++ j)
 			{
 			score += weights[j] * corpus[i]->featureVec[j];

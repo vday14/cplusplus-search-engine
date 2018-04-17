@@ -49,9 +49,21 @@ public:
 	 */
 	Ranker( std::string query_in   );
 
+<<<<<<< 0f5e78daa59345a629e6f8320a70edcdeea3daf2
 
 
 	Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueueIn );
+=======
+	/***
+	 * assigns weights to the generated sites
+	 * @param query_in
+	 * @param stat
+	 * @param prox
+	 * @param loc
+	 */
+	Ranker(string query_in, double stat, double prox, double loc );
+
+>>>>>>> working ML, sorta
 	/**
 	 * Ranker dstor
 	 */
@@ -119,6 +131,10 @@ private:
 	 * @param doc
 	 */
 	void selectivelyAddDocs( Site * doc);
+
+	const double stat;
+	const double loc;
+	const double prox;
 
 
 	};

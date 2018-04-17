@@ -466,6 +466,11 @@ add_executable(testSVM
         util/util.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp
+
         )
 
 find_package(OpenSSL REQUIRED)
