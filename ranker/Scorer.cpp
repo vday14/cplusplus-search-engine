@@ -390,7 +390,8 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
                 docWeights[ term ] = ti;
                 }
             }
-            ++begin;
+	    ++begin;
+
         }
     auto beginDocWeights = docWeights.begin( );
     auto endDocWeights = docWeights.end( );
@@ -405,13 +406,16 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
             }
         else
             {
-            beginDocWeights->second.tfIdf = tf + log(totalNumDocs / totalDocFrequency);
+            beginDocWeights->second.tfIdf = tf * log10( totalNumDocs / totalDocFrequency );
             }
 
         //only need to consider words from the query that are in the document
-        if (queryTokens->find(beginDocWeights->first) != queryTokens->end())
+	    auto findQuery = queryTokens->find( beginDocWeights->first );
+        auto queryEnd = queryTokens->end( );
+	    if ( findQuery != queryEnd )
             {
-            queryWeights[ beginDocWeights->first ] = beginDocWeights->second.tfIdf;
+            queryWeights[ beginDocWeights->first ] = findQuery->second.size( )  * log10(totalNumDocs / beginDocWeights->second.totalDocFreq);
+            double test = findQuery->second.size( ) * log( totalNumDocs / beginDocWeights->second.totalDocFreq );
             }
         ++beginDocWeights;
         }
@@ -424,14 +428,15 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
 */
 double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
     {
-    auto begin_weights = docWeights->begin( );
-    auto end_weights = docWeights->end( );
+    auto beginWeights = docWeights->begin( );
+    auto endWeights = docWeights->end( );
     double difference = 0;
-    while ( begin_weights != end_weights )
+    while ( beginWeights != endWeights )
         {
-        double docWeight = begin_weights->second.tfIdf;
-        double queryWeight = queryWeights.find( begin_weights->first )->second;
+        double docWeight = beginWeights->second.tfIdf;
+        double queryWeight = queryWeights.find( beginWeights->first )->second;
         difference += abs( docWeight - queryWeight );
+        ++beginWeights;
         }
     //smaller difference = better doc
     difference = 1 / difference;
@@ -472,3 +477,4 @@ int Scorer::getNumWordsInTitle ( string title )
 
 	return splitStr ( title, ' ', true).size( );
 	}
+

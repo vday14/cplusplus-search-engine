@@ -102,30 +102,36 @@ public:
 	 *
 	 * https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains
 	 */
-	std::unordered_map< std::string, double > domainMap =
-			{ { ".gov", 0.9 }, { ".com", 0.6 }, { ".net", 0.4 }, { ".org", 1.0 }, { ".edu", 0.9 }, { ".us", 0.1 } };
+	std::unordered_map<std::string, double> domainMap =
+			{{".gov", 0.9},
+			 {".com", 0.6},
+			 {".net", 0.4},
+			 {".org", 1.0},
+			 {".edu", 0.9},
+			 {".us",  0.1}};
 
 /***
 	 * 	defines the source of individual words
 	 */
-	enum wordLocType{
+	enum wordLocType
+		{
 		titleType,
 		bodyType,
 		anchorType,
 		URLType
-	};
+		};
 
 	/**
 	 * Scorer cstor
 	 */
-	Scorer( );
+	Scorer ( );
 
 	/***
 	 * Calculate the score for some site, Normalize the score to 1.0
 	 *
 	 * @return
 	 */
-	double getScore( Site );
+	double getScore ( Site );
 
 	/**
 	 * Static ranker
@@ -148,7 +154,7 @@ public:
 	 * @param input
 	 * @return
 	 */
-	wordLocType matchType( string input );
+	wordLocType matchType ( string input );
 
 	/**
 	 * Get TLD for url
@@ -156,7 +162,7 @@ public:
 	 * @param url
 	 * @return
 	 */
-	std::string getUrlDomain( std::string url );
+	std::string getUrlDomain ( std::string url );
 
 	/**
 	 * Calculates score for proximity matches
@@ -165,7 +171,7 @@ public:
 	 * @param queryTokens
 	 * @return double
 	 */
-	double proximityMatch ( Site inputSite, std::vector< std::string > queryTokens );
+	double proximityMatch ( Site inputSite, std::vector<std::string> queryTokens );
 
 	/**
 	 * Return index of the minimum offset
@@ -174,7 +180,7 @@ public:
 	 * @param offsets
 	 * @return
 	 */
-	int getMinDelta( unsigned long start, std::vector< size_t >* offsets );
+	int getMinDelta ( unsigned long start, std::vector<size_t> *offsets );
 
 	/**
 	 * Updates the min deltas for the query tokens for Site's wordData
@@ -184,13 +190,15 @@ public:
 	 * @param start
 	 * @return
 	 */
-	std::pair< unsigned long, int > setMinDelta( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens, unsigned long start );
+	std::pair<unsigned long, int>
+	setMinDelta ( std::unordered_map<std::string, data> *wordData, std::vector<std::string> *queryTokens,
+	              unsigned long start );
 
 	/**
 	 * returns the word with the min frequency
 	 * @return
 	 */
-	std::string getMinFreq( std::unordered_map< std::string, data>* wordData, std::vector< std::string > *queryTokens );
+	std::string getMinFreq ( std::unordered_map<std::string, data> *wordData, std::vector<std::string> *queryTokens );
 
 	/***
 	 * returns the number of words in a given URL
@@ -205,45 +213,44 @@ public:
 	int getNumWordsInTitle ( string title );
 
 
-
 	/**
      * Calculates tifidf weight vector for query and input site (doc)
      * @param inputSite
      * @return
      */
-    unordered_map< std::string, TfIdf > calcTfIdf( Site inputSite );
+	unordered_map<std::string, TfIdf> calcTfIdf ( Site inputSite );
 
 	/**
 	 * Calculate total difference between doc weights and query weights
 	 * @param docWeights
 	 * @return
 	 */
-	double compareTfIdf( unordered_map< string, TfIdf > *docWeights );
+	double compareTfIdf ( unordered_map<string, TfIdf> *docWeights );
 
 
-    /**
-     * Get total corpus doc count
-     * @return
-     */
-    size_t getDocCount( Corpus corpus );
+	/**
+	 * Get total corpus doc count
+	 * @return
+	 */
+	size_t getDocCount ( Corpus corpus );
 
 	/**
 	 * Executes tfidf weight calculation and returns rough similarity score
 	 * @param inputSite
 	 * @return
 	 */
-	double executeTfIdf( Site inputSite );
+	double executeTfIdf ( Site inputSite );
 
 	/**
 	 * Returns summed doc frequency of term with all decorators
 	 * @param stripped_term
 	 * @return
 	 */
-	static double getTotalDocFreq( string stripped_term, Corpus &corpus );
+	static double getTotalDocFreq ( string stripped_term, Corpus &corpus );
 
 private:
 
-    std::unordered_map< std::string, double > queryWeights;
+	std::unordered_map<std::string, double> queryWeights;
 
 	const double STATIC_WEIGHT = 1.0;
 	const double PROXIMITY_WEIGHT = 1.0;
@@ -255,6 +262,6 @@ private:
 	// calculated in goldStandardDoc.py
 	const double PERFECT_DOC = 0.000606342178009;
 
-
+	};
 
 #endif //EECS398_SEARCH_SCORER_H

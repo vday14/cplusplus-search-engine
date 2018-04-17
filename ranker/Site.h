@@ -24,7 +24,6 @@ struct data
 
 	unsigned long frequency;
 	std::vector< size_t > offsets;
-	size_t docFrequency;
 	int minDelta;
 	};
 

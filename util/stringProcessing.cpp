@@ -460,19 +460,20 @@ string lastN ( string input, int n )
  */
 string removeDecorator( string input)
 	{
-	string no_decorator = "";
-	string::iterator str_start = input.begin(  );
-	string::iterator str_end = input.end( );
-	++str_start;
-	while ( str_start != str_end )
+	string noDecorator = "";
+	string::iterator strStart = input.begin(  );
+	string::iterator strEnd = input.end( );
+	++strStart;
+	while ( strStart != strEnd )
 		{
-		no_decorator += *str_start;
+		noDecorator += *strStart;
+		++strStart;
 		}
-	return no_decorator;
+	return noDecorator;
 	}
 
 string addDecorator ( string input, string decorator )
     {
-    string add_decorator = decorator + input;
-    return add_decorator;
+    string addDecorator = decorator + input;
+    return addDecorator;
     }
