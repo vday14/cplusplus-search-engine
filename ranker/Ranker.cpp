@@ -3,7 +3,7 @@
 #include "Site.h"
 #include "../constraintSolver/ISRWord.h"
 #include "../constraintSolver/ISREndDoc.h"
-#include "../shared/url.h"
+#include "../shared/ParsedUrl.h"
 #include <vector>
 #include <queue>
 #include <string>

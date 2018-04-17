@@ -61,24 +61,6 @@ unsigned long Tokenizer::execute ( string originalText, unsigned long offset, ch
 		}
 	}
 
-/**
- * Removes weird html encodings
- *
- * @param originalText
- * @return
- */
-std::string Tokenizer::unEncodeHtml( std::string originalText )
-	{
-	for ( auto it = encodeSet.begin( ); it != encodeSet.end( ); ++it )
-		{
-		auto symbol = findStr( *it, originalText );
-		if ( symbol != originalText.size( ) )
-			{
-			originalText.erase( symbol, it->size( ) );
-			}
-		}
-	return originalText;
-	}
 
 
 /**

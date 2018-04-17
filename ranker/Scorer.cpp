@@ -4,12 +4,12 @@
 #include <utility>
 #include <cmath>
 #include <vector>
-#include "../shared/url.h"
+#include "../shared/ParsedUrl.h"
 #include <algorithm>
 #include "../constraintSolver/ISRWord.h"
 #include "../indexer/Corpus.h"
 #include "../query/Query.h"
-
+#include "../shared/ParsedUrl.h"
 #include "../parser/queryTokenizer.h"
 #include <cassert>
 #include <limits>
