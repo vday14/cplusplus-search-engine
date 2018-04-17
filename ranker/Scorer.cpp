@@ -448,7 +448,13 @@ double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
 
         }
     //smaller difference = better doc
+    if ( difference == 0 )
+        {
+        return 0.5;
+        }
+        
     difference = 1 / difference;
+
     return difference;
     }
 
