@@ -102,7 +102,7 @@ void UrlFrontier::Push( ParsedUrl url )
 
 			auto currentQ = RestrictedHosts[ url.getHost ( ) ];
 			currentQ->push( url );
-			cout << "PUSHING " << url.getCompleteUrl( ) << endl;
+			//cout << "PUSHING " << url.getCompleteUrl( ) << endl;
 
 			if ( currentQ->size( ) == 1 )
 				{
@@ -124,17 +124,16 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 
 	int retval;
 	string currentHost = RoundRobinHosts[ (GlobalCounter++) % numHost];
-
 	priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass>* currentQ = RestrictedHosts[ currentHost ];
 
 	pthread_mutex_lock(&m);
-
+	cout << "Popping Current Host  " << currentHost << ".  Current Number of urls in queue " << currentQ->size( ) << endl;
 	while(currentQ->empty()){
 		retval = pthread_cond_timedwait(&consumer_cv, &m, &timeToWait);
 		if(retval != 0){
-			fprintf(stderr, "pthread_cond_timedwait %s\n",
-					strerror(retval));
-			cout << "Error connecting to host " << result.getCompleteUrl()  << endl;
+			//fprintf(stderr, "pthread_cond_timedwait %s\n",
+			//		strerror(retval));
+			cerr << "Error connecting to host " << result.getCompleteUrl()  << endl;
 			pthread_mutex_unlock(&m);
 			return false;
 		}

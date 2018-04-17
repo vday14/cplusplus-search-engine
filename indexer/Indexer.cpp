@@ -189,10 +189,17 @@ void Indexer::save()
 													[](unsigned char x){return std::isspace(x);}),
 							 toDiskUrl.end());
 		toDiskUrl = util::removeAllStr(toDiskUrl, "\\");
+		string toDiskTitle = title;
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\");
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\n");
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\t");
+
+
+
 
 		string docEndString = "[" +
 												toDiskUrl + ", " +
-                                 title + ", " +
+												toDiskTitle + ", " +
                                  to_string( ending.docEndPosition ) + ", " +
                                  to_string( ending.docNumWords ) + "]\n";
 		write( file, docEndString.c_str( ), strlen( docEndString.c_str( )));

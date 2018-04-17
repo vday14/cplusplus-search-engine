@@ -142,3 +142,8 @@ footer.footer {
   position: relative;
   text-align: center;
 }
+
+#returnSpeed{
+  text-align: left;
+  position: relative;
+}

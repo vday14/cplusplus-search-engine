@@ -5,12 +5,12 @@
 #include "ISRContainer.h"
 
 
-ISRContainer::ISRContainer( Tuple * top, std::string CompleteQuery )  : root( top )
+ISRContainer::ISRContainer( Tuple * top, ProducerConsumerQueue< pair<Location, Location> > * MatchQueueIn )  : root( top )
 	{
 
 	compile( );
 
-	vector < ISRWord * > toRanker;
+	//vector < ISRWord * > toRanker;
 	for ( auto term : terms )
 		{
 
@@ -18,8 +18,11 @@ ISRContainer::ISRContainer( Tuple * top, std::string CompleteQuery )  : root( to
 		toRanker.push_back( isrWord );
 
 		}
-	ranker.addISR( toRanker );
-	ranker.addQuery( CompleteQuery );
+
+
+	MatchQueue = MatchQueueIn;
+
+
 	}
 
 
@@ -58,65 +61,43 @@ ISR * ISRContainer::recurviseCompile( Tuple * root )
 
 	}
 
-string ISRContainer::Solve( )
+void ISRContainer::Solve( )
 	{
-	string results;
-	clock_t start = clock();
 
 
 	double rankingTime;
 
 
 	set< size_t > seenLocations;
+	clock_t inner_start = clock();
+
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		string url = Contained->GetEndDocument()->getCurrentDoc().url;
 		Location EndOfDoc = Contained->GetEndDocument()->getCurrentDoc().docEndPosition;
 		Location bofDoc = Contained->GetISRToBeginningOfDocument( );
 
-
+		pair <Location, Location> match(bofDoc, EndOfDoc);
+		MatchQueue->Push( match );
 		clock_t inner_start = clock();
-
-		ranker.addDoc( bofDoc ,EndOfDoc  );
-		clock_t inner_end = clock();
-		double time = (inner_end - inner_start) / (double) CLOCKS_PER_SEC;
-		rankingTime += time;
 		Contained->NextDocument( );
-		ranker.numberOfTotalResults++ ;
-
+		clock_t inner_end = clock();
+		//cout << "Time to Next" << endl;
+		//cout <<  (inner_end - inner_start) / (double) CLOCKS_PER_SEC << endl;
 
 		}
-	clock_t end = clock();
-	double time = (end - start) / (double) CLOCKS_PER_SEC;
+	pair <Location, Location> last(MAX_Location, MAX_Location);
 
+	MatchQueue->Push( last );
+	clock_t inner_end = clock();
+	double time = (inner_end - inner_start) / (double) CLOCKS_PER_SEC;
+	cout << "DONE RUNNING: " << to_string(time) << endl;
 
-	results = ranker.getResultsForSiteJSON( );
-	cout << "Results" << endl;
-	cout << "Total number of results :: " << ranker.numberOfTotalResults << endl;
-	cout << "Total time to run :: " << to_string( time ) << endl;
-	results += "\"time\" : \" " + to_string(time)  + " \" ,  \"total_results\": \"" + to_string(ranker.numberOfTotalResults ) + "\" }" ;
-	//cout << results << endl;
-	return results ;
+	return ;
 
 
 	}
 
-void ISRContainer::PassToRanker( Location docBeginning )
-	{
-
-	vector<ISRWord > toRanker;
-	for ( auto term : terms )
-		{
-
-		ISRWord  isrWord = ISRWord ( term ) ;
-		isrWord.Seek( docBeginning );
-		toRanker.push_back( isrWord );
-
-		}
-
-	//ranker.addDoc( toRanker );
-
-	}
 
 ISRContainer::~ISRContainer ( )
 	{
