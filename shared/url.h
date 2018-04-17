@@ -6,8 +6,8 @@
 #include "../util/util.h"
 #include <math.h>
 #include <time.h>
+#include <string.h>
 #include "../util/stringProcessing.h"
-//#include "../crawler/SocketReader.h"
 using namespace std;
 
 

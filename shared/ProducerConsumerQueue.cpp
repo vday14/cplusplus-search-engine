@@ -3,7 +3,7 @@
 //
 
 #include "ProducerConsumerQueue.h"
-
+using namespace std;
 template< class T >
 void ProducerConsumerQueue< T >::Push ( T obj )
 	{

@@ -26,9 +26,6 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 		return false;
 
 
-
-
-
 	//Looks to see if the complete url already exists, if so return
 	if ( this->duplicateUrlMap->find( url.getCompleteUrl( )) != this->duplicateUrlMap->end( ))
 		{
@@ -46,42 +43,10 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 
 	else
 		{
-		time_t now;
-		time( &now );
-		double difference = 0;
-		//Has the domain been seen?
-		if ( this->domainMap->find( url.getHost( )) != this->domainMap->end( ))
-			{
-			//get the last time it was seen and find the time difference
-			time_t lastSeen = this->domainMap->at( url.getHost( ));
-			difference = difftime( now, lastSeen );
-			if ( difference == 0 )
-				difference = .01;
-			else
-				difference = difference / 100;
-			//url.updateScore( difference );
 
-			pthread_mutex_lock( &m );
-			(*domainMap)[ url.getHost( ) ] = now;
-			pthread_mutex_unlock( &m );
-
-			}
-		else
-			{
-			pthread_mutex_lock( &m );
-			this->domainMap->insert( std::make_pair( url.getHost( ), now ));   //otherwise add to the map the current time
-			pthread_mutex_unlock( &m );
-
-
-			}
-
-
-		//add url to the duplicate url map
 		pthread_mutex_lock( &m );
 		(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ] = 1;
 		pthread_mutex_unlock( &m );
-
-
 
 		return true;
 		}
@@ -97,12 +62,11 @@ void UrlFrontier::Push( ParsedUrl url )
 		if ( checkUrl( url ))
 			{
 
-
 			pthread_mutex_lock( &m );
 
 			auto currentQ = RestrictedHosts[ url.getHost ( ) ];
 			currentQ->push( url );
-			cout << "PUSHING " << url.getCompleteUrl( ) << endl;
+			// cout << "PUSHING " << url.getCompleteUrl( ) << endl;
 
 			if ( currentQ->size( ) == 1 )
 				{

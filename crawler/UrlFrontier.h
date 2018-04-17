@@ -57,7 +57,7 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 		urlMap *duplicateUrlMap =  new urlMap;
 	private:
 		//urlMap *duplicateUrlMap =  new urlMap;
-		unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
+		//unordered_map< string , time_t > *domainMap = new unordered_map< string, time_t >( );
 
 	};
 
