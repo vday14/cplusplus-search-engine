@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <atomic>
 #include <string.h>
+#include <algorithm>
 
 /*
 

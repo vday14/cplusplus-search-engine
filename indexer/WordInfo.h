@@ -24,7 +24,7 @@ public:
         int part = 0;
         string chunkInput = "";
         for(char val : value) {
-            if(isnumber(val)) {
+            if(isdigit(val)) {
                 chunkInput += val;
             } else if(val == ' ') {
                 chunks.push_back(stoll(chunkInput));
