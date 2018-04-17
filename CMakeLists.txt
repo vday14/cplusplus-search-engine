@@ -307,9 +307,9 @@ add_executable(Scorer-tests
         ranker/tests/ScorerTest.cpp
         ranker/Scorer.cpp
         ranker/Site.cpp
+        constraintSolver/ISRWord.cpp
         ranker/Ranker.cpp
         util/util.cpp
-        constraintSolver/ISRWord.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         indexer/Corpus.cpp

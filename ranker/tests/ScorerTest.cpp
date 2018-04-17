@@ -12,8 +12,8 @@ void testPhraseMatchSymbols ( );
 void testProxMultipleOffsets ( );
 void testPhraseMatchMultipleOffsets ( );
 void testWordLocationScore( );
-void testMatchType();
-
+void testMatchType( );
+void testTFIDF( );
 
 int main( )
 	{
@@ -24,8 +24,9 @@ int main( )
 	testProximityMatchOneWord( );
 	testPhraseMatchSymbols ( );
 	testProxMultipleOffsets( );
-	testMatchType ();
-	testWordLocationScore();
+	testMatchType ( );
+	testWordLocationScore( );
+	testTFIDF( );
 
 	cout << "------Passed All Scorer Tests--- :)" << endl;
 	}
@@ -234,7 +235,7 @@ void testProxMultipleOffsets ( )
 	cout << "Proximity Match Mult Offsets Passed!" << endl << endl;
 	}
 
-void testMatchType()
+void testMatchType( )
 	{
 
 	cout << "Testing Word Type...\n";
@@ -260,7 +261,7 @@ void testMatchType()
 	}
 
 
-void testWordLocationScore()
+void testWordLocationScore( )
 	{
 
 	cout << "Testing wordLocation score...\n";
@@ -294,6 +295,40 @@ void testWordLocationScore()
 	double manualScore = 0.737179;
 	assert(scorer.wordLocationScore ( newSite ) <= manualScore + 0.001 && scorer.wordLocationScore ( newSite ) >= manualScore - 0.001);
 
-	cout << "PASSED Location Score :)\n";
+	cout << "PASSED Location Score :)\n\n";
+
+	}
+
+void testTFIDF( )
+	{
+	cout << "Testing TFIDF score...\n";
+
+	Query query( "Banana Cream Pie" );
+	ParsedUrl url( "https://www.tasteofhome.com/recipes/favorite-banana-cream-pie/cream-pie-recipes/pie" );
+	Site newSite( url.getCompleteUrl(), query, "Banana Cream Pie recipe for the best pie thats banana banana" );
+	newSite.numTermsInDoc = 100;
+	newSite.docCount = 8000;
+
+	Scorer scorer;
+
+	newSite.wordData[ "#banana"].frequency = 7;
+	newSite.wordData[ "#cream"].frequency = 3;
+	newSite.wordData[ "#pie"].frequency = 5;
+
+	newSite.wordData[ "#banana"].offsets = { 0, 1 };
+	newSite.wordData[ "#cream"].offsets = { 2, 3 };
+	newSite.wordData[ "#pie"].offsets = { 4, 5 };
+
+	newSite.wordData[ "#banana"].docFrequency = 5;
+	newSite.wordData[ "#cream"].docFrequency = 20;
+	newSite.wordData[ "#pie"].docFrequency = 30;
+
+	auto score = scorer.tfIdfScore ( newSite, query.getQueryTitle ( ) );
+	cout << "Score: " << score << endl;
+	// TODO
+	assert( score != 0 );
+
+
+	cout << "PASSED TFIDF Score :)\n\n";
 
 	}

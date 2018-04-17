@@ -26,21 +26,33 @@ double Scorer::getScore ( Site website)
 
 	// check to see if decorate query tokens are in wordData map
 	if ( website.hasAnchor )
-		score += proximityMatch( website, website.getQuery( ).getQueryAnchor( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryAnchor ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryAnchor ( ) ) * TFIDF_WEIGHT;
+		}
 
 	if ( website.hasUrl )
-		score += proximityMatch( website, website.getQuery( ).getQueryUrl( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryUrl ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryUrl ( ) ) * TFIDF_WEIGHT;
+		}
 
 	if ( website.hasTitle )
-		score += proximityMatch( website, website.getQuery( ).getQueryTitle( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryTitle ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryTitle ( ) ) * TFIDF_WEIGHT;
+		}
 
 	if ( website.hasBody )
-		score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryBody ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryBody ( ) ) * TFIDF_WEIGHT;
+		}
 
 	score += staticScore( website ) * STATIC_WEIGHT;
 	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
 
-	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT );
+	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT + ( TFIDF_WEIGHT * 4) );
 	assert ( score <= 1.0);
 	return score;
 	}
@@ -340,4 +352,28 @@ int Scorer::getNumWordsInTitle ( string title )
 	{
 
 	return splitStr ( title, ' ', true).size( );
+	}
+
+double Scorer::tfIdfScore( Site inputSite, std::vector< std::string > queryTokens )
+	{
+	// tf = freq of t in doc / total num of terms in doc
+	double tf = 0;
+	// idf = log ( N docs in corpus / doc freq
+	// doc freq = num docs w/ term t
+	double idf = 0;
+	double tfidfTotal = 0;
+
+	for ( int i = 0; i < queryTokens.size( ); ++i )
+		{
+		if ( inputSite.wordData.find( queryTokens[ i ] ) != inputSite.wordData.end( )  && inputSite.numTermsInDoc != 0 && inputSite.wordData[ queryTokens[ i ] ].docFrequency != 0 )
+			{
+			tf = double ( inputSite.wordData[ queryTokens[ i ] ].frequency );
+			tf /= double ( inputSite.numTermsInDoc );
+			idf = double ( inputSite.docCount ) / inputSite.wordData[ queryTokens[ i ] ].docFrequency;
+			idf = log10 ( idf );
+			tfidfTotal += ( tf * idf);
+			}
+		}
+
+	return tfidfTotal / queryTokens.size( );
 	}

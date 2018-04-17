@@ -160,6 +160,9 @@ public:
 	 */
 	double proximityMatch ( Site inputSite, std::vector< std::string > queryTokens );
 
+	double tfIdfScore( Site inputSite, std::vector< std::string > queryTokens );
+
+
 	/**
 	 * Return index of the minimum offset
 	 *
