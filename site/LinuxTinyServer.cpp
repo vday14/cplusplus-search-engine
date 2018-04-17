@@ -224,7 +224,7 @@ void *Talk( void *p )
 
 				std::string okMessage = "HTTP/1.1 200 OK\r\n"
 						"Content-Length: ";
-				okMessage += ( potentialSearch.size( ) );
+				okMessage += ( results.size( ) );
 				okMessage += "\r\nConnection: close\r\nContent-Type: ";
 				okMessage += "text/plain";
 				okMessage += "\r\n\r\n";

@@ -43,7 +43,7 @@ void Searcher::search ( )
 		double time = (end - start) / (double) CLOCKS_PER_SEC;
 		Results = ranker->getResultsForSiteJSON( );
 		Results += "\"time\" : \" " + to_string(time)  + " \" ,  \"total_results\": \"" + to_string(ranker->numberOfTotalResults ) + "\" }" ;
-
+		cout <<  Results << endl;
 
 		}
 
