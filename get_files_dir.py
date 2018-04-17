@@ -1,7 +1,7 @@
 import os
-for root, dirs, files in os.walk("."):
+for root, dirs, files in os.walk("./bootstrap_landing_page"):
     for file in files:
-        if file.endswith(".cpp") :
+        if file.endswith(".h") :
             path = os.path.join(root, file)
             path = path[2:]
             print(path)

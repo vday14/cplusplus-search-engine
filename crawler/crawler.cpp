@@ -152,7 +152,7 @@ void  Crawler::readSeeds( string mode, bool restart )
 		seeds = util::getFileMap( "/crawler/localSeed.txt" );
 	else
 		{
-		seeds = util::getFileMap( "/crawler/seeds.txt" );
+		seeds = util::getFileMap( "/crawler/wiki.txt" );
 		SSL_library_init( );
 		}
 
