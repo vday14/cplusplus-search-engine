@@ -5,11 +5,11 @@
 #ifndef EECS398_SEARCH_PRODUCERCONSUMERQUEUE_H
 #define EECS398_SEARCH_PRODUCERCONSUMERQUEUE_H
 
-#include <queue>
 #include <pthread.h>
 #include <chrono>
 #include <sys/time.h>
 #include <iostream>
+#include <queue>
 
 
 //for now use STL queue, create better one later
