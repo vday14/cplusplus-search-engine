@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <atomic>
+#include <string.h>
 
 /*
 

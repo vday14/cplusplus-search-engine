@@ -4,6 +4,8 @@
 
 #include "util.h"
 #include "stringProcessing.h"
+#include <string.h>
+
 
 namespace util
 	{
