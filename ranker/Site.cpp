@@ -10,7 +10,7 @@
  */
 Site::Site ( std::string url_in, Query query_in, std::string title_in )
 	: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false ), hasAnchor(false),
-	  hasUrl(false), hasTitle(false), hasBody(false)
+	  hasUrl(false), hasTitle(false), hasBody(false), numTermsInDoc( 0 ), docCount( 0 )
 	{ }
 
 /**
@@ -45,7 +45,7 @@ double Site::getScore ( )
 		}
 
 	hasBeenScored = true;
-	Scorer rank = Scorer();
+	Scorer rank = Scorer( );
 	score = rank.getScore (*this);
 
 

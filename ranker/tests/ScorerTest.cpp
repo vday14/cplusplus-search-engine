@@ -13,9 +13,9 @@ void testPhraseMatchSymbols ( );
 void testProxMultipleOffsets ( );
 void testPhraseMatchMultipleOffsets ( );
 void testWordLocationScore( );
-void testMatchType();
-void testTfIdf( );
 
+void testMatchType( );
+void testTFIDF( );
 
 
 int main( )
@@ -27,9 +27,10 @@ int main( )
 	testProximityMatchOneWord( );
 	testPhraseMatchSymbols ( );
 	testProxMultipleOffsets( );
-	testMatchType ();
+	testMatchType ( );
 	testWordLocationScore( );
-	testTfIdf( );
+	testTFIDF( );
+
 
 	cout << "------Passed All Scorer Tests--- :)" << endl;
 	}
@@ -238,7 +239,7 @@ void testProxMultipleOffsets ( )
 	cout << "Proximity Match Mult Offsets Passed!" << endl << endl;
 	}
 
-void testMatchType()
+void testMatchType( )
 	{
 
 	cout << "Testing Word Type...\n";
@@ -264,7 +265,7 @@ void testMatchType()
 	}
 
 
-void testWordLocationScore()
+void testWordLocationScore( )
 	{
 
 	cout << "Testing wordLocation score...\n";
@@ -302,50 +303,36 @@ void testWordLocationScore()
 
 	}
 
-void testTfIdf ( )
+
+void testTFIDF( )
 	{
+	cout << "Testing TFIDF score...\n";
 
-	cout << "Testing testTFIDF score...\n";
+	Query query( "Banana Cream Pie" );
+	ParsedUrl url( "https://www.tasteofhome.com/recipes/favorite-banana-cream-pie/cream-pie-recipes/pie" );
+	Site newSite( url.getCompleteUrl(), query, "Banana Cream Pie recipe for the best pie thats banana banana" );
+	newSite.numTermsInDoc = 100;
+	newSite.docCount = 8000;
 
-	Query query( "trump is president FBI" );
-	ParsedUrl url( "https://www.politico.com/story/2018/04/16/james-comey-interview-trump-white-house-response-526281" );
-	Site newSite( url.getCompleteUrl(), query, "Trump office president FBI white house trump fbi white white trump house" );
+	Scorer scorer;
 
-    Corpus corpus = Corpus::getInstance( );
-    size_t totalDocs = corpus.numberDocuments;
-    double trumpDocFreq = Scorer::getTotalDocFreq( "trump", corpus );
-    double presDocFreq = Scorer::getTotalDocFreq( "presid", corpus );
-    double fbiDocFreq = Scorer::getTotalDocFreq( "fbi", corpus );
+	newSite.wordData[ "#banana"].frequency = 7;
+	newSite.wordData[ "#cream"].frequency = 3;
+	newSite.wordData[ "#pie"].frequency = 5;
 
-    double trumpIdf = log10( totalDocs / trumpDocFreq );
-    double presIdf = log10( totalDocs / presDocFreq );
-    double fbiIdf = log10( totalDocs / fbiDocFreq );
+	newSite.wordData[ "#banana"].offsets = { 0, 1 };
+	newSite.wordData[ "#cream"].offsets = { 2, 3 };
+	newSite.wordData[ "#pie"].offsets = { 4, 5 };
 
-    //7 = trump doc tf, 4 = pres doc tf, 2 = fbi doc tf
-    double difference = abs( ( 7 * trumpIdf ) - ( 1 * trumpIdf ) )  + abs( ( 4 * presIdf ) - ( 1 * presIdf ) ) + abs( ( 2 * fbiIdf ) - ( 1 * fbiIdf) );
+	newSite.wordData[ "#banana"].docFrequency = 5;
+	newSite.wordData[ "#cream"].docFrequency = 20;
+	newSite.wordData[ "#pie"].docFrequency = 30;
 
-    Scorer scorer;
-	newSite.wordData[ "#trump"].frequency = 3;
-	newSite.wordData[ "#offic"].frequency = 1;
-	newSite.wordData[ "#presid"].frequency = 4;
-	newSite.wordData[ "#white" ].frequency = 3;
-	newSite.wordData[ "#hous" ].frequency = 2;
-	newSite.wordData[ "#fbi" ].frequency = 2;
-	newSite.wordData[ "%trump" ].frequency = 3;
-	newSite.wordData[ "%comei" ].frequency = 1;
-	newSite.wordData[ "%white" ].frequency = 2;
-	newSite.wordData[ "%hous" ].frequency = 1;
-	newSite.wordData[ "%hous" ].frequency = 1;
-	newSite.wordData[ "%corrupt" ].frequency = 5;
-	newSite.wordData[ "$jame"].frequency = 1;
-	newSite.wordData[ "$comei"].frequency = 2;
-	newSite.wordData[ "$trump"].frequency = 1;
+	auto score = scorer.tfIdfScore ( newSite, query.getQueryTitle ( ) );
+	cout << "Score: " << score << endl;
+	// TODO
+	assert( score != 0 );
 
-    double score = scorer.executeTfIdf( newSite );
-
-    cout << "This is calculated score: " << score << endl;
-    cout << ( 1 / difference) << endl;
-    assert( score == ( 1 / difference ) );
 
 	cout << "PASSED TFIDF Score :)\n\n";
 

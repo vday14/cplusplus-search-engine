@@ -173,6 +173,15 @@ public:
 	 */
 	double proximityMatch ( Site inputSite, std::vector<std::string> queryTokens );
 
+    /**
+     * Calculates tf idf score
+     * @param inputSite
+     * @param queryTokens
+     * @return
+     */
+	double tfIdfScore( Site inputSite, std::vector< std::string > queryTokens );
+
+
 	/**
 	 * Return index of the minimum offset
 	 *
@@ -213,40 +222,7 @@ public:
 	int getNumWordsInTitle ( string title );
 
 
-	/**
-     * Calculates tifidf weight vector for query and input site (doc)
-     * @param inputSite
-     * @return
-     */
-	unordered_map<std::string, TfIdf> calcTfIdf ( Site inputSite );
 
-	/**
-	 * Calculate total difference between doc weights and query weights
-	 * @param docWeights
-	 * @return
-	 */
-	double compareTfIdf ( unordered_map<string, TfIdf> *docWeights );
-
-
-	/**
-	 * Get total corpus doc count
-	 * @return
-	 */
-	size_t getDocCount ( Corpus corpus );
-
-	/**
-	 * Executes tfidf weight calculation and returns rough similarity score
-	 * @param inputSite
-	 * @return
-	 */
-	double executeTfIdf ( Site inputSite );
-
-	/**
-	 * Returns summed doc frequency of term with all decorators
-	 * @param stripped_term
-	 * @return
-	 */
-	static double getTotalDocFreq ( string stripped_term, Corpus &corpus );
 
 private:
 

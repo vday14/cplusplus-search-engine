@@ -173,11 +173,3 @@ bool isNum ( char ch );
  */
 string lastN ( string input, int n );
 
-/**
- * Remove first char in word - used in ranker to remove decorator
- * @param input
- * @return
- */
-std::string removeDecorator( std::string input);
-
-string addDecorator ( string input, string decorator );

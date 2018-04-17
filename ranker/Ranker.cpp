@@ -41,6 +41,7 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 	assert( isrListInput.size( ) != 0 );
 
 	Query query( this->getQuery() );
+
 	Site *newSite = nullptr;
 	string url;
 	string title;
@@ -71,6 +72,9 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 				newSite->hasBody = true;
 
 			newSite->wordData[ word ] = getData( *isrWord );
+			newSite->numTermsInDoc = isrWord->GetNumWordsInCurrentDoc( );
+			newSite->docCount = Corpus::getInstance( ).numberDocuments;
+
 			}
 		}
 	if(newSite != nullptr )
@@ -133,6 +137,7 @@ data Ranker::getData( ISRWord isrWord )
 	wordData.frequency = freq;
 	wordData.offsets = offsets;
 	wordData.minDelta = 0;
+	wordData.docFrequency = Corpus::getInstance( ).getWordInfo( isrWord.term ).docFrequency;
 
 	return wordData;
 	}

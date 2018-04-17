@@ -16,15 +16,17 @@
 struct data
 	{
 
-	data( ) : frequency( 0 ), minDelta( 0 )
+	data( ) : frequency( 0 ), minDelta( 0 ), docFrequency( 0 )
 		{ }
 
-	data( const data &copy ) : frequency( copy.frequency ), offsets( copy.offsets ), minDelta( copy.minDelta )
+	data( const data &copy ) : frequency( copy.frequency ), offsets( copy.offsets ), minDelta( copy.minDelta ), docFrequency ( copy.docFrequency )
 		{ }
 
 	unsigned long frequency;
+	unsigned long docFrequency;
 	std::vector< size_t > offsets;
 	int minDelta;
+
 	};
 
 class Site
@@ -44,8 +46,13 @@ public:
 	bool hasUrl;
 	bool hasTitle;
 	bool hasBody;
+	unsigned int numTermsInDoc;
+	unsigned long docCount;
 
-	Site( Site &copy ) : url(copy.url), title(copy.title), query(copy.query), score(copy.score), hasBeenScored(copy.hasBeenScored), hasAnchor(copy.hasAnchor), hasUrl(copy.hasUrl), hasTitle(copy.hasTitle), hasBody(copy.hasBody)
+	Site( Site &copy ) : url(copy.url), title(copy.title), query(copy.query), score(copy.score),
+	                     hasBeenScored(copy.hasBeenScored), hasAnchor(copy.hasAnchor), hasUrl(copy.hasUrl),
+	                     hasTitle(copy.hasTitle), hasBody(copy.hasBody), numTermsInDoc( copy.numTermsInDoc ),
+	                     docCount( copy.docCount )
 		{
 		this->wordData.clear( );
 		for ( auto it = copy.wordData.begin( ); it != copy.wordData.end( ); ++it )

@@ -32,22 +32,37 @@ double Scorer::getScore ( Site website )
 
 	// check to see if decorate query tokens are in wordData map
 	if ( website.hasAnchor )
-		score += proximityMatch( website, website.getQuery( ).getQueryAnchor( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryAnchor ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryAnchor ( ) ) * TFIDF_WEIGHT;
+		}
 
 	if ( website.hasUrl )
-		score += proximityMatch( website, website.getQuery( ).getQueryUrl( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryUrl ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryUrl ( ) ) * TFIDF_WEIGHT;
+		}
 
 	if ( website.hasTitle )
-		score += proximityMatch( website, website.getQuery( ).getQueryTitle( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryTitle ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryTitle ( ) ) * TFIDF_WEIGHT;
+		}
 
 	if ( website.hasBody )
-		score += proximityMatch( website, website.getQuery( ).getQueryBody( ) ) * PROXIMITY_WEIGHT;
+		{
+		score += proximityMatch ( website, website.getQuery ( ).getQueryBody ( ) ) * PROXIMITY_WEIGHT;
+		score += tfIdfScore ( website, website.getQuery ( ).getQueryBody ( ) ) * TFIDF_WEIGHT;
+		}
 
 	score += staticScore( website ) * STATIC_WEIGHT;
     score += executeTfIdf( website ) * TFIDF_WEIGHT;
 
 	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
-	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT + TFIDF_WEIGHT);
+	//score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT + TFIDF_WEIGHT);
+
+
+	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT + ( TFIDF_WEIGHT * 4) );
 
 	assert ( score <= 1.0);
 	return score;
@@ -338,146 +353,6 @@ Scorer::wordLocType Scorer::matchType( string input )
 		}
 	}
 
-/**
-* Get total corpus doc count
-* @return
-*/
-size_t Scorer::getDocCount( Corpus corpus )
-    {
-	return corpus.numberDocuments;
-    }
-
-/**
-* Calculates tifidf weight vector for query and input site (doc)
-* @param inputSite
-* @return
-*/
-std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
-    {
-    //need corpus to get total document count and doc frequencies
-	Corpus corpus = Corpus::getInstance( );
-    unsigned totalNumDocs = getDocCount(  corpus );
-    Query query = inputSite.getQuery( );
-    string queryString = query.getQueryString( );
-	QueryTokenizer parsedQuery( queryString );
-    //returns word->vector of offsets query map
-    const unordered_map< string, vector< unsigned long > > *queryTokens = parsedQuery.executeQueryOffsets( );
-
-    //calculate weight vector for this specific site/document
-    unordered_map< string, TfIdf > docWeights;
-    auto begin = inputSite.wordData.begin( );
-    auto end = inputSite.wordData.end( );
-    while ( begin != end )
-        {
-        string currTerm = begin->first;
-        //"normalized" term with out decorator
-        string term = removeDecorator( currTerm );
-        //check if term is in query, otherwise weight doesn't need to be calculated
-        if ( queryTokens->find( term ) != queryTokens->end( ) )
-            {
-            //check if this word has been seen already (with a different decorator)
-            if ( docWeights.find( term ) != docWeights.end( ) )
-                {
-                //add to tf and idf accordingly
-                docWeights[ term ].tf += begin->second.frequency;
-                }
-            else
-                {
-                //if normalized term hasn't been seen before, create new instance in docWeight map
-                TfIdf ti;
-                ti.tf = begin->second.frequency;
-                ti.totalDocFreq = getTotalDocFreq( term, corpus );
-                docWeights[ term ] = ti;
-                }
-            }
-	    ++begin;
-
-        }
-    auto beginDocWeights = docWeights.begin( );
-    auto endDocWeights = docWeights.end( );
-    //calculate tfIdf values for doc and query values
-    while ( beginDocWeights != endDocWeights )
-        {
-        unsigned long tf = beginDocWeights->second.tf;
-        double totalDocFrequency = beginDocWeights->second.totalDocFreq;
-
-        if ( totalDocFrequency == 0 )
-            {
-            beginDocWeights->second.tfIdf = 0;
-            }
-        else
-            {
-            beginDocWeights->second.tfIdf = tf * log10( totalNumDocs / totalDocFrequency );
-            }
-
-        //only need to consider words from the query that are in the document
-	    auto findQuery = queryTokens->find( beginDocWeights->first );
-        auto queryEnd = queryTokens->end( );
-	    if ( findQuery != queryEnd )
-            {
-		    if ( totalDocFrequency == 0 )
-			    {
-			    queryWeights[ beginDocWeights->first ] = findQuery->second.size ( ) * log10 ( totalNumDocs / totalDocFrequency );
-			    }
-		    else
-		    	{
-			    queryWeights[ beginDocWeights->first ] = 0;
-		    	}
-            }
-        ++beginDocWeights;
-        }
-    return docWeights;
-    }
-/**
-* Calculate total difference between doc weights and query weights
-* @param docWeights
-* @return
-*/
-double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
-    {
-    auto beginWeights = docWeights->begin( );
-    auto endWeights = docWeights->end( );
-    double difference = 0;
-    while ( beginWeights != endWeights )
-        {
-        double docWeight = beginWeights->second.tfIdf;
-        double queryWeight = queryWeights.find( beginWeights->first )->second;
-        difference += abs( docWeight - queryWeight );
-
-        ++beginWeights;
-
-        }
-    //smaller difference = better doc
-    if ( difference == 0 )
-        {
-        return 0.5;
-        }
-        
-    difference = 1 / difference;
-
-    return difference;
-    }
-
-double Scorer::getTotalDocFreq(string stripped_term, Corpus &corpus)
-    {
-    double docFreq = corpus.getWordInfo( addDecorator( stripped_term, "#" ) ).docFrequency;
-    docFreq += corpus.getWordInfo( addDecorator( stripped_term, "@" ) ).docFrequency;
-    docFreq += corpus.getWordInfo( addDecorator( stripped_term, "$" ) ).docFrequency;
-    docFreq += corpus.getWordInfo( addDecorator( stripped_term, "%" ) ).docFrequency;
-
-    return docFreq;
-    }
-/**
-* Executes tfidf weight calculation and returns rough similarity score
-* @param inputSite
-* @return
-*/
-double Scorer::executeTfIdf( Site inputSite )
-    {
-    unordered_map< string, TfIdf > docWeights = calcTfIdf( inputSite );
-    double tfIdfScore = compareTfIdf( &docWeights );
-    return tfIdfScore;
-    }
 
 int Scorer::getNumWordsInURL ( string url )
 	{
@@ -492,4 +367,39 @@ int Scorer::getNumWordsInTitle ( string title )
 
 	return splitStr ( title, ' ', true).size( );
 	}
+
+double Scorer::tfIdfScore( Site inputSite, std::vector< std::string > queryTokens )
+	{
+	// tf = freq of t in doc / total num of terms in doc
+	double tf = 0;
+	// idf = log ( N docs in corpus / doc freq
+	// doc freq = num docs w/ term t
+	double idf = 0;
+	double tfidfTotal = 0;
+    double queryTfIdfTotal = 0;
+    double queryTf = 0;
+    double score = 0;
+	for ( int i = 0; i < queryTokens.size( ); ++i )
+		{
+		if ( inputSite.wordData.find( queryTokens[ i ] ) != inputSite.wordData.end( )  && inputSite.numTermsInDoc != 0 && inputSite.wordData[ queryTokens[ i ] ].docFrequency != 0 )
+			{
+			tf = double ( inputSite.wordData[ queryTokens[ i ] ].frequency );
+			tf /= double ( inputSite.numTermsInDoc );
+			idf = double ( inputSite.docCount ) / inputSite.wordData[ queryTokens[ i ] ].docFrequency;
+			idf = log10 ( idf );
+			tfidfTotal += ( tf * idf);
+                
+            queryTf = queryTokens[ i ].size( ) / queryTokens.size( );
+            queryTfIdfTotal += ( queryTf * idf );
+            score += abs( tfidfTotal - queryTfIdfTotal );
+			}
+		}
+
+    if (score == 0)
+        {
+        return 1.2;
+        }
+	return ( 1 / score );
+	}
+
 

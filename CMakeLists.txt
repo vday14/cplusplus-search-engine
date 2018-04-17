@@ -308,9 +308,9 @@ add_executable(Scorer-tests
         ranker/tests/ScorerTest.cpp
         ranker/Scorer.cpp
         ranker/Site.cpp
+        constraintSolver/ISRWord.cpp
         ranker/Ranker.cpp
         util/util.cpp
-        constraintSolver/ISRWord.cpp
         constraintSolver/ISREndDoc.cpp
         util/stringProcessing.cpp
         indexer/Corpus.cpp
@@ -318,7 +318,9 @@ add_executable(Scorer-tests
         indexer/Chunk.cpp
         parser/queryTokenizer.cpp
         util/Tokenizer.cpp
-        query/Query.cpp)
+        query/Query.cpp
+        shared/ThreadClass.cpp
+        shared/ParsedUrl.cpp)
 
 add_executable(DataStructures-Vector-tests
         DataStructures/Vector/Vector.h
