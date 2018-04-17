@@ -48,7 +48,7 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 		vector<string> RoundRobinHosts;
 		size_t numHost;
 		//atomic_ulong GlobalCounter;
-		atomic<std::uint32_t> GlobalCounter;
+		atomic_long GlobalCounter;
 		//std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk
