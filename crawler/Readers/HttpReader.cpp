@@ -68,7 +68,7 @@ bool HttpReader::request ( )
 	}
 	catch ( std::exception & e )
 	{
-		cerr << "Error trying to connect to Host" << url->getCompleteUrl() << endl;
+		cerr << "Error trying to connect to Host" << url->getCompleteUrl()<< endl;
 
 		return false;
 	}

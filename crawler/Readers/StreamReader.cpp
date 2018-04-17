@@ -4,7 +4,7 @@
 
 #include "StreamReader.h"
 
-StreamReader::~StreamReader( )
+void StreamReader::test()
 	{
-
+	cout << "this is a test" << endl;
 	}

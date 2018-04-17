@@ -22,6 +22,9 @@ public:
 	StreamReader ( )
 		{ };
 
+
+	virtual void test();
+
 	virtual bool request ( ) = 0;
 
 	virtual bool fillBuffer ( char *buf, size_t buf_size ) = 0;
