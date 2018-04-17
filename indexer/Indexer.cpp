@@ -83,8 +83,8 @@ void Indexer::run()
 
 		unordered_map < string, DocIndex * > anchorDict = AnchorQueue->Pop( );
 	SaveAnchorText( &anchorDict );
-	cout << " Indexer has finished running" << endl;
-	return;
+        cout << " Indexer has finished running" << endl;
+        return;
 	}
 
 void Indexer::save()
@@ -278,7 +278,7 @@ void Indexer::saveWordSeek()
 			}
 		}
 
-		wordSeek.insert( key, value );
+		wordSeek.insert( key + to_string(currentPartition), value );
 		}
 		currentFile++;
 	}
