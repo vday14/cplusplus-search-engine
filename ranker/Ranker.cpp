@@ -40,7 +40,7 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 	//cout << "B of location :: " << endl;
 	assert( isrListInput.size( ) != 0 );
 
-//	Query query( this->getQuery() );
+	Query query( this->getQuery() );
 
 	Site *newSite = nullptr;
 	string url;
@@ -57,7 +57,7 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 				{
 				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
 				title = isrWord->GetEndDocument()->getCurrentDoc().title;
-				newSite = new Site( url, this->getQuery( ) , title );
+				newSite = new Site( url, query , title );
 				}
 			std::string word = isrWord->term;
 			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
