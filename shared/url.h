@@ -128,9 +128,9 @@ public:
 					//remove question marks
 
 
-			CompleteUrl.erase(std::remove_if(CompleteUrl.begin(),
+			CompleteUrl.erase(remove_if(CompleteUrl.begin(),
 														CompleteUrl.end(),
-														[](unsigned char x){return std::isspace(x);}),
+														[](unsigned char x){return isspace(x);}),
 									CompleteUrl.end());
 
 			CompleteUrl = util::removeAllStr(CompleteUrl, "?");
