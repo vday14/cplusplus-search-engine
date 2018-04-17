@@ -2,8 +2,7 @@
 // Created by Ben Bergkamp on 1/25/18.
 //
 
-#ifndef EECS398_SEARCH_PRODUCERCONSUMERQUEUE_H
-#define EECS398_SEARCH_PRODUCERCONSUMERQUEUE_H
+#pragma once
 
 #include <pthread.h>
 #include <chrono>
