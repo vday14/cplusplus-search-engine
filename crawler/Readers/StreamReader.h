@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../../shared/url.h"
+#include "../../shared/ParsedUrl.h"
 #include "../../util/util.h"
 #include <unistd.h>
 #include <sys/types.h>

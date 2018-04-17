@@ -12,7 +12,7 @@ add_executable(TryPopTest
         shared/TryPopTest.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
-        shared/url.h
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -33,7 +33,7 @@ add_executable(crawler-parser-Test
         main.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
-        shared/url.h
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -55,7 +55,7 @@ add_executable(crawler-parser-indexer-Test
         main.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
-        shared/url.h
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -78,7 +78,7 @@ add_executable(isolated-integration
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
         crawler/UrlFrontier.cpp
-        shared/url.h
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/Readers/StreamReader.h
         crawler/Readers/HttpReader.cpp
@@ -100,7 +100,7 @@ add_executable(url-frontier-test
         crawler/tests/urlFrontierTest.cpp
         shared/ProducerConsumerQueue.h
         shared/ThreadClass.h
-        shared/url.h
+        shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
         crawler/Readers/StreamReader.h
@@ -135,7 +135,7 @@ add_executable(StemmerTest
 add_executable(ParserTest
         parser/Parser.cpp
         shared/Document.cpp
-        shared/url.h
+        shared/ParsedUrl.cpp
         util/util.cpp
         util/Tokenizer.cpp
         shared/ProducerConsumerQueue.h
@@ -163,7 +163,7 @@ add_executable(SharedTableTest
         shared/SharedHashMapTest.cpp )
 
 add_executable(URLTEST
-        shared/url.h
+        shared/ParsedUrl.cpp
         shared/urlTest.cpp
         util/stringProcessing.cpp
         util/Stemmer.cpp

@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <vector>
 #include "../query/Query.h"
-#include "../shared/url.h"
+#include "../shared/ParsedUrl.h"
 
 /**
  * Data struct for each word

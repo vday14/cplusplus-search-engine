@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "url.h"
+#include "ParsedUrl.h"
 #include <string>
 #include <vector>
 #include <pthread.h>

@@ -5,7 +5,7 @@
 #include "../shared/ProducerConsumerQueue.h"
 //#include "../shared/SharedHashMap.h"
 #include <algorithm>
-#include "../shared/url.h"
+#include "../shared/ParsedUrl.h"
 #include <time.h>
 #include <unordered_map>
 #include <set>
