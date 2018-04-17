@@ -4,18 +4,11 @@ in order to normalize proximityMatching more accurately
 """
 
 from __future__ import division
-import re
-import sys
 from bs4 import BeautifulSoup
 from googlesearch import search
 import urllib
 from collections import defaultdict
 import os
-import string
-from sets import Set
-# import wget
-import Queue
-import requests
 from nltk import ngrams
 
 def crawl( queries ):
