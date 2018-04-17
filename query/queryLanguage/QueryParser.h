@@ -6,6 +6,7 @@
 #pragma  once
 #include "../../util/DataStructureLib/tuple.cpp"
 #include<deque>
+#include <set>
 
 //  <Constraint>        ::= <BaseConstraint>
 //                              { <OrOp> <BaseConstraint> }
@@ -65,6 +66,22 @@ private:
 	bool isAndType( string input );
 	bool isOrType( string input );
 	Tuple * getDecoratedWord( string input );
+	bool isStopWord ( string word );
+
+
+	/**
+ * Set of stopwords
+ */
+	 set< string > stopWords = { "a", "all", "an", "any", "are", "as", "at", "be", "been", "but",
+	                                   "by", "few",
+	                                   "from",
+	                                   "for", "have", "he", "her", "here", "him", "his", "how",
+	                                   "i", "in", "is", "it", "its", "many ", "me", "my", "none", "of", "on", "or", "our",
+	                                   "she",
+	                                   "some", "the", "their", "them", "there", "they", "that",
+	                                   "this", "to", "us", "was", "what", "when", "where", "which", "who", "why", "will",
+	                                   "with", "www",
+	                                   "you", "your" };
 
 
 
