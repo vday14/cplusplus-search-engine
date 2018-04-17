@@ -11,7 +11,7 @@
 #include "Readers/StreamReader.h"
 #include "../util/util.h"
 #include "../parser/Parser.h"
-
+#include <atomic>
 using namespace std;
 
 using DocIndex = const unordered_map< string, vector< unsigned long > >;

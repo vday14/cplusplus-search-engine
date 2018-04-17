@@ -4,6 +4,7 @@
 #pragma  once
 #include "../shared/ProducerConsumerQueue.h"
 //#include "../shared/SharedHashMap.h"
+#include <algorithm>
 #include "../shared/url.h"
 #include <time.h>
 #include <unordered_map>

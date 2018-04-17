@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include <cctype>
 class WordInfo {
 
 public:
