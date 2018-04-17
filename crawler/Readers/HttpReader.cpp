@@ -44,7 +44,7 @@ bool HttpReader::request ( )
 
 		// Send a GET message for the desired page.
 
-		cout << "Socket Reader is pulling from the web" << endl;
+		//cout << "Socket Reader is pulling from the web" << endl;
 
 		string getMessage = "GET ";
 		getMessage += url->getCompleteUrl();
@@ -52,7 +52,7 @@ bool HttpReader::request ( )
 		getMessage += url->getHost();
 		getMessage += "\r\nConnection: close\r\n\r\n";
 
-		cout << getMessage << endl;
+		//cout << getMessage << endl;
 		send( sock, getMessage.c_str( ), getMessage.length( ), 0 );
 
 		bool isSuccess = checkStatus( );
@@ -68,7 +68,8 @@ bool HttpReader::request ( )
 	}
 	catch ( std::exception & e )
 	{
-		cerr << "Error trying to connect to Host" << endl;
+		cerr << "Error trying to connect to Host" << url->getCompleteUrl() << endl;
+
 		return false;
 	}
 	}

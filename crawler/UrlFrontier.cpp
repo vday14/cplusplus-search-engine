@@ -92,7 +92,7 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 	priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass>* currentQ = RestrictedHosts[ currentHost ];
 
 	pthread_mutex_lock(&m);
-	cout << "Popping Current Host  " << currentHost << ".  Current Number of urls in queue " << currentQ->size( ) << endl;
+	//cout << "Popping Current Host  " << currentHost << ".  Current Number of urls in queue " << currentQ->size( ) << endl;
 	while(currentQ->empty()){
 		retval = pthread_cond_timedwait(&consumer_cv, &m, &timeToWait);
 		if(retval != 0){
@@ -105,7 +105,7 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 	}
 
 	result = std::move(currentQ->top());
-	cout << "Popping " << result.getCompleteUrl( ) << endl;
+	//cout << "Popping " << result.getCompleteUrl( ) << endl;
 
 	currentQ->pop();
 
