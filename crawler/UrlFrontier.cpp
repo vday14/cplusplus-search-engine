@@ -106,7 +106,7 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 
 	result = std::move(RestrictedHosts[ currentHost ]->top());
 	//cout << "Popping " << result.getCompleteUrl( ) << endl;
-
+	//cout << result.getCompleteUrl( ) << endl;
 	RestrictedHosts[ currentHost ]->pop();
 
 	pthread_mutex_unlock(&m);
