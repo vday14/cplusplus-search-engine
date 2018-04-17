@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <set>
 #include <iostream>
+#include <atomic>
 using namespace std;
 
 
@@ -48,7 +49,7 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 		vector<string> RoundRobinHosts;
 		size_t numHost;
 		//atomic_ulong GlobalCounter;
-		atomic_long GlobalCounter;
+		std::atomic<u_long> GlobalCounter;
 		//std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk
