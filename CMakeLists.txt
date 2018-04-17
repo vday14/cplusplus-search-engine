@@ -11,7 +11,7 @@ add_executable(QueueTest
 add_executable(TryPopTest
         shared/TryPopTest.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
+        shared/ThreadClass.cpp
         shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
@@ -32,7 +32,7 @@ add_executable(TryPopTest
 add_executable(crawler-parser-Test
         main.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
+        shared/ThreadClass.cpp
         shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
@@ -53,7 +53,7 @@ add_executable(crawler-parser-Test
 add_executable(crawler-parser-indexer-Test
         main.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
+        shared/ThreadClass.cpp
         shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
@@ -75,7 +75,7 @@ add_executable(crawler-parser-indexer-Test
 add_executable(isolated-integration
         crawler/tests/crawlerTest.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
+        shared/ThreadClass.cpp
         crawler/UrlFrontier.cpp
         shared/ParsedUrl.cpp
         crawler/crawler.cpp
@@ -98,7 +98,7 @@ add_executable(isolated-integration
 add_executable(url-frontier-test
         crawler/tests/urlFrontierTest.cpp
         shared/ProducerConsumerQueue.h
-        shared/ThreadClass.h
+        shared/ThreadClass.cpp
         shared/ParsedUrl.cpp
         crawler/crawler.cpp
         crawler/UrlFrontier.cpp
