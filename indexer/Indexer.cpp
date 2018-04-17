@@ -89,46 +89,21 @@ void Indexer::run()
 
 void Indexer::save()
 	{
-	MMDiskHashTable seeker( util::GetCurrentWorkingDir( ) +
-							IndexerConstants::pathToIndex +
-							to_string( currentFile ) + "-seek.txt",
-							IndexerConstants::chunkSeekKeySize, IndexerConstants::chunkSeekValueSize );
 	string fileName = util::GetCurrentWorkingDir( ) +
                       IndexerConstants::pathToIndex +
                       to_string( currentFile ) + ".txt";
 	int file = open( fileName.c_str( ), O_CREAT | O_WRONLY, S_IRWXU );
 
-	seeker.insert("=numberUniqueWords", to_string(masterDictionary.size()));
-	seeker.insert("=numberWords", to_string(currentBlockNumberWords));
-	seeker.insert("=numberDocs", to_string(currentBlockNumberDocs));
-
-	// TODO: these should really be c strings
-	string statsHeader = "===STATS==="
-                        "\nunique words: " + to_string( masterDictionary.size( )) +
-                        "\nnumber words: " + to_string( currentBlockNumberWords ) +
-                        "\nnumber docs: " + to_string( currentBlockNumberDocs ) +
-                        "\n===========\n";
-	write( file, statsHeader.c_str( ), strlen( statsHeader.c_str( )));
-
-	// REALLY GROSS HACK
-	size_t seekOffset = strlen( statsHeader.c_str( ));
+	size_t seekOffset = 0;
 	size_t chunkEnd = 0;
 
 	for ( auto word : masterDictionary )
 		{
-		if ( word.first.size( ) > IndexerConstants::maxWordSize )
-			{
-			string resized = word.first;
-			resized.resize( IndexerConstants::maxWordSize );
-			seeker.insert( resized, to_string( seekOffset ));
-			}
-		else
-			{
-			seeker.insert( word.first, to_string( seekOffset ));
-			}
-
 		chunkDictionary[ word.first ].chunks.push_back( currentFile );
-
+        SeekEntry entry = SeekEntry( );
+        entry.offset = seekOffset;
+        entry.realLocation = 0;
+        seekDictionary[ word.first ].push_back( entry );
 		bool firstPost = true;
 		size_t lastOne = 0;
 		int numIndexed = 0;
@@ -145,7 +120,7 @@ void Indexer::save()
 				write( file, locationSpace.c_str( ), strlen( locationSpace.c_str( )));
 				seekOffset += strlen( locationSpace.c_str( ));
 				firstPost = false;
-				}
+                }
 			else
 				{
 				size_t delta = location - lastOne;
@@ -168,11 +143,8 @@ void Indexer::save()
 		seekOffset += 1;
 		}
 
-	string docEndingHeader = "===Document Endings===\n";
-	write( file, docEndingHeader.c_str( ), strlen( docEndingHeader.c_str( )));
-	seekOffset += strlen( docEndingHeader.c_str( ));
-	seeker.insert( "=docEnding", to_string( seekOffset ));
 	int docEndSeekCounter = 0; // save seek every 100 doc ends in the chunk
+    seekDictionary["=docEnding"].push_back(SeekEntry(0, seekOffset));
 	for ( auto ending : docEndings )
 		{
 		string title = "";
@@ -207,13 +179,12 @@ void Indexer::save()
 		if ( docEndSeekCounter == IndexerConstants::saveEveryXEntries )
 			{
 			docEndSeekCounter = 0;
-			seekDictionary["=docEnding"].push_back( SeekEntry(ending.docEndPosition, seekOffset ));
+			seekDictionary["=docEnding"].push_back( SeekEntry(seekOffset, ending.docEndPosition ));
 			}
 		seekOffset += strlen( docEndString.c_str( ));
 		}
 	chunkEndLocation.push_back(chunkEnd);
 	close( file );
-        //seeker.CloseFile();
 	}
 
 void Indexer::saveChunkDictionary()
@@ -222,7 +193,7 @@ void Indexer::saveChunkDictionary()
 												IndexerConstants::pathToIndex +
 												"master.txt", IndexerConstants::masterKeySize,
 												IndexerConstants::masterValueSize );
-	for ( auto word : chunkDictionary )
+    for ( auto word : chunkDictionary )
 		{
 		string key = word.first;
 		if ( key.size( ) > IndexerConstants::maxWordSize )
@@ -238,7 +209,8 @@ void Indexer::saveChunkDictionary()
 		dhtChunk.insert( key, value );
 		}
     dhtChunk.insert("=numberChunks", to_string(currentFile));
-	dhtChunk.insert("=totalNumberIndexed", to_string(currentlyIndexed));
+    dhtChunk.insert("=numberUniqueWords", to_string(chunkDictionary.size()));
+    dhtChunk.insert("=totalNumberIndexed", to_string(currentlyIndexed));
 	dhtChunk.insert("=totalDocsIndexed", to_string(numberDocsIndexed));
 	int currentChunk = 0;
 	for(auto location : chunkEndLocation)
@@ -254,10 +226,13 @@ void Indexer::saveWordSeek()
 	{
 	MMDiskHashTable wordSeek = MMDiskHashTable(util::GetCurrentWorkingDir( ) +
 											   IndexerConstants::pathToIndex +
-											   to_string( currentFile ) + "-wordseek.txt",
+											   to_string( currentFile ) + "-dictionary.txt",
 											   IndexerConstants::chunkWordSeekKeySize,
 											   IndexerConstants::chunkWordSeekValueSize );
-	for ( auto word : seekDictionary )
+    wordSeek.insert("=numberUniqueWords", to_string(masterDictionary.size()));
+    wordSeek.insert("=numberWords", to_string(currentBlockNumberWords));
+    wordSeek.insert("=numberDocs", to_string(currentBlockNumberDocs));
+        for ( auto word : seekDictionary )
 		{
 		string key = word.first;
 		int currentPartition = 0;
@@ -267,8 +242,8 @@ void Indexer::saveWordSeek()
 
 		string value = "";
 		for ( auto entry : word.second ) {
-			string prospectiveSeek = "<" + to_string(entry.offset) +
-					  ", " + to_string(entry.realLocation) + "> ";
+			string prospectiveSeek = "<" + to_string(entry.realLocation) +
+					  ", " + to_string(entry.offset) + "> ";
 			if(value.size() + prospectiveSeek.size() <= IndexerConstants::chunkWordSeekValueSize) {
 				value += prospectiveSeek;
 			} else {

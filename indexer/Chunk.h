@@ -13,8 +13,7 @@ public:
     char* getChunkMap();
 
     int chunkFileHandle;
-    MMDiskHashTable seeker;
-    MMDiskHashTable wordSeek;
+    MMDiskHashTable dictionary;
     size_t numberUniqueWords;
     size_t numberWords;
     size_t numberDocs;

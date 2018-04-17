@@ -21,6 +21,7 @@ public:
     size_t numberChunks;
     size_t numberDocuments;
     size_t numberWords;
+    size_t numberUniqueWords;
     std::vector<Chunk> chunks;
     MMDiskHashTable master;
 
