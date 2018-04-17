@@ -447,10 +447,28 @@ void QueryParser::stemQuery(string input )
 	for( int i = 0; i < seperatedWords.size() ; ++i)
 		{
 		string word = seperatedWords[ i ];
-		string stemmed = stemWord( word );
-		stemmedQuery += stemmed;
-		if( (i + 1) != seperatedWords.size())
-			stemmedQuery += " ";
+
+		if( !isStopWord (toLower(word) ) )
+			{
+			string stemmed = stemWord( word );
+			stemmedQuery += stemmed;
+			if( (i + 1) != seperatedWords.size())
+				stemmedQuery += " ";
+			}
+
 		}
-	query = stemmedQuery;
+	query = toLower(stemmedQuery);
+	}
+
+
+/**
+ * Returns true if @word is a stopword
+ *
+ * @param word
+ * @return bool
+ */
+bool QueryParser::isStopWord ( string word )
+	{
+	return ( stopWords.find( word ) != stopWords.end( ) );
+
 	}
