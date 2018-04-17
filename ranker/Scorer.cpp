@@ -379,16 +379,15 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
             if ( docWeights.find( term ) != docWeights.end( ) )
                 {
                 //add to tf and idf accordingly
-                docWeights[ currTerm ].tf += begin->second.frequency;
-                docWeights[ currTerm ].totalDocFreq += corpus.getWordInfo( begin->first ).docFrequency;
+                docWeights[ term ].tf += begin->second.frequency;
                 }
             else
                 {
                 //if normalized term hasn't been seen before, create new instance in docWeight map
                 TfIdf ti;
                 ti.tf = begin->second.frequency;
-                ti.totalDocFreq = corpus.getWordInfo( begin->first ).docFrequency;
-                docWeights[ currTerm ] = ti;
+                ti.totalDocFreq = getTotalDocFreq( term, corpus );
+                docWeights[ term ] = ti;
                 }
             }
             ++begin;
@@ -400,7 +399,14 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
         {
         unsigned long tf = beginDocWeights->second.tf;
         double totalDocFrequency = beginDocWeights->second.totalDocFreq;
-        beginDocWeights->second.tfIdf = tf + log(totalNumDocs / totalDocFrequency);
+        if ( totalDocFrequency == 0 )
+            {
+            beginDocWeights->second.tfIdf = 0;
+            }
+        else
+            {
+            beginDocWeights->second.tfIdf = tf + log(totalNumDocs / totalDocFrequency);
+            }
 
         //only need to consider words from the query that are in the document
         if (queryTokens->find(beginDocWeights->first) != queryTokens->end())
@@ -432,6 +438,15 @@ double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
     return difference;
     }
 
+double Scorer::getTotalDocFreq(string stripped_term, Corpus &corpus)
+    {
+    double docFreq = corpus.getWordInfo( addDecorator( stripped_term, "#" ) ).docFrequency;
+    docFreq += corpus.getWordInfo( addDecorator( stripped_term, "@" ) ).docFrequency;
+    docFreq += corpus.getWordInfo( addDecorator( stripped_term, "$" ) ).docFrequency;
+    docFreq += corpus.getWordInfo( addDecorator( stripped_term, "%" ) ).docFrequency;
+
+    return docFreq;
+    }
 /**
 * Executes tfidf weight calculation and returns rough similarity score
 * @param inputSite

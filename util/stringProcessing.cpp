@@ -470,3 +470,9 @@ string removeDecorator( string input)
 		}
 	return no_decorator;
 	}
+
+string addDecorator ( string input, string decorator )
+    {
+    string add_decorator = decorator + input;
+    return add_decorator;
+    }
