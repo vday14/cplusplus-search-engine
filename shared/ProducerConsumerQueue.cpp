@@ -3,6 +3,7 @@
 //
 
 #include "ProducerConsumerQueue.h"
+#include "ParsedUrl.h"
 using namespace std;
 template< class T >
 void ProducerConsumerQueue< T >::Push ( T obj )
@@ -75,4 +76,11 @@ size_t ProducerConsumerQueue< T >::Size ( )
 	size_t size = queue_.size( );
 	pthread_mutex_unlock( &m );
 	return size;
+	}
+
+void TemporaryFunction()
+	{
+	ProducerConsumerQueue<ParsedUrl> temp1;
+	ProducerConsumerQueue<const unordered_map< string, vector< unsigned long > > *> temp2;
+	ProducerConsumerQueue< unordered_map<string , const unordered_map< string, vector< unsigned long > > * >  > temp3;
 	}

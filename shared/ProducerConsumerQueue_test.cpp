@@ -5,7 +5,6 @@
 #include <iostream>
 #include <stdlib.h>
 #include <pthread.h>
-#include "ProducerConsumerQueue.h"
 
 
 pthread_mutex_t cout_lock = PTHREAD_MUTEX_INITIALIZER;

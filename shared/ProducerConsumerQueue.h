@@ -41,5 +41,5 @@ protected:
 	};
 
 //Necessary because this class is templated
-#include"ProducerConsumerQueue.cpp"
+//#include"ProducerConsumerQueue.cpp"
 
