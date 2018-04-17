@@ -47,7 +47,8 @@ class UrlFrontier : public ProducerConsumerQueue<ParsedUrl>
 		unordered_map<string, priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> *> RestrictedHosts;
 		vector<string> RoundRobinHosts;
 		size_t numHost;
-		atomic_ulong GlobalCounter;
+		//atomic_ulong GlobalCounter;
+		std::atomic<std::uint32_t> GlobalCounter;
 		//std::priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass> queue;
 
 		//Writes the duplicate url map and priorty queue from disk

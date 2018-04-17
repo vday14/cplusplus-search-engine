@@ -8,6 +8,7 @@
 #include <time.h>
 #include <string.h>
 #include "../util/stringProcessing.h"
+#include <algorithm>
 using namespace std;
 
 
