@@ -36,6 +36,9 @@ void Site::setScore( double score_in )
  */
 double Site::getScore ( )
 	{
+	
+
+
 	if( this->hasBeenScored )
 		{
 		return this->score;
@@ -44,7 +47,11 @@ double Site::getScore ( )
 	hasBeenScored = true;
 	Scorer rank = Scorer();
 	score = rank.getScore (*this);
+
+
 	return score;
+
+
 	}
 
 /**

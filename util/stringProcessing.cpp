@@ -1,6 +1,3 @@
-//
-// Created by Ben Bergkamp on 3/6/18.
-//
 
 #include "stringProcessing.h"
 #include "Stemmer.h"
@@ -9,6 +6,33 @@
 #include <iostream>
 
 using namespace std;
+
+
+/**
+ * Removes weird html encodings
+ *
+ * @param originalText
+ * @return
+ */
+std::string unEncodeHtml( std::string originalText )
+	{
+	// don't check if at least one of these symbols doesnt occure
+	if ( findStr( "#", originalText ) == originalText.size( ) && findStr( ";", originalText ) == originalText.size( )
+	     && findStr( "&", originalText ) == originalText.size( ) )
+		{
+		return originalText;
+		}
+
+	for ( auto it = encodeSet.begin( ); it != encodeSet.end( ); ++it )
+		{
+		auto symbol = findStr( *it, originalText );
+		if ( symbol != originalText.size( ) )
+			{
+			originalText.erase( symbol, it->size( ) );
+			}
+		}
+	return originalText;
+	}
 
 /**
  * Finds the needle in the haystack
@@ -453,6 +477,7 @@ string lastN ( string input, int n )
 	return ( n > 0 && inputSize > n ) ? input.substr( inputSize - n ) : "";
 	}
 
+<<<<<<< HEAD
 /**
  * Remove first char in word - used in ranker to remove decorator
  * @param input
@@ -460,19 +485,22 @@ string lastN ( string input, int n )
  */
 string removeDecorator( string input)
 	{
-	string no_decorator = "";
-	string::iterator str_start = input.begin(  );
-	string::iterator str_end = input.end( );
-	++str_start;
-	while ( str_start != str_end )
+	string noDecorator = "";
+	string::iterator strStart = input.begin(  );
+	string::iterator strEnd = input.end( );
+	++strStart;
+	while ( strStart != strEnd )
 		{
-		no_decorator += *str_start;
+		noDecorator += *strStart;
+		++strStart;
 		}
-	return no_decorator;
+	return noDecorator;
 	}
 
 string addDecorator ( string input, string decorator )
     {
-    string add_decorator = decorator + input;
-    return add_decorator;
+    string addDecorator = decorator + input;
+    return addDecorator;
     }
+=======
+>>>>>>> 495bb0844a4e667c19ce78e86f6dcca977989813

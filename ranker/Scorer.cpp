@@ -4,12 +4,12 @@
 #include <utility>
 #include <cmath>
 #include <vector>
-#include "../shared/url.h"
+#include "../shared/ParsedUrl.h"
 #include <algorithm>
 #include "../constraintSolver/ISRWord.h"
 #include "../indexer/Corpus.h"
 #include "../query/Query.h"
-
+#include "../shared/ParsedUrl.h"
 #include "../parser/queryTokenizer.h"
 #include <cassert>
 #include <limits>
@@ -47,7 +47,7 @@ double Scorer::getScore ( Site website )
     score += executeTfIdf( website ) * TFIDF_WEIGHT;
 
 	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
-	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT );
+	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT + TFIDF_WEIGHT);
 
 	assert ( score <= 1.0);
 	return score;
@@ -390,7 +390,8 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
                 docWeights[ term ] = ti;
                 }
             }
-            ++begin;
+	    ++begin;
+
         }
     auto beginDocWeights = docWeights.begin( );
     auto endDocWeights = docWeights.end( );
@@ -399,19 +400,29 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
         {
         unsigned long tf = beginDocWeights->second.tf;
         double totalDocFrequency = beginDocWeights->second.totalDocFreq;
+
         if ( totalDocFrequency == 0 )
             {
             beginDocWeights->second.tfIdf = 0;
             }
         else
             {
-            beginDocWeights->second.tfIdf = tf + log(totalNumDocs / totalDocFrequency);
+            beginDocWeights->second.tfIdf = tf * log10( totalNumDocs / totalDocFrequency );
             }
 
         //only need to consider words from the query that are in the document
-        if (queryTokens->find(beginDocWeights->first) != queryTokens->end())
+	    auto findQuery = queryTokens->find( beginDocWeights->first );
+        auto queryEnd = queryTokens->end( );
+	    if ( findQuery != queryEnd )
             {
-            queryWeights[ beginDocWeights->first ] = beginDocWeights->second.tfIdf;
+		    if ( totalDocFrequency == 0 )
+			    {
+			    queryWeights[ beginDocWeights->first ] = findQuery->second.size ( ) * log10 ( totalNumDocs / totalDocFrequency );
+			    }
+		    else
+		    	{
+			    queryWeights[ beginDocWeights->first ] = 0;
+		    	}
             }
         ++beginDocWeights;
         }
@@ -424,15 +435,17 @@ std::unordered_map< std::string, TfIdf > Scorer::calcTfIdf( Site inputSite )
 */
 double Scorer::compareTfIdf( unordered_map< string, TfIdf > *docWeights )
     {
-    auto begin_weights = docWeights->begin( );
-    auto end_weights = docWeights->end( );
+    auto beginWeights = docWeights->begin( );
+    auto endWeights = docWeights->end( );
     double difference = 0;
-    while ( begin_weights != end_weights )
+    while ( beginWeights != endWeights )
         {
-        double docWeight = begin_weights->second.tfIdf;
-        double queryWeight = queryWeights.find( begin_weights->first )->second;
+        double docWeight = beginWeights->second.tfIdf;
+        double queryWeight = queryWeights.find( beginWeights->first )->second;
         difference += abs( docWeight - queryWeight );
-        ++begin_weights;
+
+        ++beginWeights;
+
         }
     //smaller difference = better doc
     difference = 1 / difference;
@@ -473,3 +486,4 @@ int Scorer::getNumWordsInTitle ( string title )
 
 	return splitStr ( title, ' ', true).size( );
 	}
+

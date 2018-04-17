@@ -72,7 +72,7 @@ bool HttpsReader::request ( )
 		getMessage += url->getHost();
 		getMessage += "\r\nConnection: close\r\n\r\n";
 
-		cout << getMessage << endl;
+		//cout << getMessage << endl;
 		SSL_write( ssl, getMessage.c_str( ), getMessage.length( ) );
 
 		bool isSuccess = checkStatus( );
@@ -80,7 +80,7 @@ bool HttpsReader::request ( )
 	}
 	catch ( std::exception & e )
 	{
-		cerr << "Error trying to connect to Host" << endl;
+		cerr << "Error trying to connect to Host" << url->getCompleteUrl() <<  endl;
 		return false;
 	}
 	}
@@ -141,4 +141,6 @@ void HttpsReader::closeReader ( )
 	SSL_CTX_free( ctx );
 	close( sock );
 	}
+
+
 

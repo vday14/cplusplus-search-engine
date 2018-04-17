@@ -3,12 +3,12 @@
 #include "Site.h"
 #include "../constraintSolver/ISRWord.h"
 #include "../constraintSolver/ISREndDoc.h"
-#include "../shared/url.h"
+#include "../shared/ParsedUrl.h"
 #include <vector>
 #include <queue>
 #include <string>
 #include <set>
-
+//const Location MAX_Location = std::numeric_limits<unsigned>::max();
 
 Ranker::Ranker( )
 	{ }
@@ -17,24 +17,25 @@ Ranker::Ranker( )
  *
  * @param query_in
  */
-Ranker::Ranker( std::string query_in ) : query ( Query( query_in ) )
+Ranker::Ranker( std::string query_in  ) : query ( Query( query_in )  )
 	{
 	sortedDocs.resize(DOCS_TO_RETURN);
 	};
 
 
+Ranker::Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueue_in ) : MatchQueue( MatchQueue_in) { }
+
 void Ranker::addQuery( std::string query_in )
 	{
 	this->query = Query( query_in );
 	}
-
 /***
  * Adds a new site for the doc given as isrListInput
  *
  * @param isrListInput
  */
 void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
-{
+	{
 
 	//cout << "B of location :: " << endl;
 	assert( isrListInput.size( ) != 0 );
@@ -45,22 +46,20 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 	string title;
 
 	for ( auto isrWord: isrListInput )
-	{
+		{
 
 		isrWord->Seek( BoFDoc);
 
 		if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
-		{
+			{
 			if ( url == "" )
-                {
-                url = isrWord->GetEndDocument()->getCurrentDoc().url;
-                title = isrWord->GetEndDocument()->getCurrentDoc().title;
-                newSite = new Site(url, query, title);
-                }
-			string word = isrWord->term;
+				{
+				url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
+				title = isrWord->GetEndDocument()->getCurrentDoc().title;
+				newSite = new Site( url, query , title );
+				}
+			std::string word = isrWord->term;
 			url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
-			//cout << "Ranker adding url :: " << url << endl;
-			//cout << "Current location " << isrWord->currentLocation << endl;
 
 			if ( word[ 0 ] == Tokenizer::ANCHOR )
 				newSite->hasAnchor = true;
@@ -71,68 +70,15 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 			if ( word[ 0 ] == Tokenizer::BODY )
 				newSite->hasBody = true;
 
-<<<<<<< HEAD
-=======
 			newSite->wordData[ word ] = getData( *isrWord );
 			}
->>>>>>> 113b07de46b1fc6ff1fa1d6512de2573411260c7
 		}
-	}
 	if(newSite != nullptr )
 		selectivelyAddDocs( newSite );
 
 	//assert(newSite != nullptr);
 
-<<<<<<< HEAD
-
-}
-=======
 	}
->>>>>>> 113b07de46b1fc6ff1fa1d6512de2573411260c7/***
- * Adds a new site for the doc given as isrListInput
- *
- * @param isrListInput
- */
-void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
-{
-
-    //cout << "B of location :: " << endl;
-    assert( isrListInput.size( ) != 0 );
-
-    Query query( this->getQuery() );
-    Site *newSite = nullptr;
-    string url;
-    string title;
-
-    for ( auto isrWord: isrListInput )
-    {
-
-        isrWord->Seek( BoFDoc);
-
-        if( isrWord->currentLocation  < EndOfDocument && isrWord->currentLocation > BoFDoc)
-        {
-            if ( url == "" )
-            {
-                url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
-                title = isrWord->GetEndDocument()->getCurrentDoc().title;
-                newSite = new Site( url, query , title );
-            }
-            string word = isrWord->term;
-            url = isrWord->GetEndDocument( )->getCurrentDoc( ).url;
-            //cout << "Ranker adding url :: " << url << endl;
-            //cout << "Current location " << isrWord->currentLocation << endl;
-
-            newSite->wordData[ word ] = getData( *isrWord );
-
-        }
-    }
-    if(newSite != nullptr )
-        selectivelyAddDocs( newSite );
-
-    //assert(newSite != nullptr);
-
-
-}
 
 /**
  * Outputs the ranked sites to stout
@@ -162,7 +108,6 @@ Query Ranker::getQuery( )
 	return this->query;
 	}
 
-
 /**
  * Sets the data for each word
  *
@@ -170,27 +115,27 @@ Query Ranker::getQuery( )
  * @return data
  */
 data Ranker::getData( ISRWord isrWord )
-{
-	Corpus corpus = Corpus::getInstance();
+	{
+
 	data wordData;
-	ISREndDoc endDocs;
+	//ISREndDoc endDocs;
 	std::vector < size_t > offsets;
-	vector<DocumentEnding> docEnds;
+	//vector<DocumentEnding> docEnds;
 
 	unsigned long freq = 0;
 	while ( isrWord.getCurrentLocation ( ) < isrWord.DocumentEnd->getCurrentDoc( ).docEndPosition )
-	{
+		{
 		offsets.push_back( isrWord.getCurrentLocation( ) );
 		isrWord.Next();
 		++freq;
-	}
+		}
 
-	wordData.docFrequency = corpus.getWordInfo(isrWord.term).docFrequency;
 	wordData.frequency = freq;
 	wordData.offsets = offsets;
 	wordData.minDelta = 0;
+
 	return wordData;
-}
+	}
 
 /**
  * Scores the document and only adds it to the returned list if it's score is greater than the smallest score
@@ -240,7 +185,7 @@ string Ranker::getResultsForSiteJSON( )
 		{
 		Site * site = sortedDocs[ i ];
 		results += "{ \"site\": \"" + site->getUrl( )
-					  + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\" , \"title\" : \" "+ site->getTitle() + "\" }";
+		           + "\", \"score\": \"" + to_string( site->getScore( ) ) + "\" , \"title\" : \" "+ site->getTitle() + "\" }";
 		if(i != (sortedDocs.size( ) - 1) )
 			results += ",";
 
@@ -272,12 +217,33 @@ void Ranker::addISR( vector<ISRWord*> isr_in )
 
 	}
 
-//	vector<size_t> locations;
-//	set<string> urls;
-// urls.insert ( url );
 
 
-//	vector<size_t> locations;
-//	set<string> urls;
-// urls.insert ( url );
+void Ranker::run()
+	{
+	clock_t start = clock( );
+	while ( true )
+		{
+		pair<Location, Location> match = MatchQueue->Pop( );
 
+		if( match.first == MAX_Location  || match.second == MAX_Location)
+			{
+			clock_t end = clock( );
+			double time = (end - start) / (double) CLOCKS_PER_SEC;
+			cout << "TOTAL RANKING TIME" << endl;
+			cout << time << endl;
+			return;
+			}
+
+		else
+			{
+			//clock_t start = clock();
+			addDoc(match.first, match.second);
+			//clock_t end = clock( );
+			//cout << (end - start) / (double) CLOCKS_PER_SEC << endl;
+			numberOfTotalResults++;
+			}
+
+		}
+
+	}

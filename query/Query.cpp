@@ -27,6 +27,7 @@ Query::Query( std::string query_in )
 Query::Query( const Query &copy )
 	{
 	this->queryTokens	= copy.queryTokens;
+	this->queryStr = copy.queryStr;
 	}
 
 /**

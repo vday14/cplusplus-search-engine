@@ -30,6 +30,7 @@ int main( int argc, char *argv[] )
 			Searcher searchEngine( q );
 			cout << "Results" << endl;
 			searchEngine.search( );
+			cout << searchEngine.GetResults( ) << endl;
 			//query->printResults( );
 			cout << "Please enter another search " << endl;
 			}

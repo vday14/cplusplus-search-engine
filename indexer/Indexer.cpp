@@ -22,8 +22,9 @@ void Indexer::run()
 			{
 
 			DocIndex *dictionary = pointerToDictionaries->Pop( );
-			numberDocsIndexed++;
-			cout << "Number of documents indexed :: " << to_string(numberDocsIndexed) << endl;
+			//numberDocsIndexed++;
+			if( (numberDocsIndexed++) % 100 == 0 )
+				cout << "Number of documents indexed :: " << to_string(numberDocsIndexed) << endl;
 
 			DocumentEnding docEnd = DocumentEnding( );
 			size_t indexedCount = 0;
@@ -189,10 +190,17 @@ void Indexer::save()
 													[](unsigned char x){return std::isspace(x);}),
 							 toDiskUrl.end());
 		toDiskUrl = util::removeAllStr(toDiskUrl, "\\");
+		string toDiskTitle = title;
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\");
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\n");
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\t");
+
+
+
 
 		string docEndString = "[" +
 												toDiskUrl + ", " +
-                                 title + ", " +
+												toDiskTitle + ", " +
                                  to_string( ending.docEndPosition ) + ", " +
                                  to_string( ending.docNumWords ) + "]\n";
 		write( file, docEndString.c_str( ), strlen( docEndString.c_str( )));

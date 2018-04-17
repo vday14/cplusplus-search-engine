@@ -298,14 +298,15 @@ void testWordLocationScore()
 	double manualScore = 0.737179;
 	assert(scorer.wordLocationScore ( newSite ) <= manualScore + 0.001 && scorer.wordLocationScore ( newSite ) >= manualScore - 0.001);
 
-	cout << "PASSED Location Score :)\n";
+	cout << "PASSED Location Score :)\n\n";
 
 	}
 
 void testTfIdf ( )
 	{
 
-	cout << "Testing tf-idf score...\n";
+	cout << "Testing testTFIDF score...\n";
+
 	Query query( "trump is president FBI" );
 	ParsedUrl url( "https://www.politico.com/story/2018/04/16/james-comey-interview-trump-white-house-response-526281" );
 	Site newSite( url.getCompleteUrl(), query, "Trump office president FBI white house trump fbi white white trump house" );
@@ -316,9 +317,9 @@ void testTfIdf ( )
     double presDocFreq = Scorer::getTotalDocFreq( "presid", corpus );
     double fbiDocFreq = Scorer::getTotalDocFreq( "fbi", corpus );
 
-    double trumpIdf = log( totalDocs / trumpDocFreq );
-    double presIdf = log( totalDocs / presDocFreq );
-    double fbiIdf = log( totalDocs / fbiDocFreq );
+    double trumpIdf = log10( totalDocs / trumpDocFreq );
+    double presIdf = log10( totalDocs / presDocFreq );
+    double fbiIdf = log10( totalDocs / fbiDocFreq );
 
     //7 = trump doc tf, 4 = pres doc tf, 2 = fbi doc tf
     double difference = abs( ( 7 * trumpIdf ) - ( 1 * trumpIdf ) )  + abs( ( 4 * presIdf ) - ( 1 * presIdf ) ) + abs( ( 2 * fbiIdf ) - ( 1 * fbiIdf) );
@@ -341,9 +342,11 @@ void testTfIdf ( )
 	newSite.wordData[ "$trump"].frequency = 1;
 
     double score = scorer.executeTfIdf( newSite );
-    cout << score << endl;
-    assert( score == difference );
 
+    cout << "This is calculated score: " << score << endl;
+    cout << ( 1 / difference) << endl;
+    assert( score == ( 1 / difference ) );
 
+	cout << "PASSED TFIDF Score :)\n\n";
 
 	}

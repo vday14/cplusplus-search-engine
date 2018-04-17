@@ -18,6 +18,8 @@
 #include "Scorer.h"
 #include <unordered_map>
 #include "../query/Query.h"
+#include "../shared/ProducerConsumerQueue.h"
+#include "../shared/ThreadClass.h"
 
 /***
  * Custom Comparator for the priority queue that keeps the websites in their correct order.
@@ -27,15 +29,15 @@ class Comp
 public:
 	bool operator()(Site* L, Site* R)
 		{
-		return L->getScore() > R->getScore();
+		return L->score > R->score;
 		}
 	};
 
-class Ranker
+class Ranker : public ThreadClass
 	{
 public:
 
-	double numberOfTotalResults;
+	size_t numberOfTotalResults = 0;
 
 	Ranker( );
 
@@ -45,8 +47,11 @@ public:
 	 *
 	 * @param query_in
 	 */
-	Ranker( std::string query_in );
+	Ranker( std::string query_in   );
 
+
+
+	Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueueIn );
 	/**
 	 * Ranker dstor
 	 */
@@ -71,6 +76,9 @@ public:
 
 	void orderResults( );
 
+
+	void run();
+
 	/**
 	 * Returns the query
 	 *
@@ -90,7 +98,7 @@ private:
 	vector<ISRWord* > isrListInput;
 	Query query;
 	unordered_map<string, Site * > Websites;
-
+	ProducerConsumerQueue< pair<Location, Location> > * MatchQueue  ;
 	/**
 	 * Sets the data for each word
 	 *
