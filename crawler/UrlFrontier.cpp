@@ -46,6 +46,7 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 
 		pthread_mutex_lock( &m );
 		(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ] = 1;
+
 		pthread_mutex_unlock( &m );
 
 		return true;
@@ -249,7 +250,7 @@ void UrlFrontier::readBlackList()
 void UrlFrontier::readHosts()
 	{
 
-	string hostsFile = "/crawler/wiki.txt";
+	string hostsFile = "/crawler/seeds.txt";
 	char *hosts = util::getFileMap( hostsFile );
 
 	string toRestrict;
