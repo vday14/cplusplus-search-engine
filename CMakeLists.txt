@@ -338,6 +338,7 @@ add_executable(Indexer-twitter-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp
         util/util.cpp
+        shared/ThreadClass.cpp
         indexer/IndexerTwitterTests.cpp indexer/WordInfo.h)
 
 add_executable(MasterReader-tests

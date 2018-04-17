@@ -9,6 +9,7 @@ int main() {
     cout << "Number chunks: " << corpus.numberChunks << endl;
     cout << "Number documents: " << corpus.numberDocuments << endl;
     cout << "Number words: " << corpus.numberWords << endl;
+    cout << "Number unique words: " << corpus.numberUniqueWords << endl;
     for(int i = 0; i < corpus.chunks.size(); i++) {
         cout << "Chunk " << i << endl;
         cout << "\tNumber unique words: " << corpus.chunks[i].numberUniqueWords << endl;

@@ -84,8 +84,8 @@ void Indexer::run()
 
 		unordered_map < string, DocIndex * > anchorDict = AnchorQueue->Pop( );
 	SaveAnchorText( &anchorDict );
-        cout << " Indexer has finished running" << endl;
-        return;
+		cout << " Indexer has finished running" << endl;
+		return;
 	}
 
 void Indexer::save()
@@ -239,6 +239,7 @@ void Indexer::saveChunkDictionary()
 		dhtChunk.insert( key, value );
 		}
     dhtChunk.insert("=numberChunks", to_string(currentFile));
+	dhtChunk.insert("=numberUniqueWords", to_string(chunkDictionary.size()));
 	dhtChunk.insert("=totalNumberIndexed", to_string(currentlyIndexed));
 	dhtChunk.insert("=totalDocsIndexed", to_string(numberDocsIndexed));
 	int currentChunk = 0;
