@@ -66,8 +66,8 @@ void UrlFrontier::Push( ParsedUrl url )
 			pthread_mutex_lock( &m );
 
 			RestrictedHosts[ url.getHost ( ) ]->push( url );
-			cout << "Pushing " << url.getHost( ) << endl;
-			cout << RestrictedHosts[ url.getHost ( ) ]->size( ) << endl;
+			//cout << "Pushing " << url.getHost( ) << endl;
+			//cout << RestrictedHosts[ url.getHost ( ) ]->size( ) << endl;
 			//if ( RestrictedHosts[ url.getHost ( ) ]->size( ) == 1 )
 			//	{
 			//	pthread_cond_broadcast( &consumer_cv );

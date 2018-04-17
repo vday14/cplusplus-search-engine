@@ -110,6 +110,7 @@ void Spider::run ( )
 
 	while (*alive && cond < docs_to_crawl)
 	{
+
 		bool not_empty = urlFrontier->try_pop(currentUrl);
 
 		if(not_empty) {
@@ -123,14 +124,14 @@ void Spider::run ( )
 						DocIndex *dict = parser.execute(reader);
 						IndexerQueue->Push(dict);
 
-						reader->closeReader();
+						//reader->closeReader();
 						//delete dict;
 
 						cond++;
 					}
 				}
-
-
+				reader->closeReader( );
+				reader = 0;
 				delete reader;
 
 

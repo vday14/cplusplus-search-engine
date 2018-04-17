@@ -69,7 +69,7 @@ bool HttpReader::request ( )
 	catch ( std::exception & e )
 	{
 		cerr << "Error trying to connect to Host" << url->getCompleteUrl()<< endl;
-
+		//close(sock);
 		return false;
 	}
 	}
@@ -124,4 +124,9 @@ bool HttpReader::checkStatus ( )
 void HttpReader::closeReader ( )
 	{
 	close( sock );
+	}
+
+HttpReader::~HttpReader( )
+	{
+	//closeReader( );
 	}

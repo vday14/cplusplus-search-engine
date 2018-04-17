@@ -82,8 +82,8 @@ void Indexer::run()
 	reset( );
 	saveChunkDictionary( );
 
-		unordered_map < string, DocIndex * > anchorDict = AnchorQueue->Pop( );
-	SaveAnchorText( &anchorDict );
+	//	unordered_map < string, DocIndex * > anchorDict = AnchorQueue->Pop( );
+	//SaveAnchorText( &anchorDict );
 	cout << " Indexer has finished running" << endl;
 	return;
 	}
