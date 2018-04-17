@@ -4,7 +4,7 @@
 #include <utility>
 #include <cmath>
 #include <vector>
-#include "../shared/url.h"
+#include "../shared/ParsedUrl.h"
 #include "../parser/queryTokenizer.h"
 #include <cassert>
 #include <limits>

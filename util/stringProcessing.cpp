@@ -1,6 +1,3 @@
-//
-// Created by Ben Bergkamp on 3/6/18.
-//
 
 #include "stringProcessing.h"
 #include "Stemmer.h"
@@ -9,6 +6,33 @@
 #include <iostream>
 
 using namespace std;
+
+
+/**
+ * Removes weird html encodings
+ *
+ * @param originalText
+ * @return
+ */
+std::string unEncodeHtml( std::string originalText )
+	{
+	// don't check if at least one of these symbols doesnt occure
+	if ( findStr( "#", originalText ) == originalText.size( ) && findStr( ";", originalText ) == originalText.size( )
+	     && findStr( "&", originalText ) == originalText.size( ) )
+		{
+		return originalText;
+		}
+
+	for ( auto it = encodeSet.begin( ); it != encodeSet.end( ); ++it )
+		{
+		auto symbol = findStr( *it, originalText );
+		if ( symbol != originalText.size( ) )
+			{
+			originalText.erase( symbol, it->size( ) );
+			}
+		}
+	return originalText;
+	}
 
 /**
  * Finds the needle in the haystack
@@ -452,3 +476,4 @@ string lastN ( string input, int n )
 	unsigned long inputSize = input.size( );
 	return ( n > 0 && inputSize > n ) ? input.substr( inputSize - n ) : "";
 	}
+

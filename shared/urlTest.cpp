@@ -2,7 +2,7 @@
 // Created by Jake Close on 2/13/18.
 //
 
-#include "url.h"
+#include "ParsedUrl.h"
 #include <string>
 
 using namespace std;
