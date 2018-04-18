@@ -112,4 +112,14 @@ namespace util
 				}
 			return in;
 			}
+
+			bool isNum(string in) {
+				bool isNum = true;
+				for(auto digit : in) {
+					if (isalpha(digit)) {
+						isNum = false;
+					}
+				}
+				return isNum;
+			}
 	}
