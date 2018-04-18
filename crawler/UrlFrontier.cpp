@@ -18,17 +18,18 @@
 
 bool UrlFrontier::checkUrl( ParsedUrl url )
 	{
-
+	/*
 	if( Blacklist.find(  url.getCompleteUrl(  )  ) != Blacklist.end( ) )
 		return false;
-
+	*/
 	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )
 		return false;
-
 
 	//Looks to see if the complete url already exists, if so return
 	if ( this->duplicateUrlMap->find( url.getCompleteUrl( )) != this->duplicateUrlMap->end( ))
 		{
+		return false;
+		/*
 		//update the anchor text
 		if ( !url.getAnchorText( ).empty( ) || url.getAnchorText( ) != "")
 			{
@@ -36,19 +37,16 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 			(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ]++;
 			pthread_mutex_unlock( &m );
 			}
+		 */
 		//add the new
-		return false;
-		}
 
+		}
 
 	else
 		{
-
 		pthread_mutex_lock( &m );
 		(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ] = 1;
-
 		pthread_mutex_unlock( &m );
-
 		return true;
 		}
 	}

@@ -26,6 +26,9 @@ void Indexer::run()
 			if( (numberDocsIndexed++) % 100 == 0 )
 				cout << "Number of documents indexed :: " << to_string(numberDocsIndexed) << endl;
 
+			if ( numberDocsIndexed == 50000 )
+				break;
+
 			DocumentEnding docEnd = DocumentEnding( );
 			size_t indexedCount = 0;
 			currentBlockNumberDocs++;
@@ -195,6 +198,10 @@ void Indexer::save()
 		toDiskTitle = util::removeAllStr(toDiskTitle, "\\");
 		toDiskTitle = util::removeAllStr(toDiskTitle, "\\n");
 		toDiskTitle = util::removeAllStr(toDiskTitle, "\\t");
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\v");
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\r");
+		toDiskTitle = util::removeAllStr(toDiskTitle, "\\f");
+
 
 
 

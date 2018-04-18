@@ -175,10 +175,10 @@ int main ( int argc, char *argv[] )
 		{
 		cout << "Crawling: " << DocsToCrawl << " documents for each spider" << endl;
 
-		crawler->WaitOnAllSpiders( );
+		//crawler->WaitOnAllSpiders( );
 			//has_shutdown = true;
 		//crawler->passAnchorTextToIndex( );
-		indexer.Kill();
+		//indexer.Kill();
 		indexer.WaitForFinish( );
 		//urlFrontier->writeDataToDisk();
 		clock_t end = clock();

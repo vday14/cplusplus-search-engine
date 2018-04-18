@@ -213,7 +213,9 @@ add_executable(querySpeedTest
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISROr.cpp
         query/Query.cpp
-        parser/queryTokenizer.cpp)
+        parser/queryTokenizer.cpp
+        shared/ThreadClass.cpp
+        )
 
 add_executable(ISRWord-tests
         util/util.cpp
