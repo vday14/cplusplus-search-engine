@@ -61,5 +61,7 @@ namespace util
 
 		string  removeAllStr(string in, string toRemove);
 
+		bool isNum(string in);
+
 	}
 
