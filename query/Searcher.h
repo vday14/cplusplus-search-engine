@@ -8,6 +8,7 @@
 #include "../constraintSolver/ISRContainer.h"
 #include "../ranker/Ranker.h"
 #include "../shared/ProducerConsumerQueue.h"
+#include "../util/stringProcessing.h"
 using namespace std;
 
 class Searcher
@@ -17,6 +18,7 @@ public:
 	Searcher ( string query_in ) : CompleteQuery( query_in )
 		{
 
+		CompleteQuery = toLower(CompleteQuery);
 
 
 		};

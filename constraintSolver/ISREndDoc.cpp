@@ -31,9 +31,12 @@ DocumentEnding ISREndDoc::next() {
             case '[':
                 currentDoc = DocumentEnding();
                 break;
-            case ']':
-                currentDoc.docNumWords = stoll(currentOne);
+            case ']': {
+                if (util::isNum(currentOne) && !currentOne.empty()) {
+                    currentDoc.docNumWords = stoll(currentOne);
+                }
                 currentOne = "";
+            }
                 break;
             case ',':
                 if(currentDoc.url == "") {
@@ -45,7 +48,9 @@ DocumentEnding ISREndDoc::next() {
                     currentOne = "";
                     inTitle = false;
                 } else if(currentDoc.docEndPosition == 0) {
-                    currentDoc.docEndPosition = stoll(currentOne);
+                    if(util::isNum(currentOne) && !currentOne.empty()) {
+                        currentDoc.docEndPosition = stoll(currentOne);
+                    }
                     currentOne = "";
                 }
                 break;

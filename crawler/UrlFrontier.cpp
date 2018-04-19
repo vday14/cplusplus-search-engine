@@ -111,34 +111,6 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 	return true;
 	}
 
-/*
-ParsedUrl UrlFrontier::Pop()
-	{
-
-	pthread_mutex_lock( &m );
-
-	while ( queue.empty( ) == true )
-		{
-		pthread_cond_wait( &consumer_cv, &m );
-		}
-
-	ParsedUrl front = queue.top( );
-	queue.pop( );
-
-	pthread_mutex_unlock( &m );
-
-	return front;
-
-	}
-
-size_t UrlFrontier::Size()
-	{
-	pthread_mutex_lock( &m );
-	size_t size = queue.size( );
-	pthread_mutex_unlock( &m );
-	return size;
-	}
- */
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 const std::string currentDateTime()
@@ -194,7 +166,7 @@ void UrlFrontier::writeDataToDisk()
 	return;
 	}
 
-
+//Reads saved queue from disk
 void UrlFrontier::readDataFromDisk( )
 	{
 

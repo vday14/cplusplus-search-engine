@@ -2,7 +2,6 @@
 
 namespace IndexerConstants {
 	 const string pathToIndex = "/build50/";
-//	const string pathToIndex = "/constraintSolver/index-test-files/twitter/";
 
 	const size_t maxWordSize = 28;
 
