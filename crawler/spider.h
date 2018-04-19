@@ -43,17 +43,12 @@ public:
 
 	virtual void run ( );
 
-	bool writeDocToDisk ( ParsedUrl url );
-
-	bool shouldURLbeCrawled ( size_t docId );
 
 	size_t hash ( const char *s );
 
 
 	void kill ( );
 
-	//int getRobots(ParsedUrl url );
-	bool checkRobots ( ParsedUrl url );
 
 private:
 
