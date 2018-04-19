@@ -40,7 +40,7 @@ void Crawler::WaitOnAllSpiders ( )
 			spiders.pop_back();
 
 
-			spider->WaitForFinish();
+			//spider->WaitForFinish();
 			spider = 0;
 			delete spider;
 			}
