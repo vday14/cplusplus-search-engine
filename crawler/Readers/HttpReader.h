@@ -12,6 +12,7 @@ public:
 	HttpReader ( ParsedUrl * url_in ) : url( url_in )
 		{ }
 
+	~HttpReader();
 	bool request ( );
 
 	bool fillBuffer ( char *buf, size_t buf_size );

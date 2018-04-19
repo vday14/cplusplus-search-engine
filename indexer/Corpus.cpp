@@ -9,6 +9,12 @@ Corpus::Corpus() {
     numberChunks = stoll(master.find("=numberChunks"));
     numberDocuments = stoll(master.find("=totalDocsIndexed"));
     numberWords = stoll(master.find("=totalNumberIndexed"));
+    string numUnique = master.find("=numberUniqueWords");
+    if(numUnique != "") {
+        numberUniqueWords = stoll(master.find("=numberUniqueWords"));
+    } else {
+        numberUniqueWords = 0;      // not in back index
+    }
     for(int i = 0; i < numberChunks; i++) {
         chunks.push_back(Chunk(i));
         chunks[i].lastLocation = stoll(master.find("=chunk" + to_string(i)));

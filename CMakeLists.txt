@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.9)
 project(eecs398_search)
 
+set(dir ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${dir}/bin")
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -341,6 +343,7 @@ add_executable(Indexer-twitter-tests
         util/stringProcessing.cpp
         util/Stemmer.cpp
         util/util.cpp
+        shared/ThreadClass.cpp
         indexer/IndexerTwitterTests.cpp indexer/WordInfo.h)
 
 add_executable(MasterReader-tests

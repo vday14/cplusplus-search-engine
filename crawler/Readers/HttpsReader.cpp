@@ -81,6 +81,7 @@ bool HttpsReader::request ( )
 	catch ( std::exception & e )
 	{
 		cerr << "Error trying to connect to Host" << url->getCompleteUrl() <<  endl;
+		//close( sock );
 		return false;
 	}
 	}
@@ -115,7 +116,7 @@ bool HttpsReader::checkStatus ( )
 
 	if ( strncmp( buff, "HTTP/1.1 200", 11 ) == 0 )
 		return true;
-	else if(strncmp(buff, "HTTP/1.1 400", 11 ) == 0)
+	else if(strncmp(buff, "HTTP/1.0 400", 11 ) == 0 || strncmp(buff, "HTTP/1.1 400", 11 )  )
 		return true;
 	else if(strncmp(buff, "HTTP/1.1 302", 11 ) == 0)
 	{
@@ -140,6 +141,12 @@ void HttpsReader::closeReader ( )
 	SSL_free( ssl );
 	SSL_CTX_free( ctx );
 	close( sock );
+	}
+
+HttpsReader::~HttpsReader( )
+	{
+	//closeReader( );
+
 	}
 
 

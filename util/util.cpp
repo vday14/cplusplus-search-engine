@@ -97,8 +97,9 @@ namespace util
 
 		string GetCurrentWorkingDir ( void )
 			{
-
-			return ( getenv( "PWD" ) );
+			string pwd = getenv("PWD");
+			pwd = pwd.substr(0, pwd.size() - 3);
+			return ( pwd );
 			}
 
 

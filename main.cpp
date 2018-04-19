@@ -174,9 +174,10 @@ int main ( int argc, char *argv[] )
 	if(DocsToCrawl > 0 )
 		{
 		cout << "Crawling: " << DocsToCrawl << " documents for each spider" << endl;
+
 		crawler->WaitOnAllSpiders( );
 			//has_shutdown = true;
-		crawler->passAnchorTextToIndex( );
+		//crawler->passAnchorTextToIndex( );
 		indexer.Kill();
 		indexer.WaitForFinish( );
 		//urlFrontier->writeDataToDisk();
