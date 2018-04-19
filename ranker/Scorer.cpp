@@ -56,7 +56,6 @@ double Scorer::getScore ( Site website )
 		}
 
 	score += staticScore( website ) * STATIC_WEIGHT;
-    score += executeTfIdf( website ) * TFIDF_WEIGHT;
 
 	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
 	//score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT + TFIDF_WEIGHT);
@@ -385,21 +384,14 @@ double Scorer::tfIdfScore( Site inputSite, std::vector< std::string > queryToken
 			{
 			tf = double ( inputSite.wordData[ queryTokens[ i ] ].frequency );
 			tf /= double ( inputSite.numTermsInDoc );
-			idf = double ( inputSite.docCount ) / inputSite.wordData[ queryTokens[ i ] ].docFrequency;
+			idf = double ( inputSite.docCount ) / inputSite.wordData[ queryTokens[ i ] ].docFrequency ;
 			idf = log10 ( idf );
 			tfidfTotal += ( tf * idf);
-                
-            queryTf = queryTokens[ i ].size( ) / queryTokens.size( );
-            queryTfIdfTotal += ( queryTf * idf );
-            score += abs( tfidfTotal - queryTfIdfTotal );
+
 			}
 		}
 
-    if (score == 0)
-        {
-        return 1.2;
-        }
-	return ( 1 / score );
+    return ( tfidfTotal / double( queryTokens.size( ) ));
 	}
 
 
