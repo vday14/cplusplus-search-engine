@@ -44,6 +44,8 @@ void Searcher::search ( )
 		Results = ranker->getResultsForSiteJSON( );
 		Results += "\"time\" : \" " + to_string(time)  + " \" ,  \"total_results\": \"" + to_string(ranker->numberOfTotalResults ) + "\" }" ;
 		cout <<  Results << endl;
+		delete MatchQueue;
+		delete ranker;
 
 		}
 
