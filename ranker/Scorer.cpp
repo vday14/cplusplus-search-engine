@@ -40,7 +40,8 @@ double Scorer::getScore ( Site website)
 	score += staticScore( website ) * STATIC_WEIGHT;
 	score += wordLocationScore ( website ) * LOCATION_WEIGHT;
 
-	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT );
+	//4 is the maximum weight of the location score
+	score /= ( STATIC_WEIGHT + ( PROXIMITY_WEIGHT * 4 ) + LOCATION_WEIGHT  + 4.0);
 	assert ( score <= 1.0);
 	return score;
 	}
@@ -271,7 +272,7 @@ double Scorer::wordLocationScore ( Site inputSite )
 			{
 
 			case URLType:
-				 word_score = URL_WEIGHT * AVG_TITLE_SIZE * (word.second.frequency / (double)getNumWordsInURL ( inputSite.getUrl() ) );
+				 word_score = URL_WEIGHT * (word.second.frequency);
 				//This is to apply a max score to anything with a very positive match. Essentiall if 50% of the words in the title
 				// match, then just give the max score
 				if ( word_score > 4.0 )
@@ -282,7 +283,7 @@ double Scorer::wordLocationScore ( Site inputSite )
 				break;
 			case titleType:
 				//TODO: replace with actual title size
-				 word_score = TITLE_WEIGHT * AVG_TITLE_SIZE * (word.second.frequency / (double)getNumWordsInTitle( inputSite.getTitle( )) );
+				 word_score = TITLE_WEIGHT * (word.second.frequency  );
 				if ( word_score > 2.0 )
 					word_score  = 2.0;
 				++numberOfUniqueWords;
@@ -297,7 +298,7 @@ double Scorer::wordLocationScore ( Site inputSite )
 		{
 		return 0;
 		}
-	return score / ( URL_WEIGHT * numberOfUniqueWords);
+	return score / ( numberOfUniqueWords);
 	}
 
 /***
