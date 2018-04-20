@@ -9,9 +9,10 @@
  * Site cstor
  */
 Site::Site ( std::string url_in, Query query_in, std::string title_in )
-	: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false ), hasAnchor(false),
-	  hasUrl(false), hasTitle(false), hasBody(false)
+		: url ( url_in ), query ( query_in ), title( title_in), score ( 0 ), hasBeenScored ( false )
 	{ }
+
+
 
 /**
  * Site dstor
@@ -45,7 +46,7 @@ double Site::getScore ( )
 		}
 
 	hasBeenScored = true;
-	Scorer rank = Scorer();
+	Scorer rank = Scorer(0.36, 0.95, 0.99);
 	score = rank.getScore (*this);
 
 
@@ -86,3 +87,35 @@ Query Site::getQuery( )
 	return this->query;
 	}
 
+/**
+	 * Returns the static score of some site
+	 *
+	 * @return
+	 */
+double Site::getStaticScore ( )
+	{
+	Scorer scoreFactory;
+	return scoreFactory.staticScore( *this );
+	}
+
+/**
+	 * Returns the phrase matching score of some site
+	 *
+	 * @return
+	 */
+double Site::getPhraseScore ( )
+	{
+	Scorer scoreFactory;
+	return scoreFactory.proximityMatch( *this , Query(query).getQueryTokens ());
+	}
+
+/**
+	 * Returns the word location score of some site
+	 *
+	 * @return
+	 */
+double Site::getLocationScore ( )
+	{
+	Scorer scoreFactory;
+	return scoreFactory.wordLocationScore( *this );
+	}

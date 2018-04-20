@@ -52,7 +52,7 @@ public:
 
 
 	Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueueIn );
-	/**
+/**
 	 * Ranker dstor
 	 */
 	~Ranker( );
@@ -69,6 +69,12 @@ public:
 	 *
 	 */
 	void printRankedSites();
+
+	/***
+	 * Outputs the ranked sites and the individual scores for each category
+	 */
+	void printRankedSitesVerbose();
+
 
 	string getResultsForSiteJSON( );
 
@@ -113,6 +119,10 @@ private:
 	 * @param doc
 	 */
 	void selectivelyAddDocs( Site * doc);
+
+	const double stat;
+	const double loc;
+	const double prox;
 
 
 	};
