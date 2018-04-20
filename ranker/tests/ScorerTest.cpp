@@ -1,4 +1,3 @@
-
 #include "../Scorer.h"
 #include "../Site.h"
 #include <iostream>
@@ -13,6 +12,7 @@ void testProxMultipleOffsets ( );
 void testPhraseMatchMultipleOffsets ( );
 void testWordLocationScore( );
 void testMatchType();
+void testTFIDF();
 
 
 int main( )
@@ -26,6 +26,7 @@ int main( )
 	testProxMultipleOffsets( );
 	testMatchType ();
 	testWordLocationScore();
+	testTFIDF();
 
 	cout << "------Passed All Scorer Tests--- :)" << endl;
 	}
@@ -295,5 +296,68 @@ void testWordLocationScore()
 	assert(scorer.wordLocationScore ( newSite ) <= manualScore + 0.001 && scorer.wordLocationScore ( newSite ) >= manualScore - 0.001);
 
 	cout << "PASSED Location Score :)\n";
+
+	}
+	
+	void testTFIDF( )
+	{
+	    
+	cout << "TFIDF not working\n";
+
+	/*Query query( "Banana Cream Pie" );
+	ParsedUrl url( "https://www.tasteofhome.com/recipes/favorite-banana-cream-pie/cream-pie-recipes/pie" );
+	Site newSite( url.getCompleteUrl(), query, "Banana Cream Pie recipe for the best pie thats banana banana" );
+	newSite.numTermsInDoc = 100;
+	newSite.docCount = 8000;
+
+	Scorer scorer;
+
+	newSite.wordData[ "#banana"].frequency = 7;
+	newSite.wordData[ "#cream"].frequency = 3;
+	newSite.wordData[ "#pie"].frequency = 5;
+
+	newSite.wordData[ "#banana"].offsets = { 0, 1 };
+	newSite.wordData[ "#cream"].offsets = { 2, 3 };
+	newSite.wordData[ "#pie"].offsets = { 4, 5 };
+
+	newSite.wordData[ "#banana"].docFrequency = 5;
+	newSite.wordData[ "#cream"].docFrequency = 20;
+	newSite.wordData[ "#pie"].docFrequency = 30;
+
+	auto score = scorer.tfIdfScore ( newSite, query.getQueryTitle ( ) );
+	cout << "Score: " << score << endl;
+	// TODO
+	assert( score != 0 );
+
+
+	Query query1( "trump is president FBI" );
+	ParsedUrl url1( "https://www.politico.com/story/2018/04/16/james-comey-interview-trump-white-house-response-526281" );
+	Site newSite1( url1.getCompleteUrl(), query1, "Trump office president FBI white house trump fbi white white trump house" );
+	cout << "here" << endl;
+
+	Scorer scorer1;
+	newSite1.wordData[ "#trump"].frequency = 3;
+	newSite1.wordData[ "#offic"].frequency = 1;
+	newSite1.wordData[ "#presid"].frequency = 4;
+	newSite1.wordData[ "#white" ].frequency = 3;
+	newSite1.wordData[ "#hous" ].frequency = 2;
+	newSite1.wordData[ "#fbi" ].frequency = 2;
+	newSite1.wordData[ "%trump" ].frequency = 3;
+	newSite1.wordData[ "%comei" ].frequency = 1;
+	newSite1.wordData[ "%white" ].frequency = 2;
+	newSite1.wordData[ "%hous" ].frequency = 1;
+	newSite1.wordData[ "%hous" ].frequency = 1;
+	newSite1.wordData[ "%corrupt" ].frequency = 5;
+	newSite1.wordData[ "$jame"].frequency = 1;
+	newSite1.wordData[ "$comei"].frequency = 2;
+	newSite1.wordData[ "$trump"].frequency = 1;
+
+	double score1 = scorer1.tfIdfScore( newSite1, query1.getQueryTitle( ) );
+
+	cout << score1 << endl;
+	assert( score1 > 0 && score1 < 1 );
+
+	cout << "PASSED TFIDF Score :)\n\n";*/
+
 
 	}
