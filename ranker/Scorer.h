@@ -1,4 +1,3 @@
-
 #ifndef EECS398_SEARCH_SCORER_H
 #define EECS398_SEARCH_SCORER_H
 
@@ -164,6 +163,14 @@ public:
 	 * @return double
 	 */
 	double proximityMatch ( Site inputSite, std::vector< std::string > queryTokens );
+	
+	/**
+     * Calculates tf idf score
+     * @param inputSite
+     * @param queryTokens
+     * @return
+     */
+	//double tfIdfScore( Site inputSite, std::vector< std::string > queryTokens );
 
 	/**
 	 * Return index of the minimum offset

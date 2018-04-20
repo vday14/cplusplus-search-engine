@@ -76,7 +76,7 @@ private:
 	                                   "by", "few",
 	                                   "from",
 	                                   "for", "have", "he", "her", "here", "him", "his", "how",
-	                                   "i", "in", "is", "it", "its", "many ", "me", "my", "none", "of", "on", "or", "our",
+	                                   "i", "in", "is", "it", "its", "many ", "me", "my", "none", "of", "on", "our",
 	                                   "she",
 	                                   "some", "the", "their", "them", "there", "they", "that",
 	                                   "this", "to", "us", "was", "what", "when", "where", "which", "who", "why", "will",

@@ -1,4 +1,3 @@
-
 #include "Scorer.h"
 #include "Site.h"
 #include <utility>
@@ -352,3 +351,33 @@ int Scorer::getNumWordsInTitle ( string title )
 
 	return splitStr ( title, ' ', true).size( );
 	}
+	
+/*
+double Scorer::tfIdfScore( Site inputSite, std::vector< std::string > queryTokens )
+	{
+	// tf = freq of t in doc / total num of terms in doc
+	double tf = 0;
+	// idf = log ( N docs in corpus / doc freq
+	// doc freq = num docs w/ term t
+	double idf = 0;
+	double tfidfTotal = 0;
+    double queryTfIdfTotal = 0;
+    double queryTf = 0;
+    double score = 0;
+	for ( int i = 0; i < queryTokens.size( ); ++i )
+		{
+		if ( inputSite.wordData.find( queryTokens[ i ] ) != inputSite.wordData.end( )  && inputSite.numTermsInDoc != 0 && inputSite.wordData[ queryTokens[ i ] ].docFrequency != 0 )
+			{
+			tf = double ( inputSite.wordData[ queryTokens[ i ] ].frequency );
+			tf /= double ( inputSite.numTermsInDoc );
+			idf = double ( inputSite.docCount ) / inputSite.wordData[ queryTokens[ i ] ].docFrequency ;
+			idf = log10 ( idf );
+			tfidfTotal += ( tf * idf);
+
+			}
+		}
+
+    return ( tfidfTotal / double( queryTokens.size( ) ));
+	}
+    */
+	

@@ -228,7 +228,6 @@ void *Talk( void *p )
 				okMessage += "\r\nConnection: close\r\nContent-Type: ";
 				okMessage += "text/plain";
 				okMessage += "\r\n\r\n";
-
 				std::cout << "Sending" << std::endl;
 				std::cout << okMessage;
 
