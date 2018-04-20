@@ -38,6 +38,7 @@ private:
 
 	bool hasBeenScored;
 
+
 public:
 
 	bool hasAnchor;
@@ -84,6 +85,28 @@ public:
 	 * @return
 	 */
 	double getScore( );
+
+	/**
+	 * Returns the static score of some site
+	 *
+	 * @return
+	 */
+	double getStaticScore( );
+
+	/**
+	 * Returns the phrase match score of some site
+	 *
+	 * @return
+	 */
+	double getPhraseScore( );
+
+	/**
+	 * Returns the location score of some site
+	 *
+	 * @return
+	 */
+	double getLocationScore( );
+
 
 	/**
 	 * Returns the Site's url

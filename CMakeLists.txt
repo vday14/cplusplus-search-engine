@@ -460,11 +460,24 @@ add_executable(ISRAndTwitterIntegrityTest
 add_executable(devtool-SumSpaceNumbers
         devtools/SumSpaceNumbers.cpp)
 
+add_executable(testSVM
+        RankSVM/train/train.cpp
+        RankSVM/SVM.cpp
+        util/util.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp
+
+        )
+
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
 
-target_link_libraries(rankerTests OpenSSL::SSL)
+target_link_libraries(query-Ranker-tests OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 
