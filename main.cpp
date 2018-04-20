@@ -134,7 +134,7 @@ int main ( int argc, char *argv[] )
 
 
 
-	Indexer indexer( IndexerQueue , AnchorQueue );
+	Indexer indexer( IndexerQueue );
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
