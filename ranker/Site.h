@@ -23,7 +23,6 @@ struct data
 		{ }
 
 	unsigned long frequency;
-	unsigned long docFrequency;
 	std::vector< size_t > offsets;
 	int minDelta;
 
@@ -37,6 +36,8 @@ private:
 	std::string url;
 	std::string title;
 	Query query;
+
+
 
 	bool hasBeenScored;
 

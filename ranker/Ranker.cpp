@@ -76,6 +76,7 @@ void Ranker::addDoc( Location BoFDoc,  Location EndOfDocument )
 				newSite->hasBody = true;
 
 			newSite->wordData[ word ] = getData( *isrWord );
+
 		}
 	}
 	if(newSite != nullptr )
@@ -146,7 +147,6 @@ data Ranker::getData( ISRWord isrWord )
 	}
 
 	wordData.frequency = freq;
-	wordData.docFrequency = wordData.docFrequency = Corpus::getInstance( ).getWordInfo( isrWord.term ).docFrequency;
 	wordData.offsets = offsets;
 	wordData.minDelta = 0;
 

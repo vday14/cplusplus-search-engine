@@ -377,6 +377,7 @@ int Scorer::getNumWordsInTitle ( string title )
 	return splitStr ( title, ' ', true).size( );
 	}
 
+/*
 double Scorer::tfIdfScore( Site inputSite, std::vector< std::string > queryTokens )
 	{
 	// tf = freq of t in doc / total num of terms in doc
@@ -403,5 +404,5 @@ double Scorer::tfIdfScore( Site inputSite, std::vector< std::string > queryToken
 
     return ( tfidfTotal / double( queryTokens.size( ) ));
 	}
-
+    */
 

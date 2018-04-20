@@ -211,7 +211,7 @@ public:
      * @param queryTokens
      * @return
      */
-	double tfIdfScore( Site inputSite, std::vector< std::string > queryTokens );
+	//double tfIdfScore( Site inputSite, std::vector< std::string > queryTokens );
 
 private:
 
