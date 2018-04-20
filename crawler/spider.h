@@ -24,15 +24,13 @@ public:
 	Spider ( string mode_in,
 			 UrlFrontier  *url_q_in,
 	         ProducerConsumerQueue< DocIndex * > *doc_index_queue_in,
-			 atomic_bool * bool_in,
-			 int numdocs
+			 atomic_bool * bool_in
 	)
 			: mode( mode_in ),
 			  urlFrontier( url_q_in ),
 			  parser( url_q_in ),
 			  IndexerQueue( doc_index_queue_in ),
-			  alive( bool_in ),
-			  docs_to_crawl(numdocs)
+			  alive( bool_in )
 		{
 
 		};
@@ -58,6 +56,5 @@ private:
 	string mode;
 	Parser parser;
 	atomic_bool* alive;
-	int docs_to_crawl;
 
 	};

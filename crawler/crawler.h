@@ -32,7 +32,7 @@ public:
 		{ };
 
 	//spawns a number of works
-	void SpawnSpiders ( size_t num_spiders, atomic_bool* alive, int numdocs );
+	void SpawnSpiders ( size_t num_spiders, atomic_bool* alive );
 
 	void readSeeds(string mode, bool restart);
 

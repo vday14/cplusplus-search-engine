@@ -60,7 +60,7 @@ int main ( int argc, char *argv[] )
 	Crawler crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
 	atomic_bool *alive = new atomic_bool(true);
 
-	crawler.SpawnSpiders( numberOfSpiders , alive, 10 );
+	crawler.SpawnSpiders( numberOfSpiders , alive);
 
 	crawler.WaitOnAllSpiders( );
 	indexer.WaitForFinish( );

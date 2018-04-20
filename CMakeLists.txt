@@ -160,8 +160,6 @@ add_executable(ParserTest
         parser/queryTokenizer.cpp
         )
 
-add_executable(SharedTableTest
-        shared/SharedHashMapTest.cpp )
 
 add_executable(URLTEST
         shared/ParsedUrl.cpp
@@ -477,7 +475,7 @@ find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
 
-target_link_libraries(query-Ranker-tests OpenSSL::SSL)
+#target_link_libraries(query-Ranker-tests OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 

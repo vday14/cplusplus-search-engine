@@ -17,4 +17,6 @@ namespace IndexerConstants {
     const size_t chunkSizeLimit = 750000;
 
     const size_t saveEveryXEntries = 25;
+
+		const size_t docsToSave = 100000;
 }

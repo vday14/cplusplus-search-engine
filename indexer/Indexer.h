@@ -41,7 +41,8 @@ class Indexer : public ThreadClass
 	{
 public:
 	Indexer ( ProducerConsumerQueue< DocIndex * > *doc_index_queue_in ,
-			  ProducerConsumerQueue < unordered_map<string , DocIndex * > >  *anchor_in  );
+			  ProducerConsumerQueue < unordered_map<string , DocIndex * > >  *anchor_in ,
+	size_t doc_to_crawl_in);
 
 	void run ( );
 	void Kill ( );
@@ -71,7 +72,7 @@ private:
 	size_t currentlyIndexed;
 	size_t currentBlockNumberWords;
 	size_t currentBlockNumberDocs;
-
+	size_t docsToCrawl;
 	atomic_bool* alive = new atomic_bool(true);
 
 };

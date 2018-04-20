@@ -109,7 +109,7 @@ void Spider::run()
 	ParsedUrl currentUrl;
 
 
-	while ( *alive && cond < docs_to_crawl )
+	while ( *alive )
 		{
 
 		bool not_empty = urlFrontier->try_pop( currentUrl );

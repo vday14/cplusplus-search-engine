@@ -134,68 +134,38 @@ int main ( int argc, char *argv[] )
 
 
 
-	Indexer indexer( IndexerQueue , AnchorQueue );
+	Indexer indexer( IndexerQueue , AnchorQueue , DocsToCrawl);
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
 	crawler->readSeeds(mode, restart );
 
 	//atomic_bool *alive = new atomic_bool(true);
-	crawler->SpawnSpiders( numberOfSpiders , alive, DocsToCrawl);
+	crawler->SpawnSpiders( numberOfSpiders , alive);
 
 
 
 	string input;
 	clock_t start = clock();
 
-	if(DocsToCrawl > 0 )
-		{
-		cout << "Crawling: " << DocsToCrawl << " documents for each spider" << endl;
 
-		indexer.WaitForFinish( );
-		clock_t end = clock();
-		double time = (end - start) / (double) CLOCKS_PER_SEC ;
-		cout << "Time to complete build: " << time;
-		crawler->writeCrawlStats( time, numberOfSpiders, &indexer );
-		crawler->WaitOnAllSpiders( );
-		delete crawler;
-		delete urlFrontier;
-		delete IndexerQueue;
+	///cout << "Crawling: " << DocsToCrawl << " documents for each spider" << endl;
 
-		cout << "Indexer has finished running " << endl;
+	indexer.WaitForFinish( );
+	clock_t end = clock();
+	double time = (end - start) / (double) CLOCKS_PER_SEC ;
+	cout << "Time to complete build: " << time;
+	crawler->writeCrawlStats( time, numberOfSpiders, &indexer );
+	crawler->WaitOnAllSpiders( );
+	delete crawler;
+	delete urlFrontier;
+	delete IndexerQueue;
 
-
-		return 0;
-
-		}
+	cout << "Indexer has finished running " << endl;
 
 
-	while(true)
-		{
-		cout << "press enter to quit\n" << std::endl ;
-		//getline (cin, input);
-		cin >> input;
-		if(input == "q")
-			{
+	return 0;
 
-			cout << "Shutting down the indexer  " << endl ;
-			crawler->KillAllSpiders();
-			crawler->WaitOnAllSpiders( );
-			indexer.Kill();
-			indexer.WaitForFinish( );
-			urlFrontier->writeDataToDisk();
 
-			delete urlFrontier;
-			delete IndexerQueue;
-
-			cout << "Indexer has finished running " << endl;
-			clock_t end = clock();
-			cout << "Time to complete build: " << (end - start) / (double) CLOCKS_PER_SEC << endl;
-
-			return 0;
-
-			}
-
-		}
 
 	}

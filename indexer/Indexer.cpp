@@ -1,8 +1,8 @@
 #include "Indexer.h"
 
 Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in,
-						ProducerConsumerQueue < unordered_map < string, DocIndex * > > *anchor_in) :
-		pointerToDictionaries( doc_index_queue_in ), AnchorQueue( anchor_in )
+						ProducerConsumerQueue < unordered_map < string, DocIndex * > > *anchor_in, size_t doc_to_crawl_in) :
+		pointerToDictionaries( doc_index_queue_in ), AnchorQueue( anchor_in ), docsToCrawl( doc_to_crawl_in)
 	{
 	currentFile = 0;
 	currentlyIndexed = 0;
@@ -26,7 +26,7 @@ void Indexer::run()
 			if( (numberDocsIndexed++) % 100 == 0 )
 				cout << "Number of documents indexed :: " << to_string(numberDocsIndexed) << endl;
 
-			if ( numberDocsIndexed == 50000 )
+			if ( numberDocsIndexed == docsToCrawl )
 				break;
 
 			DocumentEnding docEnd = DocumentEnding( );
