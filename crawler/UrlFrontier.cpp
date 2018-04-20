@@ -18,17 +18,18 @@
 
 bool UrlFrontier::checkUrl( ParsedUrl url )
 	{
-
+	/*
 	if( Blacklist.find(  url.getCompleteUrl(  )  ) != Blacklist.end( ) )
 		return false;
-
+	*/
 	if( RestrictedHosts.find( url.getHost(  )) == RestrictedHosts.end( ) )
 		return false;
-
 
 	//Looks to see if the complete url already exists, if so return
 	if ( this->duplicateUrlMap->find( url.getCompleteUrl( )) != this->duplicateUrlMap->end( ))
 		{
+		return false;
+		/*
 		//update the anchor text
 		if ( !url.getAnchorText( ).empty( ) || url.getAnchorText( ) != "")
 			{
@@ -36,19 +37,16 @@ bool UrlFrontier::checkUrl( ParsedUrl url )
 			(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ]++;
 			pthread_mutex_unlock( &m );
 			}
+		 */
 		//add the new
-		return false;
-		}
 
+		}
 
 	else
 		{
-
 		pthread_mutex_lock( &m );
 		(*duplicateUrlMap)[ url.getCompleteUrl( ) ][ url.getAnchorText( ) ] = 1;
-
 		pthread_mutex_unlock( &m );
-
 		return true;
 		}
 	}
@@ -59,26 +57,20 @@ void UrlFrontier::Push( ParsedUrl url )
 	//if the url has been seen? if so, dont add it
 	if ( url.isValid )
 		{
-
+		//check the url for duplicates and restricted hose
 		if ( checkUrl( url ))
 			{
-
+			//push the url to the proper queue
 			pthread_mutex_lock( &m );
 
 			RestrictedHosts[ url.getHost ( ) ]->push( url );
-			//cout << "Pushing " << url.getHost( ) << endl;
-			//cout << RestrictedHosts[ url.getHost ( ) ]->size( ) << endl;
-			//if ( RestrictedHosts[ url.getHost ( ) ]->size( ) == 1 )
-			//	{
-			//	pthread_cond_broadcast( &consumer_cv );
-			//	}
 
 			pthread_mutex_unlock( &m );
 			}
 		}
 	}
 
-
+//Pop functionality for the spiders
 bool UrlFrontier::try_pop( ParsedUrl& result )
 	{
 
@@ -88,59 +80,28 @@ bool UrlFrontier::try_pop( ParsedUrl& result )
 
 	int retval;
 	pthread_mutex_lock(&m);
-
+	//gets the current host in the round robin
 	string currentHost = RoundRobinHosts[ (GlobalCounter++) % numHost];
-	//priority_queue<ParsedUrl , std::vector<ParsedUrl>, ComparisonClass>* currentQ = ;
-
-	//cout << "Popping Current Host  " << currentHost << ".i Current Number of urls in queue " << currentQ->size( ) << endl;
+	//makes sures the queue isnt empty, if it is the timeout after two seconds
 	while( RestrictedHosts[ currentHost ]->empty( ) ) {
 		retval = pthread_cond_timedwait(&consumer_cv, &m, &timeToWait);
 		if(retval != 0){
-			//fprintf(stderr, "pthread_cond_timedwait %s\n",
-			//		strerror(retval));
+
 			cerr << "Host queue is empty: " << currentHost  << endl;
 			pthread_mutex_unlock(&m);
 			return false;
 		}
 	}
+	//get the next url in the queue
 
 	result = std::move(RestrictedHosts[ currentHost ]->top());
-	//cout << "Popping " << result.getCompleteUrl( ) << endl;
-	//cout << result.getCompleteUrl( ) << endl;
+
 	RestrictedHosts[ currentHost ]->pop();
 
 	pthread_mutex_unlock(&m);
 	return true;
 	}
 
-/*
-ParsedUrl UrlFrontier::Pop()
-	{
-
-	pthread_mutex_lock( &m );
-
-	while ( queue.empty( ) == true )
-		{
-		pthread_cond_wait( &consumer_cv, &m );
-		}
-
-	ParsedUrl front = queue.top( );
-	queue.pop( );
-
-	pthread_mutex_unlock( &m );
-
-	return front;
-
-	}
-
-size_t UrlFrontier::Size()
-	{
-	pthread_mutex_lock( &m );
-	size_t size = queue.size( );
-	pthread_mutex_unlock( &m );
-	return size;
-	}
- */
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 const std::string currentDateTime()
@@ -156,7 +117,7 @@ const std::string currentDateTime()
 	return buf;
 	}
 
-
+// Writes the current state of the url frontier to disk
 void UrlFrontier::writeDataToDisk()
 	{
 
@@ -196,7 +157,7 @@ void UrlFrontier::writeDataToDisk()
 	return;
 	}
 
-
+//Reads saved queue from disk
 void UrlFrontier::readDataFromDisk( )
 	{
 
@@ -247,6 +208,8 @@ void UrlFrontier::readBlackList()
 		}
 	}
 
+//reads in the restricted host list in and creates the priority queue for each
+
 void UrlFrontier::readHosts()
 	{
 
@@ -264,7 +227,6 @@ void UrlFrontier::readHosts()
 				RoundRobinHosts.push_back( url.getHost( ));
 				RestrictedHosts[ url.getHost( ) ] = new priority_queue < ParsedUrl, std::vector < ParsedUrl >, ComparisonClass >;
 				}
-				//RestrictedHosts[ url.getHost( ) ]->push( url );
 			toRestrict = "";
 			}
 		else

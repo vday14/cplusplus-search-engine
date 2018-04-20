@@ -64,36 +64,29 @@ ISR * ISRContainer::recurviseCompile( Tuple * root )
 void ISRContainer::Solve( )
 	{
 
-
-	double rankingTime;
-
-
 	set< size_t > seenLocations;
-	clock_t inner_start = clock();
 
 	while(Contained->GetCurrentLocation() != MAX_Location)
 		{
 		string url = Contained->GetEndDocument()->getCurrentDoc().url;
+
 		Location EndOfDoc = Contained->GetEndDocument()->getCurrentDoc().docEndPosition;
 		Location bofDoc = Contained->GetISRToBeginningOfDocument( );
 
 		pair <Location, Location> match(bofDoc, EndOfDoc);
+
 		MatchQueue->Push( match );
-		clock_t inner_start = clock();
 		Contained->NextDocument( );
-		clock_t inner_end = clock();
-		//cout << "Time to Next" << endl;
-		//cout <<  (inner_end - inner_start) / (double) CLOCKS_PER_SEC << endl;
+
 
 		}
 	pair <Location, Location> last(MAX_Location, MAX_Location);
 
 	MatchQueue->Push( last );
-	clock_t inner_end = clock();
-	double time = (inner_end - inner_start) / (double) CLOCKS_PER_SEC;
-	cout << "DONE RUNNING: " << to_string(time) << endl;
+
 
 	return ;
+
 
 
 	}

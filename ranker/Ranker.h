@@ -25,16 +25,16 @@
  * Custom Comparator for the priority queue that keeps the websites in their correct order.
  */
 class Comp
-	{
+{
 public:
 	bool operator()(Site* L, Site* R)
-		{
+	{
 		return L->score > R->score;
-		}
-	};
+	}
+};
 
 class Ranker : public ThreadClass
-	{
+{
 public:
 
 	size_t numberOfTotalResults = 0;
@@ -52,7 +52,7 @@ public:
 
 
 	Ranker( ProducerConsumerQueue< pair<Location, Location> > * MatchQueueIn );
-	/**
+/**
 	 * Ranker dstor
 	 */
 	~Ranker( );
@@ -69,6 +69,12 @@ public:
 	 *
 	 */
 	void printRankedSites();
+
+	/***
+	 * Outputs the ranked sites and the individual scores for each category
+	 */
+	void printRankedSitesVerbose();
+
 
 	string getResultsForSiteJSON( );
 
@@ -114,9 +120,12 @@ private:
 	 */
 	void selectivelyAddDocs( Site * doc);
 
+	const double stat;
+	const double loc;
+	const double prox;
 
-	};
+
+};
 
 
 #endif //EECS398_SEARCH_RANKER_H
-

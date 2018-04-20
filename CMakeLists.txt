@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.9)
 project(eecs398_search)
 
-set(dir ${CMAKE_CURRENT_SOURCE_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${dir}/bin")
+#set(dir ${CMAKE_CURRENT_SOURCE_DIR})
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${dir}/bin")
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -216,7 +216,9 @@ add_executable(querySpeedTest
         constraintSolver/ISRAnd.cpp
         constraintSolver/ISROr.cpp
         query/Query.cpp
-        parser/queryTokenizer.cpp)
+        parser/queryTokenizer.cpp
+        shared/ThreadClass.cpp
+        )
 
 add_executable(ISRWord-tests
         util/util.cpp
@@ -461,11 +463,24 @@ add_executable(ISRAndTwitterIntegrityTest
 add_executable(devtool-SumSpaceNumbers
         devtools/SumSpaceNumbers.cpp)
 
+add_executable(testSVM
+        RankSVM/train/train.cpp
+        RankSVM/SVM.cpp
+        util/util.cpp
+        util/stringProcessing.cpp
+        util/Stemmer.cpp
+        ranker/Site.cpp
+        ranker/Scorer.cpp
+        query/Query.cpp
+        parser/queryTokenizer.cpp
+
+        )
+
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(TryPopTest OpenSSL::SSL)
 
-target_link_libraries(rankerTests OpenSSL::SSL)
+target_link_libraries(query-Ranker-tests OpenSSL::SSL)
 
 target_link_libraries(ParserTest OpenSSL::SSL)
 

@@ -1,3 +1,0 @@
-Time to crawl:  10.265094
-Number of spiders: 5.000000
-Number of docs indexed 39

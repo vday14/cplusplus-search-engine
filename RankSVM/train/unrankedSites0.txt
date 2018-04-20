@@ -1,0 +1,12 @@
+9   600     0   833     fivethirtyeight.com/features/election-update-clintons-bounce-appears-bigger-than-trumps/
+7   1000    0   625     www.npr.org/2016/10/17/498292048/donald-trump-steps-up-claims-the-election-is-rigged
+2   1000    0   510     www.npr.org/sections/thetwo-way/2016/12/10/505072304/cia-concludes-russian-interference-aimed-to-elect-trump
+8  1000    0   475    www.npr.org/sections/thetwo-way/2017/07/09/536291725/trump-says-he-pressed-putin-while-casting-more-doubt-on-election-meddling
+4   1000    0   533     www.npr.org/2016/11/09/501378673/how-trump-won-according-to-the-exit-polls
+6   600     0   690     www.cnn.com/videos/politics/2018/03/13/pennsylvania-election-trump-voter-tuchman-ac-dnt.cnn/video/playlists/pennsylvania-special-election/
+1   600     0   750     fivethirtyeight.com/features/election-update-likely-voters-arent-helping-trump-much/
+5   1000    0   530     www.npr.org/2016/11/08/501033242/weary-press-corps-can-celebrate-election-s-end-then-survey-wreckage
+0   1000    0   603     www.npr.org/2016/10/17/498292055/ohio-secretary-of-state-calls-trumps-rigged-election-claims-irresponsible
+3   1000    0   650     www.npr.org/2017/07/07/535832230/tillerson-trump-confronts-putin-over-russian-election-meddling
+
+

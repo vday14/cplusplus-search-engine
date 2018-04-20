@@ -98,7 +98,7 @@ namespace util
 		string GetCurrentWorkingDir ( void )
 			{
 			string pwd = getenv("PWD");
-			pwd = pwd.substr(0, pwd.size() - 3);
+			//pwd = pwd.substr(0, pwd.size() - 3);
 			return ( pwd );
 			}
 
@@ -112,5 +112,15 @@ namespace util
 				in.erase(in.begin() + found, in.end( ));
 				}
 			return in;
+			}
+
+			bool isNum(string in) {
+				bool isNum = true;
+				for(auto digit : in) {
+					if (isalpha(digit)) {
+						isNum = false;
+					}
+				}
+				return isNum;
 			}
 	}

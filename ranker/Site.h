@@ -30,7 +30,7 @@ struct data
 	};
 
 class Site
-	{
+{
 
 private:
 
@@ -40,26 +40,22 @@ private:
 
 	bool hasBeenScored;
 
+
 public:
 
 	bool hasAnchor;
 	bool hasUrl;
 	bool hasTitle;
 	bool hasBody;
-	unsigned int numTermsInDoc;
-	unsigned long docCount;
 
-	Site( Site &copy ) : url(copy.url), title(copy.title), query(copy.query), score(copy.score),
-	                     hasBeenScored(copy.hasBeenScored), hasAnchor(copy.hasAnchor), hasUrl(copy.hasUrl),
-	                     hasTitle(copy.hasTitle), hasBody(copy.hasBody), numTermsInDoc( copy.numTermsInDoc ),
-	                     docCount( copy.docCount )
-		{
+	Site( Site &copy ) : url(copy.url), title(copy.title), query(copy.query), score(copy.score), hasBeenScored(copy.hasBeenScored), hasAnchor(copy.hasAnchor), hasUrl(copy.hasUrl), hasTitle(copy.hasTitle), hasBody(copy.hasBody)
+	{
 		this->wordData.clear( );
 		for ( auto it = copy.wordData.begin( ); it != copy.wordData.end( ); ++it )
-			{
+		{
 			this->wordData[ it->first ] = it->second;
-			}
 		}
+	}
 
 	double score;
 	/**
@@ -93,6 +89,28 @@ public:
 	double getScore( );
 
 	/**
+	 * Returns the static score of some site
+	 *
+	 * @return
+	 */
+	double getStaticScore( );
+
+	/**
+	 * Returns the phrase match score of some site
+	 *
+	 * @return
+	 */
+	double getPhraseScore( );
+
+	/**
+	 * Returns the location score of some site
+	 *
+	 * @return
+	 */
+	double getLocationScore( );
+
+
+	/**
 	 * Returns the Site's url
 	 *
 	 * @return
@@ -114,5 +132,5 @@ public:
 
 	Query getQuery( );
 
-	};
+};
 #endif //EECS398_SEARCH_SITE_H

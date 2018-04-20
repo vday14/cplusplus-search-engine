@@ -418,8 +418,8 @@ Tuple * QueryParser::getDecoratedWord( string input )
 		}
 	vector< Tuple *> NextList;
 	Tuple * parent = new Tuple( "-OR-", OrTupleType);
-	//Tuple * body = new Tuple( "%" + input, WordTupleType);
-	//NextList.push_back(body);
+	Tuple * body = new Tuple( "%" + input, WordTupleType);
+	NextList.push_back(body);
 	Tuple * url = new Tuple( "$" + input, WordTupleType);
 	NextList.push_back(url);
 //	Tuple * host = new Tuple( "=" + input, WordTupleType);

@@ -30,30 +30,7 @@ using namespace std;
 
 
 atomic_bool *alive = new atomic_bool(true);
-//atomic_bool has_shutdown = false;
 
-/*
-void wait_to_shutdown(Indexer& indexer, Crawler* crawler, UrlFrontier* urlFrontier, ProducerConsumerQueue< DocIndex * > *IndexerQueue)
-	{
-	cout << "Press anything to quit" << endl;
-	char c = 't';
-	while(c != 'Q' && !has_shutdown)
-	{
-		c = getchar();
-	}
-	if(has_shutdown) return;
-
-	crawler->passAnchorTextToIndex( );
-	indexer.Kill();
-	indexer.WaitForFinish( );
-	urlFrontier->writeDataToDisk();
-	delete urlFrontier;
-	delete IndexerQueue;
->>>>>>> QueueRefactor
-
-	cout << "Indexer has finished running " << endl;
-	}
-*/
 
 void signalHandler( int signum ) {
 	cout << "Interrupt signal (" << signum << ") received.\n";
@@ -175,16 +152,13 @@ int main ( int argc, char *argv[] )
 		{
 		cout << "Crawling: " << DocsToCrawl << " documents for each spider" << endl;
 
-		crawler->WaitOnAllSpiders( );
-			//has_shutdown = true;
-		//crawler->passAnchorTextToIndex( );
-		indexer.Kill();
 		indexer.WaitForFinish( );
-		//urlFrontier->writeDataToDisk();
 		clock_t end = clock();
 		double time = (end - start) / (double) CLOCKS_PER_SEC ;
 		cout << "Time to complete build: " << time;
 		crawler->writeCrawlStats( time, numberOfSpiders, &indexer );
+		crawler->WaitOnAllSpiders( );
+		delete crawler;
 		delete urlFrontier;
 		delete IndexerQueue;
 
