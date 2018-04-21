@@ -1,8 +1,7 @@
 #include "Indexer.h"
 
-Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in,
-						ProducerConsumerQueue < unordered_map < string, DocIndex * > > *anchor_in, size_t doc_to_crawl_in) :
-		pointerToDictionaries( doc_index_queue_in ), AnchorQueue( anchor_in ), docsToCrawl( doc_to_crawl_in)
+Indexer::Indexer( ProducerConsumerQueue < DocIndex * > *doc_index_queue_in, size_t doc_to_crawl_in) :
+		pointerToDictionaries( doc_index_queue_in ), docsToCrawl( doc_to_crawl_in)
 
 	{
 	currentFile = 0;

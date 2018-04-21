@@ -134,11 +134,7 @@ int main ( int argc, char *argv[] )
 
 
 
-<<<<<<< HEAD
-	Indexer indexer( IndexerQueue , AnchorQueue , DocsToCrawl);
-=======
-	Indexer indexer( IndexerQueue );
->>>>>>> 57215ff8fe7ab51146eb2660d3b077a379433cce
+	Indexer indexer( IndexerQueue, DocsToCrawl);
 	indexer.StartThread( );
 
 	Crawler *crawler = new Crawler( mode, urlFrontier, IndexerQueue, AnchorQueue );
