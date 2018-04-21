@@ -123,15 +123,15 @@ void ISRWord::getWordSeek ( ) {
 	string result = wordSeek.find(term + to_string(currentPartition));
 
 	while (result != "") {
-		WordSeek wordDictionaryEntry;
+		SeekEntry wordDictionaryEntry;
 		string token = "";
 		for (char comp : result) {
 			switch (comp) {
 				case '<':
-					wordDictionaryEntry = WordSeek();
+					wordDictionaryEntry = SeekEntry();
 					break;
 				case '>':
-					wordDictionaryEntry.seekOffset = stoll(token);
+					wordDictionaryEntry.offset = stoll(token);
 					wordSeekLookupTable.push_back(wordDictionaryEntry);
 					token = "";
 					break;
@@ -185,20 +185,20 @@ Location ISRWord::Seek ( Location target )
 	if(!wordSeekLookupTable.empty())
         {
             auto best = wordSeekLookupTable.front( );
-            if(target > best.seekOffset)
+            if(target > best.offset)
                 {
                 for (auto entry : wordSeekLookupTable)
                     {
-                    if (entry.seekOffset < target)
+                    if (entry.offset < target)
                         best = entry;
                     else
                         break;
                     }
-				if(currentLocation < best.seekOffset)
+				if(currentLocation < best.offset)
 					{
 					currentMemMap = corpus.chunks[info.chunks[currentIndex]].getChunkMap();
 					currentMemMap += best.realLocation;
-					currentLocation = best.seekOffset;
+					currentLocation = best.offset;
 					}
                 }
 		}

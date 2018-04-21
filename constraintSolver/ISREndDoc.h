@@ -14,7 +14,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "WordSeek.h"
+#include "../indexer/SeekEntry.h"
 #include "../util/util.h"
 #include "../indexer/DocumentEnding.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
@@ -45,7 +45,7 @@ private:
     int currentChunk;
     char* memMap;
 
-    vector<WordSeek> seekTable;
+    vector<SeekEntry> seekTable;
 
     Corpus corpus = Corpus::getInstance();
 

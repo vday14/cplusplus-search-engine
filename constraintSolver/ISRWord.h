@@ -11,7 +11,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "WordSeek.h"
+#include "../indexer/SeekEntry.h"
 #include "../indexer/Corpus.h"
 #include "../util/util.h"
 #include "../DataStructures/DiskHashTable/MMDiskHashTable.h"
@@ -42,7 +42,7 @@ public:
 // ISR *GetDocumentISR( );
 
     std::string term;
-    vector< WordSeek > wordSeekLookupTable;
+    vector< SeekEntry > wordSeekLookupTable;
     int currentIndex;
     char *currentMemMap;
 

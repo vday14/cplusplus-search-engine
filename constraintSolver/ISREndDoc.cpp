@@ -79,7 +79,7 @@ void ISREndDoc::openChunk(int chunk) {
     currentFileHandle = corpus.chunks[chunk].chunkFileHandle;
     memMap += stoll(corpus.chunks[chunk].seeker.find("=docEnding"));
 
-    WordSeek entry = WordSeek();
+    SeekEntry entry = SeekEntry();
     int currentSeekLookup = 0;
     string input = "";
     string value = corpus.chunks[chunk].wordSeek.find("=docEnding" + to_string(currentSeekLookup));
@@ -87,10 +87,10 @@ void ISREndDoc::openChunk(int chunk) {
         for (auto comp : value) {
             switch (comp) {
                 case '<':
-                    entry = WordSeek();
+                    entry = SeekEntry();
                     break;
                 case '>':
-                    entry.seekOffset = stoll(input);
+                    entry.offset = stoll(input);
                     seekTable.push_back(entry);
                     input = "";
                     break;
@@ -125,7 +125,7 @@ void ISREndDoc::seek(Location target) {
         openChunk(chunk);
 
     if(!seekTable.empty()) {
-        WordSeek last = seekTable.front();
+        SeekEntry last = seekTable.front();
         if (target > last.realLocation) {
             for (int i = 1; i < seekTable.size(); i++) {
                 if (seekTable[i].realLocation > target && last.realLocation <= target) {
@@ -136,7 +136,7 @@ void ISREndDoc::seek(Location target) {
             if(currentDoc.docEndPosition < last.realLocation)
                 {
                 memMap = corpus.chunks[chunk].getChunkMap();
-                memMap += last.seekOffset;
+                memMap += last.offset;
                 }
         }
     }
