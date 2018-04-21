@@ -5,6 +5,16 @@ Mac OSX (should work on Linux as well but not as thoroughly tested)
 
 In order to run the server and interact with the UI:
 ---------------------------------------------------
+Compile using this command:
+
+site/LinuxTinyServer.cpp query/Query.cpp parser/queryTokenizer.cpp query/Searcher.cpp 
+util/DataStructureLib/tuple.cpp util/stringProcessing.cpp util/Stemmer.cpp util/util.cpp 
+constraintSolver/ISRContainer.cpp ranker/Ranker.cpp indexer/Corpus.cpp indexer/Chunk.cpp ranker/Site.cpp 
+ranker/Scorer.cpp query/queryLanguage/QueryParser.cpp constraintSolver/ISREndDoc.cpp constraintSolver/ISRWord.cpp 
+constraintSolver/ISRAnd.cpp constraintSolver/ISROr.cpp shared/ThreadClass.cpp -o server
+
+Run with "./server"
+
 Run the "server" exectuable, specifying port number and "/bootstrap_landing_page" as command line arguments
 In your web browser use the url: "localhost:{portnumbe}/index.html"
 Example --> 
